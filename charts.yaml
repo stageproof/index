@@ -1,0 +1,2102 @@
+# Candidate list from Artifact Hub. Review it before the nightly build.
+charts:
+    - id: prometheus-community/kube-prometheus-stack
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: kube-prometheus-stack
+      stars: 1237
+      homepage: https://github.com/prometheus-operator/kube-prometheus
+      release_notes_url: ""
+    - id: cert-manager/cert-manager
+      repo: https://charts.jetstack.io
+      repo_name: cert-manager
+      chart: cert-manager
+      stars: 999
+      homepage: https://cert-manager.io
+      release_notes_url: ""
+    - id: argo/argo-cd
+      repo: https://argoproj.github.io/argo-helm
+      repo_name: argo
+      chart: argo-cd
+      stars: 846
+      homepage: https://github.com/argoproj/argo-helm
+      release_notes_url: ""
+    - id: ingress-nginx/ingress-nginx
+      repo: https://kubernetes.github.io/ingress-nginx
+      repo_name: ingress-nginx
+      chart: ingress-nginx
+      stars: 814
+      homepage: https://github.com/kubernetes/ingress-nginx
+      release_notes_url: ""
+    - id: prometheus-community/prometheus
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: prometheus
+      stars: 559
+      homepage: https://prometheus.io/
+      release_notes_url: ""
+    - id: traefik/traefik
+      repo: https://traefik.github.io/charts
+      repo_name: traefik
+      chart: traefik
+      stars: 432
+      homepage: https://traefik.io/
+      release_notes_url: ""
+    - id: k8s-dashboard/kubernetes-dashboard
+      repo: https://kubernetes.github.io/dashboard
+      repo_name: k8s-dashboard
+      chart: kubernetes-dashboard
+      stars: 365
+      homepage: https://github.com/kubernetes/dashboard
+      release_notes_url: ""
+    - id: grafana/loki
+      repo: https://grafana.github.io/helm-charts
+      repo_name: grafana
+      chart: loki
+      stars: 332
+      homepage: https://grafana.github.io/helm-charts
+      release_notes_url: ""
+    - id: metrics-server/metrics-server
+      repo: https://kubernetes-sigs.github.io/metrics-server/
+      repo_name: metrics-server
+      chart: metrics-server
+      stars: 320
+      homepage: https://github.com/kubernetes-sigs/metrics-server
+      release_notes_url: ""
+    - id: hashicorp/vault
+      repo: https://helm.releases.hashicorp.com
+      repo_name: hashicorp
+      chart: vault
+      stars: 299
+      homepage: https://www.vaultproject.io
+      release_notes_url: ""
+    - id: gitlab/gitlab
+      repo: http://charts.gitlab.io/
+      repo_name: gitlab
+      chart: gitlab
+      stars: 282
+      homepage: https://about.gitlab.com/
+      release_notes_url: ""
+    - id: harbor/harbor
+      repo: https://helm.goharbor.io
+      repo_name: harbor
+      chart: harbor
+      stars: 274
+      homepage: https://goharbor.io
+      release_notes_url: ""
+    - id: jenkinsci/jenkins
+      repo: https://charts.jenkins.io/
+      repo_name: jenkinsci
+      chart: jenkins
+      stars: 255
+      homepage: https://www.jenkins.io/
+      release_notes_url: ""
+    - id: external-secrets-operator/external-secrets
+      repo: https://charts.external-secrets.io/
+      repo_name: external-secrets-operator
+      chart: external-secrets
+      stars: 253
+      homepage: https://github.com/external-secrets/external-secrets
+      release_notes_url: ""
+    - id: external-dns/external-dns
+      repo: https://kubernetes-sigs.github.io/external-dns/
+      repo_name: external-dns
+      chart: external-dns
+      stars: 240
+      homepage: https://github.com/kubernetes-sigs/external-dns/
+      release_notes_url: ""
+    - id: longhorn/longhorn
+      repo: https://charts.longhorn.io
+      repo_name: longhorn
+      chart: longhorn
+      stars: 226
+      homepage: https://github.com/longhorn/longhorn
+      release_notes_url: ""
+    - id: aws/aws-load-balancer-controller
+      repo: https://aws.github.io/eks-charts
+      repo_name: aws
+      chart: aws-load-balancer-controller
+      stars: 212
+      homepage: https://github.com/aws/eks-charts
+      release_notes_url: ""
+    - id: gitlab/gitlab-runner
+      repo: http://charts.gitlab.io/
+      repo_name: gitlab
+      chart: gitlab-runner
+      stars: 212
+      homepage: ""
+      release_notes_url: ""
+    - id: cilium/cilium
+      repo: https://helm.cilium.io/
+      repo_name: cilium
+      chart: cilium
+      stars: 201
+      homepage: https://cilium.io/
+      release_notes_url: ""
+    - id: apache-airflow/airflow
+      repo: https://airflow.apache.org/
+      repo_name: apache-airflow
+      chart: airflow
+      stars: 198
+      homepage: https://airflow.apache.org/
+      release_notes_url: ""
+    - id: elastic/elasticsearch
+      repo: https://helm.elastic.co
+      repo_name: elastic
+      chart: elasticsearch
+      stars: 194
+      homepage: https://github.com/elastic/helm-charts
+      release_notes_url: ""
+    - id: vmware-tanzu/velero
+      repo: https://vmware-tanzu.github.io/helm-charts/
+      repo_name: vmware-tanzu
+      chart: velero
+      stars: 192
+      homepage: https://github.com/vmware-tanzu/velero
+      release_notes_url: ""
+    - id: nextcloud/nextcloud
+      repo: https://nextcloud.github.io/helm/
+      repo_name: nextcloud
+      chart: nextcloud
+      stars: 189
+      homepage: https://nextcloud.com/
+      release_notes_url: ""
+    - id: cluster-autoscaler/cluster-autoscaler
+      repo: https://kubernetes.github.io/autoscaler
+      repo_name: cluster-autoscaler
+      chart: cluster-autoscaler
+      stars: 168
+      homepage: https://github.com/kubernetes/autoscaler
+      release_notes_url: ""
+    - id: metallb/metallb
+      repo: https://metallb.github.io/metallb
+      repo_name: metallb
+      chart: metallb
+      stars: 153
+      homepage: https://metallb.universe.tf
+      release_notes_url: ""
+    - id: istio-official/istiod
+      repo: https://istio-release.storage.googleapis.com/charts
+      repo_name: istio-official
+      chart: istiod
+      stars: 143
+      homepage: ""
+      release_notes_url: ""
+    - id: kyverno/kyverno
+      repo: https://kyverno.github.io/kyverno/
+      repo_name: kyverno
+      chart: kyverno
+      stars: 143
+      homepage: https://kyverno.io/
+      release_notes_url: ""
+    - id: cloudnative-pg/cloudnative-pg
+      repo: https://cloudnative-pg.io/charts/
+      repo_name: cloudnative-pg
+      chart: cloudnative-pg
+      stars: 142
+      homepage: https://cloudnative-pg.io
+      release_notes_url: ""
+    - id: rancher-stable/rancher
+      repo: https://releases.rancher.com/server-charts/stable
+      repo_name: rancher-stable
+      chart: rancher
+      stars: 141
+      homepage: https://rancher.com
+      release_notes_url: ""
+    - id: argo/argo-workflows
+      repo: https://argoproj.github.io/argo-helm
+      repo_name: argo
+      chart: argo-workflows
+      stars: 140
+      homepage: https://github.com/argoproj/argo-helm
+      release_notes_url: ""
+    - id: sonarqube/sonarqube
+      repo: https://SonarSource.github.io/helm-chart-sonarqube
+      repo_name: sonarqube
+      chart: sonarqube
+      stars: 136
+      homepage: https://www.sonarqube.org/
+      release_notes_url: ""
+    - id: gitea/gitea
+      repo: https://dl.gitea.com/charts
+      repo_name: gitea
+      chart: gitea
+      stars: 135
+      homepage: ""
+      release_notes_url: ""
+    - id: fluent/fluent-bit
+      repo: https://fluent.github.io/helm-charts
+      repo_name: fluent
+      chart: fluent-bit
+      stars: 128
+      homepage: https://fluentbit.io/
+      release_notes_url: ""
+    - id: datadog/datadog
+      repo: https://helm.datadoghq.com
+      repo_name: datadog
+      chart: datadog
+      stars: 117
+      homepage: https://www.datadoghq.com
+      release_notes_url: ""
+    - id: oauth2-proxy/oauth2-proxy
+      repo: https://oauth2-proxy.github.io/manifests
+      repo_name: oauth2-proxy
+      chart: oauth2-proxy
+      stars: 114
+      homepage: https://oauth2-proxy.github.io/oauth2-proxy/
+      release_notes_url: ""
+    - id: runix/pgadmin4
+      repo: https://helm.runix.net/
+      repo_name: runix
+      chart: pgadmin4
+      stars: 112
+      homepage: https://www.pgadmin.org/
+      release_notes_url: ""
+    - id: goauthentik/authentik
+      repo: https://charts.goauthentik.io/
+      repo_name: goauthentik
+      chart: authentik
+      stars: 104
+      homepage: https://goauthentik.io
+      release_notes_url: ""
+    - id: bitnami-labs/sealed-secrets
+      repo: https://bitnami-labs.github.io/sealed-secrets/
+      repo_name: bitnami-labs
+      chart: sealed-secrets
+      stars: 102
+      homepage: https://github.com/bitnami-labs/sealed-secrets
+      release_notes_url: ""
+    - id: kedacore/keda
+      repo: https://kedacore.github.io/charts
+      repo_name: kedacore
+      chart: keda
+      stars: 100
+      homepage: https://github.com/kedacore/keda
+      release_notes_url: ""
+    - id: nginx/nginx-ingress
+      repo: https://helm.nginx.com/stable
+      repo_name: nginx
+      chart: nginx-ingress
+      stars: 100
+      homepage: https://github.com/nginx/kubernetes-ingress
+      release_notes_url: ""
+    - id: argo/argocd-apps
+      repo: https://argoproj.github.io/argo-helm
+      repo_name: argo
+      chart: argocd-apps
+      stars: 99
+      homepage: https://github.com/argoproj/argo-helm
+      release_notes_url: ""
+    - id: nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
+      repo: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
+      repo_name: nfs-subdir-external-provisioner
+      chart: nfs-subdir-external-provisioner
+      stars: 99
+      homepage: https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
+      release_notes_url: ""
+    - id: artifact-hub/artifact-hub
+      repo: https://artifacthub.github.io/helm-charts/
+      repo_name: artifact-hub
+      chart: artifact-hub
+      stars: 96
+      homepage: https://artifacthub.io
+      release_notes_url: ""
+    - id: community-charts/n8n
+      repo: https://community-charts.github.io/helm-charts
+      repo_name: community-charts
+      chart: n8n
+      stars: 93
+      homepage: https://n8n.io
+      release_notes_url: ""
+    - id: mojo2600/pihole
+      repo: https://mojo2600.github.io/pihole-kubernetes/
+      repo_name: mojo2600
+      chart: pihole
+      stars: 93
+      homepage: https://github.com/MoJo2600/pihole-kubernetes/tree/main/charts/pihole
+      release_notes_url: ""
+    - id: prometheus-community/kube-state-metrics
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: kube-state-metrics
+      stars: 92
+      homepage: https://github.com/kubernetes/kube-state-metrics/
+      release_notes_url: ""
+    - id: hashicorp/consul
+      repo: https://helm.releases.hashicorp.com
+      repo_name: hashicorp
+      chart: consul
+      stars: 90
+      homepage: https://www.consul.io
+      release_notes_url: ""
+    - id: grafana/alloy
+      repo: https://grafana.github.io/helm-charts
+      repo_name: grafana
+      chart: alloy
+      stars: 87
+      homepage: ""
+      release_notes_url: ""
+    - id: argo-cd-oci/argo-cd
+      repo: oci://ghcr.io/argoproj/argo-helm/argo-cd
+      repo_name: argo-cd-oci
+      chart: argo-cd
+      stars: 85
+      homepage: https://github.com/argoproj/argo-helm
+      release_notes_url: ""
+    - id: istio-official/base
+      repo: https://istio-release.storage.googleapis.com/charts
+      repo_name: istio-official
+      chart: base
+      stars: 85
+      homepage: ""
+      release_notes_url: ""
+    - id: stakater/reloader
+      repo: https://stakater.github.io/stakater-charts
+      repo_name: stakater
+      chart: reloader
+      stars: 85
+      homepage: https://github.com/stakater/Reloader
+      release_notes_url: ""
+    - id: descheduler/descheduler
+      repo: https://kubernetes-sigs.github.io/descheduler/
+      repo_name: descheduler
+      chart: descheduler
+      stars: 84
+      homepage: https://github.com/kubernetes-sigs/descheduler
+      release_notes_url: ""
+    - id: elastic/eck-operator
+      repo: https://helm.elastic.co
+      repo_name: elastic
+      chart: eck-operator
+      stars: 84
+      homepage: https://github.com/elastic/cloud-on-k8s
+      release_notes_url: ""
+    - id: prometheus-community/prometheus-blackbox-exporter
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: prometheus-blackbox-exporter
+      stars: 84
+      homepage: https://github.com/prometheus/blackbox_exporter
+      release_notes_url: ""
+    - id: argo/argo-rollouts
+      repo: https://argoproj.github.io/argo-helm
+      repo_name: argo
+      chart: argo-rollouts
+      stars: 82
+      homepage: https://github.com/argoproj/argo-helm
+      release_notes_url: ""
+    - id: elastic/kibana
+      repo: https://helm.elastic.co
+      repo_name: elastic
+      chart: kibana
+      stars: 82
+      homepage: https://github.com/elastic/helm-charts
+      release_notes_url: ""
+    - id: jaegertracing/jaeger
+      repo: https://jaegertracing.github.io/helm-charts
+      repo_name: jaegertracing
+      chart: jaeger
+      stars: 81
+      homepage: https://jaegertracing.io
+      release_notes_url: ""
+    - id: istio-official/gateway
+      repo: https://istio-release.storage.googleapis.com/charts
+      repo_name: istio-official
+      chart: gateway
+      stars: 78
+      homepage: ""
+      release_notes_url: ""
+    - id: jupyterhub/jupyterhub
+      repo: https://jupyterhub.github.io/helm-chart/
+      repo_name: jupyterhub
+      chart: jupyterhub
+      stars: 78
+      homepage: https://z2jh.jupyter.org
+      release_notes_url: ""
+    - id: grafana/mimir-distributed
+      repo: https://grafana.github.io/helm-charts
+      repo_name: grafana
+      chart: mimir-distributed
+      stars: 76
+      homepage: https://grafana.com/docs/helm-charts/mimir-distributed/latest/
+      release_notes_url: ""
+    - id: headlamp/headlamp
+      repo: https://kubernetes-sigs.github.io/headlamp/
+      repo_name: headlamp
+      chart: headlamp
+      stars: 72
+      homepage: https://headlamp.dev/
+      release_notes_url: ""
+    - id: pmint93/metabase
+      repo: https://pmint93.github.io/helm-charts
+      repo_name: pmint93
+      chart: metabase
+      stars: 69
+      homepage: http://www.metabase.com/
+      release_notes_url: ""
+    - id: argo/argocd-image-updater
+      repo: https://argoproj.github.io/argo-helm
+      repo_name: argo
+      chart: argocd-image-updater
+      stars: 68
+      homepage: https://github.com/argoproj-labs/argocd-image-updater
+      release_notes_url: ""
+    - id: nats/nats
+      repo: https://nats-io.github.io/k8s/helm/charts/
+      repo_name: nats
+      chart: nats
+      stars: 68
+      homepage: http://github.com/nats-io/k8s
+      release_notes_url: ""
+    - id: open-8gears/n8n
+      repo: oci://8gears.container-registry.com/library/n8n
+      repo_name: open-8gears
+      chart: n8n
+      stars: 67
+      homepage: https://github.com/8gears/n8n-helm-chart
+      release_notes_url: ""
+    - id: dex/dex
+      repo: oci://ghcr.io/dexidp/helm-charts/dex
+      repo_name: dex
+      chart: dex
+      stars: 64
+      homepage: https://dexidp.io/
+      release_notes_url: ""
+    - id: renovate/renovate
+      repo: oci://ghcr.io/renovatebot/charts/renovate
+      repo_name: renovate
+      chart: renovate
+      stars: 62
+      homepage: https://github.com/renovatebot/renovate
+      release_notes_url: ""
+    - id: uptime-kuma/uptime-kuma
+      repo: https://dirsigler.github.io/uptime-kuma-helm
+      repo_name: uptime-kuma
+      chart: uptime-kuma
+      stars: 61
+      homepage: https://github.com/dirsigler/uptime-kuma-helm
+      release_notes_url: ""
+    - id: airflow-helm/airflow
+      repo: https://airflow-helm.github.io/charts
+      repo_name: airflow-helm
+      chart: airflow
+      stars: 60
+      homepage: https://github.com/airflow-helm/charts/tree/main/charts/airflow
+      release_notes_url: ""
+    - id: falcosecurity/falco
+      repo: https://falcosecurity.github.io/charts
+      repo_name: falcosecurity
+      chart: falco
+      stars: 60
+      homepage: https://falco.org
+      release_notes_url: ""
+    - id: kubeview/kubeview
+      repo: https://code.benco.io/kubeview/deploy/helm
+      repo_name: kubeview
+      chart: kubeview
+      stars: 60
+      homepage: https://github.com/benc-uk/kubeview
+      release_notes_url: ""
+    - id: prometheus-community/alertmanager
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: alertmanager
+      stars: 60
+      homepage: https://prometheus.io/
+      release_notes_url: ""
+    - id: ollama-helm/ollama
+      repo: https://otwld.github.io/ollama-helm/
+      repo_name: ollama-helm
+      chart: ollama
+      stars: 59
+      homepage: https://ollama.ai/
+      release_notes_url: ""
+    - id: kong/kong
+      repo: https://charts.konghq.com
+      repo_name: kong
+      chart: kong
+      stars: 58
+      homepage: https://konghq.com/
+      release_notes_url: ""
+    - id: kvaps/nfs-server-provisioner
+      repo: https://kvaps.github.io/charts
+      repo_name: kvaps
+      chart: nfs-server-provisioner
+      stars: 58
+      homepage: https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner
+      release_notes_url: ""
+    - id: chartmuseum/chartmuseum
+      repo: https://chartmuseum.github.io/charts
+      repo_name: chartmuseum
+      chart: chartmuseum
+      stars: 57
+      homepage: https://github.com/helm/chartmuseum
+      release_notes_url: ""
+    - id: grafana-community/grafana
+      repo: https://grafana-community.github.io/helm-charts/
+      repo_name: grafana-community
+      chart: grafana
+      stars: 57
+      homepage: https://grafana.com
+      release_notes_url: ""
+    - id: grafana-community/loki
+      repo: https://grafana-community.github.io/helm-charts/
+      repo_name: grafana-community
+      chart: loki
+      stars: 57
+      homepage: https://grafana-community.github.io/helm-charts
+      release_notes_url: ""
+    - id: opentelemetry-helm/opentelemetry-collector
+      repo: https://open-telemetry.github.io/opentelemetry-helm-charts
+      repo_name: opentelemetry-helm
+      chart: opentelemetry-collector
+      stars: 57
+      homepage: https://opentelemetry.io/
+      release_notes_url: ""
+    - id: forgejo-helm/forgejo
+      repo: oci://code.forgejo.org/forgejo-helm/forgejo
+      repo_name: forgejo-helm
+      chart: forgejo
+      stars: 56
+      homepage: https://forgejo.org/
+      release_notes_url: ""
+    - id: prometheus-community/prometheus-node-exporter
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: prometheus-node-exporter
+      stars: 56
+      homepage: https://github.com/prometheus/node_exporter/
+      release_notes_url: ""
+    - id: minio/minio
+      repo: https://helm.min.io/
+      repo_name: minio
+      chart: minio
+      stars: 54
+      homepage: https://min.io
+      release_notes_url: ""
+    - id: dandydev-charts/redis-ha
+      repo: https://dandydeveloper.github.io/charts/
+      repo_name: dandydev-charts
+      chart: redis-ha
+      stars: 53
+      homepage: https://redis.io/
+      release_notes_url: ""
+    - id: rook/rook-ceph
+      repo: https://charts.rook.io/release
+      repo_name: rook
+      chart: rook-ceph
+      stars: 53
+      homepage: ""
+      release_notes_url: ""
+    - id: argo/argo-events
+      repo: https://argoproj.github.io/argo-helm
+      repo_name: argo
+      chart: argo-events
+      stars: 51
+      homepage: https://github.com/argoproj/argo-helm
+      release_notes_url: ""
+    - id: crossplane/crossplane
+      repo: https://charts.crossplane.io/master/
+      repo_name: crossplane
+      chart: crossplane
+      stars: 50
+      homepage: https://crossplane.io
+      release_notes_url: ""
+    - id: twuni/docker-registry
+      repo: https://helm.twun.io
+      repo_name: twuni
+      chart: docker-registry
+      stars: 49
+      homepage: https://hub.docker.com/_/registry/
+      release_notes_url: ""
+    - id: codecentric/keycloak
+      repo: https://codecentric.github.io/helm-charts
+      repo_name: codecentric
+      chart: keycloak
+      stars: 48
+      homepage: https://www.keycloak.org/
+      release_notes_url: ""
+    - id: trivy-operator/trivy-operator
+      repo: https://aquasecurity.github.io/helm-charts/
+      repo_name: trivy-operator
+      chart: trivy-operator
+      stars: 48
+      homepage: ""
+      release_notes_url: ""
+    - id: victoriametrics/victoria-metrics-k8s-stack
+      repo: https://victoriametrics.github.io/helm-charts/
+      repo_name: victoriametrics
+      chart: victoria-metrics-k8s-stack
+      stars: 47
+      homepage: https://github.com/VictoriaMetrics/helm-charts
+      release_notes_url: ""
+    - id: elastic/logstash
+      repo: https://helm.elastic.co
+      repo_name: elastic
+      chart: logstash
+      stars: 46
+      homepage: https://github.com/elastic/helm-charts
+      release_notes_url: ""
+    - id: grafana/k8s-monitoring
+      repo: https://grafana.github.io/helm-charts
+      repo_name: grafana
+      chart: k8s-monitoring
+      stars: 46
+      homepage: ""
+      release_notes_url: ""
+    - id: prometheus-community/prometheus-postgres-exporter
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: prometheus-postgres-exporter
+      stars: 46
+      homepage: https://github.com/prometheus-community/postgres_exporter
+      release_notes_url: ""
+    - id: minecraft-server-charts/minecraft
+      repo: https://itzg.github.io/minecraft-server-charts/
+      repo_name: minecraft-server-charts
+      chart: minecraft
+      stars: 45
+      homepage: https://minecraft.net/
+      release_notes_url: ""
+    - id: opensearch-project-helm-charts/opensearch
+      repo: https://opensearch-project.github.io/helm-charts
+      repo_name: opensearch-project-helm-charts
+      chart: opensearch
+      stars: 45
+      homepage: https://opensearch.org
+      release_notes_url: ""
+    - id: aws/aws-node-termination-handler
+      repo: https://aws.github.io/eks-charts
+      repo_name: aws
+      chart: aws-node-termination-handler
+      stars: 43
+      homepage: https://github.com/aws/eks-charts
+      release_notes_url: ""
+    - id: kafka-ui/kafka-ui
+      repo: https://ui.charts.kafbat.io/
+      repo_name: kafka-ui
+      chart: kafka-ui
+      stars: 43
+      homepage: ""
+      release_notes_url: ""
+    - id: kured/kured
+      repo: https://kubereboot.github.io/charts
+      repo_name: kured
+      chart: kured
+      stars: 43
+      homepage: https://github.com/kubereboot/kured
+      release_notes_url: ""
+    - id: helm-hass/home-assistant
+      repo: http://pajikos.github.io/home-assistant-helm-chart
+      repo_name: helm-hass
+      chart: home-assistant
+      stars: 42
+      homepage: https://github.com/pajikos/home-assistant-helm-chart
+      release_notes_url: ""
+    - id: prometheus-community/prometheus-adapter
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: prometheus-adapter
+      stars: 42
+      homepage: https://github.com/kubernetes-sigs/prometheus-adapter
+      release_notes_url: ""
+    - id: backstage/backstage
+      repo: oci://ghcr.io/backstage/charts/backstage
+      repo_name: backstage
+      chart: backstage
+      stars: 41
+      homepage: https://backstage.io
+      release_notes_url: ""
+    - id: cloudpirates-redis/redis
+      repo: oci://registry-1.docker.io/cloudpirates/redis
+      repo_name: cloudpirates-redis
+      chart: redis
+      stars: 41
+      homepage: https://www.redis.io
+      release_notes_url: ""
+    - id: open-webui/open-webui
+      repo: https://helm.openwebui.com
+      repo_name: open-webui
+      chart: open-webui
+      stars: 41
+      homepage: https://www.openwebui.com/
+      release_notes_url: ""
+    - id: openebs/openebs
+      repo: https://openebs.github.io/openebs
+      repo_name: openebs
+      chart: openebs
+      stars: 41
+      homepage: https://www.openebs.io/
+      release_notes_url: ""
+    - id: projectcalico/tigera-operator
+      repo: https://docs.projectcalico.org/charts/
+      repo_name: projectcalico
+      chart: tigera-operator
+      stars: 41
+      homepage: https://docs.tigera.io/calico
+      release_notes_url: ""
+    - id: codecentric/keycloakx
+      repo: https://codecentric.github.io/helm-charts
+      repo_name: codecentric
+      chart: keycloakx
+      stars: 40
+      homepage: https://www.keycloak.org/
+      release_notes_url: ""
+    - id: actions-runner-controller/actions-runner-controller
+      repo: https://actions-runner-controller.github.io/actions-runner-controller
+      repo_name: actions-runner-controller
+      chart: actions-runner-controller
+      stars: 39
+      homepage: https://github.com/actions/actions-runner-controller
+      release_notes_url: ""
+    - id: fairwinds-stable/goldilocks
+      repo: https://charts.fairwinds.com/stable
+      repo_name: fairwinds-stable
+      chart: goldilocks
+      stars: 39
+      homepage: ""
+      release_notes_url: ""
+    - id: aws/aws-for-fluent-bit
+      repo: https://aws.github.io/eks-charts
+      repo_name: aws
+      chart: aws-for-fluent-bit
+      stars: 38
+      homepage: https://github.com/aws/eks-charts
+      release_notes_url: ""
+    - id: immich/immich
+      repo: oci://ghcr.io/immich-app/immich-charts/immich
+      repo_name: immich
+      chart: immich
+      stars: 36
+      homepage: https://immich.app/
+      release_notes_url: ""
+    - id: strimzi-kafka-operator/strimzi-kafka-operator
+      repo: oci://quay.io/strimzi-helm/strimzi-kafka-operator
+      repo_name: strimzi-kafka-operator
+      chart: strimzi-kafka-operator
+      stars: 36
+      homepage: https://strimzi.io/
+      release_notes_url: ""
+    - id: apisix/apisix
+      repo: https://charts.apiseven.com
+      repo_name: apisix
+      chart: apisix
+      stars: 35
+      homepage: ""
+      release_notes_url: ""
+    - id: atlassian-data-center/jira
+      repo: https://atlassian.github.io/data-center-helm-charts
+      repo_name: atlassian-data-center
+      chart: jira
+      stars: 35
+      homepage: https://atlassian.github.io/data-center-helm-charts/
+      release_notes_url: ""
+    - id: community-charts/mlflow
+      repo: https://community-charts.github.io/helm-charts
+      repo_name: community-charts
+      chart: mlflow
+      stars: 35
+      homepage: https://mlflow.org
+      release_notes_url: ""
+    - id: coredns/coredns
+      repo: https://coredns.github.io/helm
+      repo_name: coredns
+      chart: coredns
+      stars: 35
+      homepage: https://coredns.io
+      release_notes_url: ""
+    - id: prometheus-community/prometheus-operator-crds
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: prometheus-operator-crds
+      stars: 35
+      homepage: ""
+      release_notes_url: ""
+    - id: fairwinds-stable/vpa
+      repo: https://charts.fairwinds.com/stable
+      repo_name: fairwinds-stable
+      chart: vpa
+      stars: 34
+      homepage: https://github.com/FairwindsOps/charts/tree/master/stable/vpa
+      release_notes_url: ""
+    - id: qdrant/qdrant
+      repo: https://qdrant.github.io/qdrant-helm
+      repo_name: qdrant
+      chart: qdrant
+      stars: 34
+      homepage: https://qdrant.tech
+      release_notes_url: ""
+    - id: vector/vector
+      repo: https://helm.vector.dev
+      repo_name: vector
+      chart: vector
+      stars: 34
+      homepage: https://vector.dev/
+      release_notes_url: ""
+    - id: elastic/filebeat
+      repo: https://helm.elastic.co
+      repo_name: elastic
+      chart: filebeat
+      stars: 33
+      homepage: https://github.com/elastic/helm-charts
+      release_notes_url: ""
+    - id: enix/x509-certificate-exporter
+      repo: https://charts.enix.io
+      repo_name: enix
+      chart: x509-certificate-exporter
+      stars: 33
+      homepage: https://github.com/enix/x509-certificate-exporter
+      release_notes_url: ""
+    - id: hashicorp/terraform
+      repo: https://helm.releases.hashicorp.com
+      repo_name: hashicorp
+      chart: terraform
+      stars: 33
+      homepage: https://www.terraform.io
+      release_notes_url: ""
+    - id: opentelemetry-helm/opentelemetry-operator
+      repo: https://open-telemetry.github.io/opentelemetry-helm-charts
+      repo_name: opentelemetry-helm
+      chart: opentelemetry-operator
+      stars: 32
+      homepage: https://opentelemetry.io/
+      release_notes_url: ""
+    - id: trino/trino
+      repo: https://trinodb.github.io/charts/
+      repo_name: trino
+      chart: trino
+      stars: 32
+      homepage: https://trino.io/
+      release_notes_url: ""
+    - id: ananace-charts/matrix-synapse
+      repo: https://ananace.gitlab.io/charts
+      repo_name: ananace-charts
+      chart: matrix-synapse
+      stars: 31
+      homepage: ""
+      release_notes_url: ""
+    - id: dagster/dagster
+      repo: https://dagster-io.github.io/helm
+      repo_name: dagster
+      chart: dagster
+      stars: 31
+      homepage: ""
+      release_notes_url: ""
+    - id: prometheus-community/prometheus-pushgateway
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: prometheus-pushgateway
+      stars: 31
+      homepage: https://github.com/prometheus/pushgateway
+      release_notes_url: ""
+    - id: aws-karpenter/karpenter
+      repo: oci://public.ecr.aws/karpenter/karpenter
+      repo_name: aws-karpenter
+      chart: karpenter
+      stars: 30
+      homepage: https://karpenter.sh/
+      release_notes_url: ""
+    - id: cloudpirates-keycloak/keycloak
+      repo: oci://registry-1.docker.io/cloudpirates/keycloak
+      repo_name: cloudpirates-keycloak
+      chart: keycloak
+      stars: 30
+      homepage: https://www.keycloak.org
+      release_notes_url: ""
+    - id: codecentric/mailhog
+      repo: https://codecentric.github.io/helm-charts
+      repo_name: codecentric
+      chart: mailhog
+      stars: 30
+      homepage: http://iankent.uk/project/mailhog/
+      release_notes_url: ""
+    - id: jfrog/artifactory
+      repo: https://charts.jfrog.io
+      repo_name: jfrog
+      chart: artifactory
+      stars: 30
+      homepage: https://www.jfrog.com/artifactory/
+      release_notes_url: ""
+    - id: prometheus-community/prometheus-redis-exporter
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: prometheus-redis-exporter
+      stars: 30
+      homepage: https://github.com/oliver006/redis_exporter
+      release_notes_url: ""
+    - id: rook/rook-ceph-cluster
+      repo: https://charts.rook.io/release
+      repo_name: rook
+      chart: rook-ceph-cluster
+      stars: 30
+      homepage: ""
+      release_notes_url: ""
+    - id: stevehipwell/nexus3
+      repo: https://stevehipwell.github.io/helm-charts/
+      repo_name: stevehipwell
+      chart: nexus3
+      stars: 30
+      homepage: https://www.sonatype.com/products/sonatype-nexus-repository
+      release_notes_url: ""
+    - id: zabbix-community/zabbix
+      repo: https://zabbix-community.github.io/helm-zabbix/
+      repo_name: zabbix-community
+      chart: zabbix
+      stars: 30
+      homepage: https://www.zabbix.com
+      release_notes_url: ""
+    - id: fluent/fluentd
+      repo: https://fluent.github.io/helm-charts
+      repo_name: fluent
+      chart: fluentd
+      stars: 29
+      homepage: https://www.fluentd.org/
+      release_notes_url: ""
+    - id: kong-z/graylog
+      repo: https://charts.kong-z.com/
+      repo_name: kong-z
+      chart: graylog
+      stars: 29
+      homepage: https://www.graylog.org
+      release_notes_url: ""
+    - id: netdata/netdata
+      repo: https://netdata.github.io/helmchart
+      repo_name: netdata
+      chart: netdata
+      stars: 29
+      homepage: https://netdata.cloud/
+      release_notes_url: ""
+    - id: onepassword-connect/connect
+      repo: https://1password.github.io/connect-helm-charts
+      repo_name: onepassword-connect
+      chart: connect
+      stars: 29
+      homepage: https://1password.com/secrets/
+      release_notes_url: ""
+    - id: deliveryhero/node-problem-detector
+      repo: https://raw.githubusercontent.com/deliveryhero/helm-charts/refs/heads/master/
+      repo_name: deliveryhero
+      chart: node-problem-detector
+      stars: 28
+      homepage: https://github.com/kubernetes/node-problem-detector
+      release_notes_url: ""
+    - id: minio-official/minio
+      repo: https://charts.min.io
+      repo_name: minio-official
+      chart: minio
+      stars: 28
+      homepage: https://min.io
+      release_notes_url: ""
+    - id: opencost/opencost
+      repo: https://opencost.github.io/opencost-helm-chart/
+      repo_name: opencost
+      chart: opencost
+      stars: 28
+      homepage: https://github.com/opencost/opencost-helm-chart
+      release_notes_url: ""
+    - id: openfaas/openfaas
+      repo: https://openfaas.github.io/faas-netes
+      repo_name: openfaas
+      chart: openfaas
+      stars: 28
+      homepage: https://www.openfaas.com
+      release_notes_url: ""
+    - id: policy-reporter/policy-reporter
+      repo: https://kyverno.github.io/policy-reporter
+      repo_name: policy-reporter
+      chart: policy-reporter
+      stars: 28
+      homepage: https://kyverno.github.io/policy-reporter
+      release_notes_url: ""
+    - id: prometheus-community/prometheus-elasticsearch-exporter
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: prometheus-elasticsearch-exporter
+      stars: 28
+      homepage: https://github.com/prometheus-community/elasticsearch_exporter
+      release_notes_url: ""
+    - id: smallstep/step-certificates
+      repo: https://smallstep.github.io/helm-charts/
+      repo_name: smallstep
+      chart: step-certificates
+      stars: 28
+      homepage: https://smallstep.com
+      release_notes_url: ""
+    - id: valkey/valkey
+      repo: https://valkey.io/valkey-helm/
+      repo_name: valkey
+      chart: valkey
+      stars: 28
+      homepage: https://valkey.io/valkey-helm/
+      release_notes_url: ""
+    - id: zitadel/zitadel
+      repo: https://charts.zitadel.com
+      repo_name: zitadel
+      chart: zitadel
+      stars: 28
+      homepage: https://zitadel.com
+      release_notes_url: ""
+    - id: docker-postfix/mail
+      repo: https://bokysan.github.io/docker-postfix/
+      repo_name: docker-postfix
+      chart: mail
+      stars: 27
+      homepage: https://github.com/bokysan/docker-postfix
+      release_notes_url: ""
+    - id: fluxcd-community/flux2
+      repo: https://fluxcd-community.github.io/helm-charts
+      repo_name: fluxcd-community
+      chart: flux2
+      stars: 27
+      homepage: ""
+      release_notes_url: ""
+    - id: gissilabs/vaultwarden
+      repo: https://gissilabs.github.io/charts/
+      repo_name: gissilabs
+      chart: vaultwarden
+      stars: 27
+      homepage: https://github.com/dani-garcia/vaultwarden
+      release_notes_url: ""
+    - id: gitlab/gitlab-agent
+      repo: http://charts.gitlab.io/
+      repo_name: gitlab
+      chart: gitlab-agent
+      stars: 27
+      homepage: https://gitlab.com/gitlab-org/charts/gitlab-agent
+      release_notes_url: ""
+    - id: open-metadata/openmetadata
+      repo: https://helm.open-metadata.org
+      repo_name: open-metadata
+      chart: openmetadata
+      stars: 27
+      homepage: https://open-metadata.org/
+      release_notes_url: ""
+    - id: strimzi/strimzi-kafka-operator
+      repo: https://strimzi.io/charts
+      repo_name: strimzi
+      chart: strimzi-kafka-operator
+      stars: 27
+      homepage: https://strimzi.io/
+      release_notes_url: ""
+    - id: drone/drone
+      repo: https://charts.drone.io
+      repo_name: drone
+      chart: drone
+      stars: 26
+      homepage: https://drone.io/
+      release_notes_url: ""
+    - id: enapter/keydb
+      repo: https://enapter.github.io/charts/
+      repo_name: enapter
+      chart: keydb
+      stars: 26
+      homepage: https://keydb.dev
+      release_notes_url: ""
+    - id: hashicorp/vault-secrets-operator
+      repo: https://helm.releases.hashicorp.com
+      repo_name: hashicorp
+      chart: vault-secrets-operator
+      stars: 26
+      homepage: ""
+      release_notes_url: ""
+    - id: jaegertracing/jaeger-operator
+      repo: https://jaegertracing.github.io/helm-charts
+      repo_name: jaegertracing
+      chart: jaeger-operator
+      stars: 26
+      homepage: https://www.jaegertracing.io/
+      release_notes_url: ""
+    - id: netbox/netbox
+      repo: https://charts.netbox.oss.netboxlabs.com/
+      repo_name: netbox
+      chart: netbox
+      stars: 26
+      homepage: https://netbox.dev/
+      release_notes_url: ""
+    - id: rocketchat-server/rocketchat
+      repo: https://rocketchat.github.io/helm-charts
+      repo_name: rocketchat-server
+      chart: rocketchat
+      stars: 26
+      homepage: https://rocket.chat/
+      release_notes_url: ""
+    - id: cloudpirates-postgres/postgres
+      repo: oci://registry-1.docker.io/cloudpirates/postgres
+      repo_name: cloudpirates-postgres
+      chart: postgres
+      stars: 25
+      homepage: https://www.postgresql.org
+      release_notes_url: ""
+    - id: kyverno/kyverno-policies
+      repo: https://kyverno.github.io/kyverno/
+      repo_name: kyverno
+      chart: kyverno-policies
+      stars: 25
+      homepage: https://kyverno.io/policies/
+      release_notes_url: ""
+    - id: linkerd2/linkerd-viz
+      repo: https://helm.linkerd.io/stable
+      repo_name: linkerd2
+      chart: linkerd-viz
+      stars: 25
+      homepage: https://linkerd.io
+      release_notes_url: ""
+    - id: cert-manager/trust-manager
+      repo: https://charts.jetstack.io
+      repo_name: cert-manager
+      chart: trust-manager
+      stars: 24
+      homepage: https://cert-manager.io/docs/trust/trust-manager
+      release_notes_url: ""
+    - id: crowdsec/crowdsec
+      repo: https://crowdsecurity.github.io/helm-charts
+      repo_name: crowdsec
+      chart: crowdsec
+      stars: 24
+      homepage: ""
+      release_notes_url: ""
+    - id: gatekeeper/gatekeeper
+      repo: https://open-policy-agent.github.io/gatekeeper/charts
+      repo_name: gatekeeper
+      chart: gatekeeper
+      stars: 24
+      homepage: https://github.com/open-policy-agent/gatekeeper
+      release_notes_url: ""
+    - id: helm-openldap/openldap-stack-ha
+      repo: https://jp-gouin.github.io/helm-openldap/
+      repo_name: helm-openldap
+      chart: openldap-stack-ha
+      stars: 24
+      homepage: https://www.openldap.org
+      release_notes_url: ""
+    - id: piraeus-charts/snapshot-controller
+      repo: https://piraeus.io/helm-charts/
+      repo_name: piraeus-charts
+      chart: snapshot-controller
+      stars: 24
+      homepage: https://github.com/piraeusdatastore/helm-charts
+      release_notes_url: ""
+    - id: redpanda-data/redpanda
+      repo: https://charts.redpanda.com
+      repo_name: redpanda-data
+      chart: redpanda
+      stars: 24
+      homepage: ""
+      release_notes_url: ""
+    - id: victoriametrics/victoria-metrics-cluster
+      repo: https://victoriametrics.github.io/helm-charts/
+      repo_name: victoriametrics
+      chart: victoria-metrics-cluster
+      stars: 24
+      homepage: https://github.com/VictoriaMetrics/helm-charts
+      release_notes_url: ""
+    - id: zammad/zammad
+      repo: oci://ghcr.io/zammad/charts/zammad
+      repo_name: zammad
+      chart: zammad
+      stars: 24
+      homepage: https://zammad.org
+      release_notes_url: ""
+    - id: linkerd2/linkerd-control-plane
+      repo: https://helm.linkerd.io/stable
+      repo_name: linkerd2
+      chart: linkerd-control-plane
+      stars: 23
+      homepage: https://linkerd.io
+      release_notes_url: ""
+    - id: mariadb-operator/mariadb-operator
+      repo: https://helm.mariadb.com/mariadb-operator
+      repo_name: mariadb-operator
+      chart: mariadb-operator
+      stars: 23
+      homepage: https://github.com/mariadb-operator/mariadb-operator
+      release_notes_url: ""
+    - id: podinfo/podinfo
+      repo: https://stefanprodan.github.io/podinfo
+      repo_name: podinfo
+      chart: podinfo
+      stars: 23
+      homepage: https://github.com/stefanprodan/podinfo
+      release_notes_url: ""
+    - id: apache-solr/solr-operator
+      repo: https://solr.apache.org/charts
+      repo_name: apache-solr
+      chart: solr-operator
+      stars: 22
+      homepage: https://solr.apache.org/operator
+      release_notes_url: ""
+    - id: atlassian-data-center/confluence
+      repo: https://atlassian.github.io/data-center-helm-charts
+      repo_name: atlassian-data-center
+      chart: confluence
+      stars: 22
+      homepage: https://atlassian.github.io/data-center-helm-charts/
+      release_notes_url: ""
+    - id: camunda/camunda-platform
+      repo: https://helm.camunda.io
+      repo_name: camunda
+      chart: camunda-platform
+      stars: 22
+      homepage: https://docs.camunda.io/docs/self-managed/about-self-managed/
+      release_notes_url: ""
+    - id: influxdata/influxdb2
+      repo: https://helm.influxdata.com/
+      repo_name: influxdata
+      chart: influxdb2
+      stars: 22
+      homepage: https://www.influxdata.com/products/influxdb/
+      release_notes_url: ""
+    - id: kasten/k10
+      repo: https://charts.kasten.io/
+      repo_name: kasten
+      chart: k10
+      stars: 22
+      homepage: https://kasten.io/
+      release_notes_url: ""
+    - id: mailu/mailu
+      repo: https://mailu.github.io/helm-charts/
+      repo_name: mailu
+      chart: mailu
+      stars: 22
+      homepage: https://mailu.io
+      release_notes_url: ""
+    - id: semaphoreui/semaphore
+      repo: https://semaphoreui.github.io/charts/
+      repo_name: semaphoreui
+      chart: semaphore
+      stars: 22
+      homepage: https://semaphoreui.com/
+      release_notes_url: ""
+    - id: victoriametrics/victoria-metrics-operator
+      repo: https://victoriametrics.github.io/helm-charts/
+      repo_name: victoriametrics
+      chart: victoria-metrics-operator
+      stars: 22
+      homepage: https://github.com/VictoriaMetrics/operator
+      release_notes_url: ""
+    - id: ceph-csi/ceph-csi-cephfs
+      repo: https://ceph.github.io/csi-charts
+      repo_name: ceph-csi
+      chart: ceph-csi-cephfs
+      stars: 21
+      homepage: https://github.com/ceph/ceph-csi
+      release_notes_url: ""
+    - id: ceph-csi/ceph-csi-rbd
+      repo: https://ceph.github.io/csi-charts
+      repo_name: ceph-csi
+      chart: ceph-csi-rbd
+      stars: 21
+      homepage: https://github.com/ceph/ceph-csi
+      release_notes_url: ""
+    - id: chaos-mesh/chaos-mesh
+      repo: https://charts.chaos-mesh.org
+      repo_name: chaos-mesh
+      chart: chaos-mesh
+      stars: 21
+      homepage: https://chaos-mesh.org
+      release_notes_url: ""
+    - id: cloudpirates-rabbitmq/rabbitmq
+      repo: oci://registry-1.docker.io/cloudpirates/rabbitmq
+      repo_name: cloudpirates-rabbitmq
+      chart: rabbitmq
+      stars: 21
+      homepage: https://www.rabbitmq.com
+      release_notes_url: ""
+    - id: coder-v2/coder
+      repo: https://helm.coder.com/v2
+      repo_name: coder-v2
+      chart: coder
+      stars: 21
+      homepage: https://github.com/coder/coder
+      release_notes_url: ""
+    - id: csi-driver-nfs/csi-driver-nfs
+      repo: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
+      repo_name: csi-driver-nfs
+      chart: csi-driver-nfs
+      stars: 21
+      homepage: ""
+      release_notes_url: ""
+    - id: datahub/datahub
+      repo: https://helm.datahubproject.io
+      repo_name: datahub
+      chart: datahub
+      stars: 21
+      homepage: ""
+      release_notes_url: ""
+    - id: emberstack/reflector
+      repo: https://emberstack.github.io/helm-charts
+      repo_name: emberstack
+      chart: reflector
+      stars: 21
+      homepage: https://github.com/emberstack/kubernetes-reflector
+      release_notes_url: ""
+    - id: grafana-community/tempo
+      repo: https://grafana-community.github.io/helm-charts/
+      repo_name: grafana-community
+      chart: tempo
+      stars: 21
+      homepage: https://grafana.net
+      release_notes_url: ""
+    - id: linkerd2/linkerd-crds
+      repo: https://helm.linkerd.io/stable
+      repo_name: linkerd2
+      chart: linkerd-crds
+      stars: 21
+      homepage: https://linkerd.io
+      release_notes_url: ""
+    - id: loft/vcluster
+      repo: https://charts.loft.sh
+      repo_name: loft
+      chart: vcluster
+      stars: 21
+      homepage: https://vcluster.com
+      release_notes_url: ""
+    - id: portainer/portainer
+      repo: https://portainer.github.io/k8s/
+      repo_name: portainer
+      chart: portainer
+      stars: 21
+      homepage: https://www.portainer.io
+      release_notes_url: ""
+    - id: sonatype/nxrm-ha
+      repo: https://sonatype.github.io/helm3-charts/
+      repo_name: sonatype
+      chart: nxrm-ha
+      stars: 21
+      homepage: https://www.sonatype.com/products/sonatype-nexus-repository
+      release_notes_url: ""
+    - id: wiremind/clamav
+      repo: https://wiremind.github.io/wiremind-helm-charts
+      repo_name: wiremind
+      chart: clamav
+      stars: 21
+      homepage: https://www.clamav.net
+      release_notes_url: ""
+    - id: atlantis/atlantis
+      repo: https://runatlantis.github.io/helm-charts
+      repo_name: atlantis
+      chart: atlantis
+      stars: 20
+      homepage: https://www.runatlantis.io
+      release_notes_url: ""
+    - id: bootc/netbox
+      repo: https://charts.boo.tc
+      repo_name: bootc
+      chart: netbox
+      stars: 20
+      homepage: https://github.com/bootc/netbox-chart
+      release_notes_url: ""
+    - id: community-charts/cloudflared
+      repo: https://community-charts.github.io/helm-charts
+      repo_name: community-charts
+      chart: cloudflared
+      stars: 20
+      homepage: https://github.com/cloudflare/cloudflared
+      release_notes_url: ""
+    - id: community-charts/outline
+      repo: https://community-charts.github.io/helm-charts
+      repo_name: community-charts
+      chart: outline
+      stars: 20
+      homepage: https://www.getoutline.com/
+      release_notes_url: ""
+    - id: kubecost/cost-analyzer
+      repo: https://kubecost.github.io/cost-analyzer
+      repo_name: kubecost
+      chart: cost-analyzer
+      stars: 20
+      homepage: ""
+      release_notes_url: ""
+    - id: milvus/milvus
+      repo: https://raw.githubusercontent.com/milvus-io/milvus-helm/gh-pages
+      repo_name: milvus
+      chart: milvus
+      stars: 20
+      homepage: https://milvus.io/
+      release_notes_url: ""
+    - id: opsmx/spinnaker
+      repo: https://helmcharts.opsmx.com/
+      repo_name: opsmx
+      chart: spinnaker
+      stars: 20
+      homepage: http://spinnaker.io/
+      release_notes_url: ""
+    - id: dependencytrack/dependency-track
+      repo: https://dependencytrack.github.io/helm-charts
+      repo_name: dependencytrack
+      chart: dependency-track
+      stars: 19
+      homepage: https://github.com/DependencyTrack/dependency-track
+      release_notes_url: https://github.com/DependencyTrack/dependency-track/releases
+    - id: flagger/flagger
+      repo: https://flagger.app
+      repo_name: flagger
+      chart: flagger
+      stars: 19
+      homepage: https://flagger.app
+      release_notes_url: ""
+    - id: grafana/grafana-agent
+      repo: https://grafana.github.io/helm-charts
+      repo_name: grafana
+      chart: grafana-agent
+      stars: 19
+      homepage: ""
+      release_notes_url: ""
+    - id: meshery/meshery
+      repo: https://meshery.io/charts/
+      repo_name: meshery
+      chart: meshery
+      stars: 19
+      homepage: ""
+      release_notes_url: ""
+    - id: prometheus-community/prometheus-mysql-exporter
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: prometheus-mysql-exporter
+      stars: 19
+      homepage: https://github.com/prometheus/mysqld_exporter
+      release_notes_url: ""
+    - id: allegroai/clearml
+      repo: https://clearml.github.io/clearml-helm-charts
+      repo_name: allegroai
+      chart: clearml
+      stars: 18
+      homepage: https://clear.ml
+      release_notes_url: ""
+    - id: cloudnative-pg/cluster
+      repo: https://cloudnative-pg.io/charts/
+      repo_name: cloudnative-pg
+      chart: cluster
+      stars: 18
+      homepage: https://cloudnative-pg.io
+      release_notes_url: ""
+    - id: cockroachdb/cockroachdb
+      repo: https://charts.cockroachdb.com/
+      repo_name: cockroachdb
+      chart: cockroachdb
+      stars: 18
+      homepage: https://www.cockroachlabs.com
+      release_notes_url: ""
+    - id: codefresh-gitops-runtime/gitops-runtime
+      repo: oci://quay.io/codefresh/gitops-runtime
+      repo_name: codefresh-gitops-runtime
+      chart: gitops-runtime
+      stars: 18
+      homepage: https://github.com/codefresh-io/gitops-runtime-helm
+      release_notes_url: ""
+    - id: containeroo/local-path-provisioner
+      repo: https://charts.containeroo.ch
+      repo_name: containeroo
+      chart: local-path-provisioner
+      stars: 18
+      homepage: https://github.com/rancher/local-path-provisioner
+      release_notes_url: ""
+    - id: datadog/datadog-operator
+      repo: https://helm.datadoghq.com
+      repo_name: datadog
+      chart: datadog-operator
+      stars: 18
+      homepage: https://www.datadoghq.com
+      release_notes_url: ""
+    - id: istio-official/cni
+      repo: https://istio-release.storage.googleapis.com/charts
+      repo_name: istio-official
+      chart: cni
+      stars: 18
+      homepage: ""
+      release_notes_url: ""
+    - id: jouve/mailpit
+      repo: https://jouve.github.io/charts/
+      repo_name: jouve
+      chart: mailpit
+      stars: 18
+      homepage: ""
+      release_notes_url: ""
+    - id: opensearch-project-helm-charts/opensearch-dashboards
+      repo: https://opensearch-project.github.io/helm-charts
+      repo_name: opensearch-project-helm-charts
+      chart: opensearch-dashboards
+      stars: 18
+      homepage: ""
+      release_notes_url: ""
+    - id: penpot/penpot
+      repo: https://helm.penpot.app
+      repo_name: penpot
+      chart: penpot
+      stars: 18
+      homepage: https://penpot.app
+      release_notes_url: ""
+    - id: seaweedfs/seaweedfs
+      repo: https://seaweedfs.github.io/seaweedfs/helm
+      repo_name: seaweedfs
+      chart: seaweedfs
+      stars: 18
+      homepage: ""
+      release_notes_url: ""
+    - id: signoz/signoz
+      repo: https://charts.signoz.io
+      repo_name: signoz
+      chart: signoz
+      stars: 18
+      homepage: https://signoz.io/
+      release_notes_url: ""
+    - id: weblate/weblate
+      repo: https://helm.weblate.org
+      repo_name: weblate
+      chart: weblate
+      stars: 18
+      homepage: https://weblate.org/
+      release_notes_url: ""
+    - id: cowboysysop/flowise
+      repo: https://cowboysysop.github.io/charts/
+      repo_name: cowboysysop
+      chart: flowise
+      stars: 17
+      homepage: https://flowiseai.com/
+      release_notes_url: ""
+    - id: deliveryhero/locust
+      repo: https://raw.githubusercontent.com/deliveryhero/helm-charts/refs/heads/master/
+      repo_name: deliveryhero
+      chart: locust
+      stars: 17
+      homepage: https://github.com/locustio/locust
+      release_notes_url: ""
+    - id: groundhog2k/postgres
+      repo: https://groundhog2k.github.io/helm-charts/
+      repo_name: groundhog2k
+      chart: postgres
+      stars: 17
+      homepage: ""
+      release_notes_url: ""
+    - id: hirosystems/bitcoin-core
+      repo: https://charts.hiro.so/hirosystems
+      repo_name: hirosystems
+      chart: bitcoin-core
+      stars: 17
+      homepage: https://github.com/bitcoin/bitcoin
+      release_notes_url: ""
+    - id: keel/keel
+      repo: https://charts.keel.sh
+      repo_name: keel
+      chart: keel
+      stars: 17
+      homepage: https://github.com/keel-hq/keel
+      release_notes_url: ""
+    - id: mongodb-helm-charts/community-operator
+      repo: https://mongodb.github.io/helm-charts
+      repo_name: mongodb-helm-charts
+      chart: community-operator
+      stars: 17
+      homepage: https://github.com/mongodb/mongodb-kubernetes-operator
+      release_notes_url: ""
+    - id: node-red/node-red
+      repo: https://schwarzit.github.io/node-red-chart/
+      repo_name: node-red
+      chart: node-red
+      stars: 17
+      homepage: https://nodered.org/
+      release_notes_url: ""
+    - id: openfga/openfga
+      repo: https://openfga.github.io/helm-charts
+      repo_name: openfga
+      chart: openfga
+      stars: 17
+      homepage: https://openfga.github.io/helm-charts
+      release_notes_url: ""
+    - id: prometheus-community/prometheus-kafka-exporter
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: prometheus-kafka-exporter
+      stars: 17
+      homepage: https://github.com/danielqsj/kafka_exporter
+      release_notes_url: ""
+    - id: prometheus-community/prometheus-mongodb-exporter
+      repo: https://prometheus-community.github.io/helm-charts
+      repo_name: prometheus-community
+      chart: prometheus-mongodb-exporter
+      stars: 17
+      homepage: https://github.com/percona/mongodb_exporter
+      release_notes_url: ""
+    - id: cowboysysop/mongo-express
+      repo: https://cowboysysop.github.io/charts/
+      repo_name: cowboysysop
+      chart: mongo-express
+      stars: 16
+      homepage: https://github.com/mongo-express/mongo-express
+      release_notes_url: ""
+    - id: deliveryhero/node-local-dns
+      repo: https://raw.githubusercontent.com/deliveryhero/helm-charts/refs/heads/master/
+      repo_name: deliveryhero
+      chart: node-local-dns
+      stars: 16
+      homepage: ""
+      release_notes_url: ""
+    - id: dragonfly/dragonfly
+      repo: https://dragonflyoss.github.io/helm-charts/
+      repo_name: dragonfly
+      chart: dragonfly
+      stars: 16
+      homepage: https://d7y.io/
+      release_notes_url: ""
+    - id: emqx-operator/emqx
+      repo: https://repos.emqx.io/charts
+      repo_name: emqx-operator
+      chart: emqx
+      stars: 16
+      homepage: ""
+      release_notes_url: ""
+    - id: fission-charts/fission-all
+      repo: https://fission.github.io/fission-charts/
+      repo_name: fission-charts
+      chart: fission-all
+      stars: 16
+      homepage: https://fission.io/
+      release_notes_url: ""
+    - id: forgejo-runner/forgejo-runner
+      repo: oci://codeberg.org/wrenix/helm-charts/forgejo-runner
+      repo_name: forgejo-runner
+      chart: forgejo-runner
+      stars: 16
+      homepage: ""
+      release_notes_url: ""
+    - id: nginx-gateway-fabric/nginx-gateway-fabric
+      repo: oci://ghcr.io/nginx/charts/nginx-gateway-fabric
+      repo_name: nginx-gateway-fabric
+      chart: nginx-gateway-fabric
+      stars: 16
+      homepage: https://github.com/nginx/nginx-gateway-fabric
+      release_notes_url: ""
+    - id: rancher-latest/rancher
+      repo: https://releases.rancher.com/server-charts/latest
+      repo_name: rancher-latest
+      chart: rancher
+      stars: 16
+      homepage: https://rancher.com
+      release_notes_url: ""
+    - id: ygqygq2/nacos
+      repo: https://ygqygq2.github.io/charts/
+      repo_name: ygqygq2
+      chart: nacos
+      stars: 16
+      homepage: https://nacos.io
+      release_notes_url: ""
+    - id: adwerx/awx
+      repo: https://adwerx.github.io/charts/
+      repo_name: adwerx
+      chart: awx
+      stars: 15
+      homepage: https://github.com/ansible/awx
+      release_notes_url: ""
+    - id: apache-solr/solr
+      repo: https://solr.apache.org/charts
+      repo_name: apache-solr
+      chart: solr
+      stars: 15
+      homepage: https://solr.apache.org
+      release_notes_url: ""
+    - id: cetic/nifi
+      repo: https://cetic.github.io/helm-charts
+      repo_name: cetic
+      chart: nifi
+      stars: 15
+      homepage: https://nifi.apache.org/
+      release_notes_url: ""
+    - id: cloudpirates-mariadb/mariadb
+      repo: oci://registry-1.docker.io/cloudpirates/mariadb
+      repo_name: cloudpirates-mariadb
+      chart: mariadb
+      stars: 15
+      homepage: https://mariadb.org
+      release_notes_url: ""
+    - id: douban/dify
+      repo: https://douban.github.io/charts/
+      repo_name: douban
+      chart: dify
+      stars: 15
+      homepage: https://github.com/langgenius/dify
+      release_notes_url: ""
+    - id: grafana-community/tempo-distributed
+      repo: https://grafana-community.github.io/helm-charts/
+      repo_name: grafana-community
+      chart: tempo-distributed
+      stars: 15
+      homepage: https://grafana.com/docs/tempo/latest/
+      release_notes_url: ""
+    - id: istio-official/ztunnel
+      repo: https://istio-release.storage.googleapis.com/charts
+      repo_name: istio-official
+      chart: ztunnel
+      stars: 15
+      homepage: ""
+      release_notes_url: ""
+    - id: jfrog/artifactory-oss
+      repo: https://charts.jfrog.io
+      repo_name: jfrog
+      chart: artifactory-oss
+      stars: 15
+      homepage: https://www.jfrog.com/artifactory/
+      release_notes_url: ""
+    - id: kubeshark-helm-charts/kubeshark
+      repo: https://helm.kubeshark.com/
+      repo_name: kubeshark-helm-charts
+      chart: kubeshark
+      stars: 15
+      homepage: https://kubeshark.com
+      release_notes_url: ""
+    - id: mattermost/mattermost-team-edition
+      repo: https://helm.mattermost.com
+      repo_name: mattermost
+      chart: mattermost-team-edition
+      stars: 15
+      homepage: https://mattermost.com
+      release_notes_url: ""
+    - id: rustfs/rustfs
+      repo: https://charts.rustfs.com
+      repo_name: rustfs
+      chart: rustfs
+      stars: 15
+      homepage: https://rustfs.com
+      release_notes_url: ""
+    - id: secret-store-csi-driver/secrets-store-csi-driver
+      repo: https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
+      repo_name: secret-store-csi-driver
+      chart: secrets-store-csi-driver
+      stars: 15
+      homepage: ""
+      release_notes_url: ""
+    - id: stackgres-charts/stackgres-operator
+      repo: https://stackgres.io/downloads/stackgres-k8s/stackgres/helm/
+      repo_name: stackgres-charts
+      chart: stackgres-operator
+      stars: 15
+      homepage: https://stackgres.io
+      release_notes_url: ""
+    - id: vaultwarden/vaultwarden
+      repo: https://guerzon.github.io/vaultwarden
+      repo_name: vaultwarden
+      chart: vaultwarden
+      stars: 15
+      homepage: ""
+      release_notes_url: ""
+    - id: victoriametrics/victoria-logs-single
+      repo: https://victoriametrics.github.io/helm-charts/
+      repo_name: victoriametrics
+      chart: victoria-logs-single
+      stars: 15
+      homepage: https://github.com/VictoriaMetrics/helm-charts
+      release_notes_url: ""
+    - id: cloudpirates-mongodb/mongodb
+      repo: oci://registry-1.docker.io/cloudpirates/mongodb
+      repo_name: cloudpirates-mongodb
+      chart: mongodb
+      stars: 14
+      homepage: https://www.mongodb.com
+      release_notes_url: ""
+    - id: elastic/metricbeat
+      repo: https://helm.elastic.co
+      repo_name: elastic
+      chart: metricbeat
+      stars: 14
+      homepage: https://github.com/elastic/helm-charts
+      release_notes_url: ""
+    - id: enix/kube-image-keeper
+      repo: https://charts.enix.io
+      repo_name: enix
+      chart: kube-image-keeper
+      stars: 14
+      homepage: https://github.com/enix/kube-image-keeper
+      release_notes_url: ""
+    - id: eugen/rundeck
+      repo: https://eugenmayer.github.io/helm-charts/
+      repo_name: eugen
+      chart: rundeck
+      stars: 14
+      homepage: https://github.com/rundeck/rundeck
+      release_notes_url: ""
+    - id: fairwinds-stable/polaris
+      repo: https://charts.fairwinds.com/stable
+      repo_name: fairwinds-stable
+      chart: polaris
+      stars: 14
+      homepage: ""
+      release_notes_url: ""
+    - id: gabe565/vaultwarden
+      repo: https://charts.gabe565.com
+      repo_name: gabe565
+      chart: vaultwarden
+      stars: 14
+      homepage: https://charts.gabe565.com/charts/vaultwarden/
+      release_notes_url: ""
+    - id: grafana/pyroscope
+      repo: https://grafana.github.io/helm-charts
+      repo_name: grafana
+      chart: pyroscope
+      stars: 14
+      homepage: https://grafana.com/oss/pyroscope/
+      release_notes_url: ""
+    - id: jitsi-meet/jitsi-meet
+      repo: https://jitsi-contrib.github.io/jitsi-helm/
+      repo_name: jitsi-meet
+      chart: jitsi-meet
+      stars: 14
+      homepage: https://github.com/jitsi-contrib/jitsi-helm
+      release_notes_url: ""
+    - id: kestra/kestra
+      repo: https://helm.kestra.io/
+      repo_name: kestra
+      chart: kestra
+      stars: 14
+      homepage: https://kestra.io
+      release_notes_url: ""
+    - id: langfuse-k8s/langfuse
+      repo: https://langfuse.github.io/langfuse-k8s/
+      repo_name: langfuse-k8s
+      chart: langfuse
+      stars: 14
+      homepage: https://langfuse.com/
+      release_notes_url: ""
+    - id: nicholaswilde/code-server
+      repo: https://nicholaswilde.github.io/helm-charts/
+      repo_name: nicholaswilde
+      chart: code-server
+      stars: 14
+      homepage: https://github.com/nicholaswilde/helm-charts/tree/main/charts/code-server
+      release_notes_url: ""
+    - id: openbao/openbao
+      repo: https://openbao.github.io/openbao-helm
+      repo_name: openbao
+      chart: openbao
+      stars: 14
+      homepage: https://github.com/openbao/openbao-helm
+      release_notes_url: ""
+    - id: opensearch-operator/opensearch-operator
+      repo: https://opensearch-project.github.io/opensearch-k8s-operator/
+      repo_name: opensearch-operator
+      chart: opensearch-operator
+      stars: 14
+      homepage: https://opensearch.org
+      release_notes_url: ""
+    - id: percona/pxc-operator
+      repo: https://percona.github.io/percona-helm-charts
+      repo_name: percona
+      chart: pxc-operator
+      stars: 14
+      homepage: https://docs.percona.com/percona-operator-for-mysql/pxc/
+      release_notes_url: ""
+    - id: thanos-community/thanos
+      repo: https://thanos-community.github.io/helm-charts
+      repo_name: thanos-community
+      chart: thanos
+      stars: 14
+      homepage: https://thanos.io/
+      release_notes_url: ""
+    - id: akhq/akhq
+      repo: https://akhq.io/
+      repo_name: akhq
+      chart: akhq
+      stars: 13
+      homepage: https://akhq.io
+      release_notes_url: ""
+    - id: apache/pulsar
+      repo: https://pulsar.apache.org/charts
+      repo_name: apache
+      chart: pulsar
+      stars: 13
+      homepage: https://pulsar.apache.org
+      release_notes_url: ""
+    - id: beryju-org/guacamole
+      repo: https://charts.beryju.org
+      repo_name: beryju-org
+      chart: guacamole
+      stars: 13
+      homepage: ""
+      release_notes_url: ""
+    - id: cloudpirates-minio/minio
+      repo: oci://registry-1.docker.io/cloudpirates/minio
+      repo_name: cloudpirates-minio
+      chart: minio
+      stars: 13
+      homepage: https://min.io
+      release_notes_url: ""
+    - id: cloudpirates-valkey/valkey
+      repo: oci://registry-1.docker.io/cloudpirates/valkey
+      repo_name: cloudpirates-valkey
+      chart: valkey
+      stars: 13
+      homepage: https://www.valkey.io
+      release_notes_url: ""
+    - id: cowboysysop/vertical-pod-autoscaler
+      repo: https://cowboysysop.github.io/charts/
+      repo_name: cowboysysop
+      chart: vertical-pod-autoscaler
+      stars: 13
+      homepage: https://github.com/kubernetes/autoscaler
+      release_notes_url: ""
+    - id: democratic-csi/democratic-csi
+      repo: https://democratic-csi.github.io/charts/
+      repo_name: democratic-csi
+      chart: democratic-csi
+      stars: 13
+      homepage: ""
+      release_notes_url: ""
+    - id: eclipse-che/eclipse-che
+      repo: https://eclipse-che.github.io/che-operator/charts
+      repo_name: eclipse-che
+      chart: eclipse-che
+      stars: 13
+      homepage: ""
+      release_notes_url: ""
+    - id: infracloudio/botkube
+      repo: https://charts.botkube.io/
+      repo_name: infracloudio
+      chart: botkube
+      stars: 13
+      homepage: https://botkube.io
+      release_notes_url: ""
+    - id: meilisearch-kubernetes/meilisearch
+      repo: https://meilisearch.github.io/meilisearch-kubernetes
+      repo_name: meilisearch-kubernetes
+      chart: meilisearch
+      stars: 13
+      homepage: https://github.com/meilisearch/meilisearch-kubernetes/tree/main/charts/meilisearch
+      release_notes_url: ""
+    - id: minio-operator/operator
+      repo: https://operator.min.io
+      repo_name: minio-operator
+      chart: operator
+      stars: 13
+      homepage: https://min.io
+      release_notes_url: ""
+    - id: mysql-operator/mysql-operator
+      repo: https://mysql.github.io/mysql-operator/
+      repo_name: mysql-operator
+      chart: mysql-operator
+      stars: 13
+      homepage: ""
+      release_notes_url: ""
+    - id: stevehipwell/plantuml
+      repo: https://stevehipwell.github.io/helm-charts/
+      repo_name: stevehipwell
+      chart: plantuml
+      stars: 13
+      homepage: https://plantuml.com/
+      release_notes_url: ""
+    - id: sumologic/sumologic
+      repo: https://sumologic.github.io/sumologic-kubernetes-collection
+      repo_name: sumologic
+      chart: sumologic
+      stars: 13
+      homepage: https://github.com/SumoLogic/sumologic-kubernetes-collection
+      release_notes_url: ""
+    - id: teleport-agent-kube/teleport-cluster
+      repo: https://charts.releases.teleport.dev
+      repo_name: teleport-agent-kube
+      chart: teleport-cluster
+      stars: 13
+      homepage: ""
+      release_notes_url: ""
+    - id: unleash/unleash
+      repo: https://docs.getunleash.io/helm-charts/
+      repo_name: unleash
+      chart: unleash
+      stars: 13
+      homepage: ""
+      release_notes_url: ""
+    - id: verdaccio/verdaccio
+      repo: https://charts.verdaccio.org/
+      repo_name: verdaccio
+      chart: verdaccio
+      stars: 13
+      homepage: https://verdaccio.org
+      release_notes_url: ""
+    - id: wso2/mysql
+      repo: https://helm.wso2.com
+      repo_name: wso2
+      chart: mysql
+      stars: 13
+      homepage: https://www.mysql.com/
+      release_notes_url: ""
+    - id: appscode/kubed
+      repo: https://charts.appscode.com/stable/
+      repo_name: appscode
+      chart: kubed
+      stars: 12
+      homepage: https://github.com/kubeops/config-syncer
+      release_notes_url: ""
+    - id: aws/aws-vpc-cni
+      repo: https://aws.github.io/eks-charts
+      repo_name: aws
+      chart: aws-vpc-cni
+      stars: 12
+      homepage: https://github.com/aws/amazon-vpc-cni-k8s
+      release_notes_url: ""
+    - id: cilium/tetragon
+      repo: https://helm.cilium.io/
+      repo_name: cilium
+      chart: tetragon
+      stars: 12
+      homepage: ""
+      release_notes_url: ""
+    - id: datawire/ambassador
+      repo: https://getambassador.io/
+      repo_name: datawire
+      chart: ambassador
+      stars: 12
+      homepage: https://www.getambassador.io/
+      release_notes_url: ""
+    - id: dify-helm/dify
+      repo: https://borispolonsky.github.io/dify-helm
+      repo_name: dify-helm
+      chart: dify
+      stars: 12
+      homepage: ""
+      release_notes_url: ""
+    - id: fairwinds-stable/rbac-manager
+      repo: https://charts.fairwinds.com/stable
+      repo_name: fairwinds-stable
+      chart: rbac-manager
+      stars: 12
+      homepage: https://rbac-manager.docs.fairwinds.com
+      release_notes_url: ""
+    - id: hirosystems/stacks-blockchain
+      repo: https://charts.hiro.so/hirosystems
+      repo_name: hirosystems
+      chart: stacks-blockchain
+      stars: 12
+      homepage: https://github.com/stacks-network/stacks-blockchain
+      release_notes_url: ""
+    - id: kong/ingress
+      repo: https://charts.konghq.com
+      repo_name: kong
+      chart: ingress
+      stars: 12
+      homepage: https://konghq.com/
+      release_notes_url: ""
+    - id: okteto/okteto
+      repo: https://charts.okteto.com
+      repo_name: okteto
+      chart: okteto
+      stars: 12
+      homepage: https://okteto.com
+      release_notes_url: ""
+    - id: openproject-helm-charts/openproject
+      repo: https://charts.openproject.org
+      repo_name: openproject-helm-charts
+      chart: openproject
+      stars: 12
+      homepage: https://www.openproject.org/
+      release_notes_url: ""
+    - id: victoriametrics/victoria-metrics-single
+      repo: https://victoriametrics.github.io/helm-charts/
+      repo_name: victoriametrics
+      chart: victoria-metrics-single
+      stars: 12
+      homepage: ""
+      release_notes_url: ""
+    - id: yourls/yourls
+      repo: https://charts.yourls.org/
+      repo_name: yourls
+      chart: yourls
+      stars: 12
+      homepage: https://yourls.org
+      release_notes_url: ""
