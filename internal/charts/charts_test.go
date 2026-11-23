@@ -7,6 +7,19 @@ import (
 	"testing"
 )
 
+func TestValidateRejectsUnsafeSchemeAndWhitespace(t *testing.T) {
+	bad := []Chart{
+		{ID: "a/b", Repo: "file:///etc/passwd", RepoName: "a", Chart: "b"},
+		{ID: "a/b", Repo: "https://charts.example/repo --set foo=bar", RepoName: "a", Chart: "b"},
+		{ID: "a/b", Repo: "https://charts.example", RepoName: "a", Chart: "b c"},
+	}
+	for _, c := range bad {
+		if err := c.Validate(); err == nil {
+			t.Errorf("expected validation error for %#v", c)
+		}
+	}
+}
+
 func TestWriteRoundTripKeepsTheReviewNote(t *testing.T) {
 	path := filepath.Join(t.TempDir(), "charts.yaml")
 	in := File{Charts: []Chart{{

@@ -17,6 +17,25 @@ import (
 	"github.com/stageproof/index/internal/source"
 )
 
+func TestReproduceCommandNormalizesOCIRepo(t *testing.T) {
+	cases := []struct {
+		repo  string
+		chart string
+		want  string
+	}{
+		{"oci://registry-1.docker.io/cloudpirates/rabbitmq", "rabbitmq", "oci://registry-1.docker.io/cloudpirates"},
+		{"oci://public.ecr.aws/karpenter/karpenter", "karpenter", "oci://public.ecr.aws/karpenter"},
+		{"oci://registry-1.docker.io/cloudpirates", "rabbitmq", "oci://registry-1.docker.io/cloudpirates"},
+		{"oci://ghcr.io/rabbitmq", "rabbitmq", "oci://ghcr.io/rabbitmq"},
+		{"https://charts.example/rabbitmq", "rabbitmq", "https://charts.example/rabbitmq"},
+	}
+	for _, tc := range cases {
+		if got := reproduceRepo(tc.repo, tc.chart); got != tc.want {
+			t.Errorf("reproduceRepo(%q, %q) = %q, want %q", tc.repo, tc.chart, got, tc.want)
+		}
+	}
+}
+
 func TestDeterministicHundredCharts(t *testing.T) {
 	bin := os.Getenv("STAGEPROOF_BIN")
 	if bin == "" {
