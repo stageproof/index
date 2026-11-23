@@ -40,6 +40,7 @@ type Result struct {
 	Charts  int
 	Pairs   int
 	Blocked int
+	Failed  int
 }
 
 type catalogChart struct {
@@ -53,6 +54,8 @@ type catalogChart struct {
 	Latest          string `json:"latest"`
 	Pairs           int    `json:"pairs"`
 	Blocked         int    `json:"blocked"`
+	Failed          int    `json:"failed,omitempty"`
+	Error           string `json:"error,omitempty"`
 }
 
 // Run writes data/v1 under OutDir.
@@ -81,7 +84,7 @@ func Run(ctx context.Context, file charts.File, opt Options) (Result, error) {
 	}
 	cat := []catalogChart{}
 	var result Result
-	for _, chart := range list {
+	for i, chart := range list {
 		if err := chart.Validate(); err != nil {
 			return result, err
 		}
@@ -93,6 +96,11 @@ func Run(ctx context.Context, file charts.File, opt Options) (Result, error) {
 		result.Charts++
 		result.Pairs += row.Pairs
 		result.Blocked += row.Blocked
+		result.Failed += row.Failed
+		fmt.Fprintf(os.Stderr, "chart %d/%d %s pairs=%d blocked=%d failed=%d\n", i+1, len(list), chart.ID, row.Pairs, row.Blocked, row.Failed)
+		if row.Error != "" {
+			fmt.Fprintf(os.Stderr, "  %s\n", row.Error)
+		}
 	}
 	sort.Slice(cat, func(i, j int) bool { return cat[i].ID < cat[j].ID })
 	body := map[string]any{
@@ -112,19 +120,21 @@ func Run(ctx context.Context, file charts.File, opt Options) (Result, error) {
 }
 
 func buildChart(ctx context.Context, chart charts.Chart, opt Options, minors []string, now time.Time) (catalogChart, error) {
+	row := catalogChart{
+		ID: chart.ID, Repo: chart.Repo, RepoName: chart.RepoName, Chart: chart.Chart,
+		Stars: chart.Stars, Homepage: chart.Homepage, ReleaseNotesURL: chart.ReleaseNotesURL,
+	}
 	versions, err := opt.Source.Versions(ctx, chart)
 	if err != nil {
-		return catalogChart{}, err
+		row.Failed = 1
+		row.Error = err.Error()
+		return row, nil
 	}
 	chosen := pairs.Enumerate(versions, now)
 	if opt.MaxPairs > 0 && len(chosen) > opt.MaxPairs {
 		chosen = chosen[len(chosen)-opt.MaxPairs:]
 	}
-	row := catalogChart{
-		ID: chart.ID, Repo: chart.Repo, RepoName: chart.RepoName, Chart: chart.Chart,
-		Stars: chart.Stars, Homepage: chart.Homepage, ReleaseNotesURL: chart.ReleaseNotesURL,
-		Pairs: len(chosen),
-	}
+	row.Pairs = len(chosen)
 	if stable := pairs.Stable(versions); len(stable) > 0 {
 		row.Latest = stable[len(stable)-1].Name
 	}
@@ -144,7 +154,11 @@ func buildChart(ctx context.Context, chart charts.Chart, opt Options, minors []s
 	for _, pair := range chosen {
 		blocked, err := buildPair(ctx, chart, pair, opt, minors, dir)
 		if err != nil {
-			return catalogChart{}, err
+			row.Failed++
+			if row.Error == "" {
+				row.Error = err.Error()
+			}
+			continue
 		}
 		if blocked {
 			row.Blocked++

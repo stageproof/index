@@ -53,7 +53,7 @@ func main() {
 	if err != nil {
 		fail(err)
 	}
-	fmt.Printf("charts %d pairs %d blocked %d\n", res.Charts, res.Pairs, res.Blocked)
+	fmt.Printf("charts %d pairs %d blocked %d failed %d\n", res.Charts, res.Pairs, res.Blocked, res.Failed)
 }
 
 func split(raw string) []string {

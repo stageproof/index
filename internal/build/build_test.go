@@ -3,6 +3,7 @@ package build
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -91,6 +92,59 @@ func TestBlockedPairIsLabeledDefaultsOnly(t *testing.T) {
 	raw := string(buf)
 	if strings.Contains(raw, from) || strings.Contains(raw, to) {
 		t.Fatal("report kept a local chart path")
+	}
+}
+
+type errSource struct {
+	source.Local
+	badID string
+}
+
+func (e errSource) Versions(ctx context.Context, chart charts.Chart) ([]pairs.Version, error) {
+	if chart.ID == e.badID {
+		return nil, fmt.Errorf("chart %s is not in %s", chart.Chart, chart.Repo)
+	}
+	return e.Local.Versions(ctx, chart)
+}
+
+func TestChartErrorDoesNotStopTheCatalog(t *testing.T) {
+	bin := os.Getenv("STAGEPROOF_BIN")
+	if bin == "" {
+		t.Fatal("STAGEPROOF_BIN is required")
+	}
+	root := t.TempDir()
+	from := writeChart(t, root, "web", "0.1.0", "n: {{ .Chart.Version | quote }}\n")
+	to := writeChart(t, root, "web", "0.2.0", "n: {{ .Chart.Version | quote }}\n")
+	live := charts.Chart{ID: "fixtures/web", Repo: "https://charts.example/fixtures", RepoName: "fixtures", Chart: "web"}
+	dead := charts.Chart{ID: "dead/repo", Repo: "https://charts.example/missing", RepoName: "dead", Chart: "repo"}
+	file := charts.File{Charts: []charts.Chart{dead, live}}
+	src := errSource{
+		badID: dead.ID,
+		Local: source.Local{
+			VersionsByID: map[string][]pairs.Version{live.ID: {{Name: "0.1.0"}, {Name: "0.2.0"}}},
+			Dirs:         map[string]string{live.ID + "@0.1.0": from, live.ID + "@0.2.0": to},
+		},
+	}
+	out := filepath.Join(root, "out")
+	res, err := Run(context.Background(), file, Options{
+		OutDir: out, Binary: bin, Minors: []string{"1.35"}, APIServer: "off",
+		Now: time.Date(2026, 11, 23, 0, 0, 0, 0, time.UTC), Source: src,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if res.Charts != 2 || res.Failed != 1 || res.Pairs != 1 {
+		t.Fatalf("result %#v", res)
+	}
+	if _, err := os.Stat(filepath.Join(out, "v1", "charts", "fixtures", "web", "0.1.0..0.2.0.json")); err != nil {
+		t.Fatal(err)
+	}
+	buf, err := os.ReadFile(filepath.Join(out, "v1", "index.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(buf), "chart repo is not in https://charts.example/missing") {
+		t.Fatalf("catalog lost the chart error:\n%s", buf)
 	}
 }
 
