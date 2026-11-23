@@ -19,6 +19,8 @@ go run ./cmd/discover -n 300 -o charts.yaml
 go run ./cmd/build -charts charts.yaml -o data
 ```
 
-`cmd/build` downloads `stageproof` `v0.2.0` from the GitHub release and checks its SHA-256. It does not build the Stageproof `main` branch. Chart archives stay in a local cache and are not committed. `-max-pairs 1` builds only the newest pair of each chart. The nightly run leaves that flag unset and builds every pair.
+`cmd/build` downloads `stageproof` `v0.2.0` from the GitHub release and checks its SHA-256. It does not build the Stageproof `main` branch. Chart archives stay in a local cache and are not committed. A chart whose repository cannot be read is recorded in `data/v1/index.json` and the build continues with the next chart.
+
+The curated list currently expands to about 20,000 stable pairs. The nightly workflow builds the newest pair of each chart on Kubernetes 1.35, with the API server on, and keeps finished reports for the next run. Leave `-max-pairs` unset to build every pair.
 
 The nightly schedule is not turned on until the chart list in `charts.yaml` has been reviewed. Until then, `.github/workflows/build.yml` starts only with `workflow_dispatch`.

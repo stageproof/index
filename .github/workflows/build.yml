@@ -3,7 +3,6 @@ name: build
 on:
   workflow_dispatch:
   schedule:
-    # Starts only after this file is on main. Review charts.yaml before merging.
     - cron: "17 4 * * *"
 
 permissions:
@@ -26,10 +25,11 @@ jobs:
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: |
+            data
             ~/.cache/stageproof-index
             ~/.cache/stageproof/envtest
-          key: index-${{ hashFiles('charts.yaml') }}
-          restore-keys: index-
+          key: index-data-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: index-data-
 
       - name: Build the index
-        run: go run ./cmd/build -charts charts.yaml -o data
+        run: go run ./cmd/build -charts charts.yaml -o data -max-pairs 1 -minors 1.35 -api-server auto

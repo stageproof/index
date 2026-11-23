@@ -11,6 +11,7 @@ import (
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/stageproof/index/internal/charts"
@@ -67,6 +68,18 @@ func TestHelmFetchVerifiesDigestAndCleansUp(t *testing.T) {
 	}
 }
 
+func TestHelmIndexWithoutTheChartIsAnError(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_, _ = w.Write([]byte("apiVersion: v1\nentries:\n  other:\n    - version: 1.0.0\n"))
+	}))
+	defer srv.Close()
+	h := &HTTP{Client: srv.Client()}
+	_, err := h.Versions(context.Background(), charts.Chart{Repo: srv.URL, Chart: "web"})
+	if err == nil || !strings.Contains(err.Error(), "chart web is not in") {
+		t.Fatal(err)
+	}
+}
+
 func TestOCITagsUseTheBearerChallenge(t *testing.T) {
 	chart := packChart(t, "web", "1.2.3")
 	mux := http.NewServeMux()
@@ -82,7 +95,7 @@ func TestOCITagsUseTheBearerChallenge(t *testing.T) {
 		_, _ = w.Write([]byte(`{"tags":["1.2.3","1.3.0-rc.1"]}`))
 	})
 	mux.HandleFunc("/v2/example/web/manifests/1.2.3", func(w http.ResponseWriter, r *http.Request) {
-		_, _ = w.Write([]byte(`{"layers":[{"mediaType":"application/vnd.cncf.helm.chart.content.v1.tar+gzip","digest":"sha256:abc"}]}`))
+		_, _ = w.Write([]byte(`{"layers":[{"mediaType":"application/vnd.cncf.helm.chart.provenance.v1.prov","digest":"sha256:prov"},{"mediaType":"application/vnd.cncf.helm.chart.content.v1.tar+gzip","digest":"sha256:abc"}]}`))
 	})
 	mux.HandleFunc("/v2/example/web/blobs/sha256:abc", func(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write(chart)
@@ -107,6 +120,68 @@ func TestOCITagsUseTheBearerChallenge(t *testing.T) {
 			t.Error(err)
 		}
 	}()
+	if _, err := os.Stat(filepath.Join(dir, "Chart.yaml")); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestUntarKeepsTheLastDuplicate(t *testing.T) {
+	var buf bytes.Buffer
+	tw := tar.NewWriter(&buf)
+	write := func(body string) {
+		t.Helper()
+		hdr := &tar.Header{Name: "web/Chart.yaml", Mode: 0o644, Size: int64(len(body))}
+		if err := tw.WriteHeader(hdr); err != nil {
+			t.Fatal(err)
+		}
+		if _, err := tw.Write([]byte(body)); err != nil {
+			t.Fatal(err)
+		}
+	}
+	write("first")
+	write("second")
+	if err := tw.Close(); err != nil {
+		t.Fatal(err)
+	}
+	dir, err := untarChart(buf.Bytes(), t.TempDir())
+	if err != nil {
+		t.Fatal(err)
+	}
+	got, err := os.ReadFile(filepath.Join(dir, "Chart.yaml"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(got) != "second" {
+		t.Fatalf("got %q", got)
+	}
+}
+
+func TestHelmIndexCanPointAtOCI(t *testing.T) {
+	chart := packChart(t, "web", "1.2.3")
+	sum := sha256.Sum256(chart)
+	digest := hex.EncodeToString(sum[:])
+	mux := http.NewServeMux()
+	var srv *httptest.Server
+	mux.HandleFunc("/index.yaml", func(w http.ResponseWriter, r *http.Request) {
+		_, _ = w.Write([]byte("apiVersion: v1\nentries:\n  web:\n    - version: 1.2.3\n      digest: sha256:" + digest + "\n      urls:\n        - oci://" + srv.Listener.Addr().String() + "/charts/web:1.2.3\n"))
+	})
+	mux.HandleFunc("/v2/charts/web/manifests/1.2.3", func(w http.ResponseWriter, r *http.Request) {
+		_, _ = w.Write([]byte(`{"layers":[{"mediaType":"application/vnd.cncf.helm.chart.provenance.v1.prov","digest":"sha256:prov"},{"mediaType":"application/vnd.cncf.helm.chart.content.v1.tar+gzip","digest":"sha256:` + digest + `"}]}`))
+	})
+	mux.HandleFunc("/v2/charts/web/blobs/sha256:"+digest, func(w http.ResponseWriter, r *http.Request) {
+		_, _ = w.Write(chart)
+	})
+	srv = httptest.NewServer(mux)
+	defer srv.Close()
+	h := &HTTP{Client: srv.Client(), Scheme: "http"}
+	dir, got, cleanup, err := h.Fetch(context.Background(), charts.Chart{Repo: srv.URL, RepoName: "example", Chart: "web"}, "1.2.3")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer func() { _ = cleanup() }()
+	if got != digest {
+		t.Fatal(got)
+	}
 	if _, err := os.Stat(filepath.Join(dir, "Chart.yaml")); err != nil {
 		t.Fatal(err)
 	}

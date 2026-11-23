@@ -72,7 +72,10 @@ func (h *HTTP) helmVersions(ctx context.Context, chart charts.Chart) ([]pairs.Ve
 	if err := yaml.Unmarshal(raw, &idx); err != nil {
 		return nil, fmt.Errorf("parse index %s: %w", chart.Repo, err)
 	}
-	entries := idx.Entries[chart.Chart]
+	entries, ok := idx.Entries[chart.Chart]
+	if !ok || len(entries) == 0 {
+		return nil, fmt.Errorf("chart %s is not in %s", chart.Chart, chart.Repo)
+	}
 	out := make([]pairs.Version, 0, len(entries))
 	for _, e := range entries {
 		out = append(out, pairs.Version{Name: e.Version, Created: e.Created})
@@ -99,9 +102,13 @@ func (h *HTTP) helmFetch(ctx context.Context, chart charts.Chart, version string
 	for _, e := range idx.Entries[chart.Chart] {
 		if e.Version == version && len(e.URLs) > 0 {
 			digest = e.Digest
-			chartURL, err = resolveChartURL(chart.Repo, e.URLs[0])
-			if err != nil {
-				return "", "", nil, err
+			if strings.HasPrefix(e.URLs[0], "oci://") {
+				chartURL = e.URLs[0]
+			} else {
+				chartURL, err = resolveChartURL(chart.Repo, e.URLs[0])
+				if err != nil {
+					return "", "", nil, err
+				}
 			}
 			break
 		}
@@ -110,8 +117,16 @@ func (h *HTTP) helmFetch(ctx context.Context, chart charts.Chart, version string
 		return "", "", nil, fmt.Errorf("chart %s version %s is not in the index", chart.Chart, version)
 	}
 	want := strings.TrimPrefix(strings.ToLower(digest), "sha256:")
-	body, ok := h.readCache(want)
-	if !ok {
+	var body []byte
+	if cached, ok := h.readCache(want); ok {
+		body = cached
+	} else if strings.HasPrefix(chartURL, "oci://") {
+		var err error
+		body, err = h.pullOCIReference(ctx, chartURL)
+		if err != nil {
+			return "", "", nil, err
+		}
+	} else {
 		var err error
 		body, err = h.get(ctx, chartURL, "")
 		if err != nil {
@@ -208,6 +223,11 @@ func untarChart(body []byte, dest string) (string, error) {
 		target := filepath.Join(dest, name)
 		switch hdr.Typeflag {
 		case tar.TypeDir:
+			if st, err := os.Stat(target); err == nil && !st.IsDir() {
+				if err := os.Remove(target); err != nil {
+					return "", err
+				}
+			}
 			if err := os.MkdirAll(target, 0o755); err != nil {
 				return "", err
 			}
@@ -215,10 +235,15 @@ func untarChart(body []byte, dest string) (string, error) {
 			if err := os.MkdirAll(filepath.Dir(target), 0o755); err != nil {
 				return "", err
 			}
+			if st, err := os.Stat(target); err == nil && st.IsDir() {
+				if err := os.RemoveAll(target); err != nil {
+					return "", err
+				}
+			}
 			if hdr.Size > 64<<20 {
 				return "", fmt.Errorf("chart file %s is larger than 64MiB", hdr.Name)
 			}
-			f, err := os.OpenFile(target, os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0o644)
+			f, err := os.OpenFile(target, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0o644)
 			if err != nil {
 				return "", err
 			}
@@ -362,36 +387,8 @@ func (h *HTTP) ociFetch(ctx context.Context, chart charts.Chart, version string)
 	if err != nil {
 		return "", "", nil, err
 	}
-	manifest, err := h.registryGet(ctx, base+"/v2/"+name+"/manifests/"+url.PathEscape(version), "application/vnd.oci.image.manifest.v1+json, application/vnd.cncf.helm.chart.content.v1.tar+gzip")
+	body, sum, err := h.fetchOCI(ctx, base, name, version)
 	if err != nil {
-		return "", "", nil, err
-	}
-	var doc struct {
-		Layers []struct {
-			Digest    string `json:"digest"`
-			MediaType string `json:"mediaType"`
-		} `json:"layers"`
-	}
-	if err := json.Unmarshal(manifest, &doc); err != nil {
-		return "", "", nil, err
-	}
-	if len(doc.Layers) == 0 || doc.Layers[0].Digest == "" {
-		return "", "", nil, fmt.Errorf("oci manifest for %s@%s has no chart layer", chart.Chart, version)
-	}
-	want := strings.TrimPrefix(strings.ToLower(doc.Layers[0].Digest), "sha256:")
-	body, ok := h.readCache(want)
-	if !ok {
-		var err error
-		body, err = h.registryGet(ctx, base+"/v2/"+name+"/blobs/"+doc.Layers[0].Digest, "application/octet-stream")
-		if err != nil {
-			return "", "", nil, err
-		}
-	}
-	sum := sha256.Sum256(body)
-	if len(want) == 64 && hex.EncodeToString(sum[:]) != want {
-		return "", "", nil, fmt.Errorf("digest mismatch for %s@%s", chart.Chart, version)
-	}
-	if err := h.writeCache(hex.EncodeToString(sum[:]), body); err != nil {
 		return "", "", nil, err
 	}
 	dir, err := os.MkdirTemp("", "stageproof-index-")
@@ -402,7 +399,93 @@ func (h *HTTP) ociFetch(ctx context.Context, chart charts.Chart, version string)
 	if err != nil {
 		return "", "", nil, errors.Join(err, os.RemoveAll(dir))
 	}
-	return chartDir, hex.EncodeToString(sum[:]), func() error { return os.RemoveAll(dir) }, nil
+	return chartDir, sum, func() error { return os.RemoveAll(dir) }, nil
+}
+
+const helmChartLayer = "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+
+type ociLayer struct {
+	Digest    string `json:"digest"`
+	MediaType string `json:"mediaType"`
+}
+
+func chartLayerDigest(layers []ociLayer) (string, error) {
+	for _, layer := range layers {
+		if layer.MediaType == helmChartLayer && layer.Digest != "" {
+			return layer.Digest, nil
+		}
+	}
+	return "", fmt.Errorf("no Helm chart layer")
+}
+
+func (h *HTTP) fetchOCI(ctx context.Context, base, name, version string) ([]byte, string, error) {
+	manifest, err := h.registryGet(ctx, base+"/v2/"+name+"/manifests/"+url.PathEscape(version), "application/vnd.oci.image.manifest.v1+json")
+	if err != nil {
+		return nil, "", err
+	}
+	var doc struct {
+		Layers []ociLayer `json:"layers"`
+	}
+	if err := json.Unmarshal(manifest, &doc); err != nil {
+		return nil, "", err
+	}
+	digest, err := chartLayerDigest(doc.Layers)
+	if err != nil {
+		return nil, "", fmt.Errorf("oci manifest for %s@%s: %w", name, version, err)
+	}
+	body, err := h.chartBlob(ctx, base, name, digest)
+	if err != nil {
+		return nil, "", err
+	}
+	sum := sha256.Sum256(body)
+	return body, hex.EncodeToString(sum[:]), nil
+}
+
+func (h *HTTP) chartBlob(ctx context.Context, base, name, digest string) ([]byte, error) {
+	want := strings.TrimPrefix(strings.ToLower(digest), "sha256:")
+	if body, ok := h.readCache(want); ok {
+		return body, nil
+	}
+	body, err := h.registryGet(ctx, base+"/v2/"+name+"/blobs/"+digest, "application/octet-stream")
+	if err != nil {
+		return nil, err
+	}
+	sum := sha256.Sum256(body)
+	if len(want) == 64 && hex.EncodeToString(sum[:]) != want {
+		return nil, fmt.Errorf("digest mismatch for %s", digest)
+	}
+	if err := h.writeCache(hex.EncodeToString(sum[:]), body); err != nil {
+		return nil, err
+	}
+	return body, nil
+}
+
+func (h *HTTP) pullOCIReference(ctx context.Context, ref string) ([]byte, error) {
+	base, name, tag, err := parseOCIRef(ref, h.scheme())
+	if err != nil {
+		return nil, err
+	}
+	body, _, err := h.fetchOCI(ctx, base, name, tag)
+	return body, err
+}
+
+func parseOCIRef(ref, scheme string) (base, name, tag string, err error) {
+	rest := strings.TrimPrefix(ref, "oci://")
+	host, path, ok := strings.Cut(rest, "/")
+	if !ok || host == "" || path == "" {
+		return "", "", "", fmt.Errorf("oci reference %q needs a host and a repository", ref)
+	}
+	if i := strings.LastIndex(path, ":"); i >= 0 {
+		tag = path[i+1:]
+		path = path[:i]
+	}
+	if tag == "" || path == "" {
+		return "", "", "", fmt.Errorf("oci reference %q has no tag", ref)
+	}
+	if scheme == "" {
+		scheme = "https"
+	}
+	return scheme + "://" + host, path, tag, nil
 }
 
 func (h *HTTP) scheme() string {
