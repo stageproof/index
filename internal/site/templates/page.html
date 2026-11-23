@@ -1,0 +1,126 @@
+{{define "page"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{.Title}}</title>
+{{if .NoIndex}}<meta name="robots" content="noindex">{{end}}
+<style>
+body { margin: 0; font: 16px/1.45 system-ui, sans-serif; color: #1c1917; background: #fafaf9; }
+header, main, footer { max-width: 52rem; margin: 0 auto; padding: 1rem 1.25rem; }
+header { display: flex; gap: 1rem; align-items: baseline; border-bottom: 1px solid #e7e5e4; }
+header a, a { color: #1d4ed8; }
+h1 { font-size: 1.6rem; line-height: 1.2; margin: 0 0 0.75rem; }
+h2 { font-size: 1.1rem; margin: 1.25rem 0 0.4rem; }
+.notice, .banner { background: #fff7ed; border: 1px solid #fdba74; padding: 0.6rem 0.75rem; }
+table { border-collapse: collapse; width: 100%; background: #fff; }
+th, td { text-align: left; padding: 0.35rem 0.5rem; border-bottom: 1px solid #e7e5e4; vertical-align: top; }
+code, pre { font-family: ui-monospace, monospace; font-size: 0.9rem; }
+pre { background: #fff; padding: 0.75rem; overflow: auto; border: 1px solid #e7e5e4; }
+.blocked { color: #9f1239; font-weight: 650; }
+.ok { color: #166534; }
+input { width: 100%; max-width: 24rem; padding: 0.4rem 0.5rem; font: inherit; }
+footer { color: #57534e; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<header>
+<a href="{{href .Root}}">Stageproof index</a>
+<a href="{{href .ChartsPath}}">Charts</a>
+<a href="{{href .APIPath}}">API</a>
+</header>
+<main>
+{{if eq .Kind "home"}}
+<h1>Helm upgrade index</h1>
+<p class="notice">These reports use each chart's default values. They are not a verdict on a cluster this index has not seen.</p>
+<p><a href="{{href .ChartsPath}}">Browse charts</a> or read the <a href="{{href .APIPath}}">JSON API</a>.</p>
+{{else if eq .Kind "charts"}}
+<h1>Charts</h1>
+<p class="notice">{{.Notice}}</p>
+<p><label>Search <input id="q" type="search" autocomplete="off"></label></p>
+<table>
+<thead><tr><th>Chart</th><th>Latest</th><th>Blocked pairs</th></tr></thead>
+<tbody>
+{{range .Rows}}
+<tr data-chart="{{.Search}}">
+<td><a href="{{.Href}}">{{.ID}}</a></td>
+<td>{{.Latest}}</td>
+<td>{{if gt .Blocked 0}}<span class="blocked">{{.Blocked}}</span>{{else}}0{{end}}</td>
+</tr>
+{{end}}
+</tbody>
+</table>
+<script>
+const q = document.querySelector('#q');
+const rows = document.querySelectorAll('[data-chart]');
+q.addEventListener('input', function () {
+  const s = q.value.toLowerCase();
+  rows.forEach(function (row) {
+    row.hidden = s !== '' && row.dataset.chart.indexOf(s) === -1;
+  });
+});
+</script>
+{{else if eq .Kind "chart"}}
+<h1>{{.ID}}</h1>
+<p>Latest {{.Latest}}.</p>
+{{if .RepoURL}}<p><a href="{{.RepoURL}}">Upstream repository</a></p>{{else if .RepoText}}<p>{{.RepoText}}</p>{{end}}
+{{if .Homepage}}<p><a href="{{.Homepage}}">Chart homepage</a></p>{{end}}
+{{if .ReleaseNotes}}<p><a href="{{.ReleaseNotes}}">Release notes</a></p>{{end}}
+{{if .Error}}<p>{{.Error}}</p>{{end}}
+<h2>Versions</h2>
+<p>{{.VersionLine}}</p>
+<h2>Upgrades</h2>
+{{if .Upgrades}}
+<ul>
+{{range .Upgrades}}
+<li><a href="{{.Href}}">{{.From}} to {{.To}}</a> {{if .Blocked}}<span class="blocked">blocked</span>{{else}}<span class="ok">no blocking finding</span>{{end}}{{if not .Adjacent}} (not an adjacent pair){{end}}</li>
+{{end}}
+</ul>
+{{else}}
+<p>This chart has no upgrade report.</p>
+{{end}}
+{{else if eq .Kind "upgrade"}}
+<h1>{{.ChartName}} {{.From}} to {{.To}}</h1>
+<h2>Results</h2>
+<table>
+<thead><tr><th>Kubernetes</th><th>Result</th><th>Exit</th></tr></thead>
+<tbody>
+{{range .Minors}}
+<tr><td>{{.Minor}}</td><td>{{.Verdict}}</td><td>{{.Exit}}</td></tr>
+{{end}}
+</tbody>
+</table>
+<h2>Blocking findings</h2>
+{{if .Blockers}}
+<ul>{{range .Blockers}}<li><span class="blocked">{{.Severity}}</span> <code>{{.RuleID}}</code> {{.Category}} {{.Message}}</li>{{end}}</ul>
+{{else}}<p>No blocking finding in these chart defaults.</p>{{end}}
+<h2>Warnings</h2>
+{{if .Warnings}}
+<ul>{{range .Warnings}}<li>{{.Severity}} <code>{{.RuleID}}</code> {{.Category}} {{.Message}}</li>{{end}}</ul>
+{{else}}<p>No warning in these chart defaults.</p>{{end}}
+{{if .Info}}<h2>Info</h2><ul>{{range .Info}}<li>{{.Severity}} <code>{{.RuleID}}</code> {{.Category}} {{.Message}}</li>{{end}}</ul>{{end}}
+{{if .Defaults}}<h2>Defaults</h2><ul>{{range .Defaults}}<li><code>{{.RuleID}}</code> {{.Message}}</li>{{end}}</ul>{{end}}
+{{if .CRDs}}<h2>CRDs</h2><ul>{{range .CRDs}}<li><code>{{.RuleID}}</code> {{.Message}}</li>{{end}}</ul>{{end}}
+{{if .Images}}<h2>Images</h2><ul>{{range .Images}}<li><code>{{.RuleID}}</code> {{.Message}}</li>{{end}}</ul>{{end}}
+<p class="banner">Checked with chart defaults only. Run the command below with your -f values.yaml to check your cluster.</p>
+<h2>Command</h2>
+<pre>{{.Command}}</pre>
+{{if .ReleaseNotes}}<p><a href="{{.ReleaseNotes}}">Release notes</a></p>{{end}}
+<p><a href="{{.Bug}}">Report a wrong result</a></p>
+<p><a href="{{.APIHref}}">JSON</a></p>
+{{else if eq .Kind "api"}}
+<h1>JSON API</h1>
+<p class="notice">Every document is chart defaults only. A result here is not a verdict on your cluster.</p>
+<h2><code>GET {{.IndexPath}}</code></h2>
+<p><a href="{{.IndexPath}}">Catalog JSON</a></p>
+<p>The catalog: <code>schema_version</code>, <code>stageproof_version</code>, <code>notice</code>, and <code>charts</code>. Each chart has <code>id</code>, <code>repo</code>, <code>repo_name</code>, <code>chart</code>, <code>latest</code>, <code>pairs</code>, and <code>blocked</code>.</p>
+<h2><code>GET {{.UpgradePattern}}</code></h2>
+<p>One upgrade. Fields: <code>schema_version</code>, <code>stageproof_version</code>, <code>scope</code> (<code>chart-defaults-only</code>), <code>notice</code>, <code>reproduce_command</code>, <code>from_sha256</code>, <code>to_sha256</code>, and <code>k8s_results</code>. Each Kubernetes minor holds the Stageproof report for that minor.</p>
+{{end}}
+</main>
+<footer>
+<p>Chart defaults only. Run Stageproof with your values files before you treat a result as a check of your cluster.</p>
+</footer>
+</body>
+</html>
+{{end}}

@@ -22,3 +22,24 @@ go run ./cmd/build -charts charts.yaml -o data
 `cmd/build` downloads `stageproof` `v0.3.0` from the GitHub release and checks its SHA-256. It does not build the Stageproof `main` branch. Chart archives stay in a local cache and are not committed. A chart whose repository cannot be read is recorded in `data/v1/index.json` and the build continues with the next chart.
 
 The curated list currently expands to about 20,000 stable pairs. The nightly workflow (`.github/workflows/build.yml`, `17 4 * * *` UTC, plus `workflow_dispatch`) builds the newest pair of each chart on Kubernetes 1.35, with the API server on, and keeps finished reports for the next run. Leave `-max-pairs` unset to build every pair.
+
+## Site
+
+`cmd/site` reads `data/v1/` and writes the HTML pages and the JSON API. The nightly workflow runs it after `cmd/build` and uploads the files for GitHub Pages. A push to `main` does not publish a site, and the generated files are not committed.
+
+```bash
+go run ./cmd/site -data data -o site
+```
+
+`-o` defaults to `site` and replaces that directory. `.` and `/` are refused.
+
+Pages, relative to the site root:
+
+- `/` links to the catalog and the API.
+- `/charts/` lists every chart in the HTML. A script on that page filters the list. There is no search server and no analytics.
+- `/chart/<repo>/<chart>/` shows the versions and the upgrades. A blocking upgrade is listed first. The upstream repository, homepage, and release notes are links when the URL starts with `http://` or `https://`.
+- `/upgrade/<repo>/<chart>/<from>/<to>/` leads with the result for each Kubernetes minor, then blocking findings, warnings, defaults, CRD changes, and image changes. It then prints: "Checked with chart defaults only. Run the command below with your `-f values.yaml` to check your cluster." The `reproduce_command` follows, then the release notes, then a link that opens a Stageproof bug report with the repository, chart, versions, and Stageproof version filled in.
+- `/api/` documents the files. `/api/v1/index.json` is a byte copy of the catalog. `/api/v1/upgrade/<repo>/<chart>/<from>/<to>.json` is a byte copy of that pair.
+- `/sitemap.xml` lists `/charts/`, chart pages that have an upgrade report, and adjacent upgrades. A page that skips a version, and a chart page with no report, are marked `noindex` and left out of the sitemap.
+
+HTML links start with `/index` because GitHub Pages serves this repository at `https://stageproof.github.io/index/`.
