@@ -20,11 +20,11 @@ import (
 
 const (
 	// Version is the Stageproof release every index report is built with.
-	Version = "v0.2.0"
-	// LinuxAMD64SHA256 is the checksum of stageproof_0.2.0_linux_amd64.tar.gz in that release.
-	LinuxAMD64SHA256 = "0eb3fcf1a21e4921896ab3e561de1c51615d89c9d18198e823e8c7fb4b83ceca"
+	Version = "v0.3.0"
+	// LinuxAMD64SHA256 is the checksum of stageproof_0.3.0_linux_amd64.tar.gz in that release.
+	LinuxAMD64SHA256 = "303d735ccdd215fab0719bd980ae4f3675af2e5722e5115fc0f4420e2f416729"
 	// LinuxAMD64BinarySHA256 is the checksum of the stageproof binary inside that archive.
-	LinuxAMD64BinarySHA256 = "f874211fee47d7a2bfc89b3d4b7f75317b88654d196d3cd46ec8d5ab855c58ee"
+	LinuxAMD64BinarySHA256 = "68586a7160aaadca67613860d400cf51c12eadf8eef6435353193802c7c02c2e"
 )
 
 // AssetURL is the GitHub release archive for this OS and architecture.

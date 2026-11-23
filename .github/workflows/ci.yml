@@ -22,11 +22,11 @@ jobs:
         with:
           version: "v3.22.1"
 
-      - name: Install Stageproof v0.2.0
+      - name: Install Stageproof v0.3.0
         run: |
           set -euo pipefail
-          curl -fsSL -o stageproof.tar.gz https://github.com/stageproof/stageproof/releases/download/v0.2.0/stageproof_0.2.0_linux_amd64.tar.gz
-          echo "0eb3fcf1a21e4921896ab3e561de1c51615d89c9d18198e823e8c7fb4b83ceca  stageproof.tar.gz" | sha256sum -c
+          curl -fsSL -o stageproof.tar.gz https://github.com/stageproof/stageproof/releases/download/v0.3.0/stageproof_0.3.0_linux_amd64.tar.gz
+          echo "303d735ccdd215fab0719bd980ae4f3675af2e5722e5115fc0f4420e2f416729  stageproof.tar.gz" | sha256sum -c
           tar -xzf stageproof.tar.gz stageproof
           echo "STAGEPROOF_BIN=$PWD/stageproof" >> "$GITHUB_ENV"
 
