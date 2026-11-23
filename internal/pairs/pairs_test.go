@@ -5,6 +5,22 @@ import (
 	"time"
 )
 
+func TestStableIgnoresDateTags(t *testing.T) {
+	got := Stable([]Version{
+		{Name: "1.0.0"},
+		{Name: "1.2.3"},
+		{Name: "20221218"},
+		{Name: "2024.01"},
+		{Name: "v1.3.0"},
+	})
+	if len(got) != 3 {
+		t.Fatalf("stable versions = %#v", got)
+	}
+	if got[len(got)-1].Name != "v1.3.0" {
+		t.Fatalf("latest = %s, want v1.3.0", got[len(got)-1].Name)
+	}
+}
+
 func TestEnumerateAdjacentAndLatest(t *testing.T) {
 	now := time.Date(2026, 11, 23, 0, 0, 0, 0, time.UTC)
 	got := Enumerate([]Version{

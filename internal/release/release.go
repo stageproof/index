@@ -23,6 +23,8 @@ const (
 	Version = "v0.2.0"
 	// LinuxAMD64SHA256 is the checksum of stageproof_0.2.0_linux_amd64.tar.gz in that release.
 	LinuxAMD64SHA256 = "0eb3fcf1a21e4921896ab3e561de1c51615d89c9d18198e823e8c7fb4b83ceca"
+	// LinuxAMD64BinarySHA256 is the checksum of the stageproof binary inside that archive.
+	LinuxAMD64BinarySHA256 = "f874211fee47d7a2bfc89b3d4b7f75317b88654d196d3cd46ec8d5ab855c58ee"
 )
 
 // AssetURL is the GitHub release archive for this OS and architecture.
@@ -51,7 +53,7 @@ func Ensure(client *http.Client, explicit, destDir string) (string, error) {
 		return "", err
 	}
 	dest := filepath.Join(destDir, "stageproof")
-	if st, err := os.Stat(dest); err == nil && !st.IsDir() {
+	if fileMatchesSHA256(dest, LinuxAMD64BinarySHA256) {
 		return dest, nil
 	}
 	if client == nil {
@@ -65,7 +67,7 @@ func Ensure(client *http.Client, explicit, destDir string) (string, error) {
 	if resp.StatusCode != http.StatusOK {
 		return "", fmt.Errorf("download %s: %s", url, resp.Status)
 	}
-	body, err := io.ReadAll(resp.Body)
+	body, err := io.ReadAll(io.LimitReader(resp.Body, 256<<20))
 	if err != nil {
 		return "", err
 	}
@@ -97,13 +99,29 @@ func Ensure(client *http.Client, explicit, destDir string) (string, error) {
 		if err != nil {
 			return "", err
 		}
-		if _, err := io.Copy(f, tr); err != nil {
+		if _, err := io.Copy(f, io.LimitReader(tr, 256<<20)); err != nil {
 			return "", errors.Join(err, f.Close())
 		}
 		if err := f.Close(); err != nil {
 			return "", err
 		}
+		if !fileMatchesSHA256(dest, LinuxAMD64BinarySHA256) {
+			return "", errors.Join(fmt.Errorf("binary checksum mismatch for %s", url), os.Remove(dest))
+		}
 		return dest, nil
 	}
 	return "", fmt.Errorf("archive %s has no stageproof binary", url)
+}
+
+func fileMatchesSHA256(path, want string) bool {
+	f, err := os.Open(path)
+	if err != nil {
+		return false
+	}
+	defer func() { _ = f.Close() }()
+	h := sha256.New()
+	if _, err := io.Copy(h, f); err != nil {
+		return false
+	}
+	return hex.EncodeToString(h.Sum(nil)) == want
 }

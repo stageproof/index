@@ -153,7 +153,7 @@ func (h *HTTP) helmFetch(ctx context.Context, chart charts.Chart, version string
 }
 
 func (h *HTTP) readCache(sum string) ([]byte, bool) {
-	if h.CacheDir == "" || len(sum) != 64 {
+	if h.CacheDir == "" || !isHexSHA256(sum) {
 		return nil, false
 	}
 	buf, err := os.ReadFile(filepath.Join(h.CacheDir, sum+".tgz"))
@@ -168,7 +168,7 @@ func (h *HTTP) readCache(sum string) ([]byte, bool) {
 }
 
 func (h *HTTP) writeCache(sum string, body []byte) error {
-	if h.CacheDir == "" || len(sum) != 64 {
+	if h.CacheDir == "" || !isHexSHA256(sum) {
 		return nil
 	}
 	if err := os.MkdirAll(h.CacheDir, 0o755); err != nil {
@@ -180,6 +180,19 @@ func (h *HTTP) writeCache(sum string, body []byte) error {
 		return err
 	}
 	return os.Rename(tmp, path)
+}
+
+func isHexSHA256(s string) bool {
+	if len(s) != 64 {
+		return false
+	}
+	for i := 0; i < len(s); i++ {
+		c := s[i]
+		if (c < '0' || c > '9') && (c < 'a' || c > 'f') {
+			return false
+		}
+	}
+	return true
 }
 
 func resolveChartURL(repo, raw string) (string, error) {
@@ -194,8 +207,18 @@ func resolveChartURL(repo, raw string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return base.ResolveReference(ref).String(), nil
+	resolved := base.ResolveReference(ref)
+	if resolved.Scheme != "https" && resolved.Scheme != "http" {
+		return "", fmt.Errorf("chart url %q has unsupported scheme %q", raw, resolved.Scheme)
+	}
+	return resolved.String(), nil
 }
+
+const (
+	maxUntarFileBytes  = 64 << 20
+	maxUntarTotalBytes = 256 << 20
+	maxUntarEntries    = 10000
+)
 
 func untarChart(body []byte, dest string) (string, error) {
 	var reader io.Reader = bytes.NewReader(body)
@@ -208,6 +231,8 @@ func untarChart(body []byte, dest string) (string, error) {
 		reader = gz
 	}
 	tr := tar.NewReader(reader)
+	var totalBytes int64
+	var entries int
 	for {
 		hdr, err := tr.Next()
 		if err == io.EOF {
@@ -215,6 +240,10 @@ func untarChart(body []byte, dest string) (string, error) {
 		}
 		if err != nil {
 			return "", err
+		}
+		entries++
+		if entries > maxUntarEntries {
+			return "", fmt.Errorf("chart archive has more than %d entries", maxUntarEntries)
 		}
 		name := pathClean(hdr.Name)
 		if name == "" || strings.HasPrefix(name, "../") || name == ".." {
@@ -240,19 +269,24 @@ func untarChart(body []byte, dest string) (string, error) {
 					return "", err
 				}
 			}
-			if hdr.Size > 64<<20 {
+			if hdr.Size < 0 || hdr.Size > maxUntarFileBytes {
 				return "", fmt.Errorf("chart file %s is larger than 64MiB", hdr.Name)
+			}
+			if totalBytes+hdr.Size > maxUntarTotalBytes {
+				return "", fmt.Errorf("chart archive exceeds 256MiB uncompressed")
 			}
 			f, err := os.OpenFile(target, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0o644)
 			if err != nil {
 				return "", err
 			}
-			if _, err := io.Copy(f, io.LimitReader(tr, hdr.Size)); err != nil {
+			written, err := io.Copy(f, io.LimitReader(tr, hdr.Size))
+			if err != nil {
 				return "", errors.Join(err, f.Close())
 			}
 			if err := f.Close(); err != nil {
 				return "", err
 			}
+			totalBytes += written
 		default:
 			return "", fmt.Errorf("chart archive entry %s has unsupported type %d", hdr.Name, hdr.Typeflag)
 		}
@@ -443,18 +477,21 @@ func (h *HTTP) fetchOCI(ctx context.Context, base, name, version string) ([]byte
 
 func (h *HTTP) chartBlob(ctx context.Context, base, name, digest string) ([]byte, error) {
 	want := strings.TrimPrefix(strings.ToLower(digest), "sha256:")
+	if !strings.HasPrefix(strings.ToLower(digest), "sha256:") || !isHexSHA256(want) {
+		return nil, fmt.Errorf("invalid layer digest %q", digest)
+	}
 	if body, ok := h.readCache(want); ok {
 		return body, nil
 	}
-	body, err := h.registryGet(ctx, base+"/v2/"+name+"/blobs/"+digest, "application/octet-stream")
+	body, err := h.registryGet(ctx, base+"/v2/"+name+"/blobs/sha256:"+want, "application/octet-stream")
 	if err != nil {
 		return nil, err
 	}
 	sum := sha256.Sum256(body)
-	if len(want) == 64 && hex.EncodeToString(sum[:]) != want {
+	if hex.EncodeToString(sum[:]) != want {
 		return nil, fmt.Errorf("digest mismatch for %s", digest)
 	}
-	if err := h.writeCache(hex.EncodeToString(sum[:]), body); err != nil {
+	if err := h.writeCache(want, body); err != nil {
 		return nil, err
 	}
 	return body, nil
@@ -518,38 +555,52 @@ func (h *HTTP) registryGet(ctx context.Context, raw, accept string) ([]byte, err
 	}
 	release := h.hosts.acquire(u.Host)
 	defer release()
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, raw, nil)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Set("User-Agent", userAgent)
-	req.Header.Set("Accept", accept)
-	resp, err := h.client().Do(req)
-	if err != nil {
-		return nil, err
-	}
-	if resp.StatusCode == http.StatusUnauthorized {
-		challenge := resp.Header.Get("Www-Authenticate")
+	var last error
+	wait := time.Second
+	var token string
+	for attempt := 0; attempt < 4; attempt++ {
+		req, err := http.NewRequestWithContext(ctx, http.MethodGet, raw, nil)
+		if err != nil {
+			return nil, err
+		}
+		req.Header.Set("User-Agent", userAgent)
+		req.Header.Set("Accept", accept)
+		if token != "" {
+			req.Header.Set("Authorization", "Bearer "+token)
+		}
+		resp, err := h.client().Do(req)
+		if err != nil {
+			last = err
+			time.Sleep(wait)
+			wait *= 2
+			continue
+		}
+		if resp.StatusCode == http.StatusUnauthorized && token == "" {
+			challenge := resp.Header.Get("Www-Authenticate")
+			_ = resp.Body.Close()
+			token, err = h.bearer(ctx, challenge)
+			if err != nil {
+				return nil, err
+			}
+			continue
+		}
+		buf, readErr := io.ReadAll(io.LimitReader(resp.Body, 128<<20))
 		_ = resp.Body.Close()
-		token, err := h.bearer(ctx, challenge)
-		if err != nil {
-			return nil, err
+		if readErr != nil {
+			return nil, readErr
 		}
-		req.Header.Set("Authorization", "Bearer "+token)
-		resp, err = h.client().Do(req)
-		if err != nil {
-			return nil, err
+		if resp.StatusCode == http.StatusTooManyRequests || resp.StatusCode >= 500 {
+			last = fmt.Errorf("%s: %s", raw, resp.Status)
+			time.Sleep(wait)
+			wait *= 2
+			continue
 		}
+		if resp.StatusCode != http.StatusOK {
+			return nil, fmt.Errorf("%s: %s", raw, resp.Status)
+		}
+		return buf, nil
 	}
-	defer func() { _ = resp.Body.Close() }()
-	buf, err := io.ReadAll(io.LimitReader(resp.Body, 128<<20))
-	if err != nil {
-		return nil, err
-	}
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("%s: %s", raw, resp.Status)
-	}
-	return buf, nil
+	return nil, last
 }
 
 func (h *HTTP) bearer(ctx context.Context, challenge string) (string, error) {
@@ -566,6 +617,9 @@ func (h *HTTP) bearer(ctx context.Context, challenge string) (string, error) {
 	u, err := url.Parse(fields["realm"])
 	if err != nil {
 		return "", err
+	}
+	if u.Scheme != "https" && u.Scheme != h.scheme() {
+		return "", fmt.Errorf("registry token realm %q must use %s", fields["realm"], h.scheme())
 	}
 	q := u.Query()
 	if fields["service"] != "" {
@@ -585,11 +639,14 @@ func (h *HTTP) bearer(ctx context.Context, challenge string) (string, error) {
 		return "", err
 	}
 	defer func() { _ = resp.Body.Close() }()
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("token endpoint %s: %s", fields["realm"], resp.Status)
+	}
 	var body struct {
 		Token       string `json:"token"`
 		AccessToken string `json:"access_token"`
 	}
-	if err := json.NewDecoder(resp.Body).Decode(&body); err != nil {
+	if err := json.NewDecoder(io.LimitReader(resp.Body, 1<<20)).Decode(&body); err != nil {
 		return "", err
 	}
 	if body.Token != "" {

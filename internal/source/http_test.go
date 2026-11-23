@@ -82,6 +82,8 @@ func TestHelmIndexWithoutTheChartIsAnError(t *testing.T) {
 
 func TestOCITagsUseTheBearerChallenge(t *testing.T) {
 	chart := packChart(t, "web", "1.2.3")
+	sum := sha256.Sum256(chart)
+	digest := hex.EncodeToString(sum[:])
 	mux := http.NewServeMux()
 	mux.HandleFunc("/token", func(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write([]byte(`{"token":"test-token"}`))
@@ -95,9 +97,9 @@ func TestOCITagsUseTheBearerChallenge(t *testing.T) {
 		_, _ = w.Write([]byte(`{"tags":["1.2.3","1.3.0-rc.1"]}`))
 	})
 	mux.HandleFunc("/v2/example/web/manifests/1.2.3", func(w http.ResponseWriter, r *http.Request) {
-		_, _ = w.Write([]byte(`{"layers":[{"mediaType":"application/vnd.cncf.helm.chart.provenance.v1.prov","digest":"sha256:prov"},{"mediaType":"application/vnd.cncf.helm.chart.content.v1.tar+gzip","digest":"sha256:abc"}]}`))
+		_, _ = w.Write([]byte(`{"layers":[{"mediaType":"application/vnd.cncf.helm.chart.provenance.v1.prov","digest":"sha256:prov"},{"mediaType":"application/vnd.cncf.helm.chart.content.v1.tar+gzip","digest":"sha256:` + digest + `"}]}`))
 	})
-	mux.HandleFunc("/v2/example/web/blobs/sha256:abc", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/v2/example/web/blobs/sha256:"+digest, func(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write(chart)
 	})
 	srv := httptest.NewServer(mux)
@@ -184,6 +186,32 @@ func TestHelmIndexCanPointAtOCI(t *testing.T) {
 	}
 	if _, err := os.Stat(filepath.Join(dir, "Chart.yaml")); err != nil {
 		t.Fatal(err)
+	}
+}
+
+func TestReadCacheRejectsNonHexDigest(t *testing.T) {
+	dir := t.TempDir()
+	h := &HTTP{CacheDir: dir}
+	bad := strings.Repeat("../", 18) + "tmp/evil00"
+	if len(bad) != 64 {
+		t.Fatalf("test setup length = %d", len(bad))
+	}
+	if _, ok := h.readCache(bad); ok {
+		t.Fatal("non-hex digest hit cache")
+	}
+}
+
+func TestBearerRejectsPlainHTTPInHTTPSMode(t *testing.T) {
+	h := &HTTP{}
+	_, err := h.bearer(context.Background(), `Bearer realm="http://169.254.169.254/latest/meta-data",service="x"`)
+	if err == nil || !strings.Contains(err.Error(), "must use https") {
+		t.Fatalf("expected https error, got %v", err)
+	}
+}
+
+func TestResolveChartURLRejectsUnsupportedScheme(t *testing.T) {
+	if _, err := resolveChartURL("https://charts.example", "file:///etc/passwd"); err == nil {
+		t.Fatal("expected file:// scheme rejection")
 	}
 }
 

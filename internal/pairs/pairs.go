@@ -104,6 +104,11 @@ func isStable(v string) bool {
 	if !strings.HasPrefix(raw, "v") {
 		raw = "v" + raw
 	}
+	// Require MAJOR.MINOR.PATCH so bare integer tags such as 20221218 are not
+	// treated as major semver versions.
+	if strings.Count(raw, ".") != 2 {
+		return false
+	}
 	if !semver.IsValid(raw) || semver.Prerelease(raw) != "" || semver.Build(raw) != "" {
 		return false
 	}

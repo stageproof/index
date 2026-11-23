@@ -260,8 +260,27 @@ func reuse(path, fromSum, toSum string, minors []string) (blocked bool, ok bool)
 func reproduce(chart charts.Chart, pair pairs.Pair, minor, api string) string {
 	return fmt.Sprintf(
 		"stageproof check --repo %s --chart %s --from %s --to %s --values-proof full --current-k8s %s --api-server %s --format json",
-		chart.Repo, chart.Chart, pair.From, pair.To, minor, api,
+		reproduceRepo(chart.Repo, chart.Chart), chart.Chart, pair.From, pair.To, minor, api,
 	)
+}
+
+// reproduceRepo strips the trailing /<chart> segment from full OCI chart URLs
+// (such as Artifact Hub entries) so stageproof check --repo <url> --chart <name>
+// resolves <url>/<name> without duplicating the chart name.
+func reproduceRepo(repo, chart string) string {
+	if !strings.HasPrefix(repo, "oci://") || chart == "" {
+		return repo
+	}
+	trimmed := strings.TrimRight(repo, "/")
+	suffix := "/" + chart
+	if !strings.HasSuffix(trimmed, suffix) {
+		return repo
+	}
+	parent := strings.TrimSuffix(trimmed, suffix)
+	if !strings.Contains(strings.TrimPrefix(parent, "oci://"), "/") {
+		return repo
+	}
+	return parent
 }
 
 func runStageproof(ctx context.Context, opt Options, fromDir, toDir, minor string) ([]byte, error) {

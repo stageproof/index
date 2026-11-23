@@ -58,6 +58,12 @@ func (c Chart) Validate() error {
 	if c.ID == "" || c.Repo == "" || c.RepoName == "" || c.Chart == "" {
 		return fmt.Errorf("id, repo, repo_name, and chart are required")
 	}
+	if strings.ContainsAny(c.ID+c.Repo+c.RepoName+c.Chart, " \t\r\n") {
+		return fmt.Errorf("chart identifiers and repo URL must not contain whitespace")
+	}
+	if !strings.HasPrefix(c.Repo, "https://") && !strings.HasPrefix(c.Repo, "http://") && !strings.HasPrefix(c.Repo, "oci://") {
+		return fmt.Errorf("repo %q must use http://, https://, or oci://", c.Repo)
+	}
 	if strings.Contains(c.ID, "..") || strings.Contains(c.RepoName, "..") || strings.Contains(c.Chart, "..") {
 		return fmt.Errorf("path segment must not contain a parent reference")
 	}

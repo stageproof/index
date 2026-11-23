@@ -214,7 +214,7 @@ func getJSON(client *http.Client, raw string, dest any) (int, error) {
 			wait *= 2
 			continue
 		}
-		buf, readErr := io.ReadAll(resp.Body)
+		buf, readErr := io.ReadAll(io.LimitReader(resp.Body, 32<<20))
 		_ = resp.Body.Close()
 		if readErr != nil {
 			return 0, readErr
