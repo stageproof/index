@@ -1,5 +1,6 @@
 name: build
 
+# Schedule and manual runs only. A push to main does not publish an empty site.
 on:
   workflow_dispatch:
   schedule:
@@ -7,6 +8,12 @@ on:
 
 permissions:
   contents: read
+
+# A second run waits. Cancelling a run that has already uploaded its artifact
+# makes the deploy report a missing artifact.
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   index:
@@ -33,3 +40,24 @@ jobs:
 
       - name: Build the index
         run: go run ./cmd/build -charts charts.yaml -o data -max-pairs 1 -minors 1.35 -api-server auto
+
+      - name: Generate the site
+        run: go run ./cmd/site -data data -o site
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: site
+
+  deploy:
+    needs: index
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+      actions: read
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
