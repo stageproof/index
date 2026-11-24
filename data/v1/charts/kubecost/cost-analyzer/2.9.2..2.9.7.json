@@ -1,0 +1,42 @@
+{
+  "from_sha256": "fe6807d000534d22d9c2546407b31d2168349022512af9f65ec1a17aa14c8712",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.9.2",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 4 these values is set: global.clusterId, prometheus.server.global.external_labels.cluster_id, global.federatedStorage.config, global.federatedStorage.existingSecret"
+        },
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 2.9.7 failed: exit status 1\nError: execution error at (cost-analyzer/templates/NOTES.txt:9:4): \nglobal.federatedStorage.existingSecret and global.federatedStorage.config are mutually exclusive. Please specify only one.\n\nUse --debug flag to render out invalid YAML",
+          "file": "2.9.7",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "2.9.7",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 2.9.2 --to 2.9.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "1eac106c4e2739ca832432a9413a6edd74a85f3981a85beca2328ac584f3b36c"
+}

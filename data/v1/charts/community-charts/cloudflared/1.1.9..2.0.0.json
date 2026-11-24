@@ -1,0 +1,96 @@
+{
+  "from_sha256": "a65d4022de2c7c53756d6f7efed879d114df502d1a1887efa4e39e5a909f5c51",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.1.9",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "required values shim",
+          "status": "warn",
+          "summary": "the chart does not render unless 3 these values is set: tunnelConfig.name, tunnelSecrets.base64EncodedConfigJsonFile, tunnelSecrets.base64EncodedPemFile"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 5 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 3 of 4 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "DaemonSet/default/stageproof-rel-cloudflared container cloudflared securityContext is weaker at capabilities.add.",
+          "resource": "DaemonSet/default/stageproof-rel-cloudflared",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/default/stageproof-rel-cloudflared changed at spec.template.spec.containers[name=cloudflared].securityContext.allowPrivilegeEscalation. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/default/stageproof-rel-cloudflared",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 1.1.9 to 2.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "A client-side Helm upgrade drops this field and continues.",
+          "message": "Kubernetes does not know `spec.selector.app`.",
+          "resource": "PodDisruptionBudget/default/stageproof-rel-cloudflared",
+          "rule_id": "k8s.apply.unknown_field",
+          "severity": "warning"
+        },
+        {
+          "message": "Secret/default/tunnel-credentials was not judged. the API server did not return a field error.",
+          "resource": "Secret/default/tunnel-credentials",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "2.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://community-charts.github.io/helm-charts --chart cloudflared --from 1.1.9 --to 2.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "dc2133ef22d5ffeb23ed32ce8b60819611a31e4560d772c9121f2573f82e4182"
+}

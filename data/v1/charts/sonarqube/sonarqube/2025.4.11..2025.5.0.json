@@ -1,0 +1,98 @@
+{
+  "from_sha256": "a7c925769040c6556f9ee56a6ecdaa667fa229797e3800e36501bd3879ef8a46",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2025.4.11",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 2 these values is set: monitoringPasscode, community.enabled"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 13 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 12 of 13 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Pod/default/stageproof-rel-ui-test, StatefulSet/default/stageproof-rel-sonarqube",
+          "message": "Chart default `community.buildNumber` changed from `25.8.0.112029` to `25.9.0.112764` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "community.buildNumber",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-sonarqube changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-sonarqube",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2025.4.11 to 2025.5.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Pod/default/stageproof-rel-ui-test.containers[0] stageproof-rel-ui-test container moves from sonarqube:25.8.0.112029-community to sonarqube:25.9.0.112764-community.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `sonarqube:25.9.0.112764-community` could not be checked. The registry did not answer.",
+          "resource": "sonarqube:25.9.0.112764-community",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "2025.5.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://SonarSource.github.io/helm-chart-sonarqube --chart sonarqube --from 2025.4.11 --to 2025.5.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "cf31a29d707f98c3db2c179655d9c1a842e20bdf6dfe1e347f1bc72243fbf10f"
+}

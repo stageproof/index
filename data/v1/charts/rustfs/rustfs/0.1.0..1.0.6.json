@@ -1,0 +1,37 @@
+{
+  "from_sha256": "09a116dcea8837daf5cd1a4fc1fdd82924ac7d755b552147a3f250f6a8799d9d",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.1.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 1.0.6 failed: exit status 1\nError: execution error at (rustfs/templates/secret.yaml:15:4): secret.rustfs.access_key and secret.rustfs.secret_key must be set to non-default, non-empty values, or set secret.existingSecret to a Secret you control. To opt into the well-known default credentials for local development only, set secret.allowInsecureDefaults=true.\n\nUse --debug flag to render out invalid YAML",
+          "file": "1.0.6",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "1.0.6",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.rustfs.com --chart rustfs --from 0.1.0 --to 1.0.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "6b8658b00e6520c2c483ec127efb4d3011e57666dd78080e6f37cc3c9048e730"
+}

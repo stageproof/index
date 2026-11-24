@@ -1,0 +1,139 @@
+{
+  "from_sha256": "bb35133097e3b2ad801b11d7101b9f2b3a4b572cdea7a22fc5b54c7cbf8376f0",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.1.22",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 6 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: PodSecurityPolicy/default/stageproof-rel-aws-for-fluent-bit.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-aws-for-fluent-bit, DaemonSet/stageproof-check/stageproof-rel-aws-for-fluent-bit",
+          "message": "Chart default `cloudWatch.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cloudWatch.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-aws-for-fluent-bit, DaemonSet/stageproof-check/stageproof-rel-aws-for-fluent-bit",
+          "message": "Chart default `elasticsearch.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "elasticsearch.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-aws-for-fluent-bit, DaemonSet/stageproof-check/stageproof-rel-aws-for-fluent-bit",
+          "message": "Chart default `firehose.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "firehose.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-for-fluent-bit",
+          "message": "Chart default `image.tag` changed from `2.21.5` to `3.2.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-aws-for-fluent-bit, DaemonSet/stageproof-check/stageproof-rel-aws-for-fluent-bit",
+          "message": "Chart default `input.dockerMode` changed from `On` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "input.dockerMode",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-aws-for-fluent-bit, DaemonSet/stageproof-check/stageproof-rel-aws-for-fluent-bit",
+          "message": "Chart default `input.parser` changed from `docker` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "input.parser",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-aws-for-fluent-bit, DaemonSet/stageproof-check/stageproof-rel-aws-for-fluent-bit",
+          "message": "Chart default `kinesis.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "kinesis.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-aws-for-fluent-bit changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-aws-for-fluent-bit",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.21.5 to 3.2.1. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. DaemonSet/stageproof-check/stageproof-rel-aws-for-fluent-bit.template.spec.containers[0] aws-for-fluent-bit container moves from public.ecr.aws/aws-observability/aws-for-fluent-bit:2.21.5 to public.ecr.aws/aws-observability/aws-for-fluent-bit:3.2.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.2.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://aws.github.io/eks-charts --chart aws-for-fluent-bit --from 0.1.22 --to 0.2.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "4c87d2317600fe1bc865dcc11fdf76cc8aef2ca48cb9b4f956fb1bdd806f4b4f"
+}

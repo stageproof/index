@@ -1,0 +1,121 @@
+{
+  "from_sha256": "0bf71fa85e9cc7084d36f1522241f21039a2a7ee946b984a494a95290397d269",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.18.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 7 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "4 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (1 deprecation, EOL, or CRD warning)"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The CRD perconaxtradbclusterbackups.pxc.percona.com under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/perconaxtradbclusterbackups.pxc.percona.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD perconaxtradbclusterrestores.pxc.percona.com under crds/ changed (spec.pitr.type enum). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/perconaxtradbclusterrestores.pxc.percona.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD perconaxtradbclusters.pxc.percona.com under crds/ changed (spec.haproxy.exposePrimary.trafficPolicy removed, spec.haproxy.exposePrimary.trafficPolicy type, spec.haproxy.exposeReplicas.trafficPolicy removed, spec.haproxy.exposeReplicas.trafficPolicy type, spec.haproxy.externalTrafficPolicy removed, spec.haproxy.externalTrafficPolicy type, spec.haproxy.loadBalancerSourceRanges removed, spec.haproxy.loadBalancerSourceRanges type, spec.haproxy.loadBalancerSourceRanges.items removed, spec.haproxy.loadBalancerSourceRanges.items type, spec.haproxy.replicasExternalTrafficPolicy removed, spec.haproxy.replicasExternalTrafficPolicy type, spec.haproxy.replicasServiceAnnotations removed, spec.haproxy.replicasServiceAnnotations type, spec.haproxy.replicasServiceAnnotations.additionalProperties removed, spec.haproxy.replicasServiceAnnotations.additionalProperties type, spec.haproxy.replicasServiceLabels removed, spec.haproxy.replicasServiceLabels type, spec.haproxy.replicasServiceLabels.additionalProperties removed, spec.haproxy.replicasServiceLabels.additionalProperties type, spec.haproxy.replicasServiceType removed, spec.haproxy.replicasServiceType type, spec.haproxy.serviceAnnotations removed, spec.haproxy.serviceAnnotations type, spec.haproxy.serviceAnnotations.additionalProperties removed, spec.haproxy.serviceAnnotations.additionalProperties type, spec.haproxy.serviceLabels removed, spec.haproxy.serviceLabels type, spec.haproxy.serviceLabels.additionalProperties removed, spec.haproxy.serviceLabels.additionalProperties type, spec.haproxy.serviceType removed, spec.haproxy.serviceType type, spec.proxysql.expose.trafficPolicy removed, spec.proxysql.expose.trafficPolicy type, spec.proxysql.externalTrafficPolicy removed, spec.proxysql.externalTrafficPolicy type, spec.proxysql.loadBalancerSourceRanges removed, spec.proxysql.loadBalancerSourceRanges type, spec.proxysql.loadBalancerSourceRanges.items removed, spec.proxysql.loadBalancerSourceRanges.items type, spec.proxysql.replicasExternalTrafficPolicy removed, spec.proxysql.replicasExternalTrafficPolicy type, spec.proxysql.replicasServiceAnnotations removed, spec.proxysql.replicasServiceAnnotations type, spec.proxysql.replicasServiceAnnotations.additionalProperties removed, spec.proxysql.replicasServiceAnnotations.additionalProperties type, spec.proxysql.replicasServiceLabels removed, spec.proxysql.replicasServiceLabels type, spec.proxysql.replicasServiceLabels.additionalProperties removed, spec.proxysql.replicasServiceLabels.additionalProperties type, spec.proxysql.replicasServiceType removed, spec.proxysql.replicasServiceType type, spec.proxysql.serviceAnnotations removed, spec.proxysql.serviceAnnotations type, spec.proxysql.serviceAnnotations.additionalProperties removed, spec.proxysql.serviceAnnotations.additionalProperties type, spec.proxysql.serviceLabels removed, spec.proxysql.serviceLabels type, spec.proxysql.serviceLabels.additionalProperties removed, spec.proxysql.serviceLabels.additionalProperties type, spec.proxysql.serviceType removed, spec.proxysql.serviceType type, spec.pxc.expose.trafficPolicy removed, spec.pxc.expose.trafficPolicy type, spec.pxc.externalTrafficPolicy removed, spec.pxc.externalTrafficPolicy type, spec.pxc.loadBalancerSourceRanges removed, spec.pxc.loadBalancerSourceRanges type, spec.pxc.loadBalancerSourceRanges.items removed, spec.pxc.loadBalancerSourceRanges.items type, spec.pxc.replicasExternalTrafficPolicy removed, spec.pxc.replicasExternalTrafficPolicy type, spec.pxc.replicasServiceAnnotations removed, spec.pxc.replicasServiceAnnotations type, spec.pxc.replicasServiceAnnotations.additionalProperties removed, spec.pxc.replicasServiceAnnotations.additionalProperties type, spec.pxc.replicasServiceLabels removed, spec.pxc.replicasServiceLabels type, spec.pxc.replicasServiceLabels.additionalProperties removed, spec.pxc.replicasServiceLabels.additionalProperties type, spec.pxc.replicasServiceType removed, spec.pxc.replicasServiceType type, spec.pxc.serviceAnnotations removed, spec.pxc.serviceAnnotations type, spec.pxc.serviceAnnotations.additionalProperties removed, spec.pxc.serviceAnnotations.additionalProperties type, spec.pxc.serviceLabels removed, spec.pxc.serviceLabels type, spec.pxc.serviceLabels.additionalProperties removed, spec.pxc.serviceLabels.additionalProperties type, spec.pxc.serviceType removed, spec.pxc.serviceType type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/perconaxtradbclusters.pxc.percona.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "Role/stageproof-check/stageproof-rel-pxc-operator adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/stageproof-rel-pxc-operator",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-pxc-operator changed at spec.template.spec.containers[name=percona-xtradb-cluster-operator].env[name=MAX_CONCURRENT_RECONCILES]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-pxc-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 1.18.0 to 1.20.1, skipping 1 minor version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.18.0 to 1.20.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-pxc-operator.template.spec.containers[0] percona-xtradb-cluster-operator container moves from percona/percona-xtradb-cluster-operator:1.18.0 to percona/percona-xtradb-cluster-operator:1.20.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 852 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/perconaxtradbclusters.pxc.percona.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "1.20.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://percona.github.io/percona-helm-charts --chart pxc-operator --from 1.18.0 --to 1.20.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "fdf70f7aa1b32b2db1afec8abea1e479dd504bab3e45c8c14fb835a6ed264aad"
+}

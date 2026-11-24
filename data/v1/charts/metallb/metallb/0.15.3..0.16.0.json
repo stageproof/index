@@ -1,0 +1,37 @@
+{
+  "from_sha256": "27db761c5ad2525fd130c92fe2f2d4500f8870e402fefe3c9cb8d34d8a71a70c",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.15.3",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 0.16.0 failed: exit status 1\nError: template: metallb/charts/frr-k8s/templates/service-monitor.yaml:1:14: executing \"metallb/charts/frr-k8s/templates/service-monitor.yaml\" at <.Values.prometheus.serviceMonitor.enabled>: nil pointer evaluating interface {}.serviceMonitor\n\nUse --debug flag to render out invalid YAML",
+          "file": "0.16.0",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.16.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://metallb.github.io/metallb --chart metallb --from 0.15.3 --to 0.16.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "108ad635a9ab8c2d07207a5610358d3671f8f0d5cf744b62fecf0acb5436b052"
+}

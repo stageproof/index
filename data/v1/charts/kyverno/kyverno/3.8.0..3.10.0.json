@@ -1,0 +1,268 @@
+{
+  "from_sha256": "bdacf8e3322425911972f1d565ed2da43cf1aeb88a2d342bfca1e80fd503a941",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "3.8.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 84 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "4 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "7 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 47 of 80 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (8 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on clusterpolicies.kyverno.io: spec.rules.items.validate.assert (type), status.autogen.rules.items.validate.assert (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/clusterpolicies.kyverno.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on policies.kyverno.io: spec.rules.items.validate.assert (type), status.autogen.rules.items.validate.assert (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/policies.kyverno.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-kyverno:admission-controller:core adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-kyverno:admission-controller:core",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-kyverno:background-controller:core adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-kyverno:background-controller:core",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-kyverno:check-legacy-policies adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-kyverno:check-legacy-policies",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-kyverno:cleanup-controller:core adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-kyverno:cleanup-controller:core",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-kyverno:rbac:admin:policies adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-kyverno:rbac:admin:policies",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-kyverno:rbac:view:policies adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-kyverno:rbac:view:policies",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-kyverno:reports-controller:core adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-kyverno:reports-controller:core",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-kyverno-migrate-resources",
+          "message": "Chart default `crds.migration.resources` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "crds.migration.resources",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-kyverno-metrics",
+          "message": "Chart default `metricsConfig.metricsExposure.kyverno_cleanup_controller_deletedobjects_total.disabledLabelDimensions` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "metricsConfig.metricsExposure.kyverno_cleanup_controller_deletedobjects_total.disabledLabelDimensions",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-kyverno-metrics",
+          "message": "Chart default `metricsConfig.metricsExposure.kyverno_policy_execution_duration_seconds.disabledLabelDimensions` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "metricsConfig.metricsExposure.kyverno_policy_execution_duration_seconds.disabledLabelDimensions",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-kyverno-metrics",
+          "message": "Chart default `metricsConfig.metricsExposure.kyverno_policy_results_total.disabledLabelDimensions` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "metricsConfig.metricsExposure.kyverno_policy_results_total.disabledLabelDimensions",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-kyverno-metrics",
+          "message": "Chart default `metricsConfig.metricsExposure.kyverno_policy_rule_info_total.disabledLabelDimensions` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "metricsConfig.metricsExposure.kyverno_policy_rule_info_total.disabledLabelDimensions",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-kyverno-admission-controller-metrics, Pod/stageproof-check/stageproof-rel-kyverno-cleanup-controller-liveness, Pod/stageproof-check/stageproof-rel-kyverno-cleanup-controller-metrics, Pod/stageproof-check/stageproof-rel-kyverno-cleanup-controller-readiness, Pod/stageproof-check/stageproof-rel-kyverno-reports-controller-metrics",
+          "message": "Chart default `test.image.tag` changed from `~` to `v1.20.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "test.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/kyverno-admission-controller changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/kyverno-admission-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/kyverno-background-controller changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/kyverno-background-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/kyverno-cleanup-controller changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/kyverno-cleanup-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/kyverno-reports-controller changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/kyverno-reports-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 3.8.0 to 3.10.0, skipping 1 minor version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.18.0 to v1.20.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "8 container images changed. Deployment/stageproof-check/kyverno-admission-controller.template.spec.containers[0] kyverno container moves from reg.kyverno.io/kyverno/kyverno:v1.18.0 to reg.kyverno.io/kyverno/kyverno:v1.20.0. Deployment/stageproof-check/kyverno-admission-controller.template.spec.initContainers[0] kyverno-pre container moves from reg.kyverno.io/kyverno/kyvernopre:v1.18.0 to reg.kyverno.io/kyverno/kyvernopre:v1.20.0. Deployment/stageproof-check/kyverno-background-controller.template.spec.containers[0] controller container moves from reg.kyverno.io/kyverno/background-controller:v1.18.0 to reg.kyverno.io/kyverno/background-controller:v1.20.0. Deployment/stageproof-check/kyverno-cleanup-controller.template.spec.containers[0] controller container moves from reg.kyverno.io/kyverno/cleanup-controller:v1.18.0 to reg.kyverno.io/kyverno/cleanup-controller:v1.20.0. Deployment/stageproof-check/kyverno-reports-controller.template.spec.containers[0] controller container moves from reg.kyverno.io/kyverno/reports-controller:v1.18.0 to reg.kyverno.io/kyverno/reports-controller:v1.20.0. Job/stageproof-check/stageproof-rel-kyverno-migrate-resources.template.spec.containers[0] kyverno-cli container moves from reg.kyverno.io/kyverno/kyverno-cli:v1.18.0 to reg.kyverno.io/kyverno/kyverno-cli:v1.20.0. Job/stageproof-check/stageproof-rel-kyverno-rm-webhooks.template.spec.containers[0] kubectl container moves from ghcr.io/kyverno/readiness-checker:v1.18.0 to ghcr.io/kyverno/readiness-checker:v1.20.0. Pod/stageproof-check/stageproof-rel-kyverno-admission-controller-metrics.containers[0] test container moves from ghcr.io/kyverno/readiness-checker:latest to ghcr.io/kyverno/readiness-checker:v1.20.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 2024 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/clusterpolicies.kyverno.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 2024 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/policies.kyverno.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 589 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/imagevalidatingpolicies.policies.kyverno.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 611 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/mutatingpolicies.policies.kyverno.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 392 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/namespacedimagevalidatingpolicies.policies.kyverno.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 407 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/namespacedmutatingpolicies.policies.kyverno.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 260 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/namespacedvalidatingpolicies.policies.kyverno.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 390 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/validatingpolicies.policies.kyverno.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "3.10.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kyverno.github.io/kyverno/ --chart kyverno --from 3.8.0 --to 3.10.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "55961392dc0821eb367323f0e9585c061dd4407ef7ada921bd56ea1642c2a301"
+}

@@ -1,0 +1,166 @@
+{
+  "from_sha256": "12fb843036d687709ea4af352091b65724611bba55e27c0836fd04f7d6078239",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "3.0.4",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 12 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "3 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: ClusterRole/default/stageproof-rel-snapshot-validation-webhook, ClusterRoleBinding/default/stageproof-rel-snapshot-validation-webhook, Deployment/default/stageproof-rel-snapshot-controller, Deployment/default/stageproof-rel-snapshot-validation-webhook, Role/default/stageproof-rel-snapshot-controller, RoleBinding/default/stageproof-rel-snapshot-controller, Secret/default/stageproof-rel-snapshot-validation-webhook-tls, Service/default/stageproof-rel-snapshot-validation-webhook, ServiceAccount/default/stageproof-rel-snapshot-controller, ServiceAccount/default/stageproof-rel-snapshot-validation-webhook, ValidatingWebhookConfiguration/default/stageproof-rel-snapshot-validation-webhook.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD volumegroupsnapshotclasses.groupsnapshot.storage.k8s.io under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/volumegroupsnapshotclasses.groupsnapshot.storage.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD volumegroupsnapshotcontents.groupsnapshot.storage.k8s.io under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/volumegroupsnapshotcontents.groupsnapshot.storage.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD volumegroupsnapshots.groupsnapshot.storage.k8s.io under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/volumegroupsnapshots.groupsnapshot.storage.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD volumesnapshotclasses.snapshot.storage.k8s.io under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/volumesnapshotclasses.snapshot.storage.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD volumesnapshotcontents.snapshot.storage.k8s.io under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/volumesnapshotcontents.snapshot.storage.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD volumesnapshots.snapshot.storage.k8s.io under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/volumesnapshots.snapshot.storage.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-snapshot-controller adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-snapshot-controller",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/stageproof-rel-snapshot-controller adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/stageproof-rel-snapshot-controller",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CustomResourceDefinition/default/volumegroupsnapshotcontents.groupsnapshot.storage.k8s.io, Deployment/stageproof-check/stageproof-rel-conversion-webhook, Secret/stageproof-check/stageproof-rel-conversion-webhook, Service/stageproof-check/stageproof-rel-conversion-webhook, ServiceAccount/stageproof-check/stageproof-rel-conversion-webhook",
+          "message": "Chart default `webhook.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "webhook.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 3.0.4 to 5.4.1, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v8.0.1 to v8.7.1. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "missing from spec.versions; v1alpha1 was previously a storage version, and must remain in spec.versions until a storage migration ensures no data remains persisted in v1alpha1 and removes v1alpha1 from status.storedVersions",
+          "message": "Kubernetes rejected `status.storedVersions[0]` on CustomResourceDefinition/default/volumegroupsnapshotclasses.groupsnapshot.storage.k8s.io.",
+          "resource": "CustomResourceDefinition/default/volumegroupsnapshotclasses.groupsnapshot.storage.k8s.io",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        },
+        {
+          "detail": "missing from spec.versions; v1alpha1 was previously a storage version, and must remain in spec.versions until a storage migration ensures no data remains persisted in v1alpha1 and removes v1alpha1 from status.storedVersions",
+          "message": "Kubernetes rejected `status.storedVersions[0]` on CustomResourceDefinition/default/volumegroupsnapshotcontents.groupsnapshot.storage.k8s.io.",
+          "resource": "CustomResourceDefinition/default/volumegroupsnapshotcontents.groupsnapshot.storage.k8s.io",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        },
+        {
+          "detail": "missing from spec.versions; v1alpha1 was previously a storage version, and must remain in spec.versions until a storage migration ensures no data remains persisted in v1alpha1 and removes v1alpha1 from status.storedVersions",
+          "message": "Kubernetes rejected `status.storedVersions[0]` on CustomResourceDefinition/default/volumegroupsnapshots.groupsnapshot.storage.k8s.io.",
+          "resource": "CustomResourceDefinition/default/volumegroupsnapshots.groupsnapshot.storage.k8s.io",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: ValidatingWebhookConfiguration/default/stageproof-rel-snapshot-validation-webhook.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "5.4.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://piraeus.io/helm-charts/ --chart snapshot-controller --from 3.0.4 --to 5.4.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "d9cb4e63a1ebe8d87776d0f06a53471d0ee78f1d473a559545d08d7475bbecbd"
+}

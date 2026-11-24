@@ -1,0 +1,33 @@
+{
+  "from_sha256": "b674b48216112cdbaa30d6cfbc3242e71bf9ab652b365ae07c6bafec29043b63",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.11.8",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "required values shim",
+          "status": "warn",
+          "summary": "the chart does not render unless 3 these values is set: redis.tls.certCAFilename, redis.tls.certFilename, redis.tls.certKeyFilename"
+        },
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 1.11.8 failed: exit status 1\nError: values don't meet the specifications of the schema(s) in the following chart(s):\ndagster:\nfailing loading \"https://kubernetesjsonschema.dev/v1.18.0/_definitions.json\": HTTP request failed for https://kubernetesjsonschema.dev/v1.18.0/_definitions.json: Get \"https://kubernetesjsonschema.dev/v1.18.0/_definitions.json\": tls: failed to verify certificate: x509: certificate is valid for *.netlify.app, netlify.app, not kubernetesjsonschema.devdagster-user-deployments:\nfailing loading \"https://kubernetesjsonschema.dev/v1.18.0/_definitions.json\": HTTP request failed for https://kubernetesjsonschema.dev/v1.18.0/_definitions.json: Get \"https://kubernetesjsonschema.dev/v1.18.0/_definitions.json\": tls: failed to verify certificate: x509: certificate is valid for *.netlify.app, netlify.app, not kubernetesjsonschema.dev"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "1.11.9",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://dagster-io.github.io/helm --chart dagster --from 1.11.8 --to 1.11.9 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "24ec09db2184d179cdc3b5613ad6cad151ba9999ba0690a291f9c70231bf4709"
+}

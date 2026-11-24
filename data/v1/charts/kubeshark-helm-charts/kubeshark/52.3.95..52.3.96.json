@@ -1,0 +1,113 @@
+{
+  "from_sha256": "5b7e27e6bc832377c73861d4ac026a9d7e3ed0a47c808e4c68c1f4bb875a7653",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "52.3.95",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 20 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 18 of 20 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/kubeshark-config-map",
+          "message": "Chart default `tap.enabledDissectors` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "tap.enabledDissectors",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/kubeshark-worker-daemon-set changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/kubeshark-worker-daemon-set",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-front changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-front",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-hub changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-hub",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. DaemonSet/stageproof-check/kubeshark-worker-daemon-set.template.spec.containers[0] sniffer container moves from docker.io/kubeshark/worker:v52.3.95 to docker.io/kubeshark/worker:v52.3.96. Deployment/stageproof-check/stageproof-rel-front.template.spec.containers[0] kubeshark-front container moves from docker.io/kubeshark/front:v52.3.95 to docker.io/kubeshark/front:v52.3.96. Deployment/stageproof-check/stageproof-rel-hub.template.spec.containers[0] hub container moves from docker.io/kubeshark/hub:v52.3.95 to docker.io/kubeshark/hub:v52.3.96.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/kubeshark/front:v52.3.96` could not be checked. The registry did not answer.",
+          "resource": "docker.io/kubeshark/front:v52.3.96",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/kubeshark/hub:v52.3.96` could not be checked. The registry did not answer.",
+          "resource": "docker.io/kubeshark/hub:v52.3.96",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/kubeshark/worker:v52.3.96` could not be checked. The registry did not answer.",
+          "resource": "docker.io/kubeshark/worker:v52.3.96",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "52.3.96",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.kubeshark.com/ --chart kubeshark --from 52.3.95 --to 52.3.96 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "980d3273b15bb4ae1093fd02013b18cd5342b1fa0636a69bd66cd7e7607314e4"
+}

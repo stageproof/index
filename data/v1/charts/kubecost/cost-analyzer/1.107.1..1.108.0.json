@@ -1,0 +1,185 @@
+{
+  "from_sha256": "38e2c212cf69f157d6b6e0590c9ed2114c5e1df381bc0f184a984588dc215755",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.107.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 41 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "6 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 40 of 41 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Role/stageproof-check/stageproof-rel-grafana, RoleBinding/stageproof-check/stageproof-rel-grafana.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-grafana, Deployment/stageproof-check/stageproof-rel-cost-analyzer",
+          "message": "Chart default `grafana[\"grafana.ini\"].server.serve_from_sub_path` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "grafana[\"grafana.ini\"].server.serve_from_sub_path",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-cost-analyzer",
+          "message": "Chart default `kubecostDeployment.queryService.securityContext.fsGroup` changed from `1001` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "kubecostDeployment.queryService.securityContext.fsGroup",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-cost-analyzer",
+          "message": "Chart default `kubecostDeployment.queryService.securityContext.fsGroupChangePolicy` changed from `OnRootMismatch` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "kubecostDeployment.queryService.securityContext.fsGroupChangePolicy",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-cost-analyzer",
+          "message": "Chart default `kubecostDeployment.queryService.securityContext.runAsGroup` changed from `1001` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "kubecostDeployment.queryService.securityContext.runAsGroup",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-cost-analyzer",
+          "message": "Chart default `kubecostDeployment.queryService.securityContext.runAsNonRoot` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "kubecostDeployment.queryService.securityContext.runAsNonRoot",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-cost-analyzer",
+          "message": "Chart default `kubecostDeployment.queryService.securityContext.runAsUser` changed from `1001` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "kubecostDeployment.queryService.securityContext.runAsUser",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-cost-analyzer",
+          "message": "Chart default `kubecostDeployment.queryService.securityContext.seccompProfile.type` changed from `RuntimeDefault` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "kubecostDeployment.queryService.securityContext.seccompProfile.type",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter changed at spec.template.spec.containers[name=prometheus-node-exporter].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-cost-analyzer changed at spec.template.spec.containers[name=cost-analyzer-frontend].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-cost-analyzer",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-grafana changed at spec.template.spec.containers[name=grafana-sc-dashboard].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-grafana",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-prometheus-server changed at spec.template.spec.containers[name=prometheus-server].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-prometheus-server",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.107.1 to 1.108.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "6 container images changed. DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter.template.spec.containers[0] prometheus-node-exporter container moves from prom/node-exporter:v1.5.0 to prom/node-exporter:v1.7.0. Deployment/stageproof-check/stageproof-rel-cost-analyzer.template.spec.containers[0] cost-model container moves from gcr.io/kubecost1/cost-model:prod-1.107.1 to gcr.io/kubecost1/cost-model:prod-1.108.0. Deployment/stageproof-check/stageproof-rel-cost-analyzer.template.spec.containers[1] cost-analyzer-frontend container moves from gcr.io/kubecost1/frontend:prod-1.107.1 to gcr.io/kubecost1/frontend:prod-1.108.0. Deployment/stageproof-check/stageproof-rel-grafana.template.spec.containers[0] grafana-sc-dashboard container moves from kiwigrid/k8s-sidecar:1.25.1 to kiwigrid/k8s-sidecar:1.25.2. Deployment/stageproof-check/stageproof-rel-prometheus-server.template.spec.containers[0] prometheus-server-configmap-reload container moves from quay.io/prometheus-operator/prometheus-config-reloader:v0.68.0 to quay.io/prometheus-operator/prometheus-config-reloader:v0.69.1. Deployment/stageproof-check/stageproof-rel-prometheus-server.template.spec.containers[1] prometheus-server container moves from quay.io/prometheus/prometheus:v2.35.0 to quay.io/prometheus/prometheus:v2.47.2.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `gcr.io/kubecost1/cost-model:prod-1.108.0` could not be checked. The registry refused the request.",
+          "resource": "gcr.io/kubecost1/cost-model:prod-1.108.0",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `gcr.io/kubecost1/frontend:prod-1.108.0` could not be checked. The registry refused the request.",
+          "resource": "gcr.io/kubecost1/frontend:prod-1.108.0",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `kiwigrid/k8s-sidecar:1.25.2` could not be checked. The registry did not answer.",
+          "resource": "kiwigrid/k8s-sidecar:1.25.2",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `prom/node-exporter:v1.7.0` could not be checked. The registry did not answer.",
+          "resource": "prom/node-exporter:v1.7.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.108.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 1.107.1 --to 1.108.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "72bacb98c9ee1be1da1b69095172cd0f1cc5b23fcb3f5d6cb8e5c310c70d3a01"
+}

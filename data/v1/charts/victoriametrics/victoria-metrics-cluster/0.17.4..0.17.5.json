@@ -1,0 +1,70 @@
+{
+  "from_sha256": "ae35aaccc8f2e8bfd4af30db907c3b49021fd52f291c8fbf4ca622f6f00aca26",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.17.4",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 7 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 6 of 7 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "Affected objects: Service/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmselect",
+          "message": "Chart default `vmselect.service.clusterIP` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "vmselect.service.clusterIP",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "may not change once set",
+          "message": "Kubernetes rejected `spec.clusterIPs[0]` on Service/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmselect.",
+          "resource": "Service/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmselect",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.17.5",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://victoriametrics.github.io/helm-charts/ --chart victoria-metrics-cluster --from 0.17.4 --to 0.17.5 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "c0b8bbeee5fab22739e9b7661e07b5001ba90f160e96f8d9b10ce0a9963061ad"
+}

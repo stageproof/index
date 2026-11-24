@@ -1,0 +1,196 @@
+{
+  "from_sha256": "022fc50af5b2d0443d40718af151b8908c21e30d23a51e709d3ddfda53cf45da",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.46.5",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 52 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "5 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "9 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 37 of 45 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: DaemonSet/default/stageproof-rel-prometheus-node-exporter, Deployment/default/stageproof-rel-cost-analyzer, Deployment/default/stageproof-rel-prometheus-alertmanager, Deployment/default/stageproof-rel-prometheus-kube-state-metrics, Deployment/default/stageproof-rel-prometheus-pushgateway, Deployment/default/stageproof-rel-prometheus-server, PodSecurityPolicy/default/stageproof-rel-grafana.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "DaemonSet/default/stageproof-rel-prometheus-node-exporter adds hostPath volumes proc, sys.",
+          "resource": "DaemonSet/default/stageproof-rel-prometheus-node-exporter",
+          "rule_id": "impact.privilege.hostpath",
+          "severity": "warning"
+        },
+        {
+          "message": "Deployment/default/stageproof-rel-cost-analyzer container config-perms-fix securityContext is weaker at runAsUser.",
+          "resource": "Deployment/default/stageproof-rel-cost-analyzer",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "DaemonSet/default/stageproof-rel-prometheus-node-exporter sets hostNetwork.",
+          "resource": "DaemonSet/default/stageproof-rel-prometheus-node-exporter",
+          "rule_id": "impact.exposure.host",
+          "severity": "warning"
+        },
+        {
+          "message": "DaemonSet/default/stageproof-rel-prometheus-node-exporter adds a hostPort on spec.template.spec.containers[name=prometheus-node-exporter].ports.",
+          "resource": "DaemonSet/default/stageproof-rel-prometheus-node-exporter",
+          "rule_id": "impact.exposure.host",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of CronJob/default/cost-analyzer-checks changed at spec.jobTemplate.spec.template.spec.containers[name=cost-analyzer-checks].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/default/cost-analyzer-checks",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.46.5 to 1.46.6. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "5 container images changed. CronJob/default/cost-analyzer-checks.jobTemplate.spec.template.spec.containers[0] cost-analyzer-checks container moves from ajaytripathy/kubecost-checks:prod-1.46.5 to ajaytripathy/kubecost-checks:prod-1.46.6. Deployment/default/stageproof-rel-cost-analyzer.template.spec.containers[0] cost-analyzer-frontend container moves from ajaytripathy/kubecost-frontend:prod-1.46.5 to ajaytripathy/kubecost-frontend:prod-1.46.6. Deployment/default/stageproof-rel-cost-analyzer.template.spec.containers[1] cost-analyzer-server container moves from ajaytripathy/kubecost:prod-1.46.5 to ajaytripathy/kubecost:prod-1.46.6. Deployment/default/stageproof-rel-cost-analyzer.template.spec.containers[2] cost-model container moves from ajaytripathy/kubecost-cost-model:prod-1.46.5 to ajaytripathy/kubecost-cost-model:prod-1.46.6. Deployment/default/stageproof-rel-cost-analyzer.template.spec.initContainers[1] cost-analyzer-init container moves from ajaytripathy/kubecost-init:prod-1.46.5 to ajaytripathy/kubecost-init:prod-1.46.6.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `ajaytripathy/kubecost-checks:prod-1.46.6` could not be checked. The registry refused the request.",
+          "resource": "ajaytripathy/kubecost-checks:prod-1.46.6",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `ajaytripathy/kubecost-cost-model:prod-1.46.6` could not be checked. The registry did not answer.",
+          "resource": "ajaytripathy/kubecost-cost-model:prod-1.46.6",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `ajaytripathy/kubecost-frontend:prod-1.46.6` could not be checked. The registry did not answer.",
+          "resource": "ajaytripathy/kubecost-frontend:prod-1.46.6",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `ajaytripathy/kubecost-init:prod-1.46.6` could not be checked. The registry did not answer.",
+          "resource": "ajaytripathy/kubecost-init:prod-1.46.6",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `ajaytripathy/kubecost:prod-1.46.6` could not be checked. The registry did not answer.",
+          "resource": "ajaytripathy/kubecost:prod-1.46.6",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodSecurityPolicy) is not served by Kubernetes 1.35.0.",
+          "resource": "PodSecurityPolicy/default/stageproof-rel-grafana",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/stageproof-rel-prometheus-kube-state-metrics",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/stageproof-rel-prometheus-server",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-prometheus-kube-state-metrics",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-prometheus-server",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (Role) is not served by Kubernetes 1.35.0.",
+          "resource": "Role/default/stageproof-rel-grafana",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (RoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "RoleBinding/default/stageproof-rel-grafana",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apps/v1beta2` (Deployment) is not served by Kubernetes 1.35.0.",
+          "resource": "Deployment/default/stageproof-rel-grafana",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `batch/v1beta1` (CronJob) is not served by Kubernetes 1.35.0.",
+          "resource": "CronJob/default/cost-analyzer-checks",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "1.46.6",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 1.46.5 --to 1.46.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "6dec7f94f0858e393f9cb328caa07fd8a24d4d19aba71579c85ed6e427c10448"
+}

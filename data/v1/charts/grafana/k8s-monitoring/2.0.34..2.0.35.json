@@ -1,0 +1,28 @@
+{
+  "from_sha256": "dccb94475727b34940a48fdf5ab5d3f713ce9434b2cdd5f026787e43b6aaef41",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.0.34",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 2.0.34 failed: exit status 1\nError: execution error at (k8s-monitoring/templates/validations.yaml:1:4): \nNo features are enabled. Please choose a feature to start monitoring. For example:\nclusterMetrics:\n  enabled: true\n\nSee https://github.com/grafana/k8s-monitoring-helm/blob/main/charts/k8s-monitoring/docs/Features.md for the list of available features.\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "2.0.35",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://grafana.github.io/helm-charts --chart k8s-monitoring --from 2.0.34 --to 2.0.35 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "2b1ffe9770823d4460983c3ec39a04e192d2ce4876c2b304cc00730bdf3c6aab"
+}

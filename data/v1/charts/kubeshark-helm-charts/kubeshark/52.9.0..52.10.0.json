@@ -1,0 +1,152 @@
+{
+  "from_sha256": "fb3ef0a034f82c01b31804df7f04d73d1c876f87992b0304bf71e3eb6927c8e8",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "52.9.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 21 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "3 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 16 of 21 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "fail",
+          "summary": "3 removed API or immutable upgrade blockers"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/kubeshark-worker-daemon-set",
+          "message": "Chart default `tap.capture.dbMaxSize` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "tap.capture.dbMaxSize",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/kubeshark-worker-daemon-set changed at spec.template.metadata.labels.app.kubehq.com/app. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/kubeshark-worker-daemon-set",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-front changed at spec.template.metadata.labels.app.kubehq.com/app. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-front",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-hub changed at spec.template.metadata.labels.app.kubehq.com/app. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-hub",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. DaemonSet/stageproof-check/kubeshark-worker-daemon-set.template.spec.containers[0] sniffer container moves from docker.io/kubeshark/worker:v52.9 to docker.io/kubeshark/worker:v52.10. Deployment/stageproof-check/stageproof-rel-front.template.spec.containers[0] kubeshark-front container moves from docker.io/kubeshark/front:v52.9 to docker.io/kubeshark/front:v52.10. Deployment/stageproof-check/stageproof-rel-hub.template.spec.containers[0] hub container moves from docker.io/kubeshark/hub:v52.9 to docker.io/kubeshark/hub:v52.10.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/kubeshark/front:v52.10` could not be checked. The registry did not answer.",
+          "resource": "docker.io/kubeshark/front:v52.10",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/kubeshark/hub:v52.10` could not be checked. The registry did not answer.",
+          "resource": "docker.io/kubeshark/hub:v52.10",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/kubeshark/worker:v52.10` could not be checked. The registry did not answer.",
+          "resource": "docker.io/kubeshark/worker:v52.10",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.selector` is immutable.",
+          "resource": "DaemonSet/stageproof-check/kubeshark-worker-daemon-set",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.selector` is immutable.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-hub",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.selector` is immutable.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-front",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:stageproof-rel app.kubeshark.co/app:worker] to map[app.kubehq.com/app:worker app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:stageproof-rel]. An in-place `helm upgrade` will fail.",
+          "resource": "DaemonSet/stageproof-check/kubeshark-worker-daemon-set",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:stageproof-rel app.kubeshark.co/app:hub] to map[app.kubehq.com/app:hub app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:stageproof-rel]. An in-place `helm upgrade` will fail.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-hub",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:stageproof-rel app.kubeshark.co/app:front] to map[app.kubehq.com/app:front app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:stageproof-rel]. An in-place `helm upgrade` will fail.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-front",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "52.10.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.kubeshark.com/ --chart kubeshark --from 52.9.0 --to 52.10.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "3d9a199e7a6a5e82ec6d2cbbffdb8460a070feb9e774ec14d95fd356eedda4bf"
+}

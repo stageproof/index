@@ -1,0 +1,114 @@
+{
+  "from_sha256": "3c18f7381efe6d86497f952e6d5f59003ee5a009c54778ddea1ee8d3c7bed9c8",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "5.0.13",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 8 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 7 of 8 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-minio",
+          "message": "Chart default `image.tag` changed from `RELEASE.2023-07-07T07-13-57Z` to `RELEASE.2024-12-18T13-15-44Z` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-minio-post-job",
+          "message": "Chart default `mcImage.tag` changed from `RELEASE.2023-06-28T21-54-17Z` to `RELEASE.2024-11-21T17-21-54Z` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "mcImage.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-minio changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-minio",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 5.0.13 to 5.4.0, skipping 3 minor versions.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from RELEASE.2023-07-07T07-13-57Z to RELEASE.2024-12-18T13-15-44Z. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Job/default/stageproof-rel-minio-post-job.template.spec.containers[0] minio-make-user container moves from quay.io/minio/mc:RELEASE.2023-06-28T21-54-17Z to quay.io/minio/mc:RELEASE.2024-11-21T17-21-54Z. StatefulSet/default/stageproof-rel-minio.template.spec.containers[0] minio container moves from quay.io/minio/minio:RELEASE.2023-07-07T07-13-57Z to quay.io/minio/minio:RELEASE.2024-12-18T13-15-44Z.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `quay.io/minio/mc:RELEASE.2024-11-21T17-21-54Z` could not be checked. The registry refused the request.",
+          "resource": "quay.io/minio/mc:RELEASE.2024-11-21T17-21-54Z",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `quay.io/minio/minio:RELEASE.2024-12-18T13-15-44Z` could not be checked. The registry refused the request.",
+          "resource": "quay.io/minio/minio:RELEASE.2024-12-18T13-15-44Z",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "5.4.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.min.io --chart minio --from 5.0.13 --to 5.4.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "25fa2740480d1ebc9e64340854a6c42d3a7bc39c2a77378da91b21f144faa9af"
+}

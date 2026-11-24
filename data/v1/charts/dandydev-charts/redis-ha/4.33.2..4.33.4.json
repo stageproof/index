@@ -1,0 +1,85 @@
+{
+  "from_sha256": "0fda75c151373a09897c433dee8a2dbd1877efa104d08e55941c8e0ea5100d10",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.33.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 11 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 10 of 11 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-redis-ha-server",
+          "message": "Chart default `redis.startupProbe.failureThreshold` changed from `3` to `5` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.startupProbe.failureThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-redis-ha-server",
+          "message": "Chart default `redis.startupProbe.initialDelaySeconds` changed from `5` to `30` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.startupProbe.initialDelaySeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-redis-ha-server",
+          "message": "Chart default `redis.startupProbe.periodSeconds` changed from `10` to `15` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.startupProbe.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-redis-ha-server changed at spec.template.spec.containers[name=redis].startupProbe.failureThreshold. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-redis-ha-server",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "4.33.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://dandydeveloper.github.io/charts/ --chart redis-ha --from 4.33.2 --to 4.33.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "6641572d327c1f2b9ce05264a9110a2d897a052c58529fad9ea4cc3803cdf75f"
+}

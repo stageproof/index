@@ -1,0 +1,100 @@
+{
+  "from_sha256": "5ef59d51cc422fc79a374c7274a33b5b0b29acfcba3a10cdf0db32c43437a4b4",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.0.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 17 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 3 of 4 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-valkey-configuration, ConfigMap/stageproof-check/stageproof-rel-valkey-health, ConfigMap/stageproof-check/stageproof-rel-valkey-scripts, NetworkPolicy/stageproof-check/stageproof-rel-valkey, PodDisruptionBudget/stageproof-check/stageproof-rel-valkey-replicas, Secret/stageproof-check/stageproof-rel-valkey, Service/stageproof-check/stageproof-rel-valkey-headless, Service/stageproof-check/stageproof-rel-valkey-primary, Service/stageproof-check/stageproof-rel-valkey-replicas, ServiceAccount/stageproof-check/stageproof-rel-valkey-primary, ServiceAccount/stageproof-check/stageproof-rel-valkey-replica, StatefulSet/stageproof-check/stageproof-rel-valkey-primary, StatefulSet/stageproof-check/stageproof-rel-valkey-replicas",
+          "message": "Chart default `redis.enabled` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-n8n changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-n8n",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.76.1 to 1.80.5. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/default/stageproof-rel-n8n.template.spec.containers[0] n8n container moves from n8nio/n8n:1.76.1 to n8nio/n8n:1.80.5.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnami/valkey:8.0.2-debian-12-r4` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bitnami/valkey:8.0.2-debian-12-r4",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `n8nio/n8n:1.80.5` could not be checked. The registry did not answer.",
+          "resource": "n8nio/n8n:1.80.5",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.0.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo oci://8gears.container-registry.com/library --chart n8n --from 1.0.1 --to 1.0.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "262a02b27fb0089c0cd2a6fefea8c46be616a0a03f215f4078f3af97a35e5512"
+}

@@ -1,0 +1,28 @@
+{
+  "from_sha256": "fc65ed50afd338f1cffc823a4dabe404a1d13be9ca6b1d8db0e33c39eeb922f1",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.0.1",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 2.0.1 failed: exit status 1\nError: An error occurred while checking for chart dependencies. You may need to run `helm dependency build` to fetch missing dependencies: found in Chart.yaml, but missing in charts/ directory: common, mysql"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "2.1.10",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://ygqygq2.github.io/charts/ --chart nacos --from 2.0.1 --to 2.1.10 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "9d694ea2b8c91fad7456035bb40a2930fc3bdbf012afc326fef64ba1971a20cf"
+}

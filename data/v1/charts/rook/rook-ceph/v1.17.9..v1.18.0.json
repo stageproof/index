@@ -1,0 +1,267 @@
+{
+  "from_sha256": "f1677e4f5d67f7db2732377c28572c024d3146863eb39618f0cb4ce8e5400242",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v1.17.9",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 119 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "5 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 52 of 71 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (3 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "ClusterRole/default/ceph-csi-cephconnection-viewer-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-cephconnection-viewer-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-cephconnections-editor-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-cephconnections-editor-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-cephfs-ctrlplugin-cr adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/ceph-csi-cephfs-ctrlplugin-cr",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-cephfs-nodeplugin-cr adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/ceph-csi-cephfs-nodeplugin-cr",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-clientprofile-viewer-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-clientprofile-viewer-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-clientprofilemapping-editor-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-clientprofilemapping-editor-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-clientprofilemapping-viewer-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-clientprofilemapping-viewer-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-clientprofiles-editor-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-clientprofiles-editor-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-driver-editor-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-driver-editor-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-driver-viewer-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-driver-viewer-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-manager-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-manager-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-metrics-auth-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-metrics-auth-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-metrics-reader adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-metrics-reader",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-nfs-ctrlplugin-cr adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/ceph-csi-nfs-ctrlplugin-cr",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-nfs-nodeplugin-cr adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-nfs-nodeplugin-cr",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-operatorconfig-editor-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-operatorconfig-editor-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-operatorconfig-viewer-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-operatorconfig-viewer-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-rbd-ctrlplugin-cr adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/ceph-csi-rbd-ctrlplugin-cr",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-rbd-nodeplugin-cr adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/ceph-csi-rbd-nodeplugin-cr",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/default/ceph-csi-cephfs-ctrlplugin-r adds rules that the current chart did not have.",
+          "resource": "Role/default/ceph-csi-cephfs-ctrlplugin-r",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/default/ceph-csi-leader-election-role adds rules that the current chart did not have.",
+          "resource": "Role/default/ceph-csi-leader-election-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/default/ceph-csi-rbd-ctrlplugin-r adds rules that the current chart did not have.",
+          "resource": "Role/default/ceph-csi-rbd-ctrlplugin-r",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/default/ceph-csi-rbd-nodeplugin-r adds rules that the current chart did not have.",
+          "resource": "Role/default/ceph-csi-rbd-nodeplugin-r",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/rook-ceph-operator-config",
+          "message": "Chart default `csi.cephcsi.tag` changed from `v3.14.2` to `v3.15.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "csi.cephcsi.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/rook-ceph-operator-config",
+          "message": "Chart default `csi.csiAddons.tag` changed from `v0.12.0` to `v0.13.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "csi.csiAddons.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/rook-ceph-operator",
+          "message": "Chart default `image.tag` changed from `v1.17.9` to `v1.18.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/rook-ceph-operator changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/rook-ceph-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.17.9 to v1.18.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. ConfigMap/stageproof-check/rook-ceph-operator-config quay.io/cephcsi/cephcsi image moves from quay.io/cephcsi/cephcsi:v3.14.2 to quay.io/cephcsi/cephcsi:v3.15.0. ConfigMap/stageproof-check/rook-ceph-operator-config quay.io/csiaddons/k8s-sidecar image moves from quay.io/csiaddons/k8s-sidecar:v0.12.0 to quay.io/csiaddons/k8s-sidecar:v0.13.0. Deployment/stageproof-check/rook-ceph-operator.template.spec.containers[0] rook-ceph-operator container moves from docker.io/rook/ceph:v1.17.9 to docker.io/rook/ceph:v1.18.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 1381 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/drivers.csi.ceph.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 1484 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/operatorconfigs.csi.ceph.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 440 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/cephclusters.ceph.rook.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "v1.18.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.rook.io/release --chart rook-ceph --from v1.17.9 --to v1.18.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "e3c2abd28a42d08111957901826e3b4f61ede2909ce8eb03c43290533dc88270"
+}

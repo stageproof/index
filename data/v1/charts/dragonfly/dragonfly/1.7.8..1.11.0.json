@@ -1,0 +1,208 @@
+{
+  "from_sha256": "aeb6016ddc8b75d21b91b9d40c60c37a81d9e1e706653b4c6fa6f37e52107d1a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.7.8",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 11 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-client, DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "message": "Chart default `client.config.download.concurrentPieceCount` changed from `16` to `8` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "client.config.download.concurrentPieceCount",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-client, DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "message": "Chart default `client.config.proxy.readBufferSize` changed from `524288` to `2097152` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "client.config.proxy.readBufferSize",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-client, DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "message": "Chart default `client.config.proxy.rules` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "client.config.proxy.rules",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-client, DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "message": "Chart default `client.config.storage.readBufferSize` changed from `524288` to `2097152` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "client.config.storage.readBufferSize",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-client, DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "message": "Chart default `client.config.storage.writeBufferSize` changed from `524288` to `2097152` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "client.config.storage.writeBufferSize",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "message": "Chart default `client.image.tag` changed from `v1.4.7` to `v1.5.14` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "client.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-scheduler, StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler",
+          "message": "Chart default `scheduler.config.seedPeer` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "scheduler.config.seedPeer",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler",
+          "message": "Chart default `scheduler.image.tag` changed from `v2.5.1` to `v2.5.4` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "scheduler.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-seed-client, StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "message": "Chart default `seedClient.config.download.concurrentPieceCount` changed from `16` to `8` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "seedClient.config.download.concurrentPieceCount",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-seed-client, StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "message": "Chart default `seedClient.config.proxy.readBufferSize` changed from `524288` to `2097152` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "seedClient.config.proxy.readBufferSize",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-seed-client, StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "message": "Chart default `seedClient.config.proxy.rules` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "seedClient.config.proxy.rules",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-seed-client, StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "message": "Chart default `seedClient.config.storage.readBufferSize` changed from `524288` to `2097152` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "seedClient.config.storage.readBufferSize",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-seed-client, StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "message": "Chart default `seedClient.config.storage.writeBufferSize` changed from `524288` to `2097152` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "seedClient.config.storage.writeBufferSize",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "message": "Chart default `seedClient.image.tag` changed from `v1.4.7` to `v1.5.14` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "seedClient.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-dragonfly-client changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 1.7.8 to 1.11.0, skipping 3 minor versions.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.5.1 to 2.5.4. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. DaemonSet/stageproof-check/stageproof-rel-dragonfly-client.template.spec.containers[0] client container moves from docker.io/dragonflyoss/client:v1.4.7 to docker.io/dragonflyoss/client:v1.5.14. StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler.template.spec.containers[0] scheduler container moves from docker.io/dragonflyoss/scheduler:v2.5.1 to docker.io/dragonflyoss/scheduler:v2.5.4.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "1.11.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://dragonflyoss.github.io/helm-charts/ --chart dragonfly --from 1.7.8 --to 1.11.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "f4dce45f6e43eb0b35e776a3355ad624f0afc2e774265b0bc481f8f1dce861e7"
+}

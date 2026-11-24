@@ -1,0 +1,93 @@
+{
+  "from_sha256": "550ba4f7dbb57905151bc232fbee0a0c278af6f43dcb11f19ef0e87571c8cc2c",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.6.98",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 12 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 11 of 12 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-mattermost-team-edition",
+          "message": "Chart default `image.tag` changed from `11.7.1@sha256:bd5c9ba5235ac49448f85cd5a27ac34a5f3b3c1dca0840c18d305c01f5c320d9` to `11.7.2@sha256:fe531290cc96922818c41b1dfccbb89bf05d70e601752a05bf45599cd626657d` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-mattermost-team-edition changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-mattermost-team-edition",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 11.7.1 to 11.7.2. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/default/stageproof-rel-mattermost-team-edition.template.spec.containers[0] mattermost-team-edition container moves from mattermost/mattermost-team-edition:11.7.1@sha256:bd5c9ba5235ac49448f85cd5a27ac34a5f3b3c1dca0840c18d305c01f5c320d9 to mattermost/mattermost-team-edition:11.7.2@sha256:fe531290cc96922818c41b1dfccbb89bf05d70e601752a05bf45599cd626657d.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `mattermost/mattermost-team-edition:11.7.2@sha256:fe531290cc96922818c41b1dfccbb89bf05d70e601752a05bf45599cd626657d` could not be checked. The registry did not answer.",
+          "resource": "mattermost/mattermost-team-edition:11.7.2@sha256:fe531290cc96922818c41b1dfccbb89bf05d70e601752a05bf45599cd626657d",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "6.6.99",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.mattermost.com --chart mattermost-team-edition --from 6.6.98 --to 6.6.99 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "6228945530a513ae39e52c64720676941bc1e16188961fe257436ac89552d7e1"
+}

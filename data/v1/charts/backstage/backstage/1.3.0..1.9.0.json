@@ -1,0 +1,28 @@
+{
+  "from_sha256": "1912659699a7906d66711b3b853e7b5aa85def085e450c836154e5b3946f80ee",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.3.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 1.3.0 failed: exit status 1\nError: values don't meet the specifications of the schema(s) in the following chart(s):\nbackstage:\nfailing loading \"https://kubernetesjsonschema.dev/master/_definitions.json\": HTTP request failed for https://kubernetesjsonschema.dev/master/_definitions.json: Get \"https://kubernetesjsonschema.dev/master/_definitions.json\": tls: failed to verify certificate: x509: certificate is valid for *.netlify.app, netlify.app, not kubernetesjsonschema.dev"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "1.9.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo oci://ghcr.io/backstage/charts --chart backstage --from 1.3.0 --to 1.9.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "544a3803bcd1cea7ded5058e678dcc12543449b10acf8afcfd542041011d0984"
+}

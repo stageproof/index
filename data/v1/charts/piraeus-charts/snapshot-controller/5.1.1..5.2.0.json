@@ -1,0 +1,68 @@
+{
+  "from_sha256": "f6f802202550a40c09a267af73dcd536b53fe9709aafaf24593ecb9e2ca886c1",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "5.1.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 12 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 6 of 12 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Deployment/stageproof-check/stageproof-rel-conversion-webhook, Secret/stageproof-check/stageproof-rel-conversion-webhook, Service/stageproof-check/stageproof-rel-conversion-webhook, ServiceAccount/stageproof-check/stageproof-rel-conversion-webhook.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CustomResourceDefinition/default/volumegroupsnapshotcontents.groupsnapshot.storage.k8s.io, Deployment/stageproof-check/stageproof-rel-conversion-webhook, Secret/stageproof-check/stageproof-rel-conversion-webhook, Service/stageproof-check/stageproof-rel-conversion-webhook, ServiceAccount/stageproof-check/stageproof-rel-conversion-webhook",
+          "message": "Chart default `webhook.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "webhook.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "5.2.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://piraeus.io/helm-charts/ --chart snapshot-controller --from 5.1.1 --to 5.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "fca7813bc103b7b341f0724a2e154c0b421f603f5698ef1b29a868ef43e0cd4e"
+}

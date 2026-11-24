@@ -1,0 +1,125 @@
+{
+  "from_sha256": "f009408733c73838d2100abdd9cf386a1a7b612de80792f7498a840612482e76",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.2.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 6 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-kestra-executor",
+          "message": "Chart default `deployments.executor.command` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "deployments.executor.command",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-kestra-indexer",
+          "message": "Chart default `deployments.indexer.command` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "deployments.indexer.command",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-kestra-scheduler",
+          "message": "Chart default `deployments.scheduler.command` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "deployments.scheduler.command",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-kestra-webserver",
+          "message": "Chart default `deployments.webserver.command` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "deployments.webserver.command",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/default/stageproof-rel-kestra-worker",
+          "message": "Chart default `deployments.worker.command` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "deployments.worker.command",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/default/stageproof-rel-kestra-worker changed at spec.template.spec.containers[name=kestra-worker].command[2]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/default/stageproof-rel-kestra-worker",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-kestra-executor changed at spec.template.spec.containers[name=kestra-executor].command[2]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-kestra-executor",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-kestra-indexer changed at spec.template.spec.containers[name=kestra-indexer].command[2]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-kestra-indexer",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-kestra-scheduler changed at spec.template.spec.containers[name=kestra-scheduler].command[2]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-kestra-scheduler",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-kestra-webserver changed at spec.template.spec.containers[name=kestra-webserver].command[2]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-kestra-webserver",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.2.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.kestra.io/ --chart kestra --from 0.2.1 --to 0.2.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "267fa2f731466c17533e772a80c82cec0f66715b0575229e72f9aebd346d82e0"
+}

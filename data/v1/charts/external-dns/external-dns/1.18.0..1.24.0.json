@@ -1,0 +1,37 @@
+{
+  "from_sha256": "663a2094d7ca158af43fd4a0db5c9391772367b15085180e5f35f9e94438c065",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.18.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 1.24.0 failed: exit status 1\nError: values don't meet the specifications of the schema(s) in the following chart(s):\nexternal-dns:\n- at '/policy': got null, want string",
+          "file": "1.24.0",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "1.24.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kubernetes-sigs.github.io/external-dns/ --chart external-dns --from 1.18.0 --to 1.24.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "ebd3e13e32fca4aabf9d07090cca8c4bf4f73bcc89e5254e5650388bdac2e34a"
+}

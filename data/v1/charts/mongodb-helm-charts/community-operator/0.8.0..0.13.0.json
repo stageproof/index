@@ -1,0 +1,152 @@
+{
+  "from_sha256": "9b846fcddad7782603106189dd5a7bb0bec355220c6dbcfb391f614b73374c52",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.8.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 8 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "4 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 7 of 8 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Deployment/stageproof-check/mongodb-kubernetes-operator container mongodb-kubernetes-operator securityContext is weaker at readOnlyRootFilesystem.",
+          "resource": "Deployment/stageproof-check/mongodb-kubernetes-operator",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/mongodb-kubernetes-operator",
+          "message": "Chart default `agent.name` changed from `mongodb-agent` to `mongodb-agent-ubi` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "agent.name",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/mongodb-kubernetes-operator",
+          "message": "Chart default `agent.version` changed from `12.0.21.7698-1` to `108.0.6.8796-1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "agent.version",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/mongodb-kubernetes-operator",
+          "message": "Chart default `mongodb.name` changed from `mongo` to `mongodb-community-server` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "mongodb.name",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/mongodb-kubernetes-operator",
+          "message": "Chart default `mongodb.repo` changed from `docker.io` to `docker.io/mongodb` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "mongodb.repo",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/mongodb-kubernetes-operator",
+          "message": "Chart default `operator.version` changed from `0.8.0` to `0.13.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "operator.version",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/mongodb-kubernetes-operator",
+          "message": "Chart default `readinessProbe.version` changed from `1.0.14` to `1.0.23` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "readinessProbe.version",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/mongodb-kubernetes-operator",
+          "message": "Chart default `versionUpgradeHook.version` changed from `1.0.7` to `1.0.10` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "versionUpgradeHook.version",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/mongodb-kubernetes-operator changed at spec.template.spec.containers[name=mongodb-kubernetes-operator].env[name=AGENT_IMAGE].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/mongodb-kubernetes-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 0.8.0 to 0.13.0, skipping 4 minor versions.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 0.8.0 to 0.13.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/stageproof-check/mongodb-kubernetes-operator.template.spec.containers[0] mongodb-kubernetes-operator container moves from quay.io/mongodb/mongodb-kubernetes-operator:0.8.0 to quay.io/mongodb/mongodb-kubernetes-operator:0.13.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.13.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://mongodb.github.io/helm-charts --chart community-operator --from 0.8.0 --to 0.13.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "55e1b4f4c1be49c0195945a1ab256a1296259f44569a37565683c27f98dec43f"
+}

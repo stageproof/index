@@ -1,0 +1,206 @@
+{
+  "from_sha256": "d1455d0fefc7f0f2e13afe4cb79fda2248464d2efb23ed19c87f7b90fba8ff16",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.12.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 22 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "7 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "3 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 12 of 15 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete StatefulSet/default/stageproof-rel-postgresql. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/default/stageproof-rel-postgresql",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: Secret/default/stageproof-rel-postgresql, Service/default/stageproof-rel-postgresql, Service/default/stageproof-rel-postgresql-headless.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Secret/default/db-migrator-config, Secret/default/hub-config, Secret/default/scanner-config, Secret/default/tracker-config",
+          "message": "Chart default `db.password` changed from `postgres` to `hub` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "db.password",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CronJob/default/scanner, CronJob/default/tracker, Deployment/default/hub, Job/default/db-migrator-install, Secret/default/db-migrator-config, Secret/default/hub-config, Secret/default/scanner-config, Secret/default/tracker-config",
+          "message": "Chart default `db.user` changed from `postgres` to `hub` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "db.user",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/hub",
+          "message": "Chart default `hub.deploy.initContainers.checkDbMigrator.image.repository` changed from `bitnami/kubectl` to `rancher/kubectl` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "hub.deploy.initContainers.checkDbMigrator.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Ingress/default/hub",
+          "message": "Chart default `hub.ingress.annotations[\"kubernetes.io/ingress.class\"]` changed from `nginx` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "hub.ingress.annotations[\"kubernetes.io/ingress.class\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-postgresql",
+          "message": "Chart default `postgresql.postgresqlDataDir` changed from `/data/pgdata` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "postgresql.postgresqlDataDir",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/trivy",
+          "message": "Chart default `trivy.deploy.image` changed from `aquasec/trivy:0.36.1` to `aquasec/trivy:0.76.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "trivy.deploy.image",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/hub changed at spec.template.spec.containers[name=hub].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/hub",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/trivy changed at spec.template.spec.containers[name=trivy].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/trivy",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of CronJob/default/scanner changed at spec.jobTemplate.spec.template.metadata. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/default/scanner",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of CronJob/default/tracker changed at spec.jobTemplate.spec.template.metadata. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/default/tracker",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Job/default/db-migrator-install changed at spec.template.metadata. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Job/default/db-migrator-install",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 1.12.0 to 1.24.0, skipping 11 minor versions.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.12.0 to 1.24.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "7 container images changed. CronJob/default/scanner.jobTemplate.spec.template.spec.containers[0] scanner container moves from artifacthub/scanner:v1.12.0 to artifacthub/scanner:v1.24.0. CronJob/default/scanner.jobTemplate.spec.template.spec.initContainers[0] check-db-ready container moves from artifacthub/postgres:latest to registry-1.docker.io/artifacthub/postgres:latest. CronJob/default/tracker.jobTemplate.spec.template.spec.containers[0] tracker container moves from artifacthub/tracker:v1.12.0 to artifacthub/tracker:v1.24.0. Deployment/default/hub.template.spec.containers[0] hub container moves from artifacthub/hub:v1.12.0 to artifacthub/hub:v1.24.0. Deployment/default/hub.template.spec.initContainers[1] check-db-migrator-run container moves from bitnami/kubectl:1.35 to rancher/kubectl:v1.35.0. Deployment/default/trivy.template.spec.containers[0] trivy container moves from aquasec/trivy:0.36.1 to aquasec/trivy:0.76.2. Job/default/db-migrator-install.template.spec.containers[0] db-migrator container moves from artifacthub/db-migrator:v1.12.0 to artifacthub/db-migrator:v1.24.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/artifacthub/postgres` to `registry-1.docker.io/artifacthub/postgres`.",
+          "resource": "CronJob/default/scanner.jobTemplate.spec.template.spec.initContainers[0] check-db-ready",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/bitnami/kubectl` to `index.docker.io/rancher/kubectl`.",
+          "resource": "Deployment/default/hub.template.spec.initContainers[1] check-db-migrator-run",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `aquasec/trivy:0.76.2` could not be checked. The registry did not answer.",
+          "resource": "aquasec/trivy:0.76.2",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
+          "resource": "Job/default/db-migrator-install",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `batch/v1beta1` (CronJob) is not served by Kubernetes 1.35.0.",
+          "resource": "CronJob/default/scanner",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `batch/v1beta1` (CronJob) is not served by Kubernetes 1.35.0.",
+          "resource": "CronJob/default/tracker",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "1.24.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://artifacthub.github.io/helm-charts/ --chart artifact-hub --from 1.12.0 --to 1.24.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "d82515cfd610093381b57eaa11cdfbd4892fd5a8f0a34e51bda23c169ae51ce3"
+}

@@ -1,0 +1,84 @@
+{
+  "from_sha256": "8f19e4c64d6fe12bfe229327a3da58769c9471f74cfb8e59f06c41021a79df09",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.1.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "required values shim",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: clusterName"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 11 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 2 of 4 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Deployment/default/stageproof-rel-aws-load-balancer-controller, Role/default/stageproof-rel-aws-load-balancer-controller-leader-election-role, RoleBinding/default/stageproof-rel-aws-load-balancer-controller-leader-election-rolebinding, Secret/default/aws-load-balancer-tls, Service/default/aws-load-balancer-webhook-service, ServiceAccount/default/stageproof-rel-aws-load-balancer-controller.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/stageproof-rel-aws-load-balancer-controller-leader-election-role adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/stageproof-rel-aws-load-balancer-controller-leader-election-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-load-balancer-controller:v2.1.1` could not be checked. The registry refused the request.",
+          "resource": "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-load-balancer-controller:v2.1.1",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/default/aws-load-balancer-webhook, ValidatingWebhookConfiguration/default/aws-load-balancer-webhook, MutatingWebhookConfiguration/default/aws-load-balancer-webhook, ValidatingWebhookConfiguration/default/aws-load-balancer-webhook.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.1.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://aws.github.io/eks-charts --chart aws-load-balancer-controller --from 1.1.2 --to 1.1.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "2690e00484caf1acb45b1f9ee56aca837e8a9543b618e64adf761801cd3fedaa"
+}

@@ -1,0 +1,37 @@
+{
+  "from_sha256": "822e4221f88600c94f5a128070e70dffc2aa0328196dc9eeca780d03b52a7504",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "107.146.34",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 107.146.35 failed: exit status 1\nError: execution error at (artifactory/templates/validations.yaml:37:4): \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n 🛑  ERROR: MISSING NGINX TLS CERTIFICATE (Artifactory)\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nnginx.https.enabled=true but nginx.tlsSecretName is not set,\nand nginx.generateSelfSignedCert is not enabled.\nBy default this chart does NOT generate TLS certificates.\n\n👉 OPTION 1 (Production Recommended): SUPPLY YOUR OWN CERTIFICATE\n      Create a kubernetes.io/tls secret:\n      kubectl create secret tls artifactory-nginx-tls -n stageproof-check \\\n        --cert=./tls.crt --key=./tls.key\n      Reference the secret name in helm values:\n      --set nginx.tlsSecretName=artifactory-nginx-tls\n\n👉 OPTION 2 (Dev/Test only): OPT IN TO A SELF-SIGNED CERTIFICATE\n      Enable chart-side generation in helm values:\n      --set nginx.generateSelfSignedCert=true\n      WARNING: The chart-generated key is unique per install but is not\n               issued by a trusted CA. Do not use in production.\n\n👉 OPTION 3: DISABLE HTTPS (HTTP only)\n      Disable HTTPS in helm values:\n      --set nginx.https.enabled=false\n\n📚 TO LEARN MORE:\n    https://docs.jfrog.com/installation/docs/establish-tls-in-artifactory-and-jfrog-platform\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "107.146.35",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "107.146.35",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.jfrog.io --chart artifactory --from 107.146.34 --to 107.146.35 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "e7e4c4fb1a2c3b6be9000b8ff747604bb0c4ba62a705c216d5d41035c2c78e63"
+}

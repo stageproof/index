@@ -1,0 +1,128 @@
+{
+  "from_sha256": "638def24e6fe64f3a28bd53b5f47e5d435b5118c0a7b68f1f21d5304ca20c541",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.6.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 36 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "message": "Chart default `client.image.tag` changed from `v1.2.0` to `v1.2.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "client.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-dragonfly-manager",
+          "message": "Chart default `manager.image.tag` changed from `v2.4.0` to `v2.4.1-beta.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "manager.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler",
+          "message": "Chart default `scheduler.image.tag` changed from `v2.4.0` to `v2.4.1-beta.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "scheduler.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "message": "Chart default `seedClient.image.tag` changed from `v1.2.0` to `v1.2.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "seedClient.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-dragonfly-client changed at spec.template.spec.containers[name=client].env. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-dragonfly-manager changed at spec.template.spec.containers[name=manager].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-dragonfly-manager",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler changed at spec.template.spec.containers[name=scheduler].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client changed at spec.template.spec.containers[name=seed-client].env. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.4.0 to 2.4.1-beta.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. DaemonSet/stageproof-check/stageproof-rel-dragonfly-client.template.spec.containers[0] client container moves from docker.io/dragonflyoss/client:v1.2.0 to docker.io/dragonflyoss/client:v1.2.2. Deployment/stageproof-check/stageproof-rel-dragonfly-manager.template.spec.containers[0] manager container moves from docker.io/dragonflyoss/manager:v2.4.0 to docker.io/dragonflyoss/manager:v2.4.1-beta.0. StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler.template.spec.containers[0] scheduler container moves from docker.io/dragonflyoss/scheduler:v2.4.0 to docker.io/dragonflyoss/scheduler:v2.4.1-beta.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "1.6.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://dragonflyoss.github.io/helm-charts/ --chart dragonfly --from 1.6.0 --to 1.6.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "a9d5f0bede58509a0d75518180ceea04ff885b6601091881d57e3929c812d915"
+}

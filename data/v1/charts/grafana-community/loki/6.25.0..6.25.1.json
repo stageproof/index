@@ -1,0 +1,92 @@
+{
+  "from_sha256": "5cb8e900580a0d291207f9a4f83cc101ab15c38c3292024da44392596daa64ad",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.25.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 34 these values is set: enterprise.config, loki.auth_enabled, loki.config, loki.pattern_ingester.enabled, loki.storage.bucketNames.chunks, loki.tracing.enabled, resultsCache.enabled, ruler.enabled, tableManager.retention_deletes_enabled, tableManager.retention_period, chunksCache.stageproofPlaceholder, loki.analytics.stageproofPlaceholder, loki.bloom_build.stageproofPlaceholder, loki.bloom_gateway.stageproofPlaceholder, loki.commonConfig.stageproofPlaceholder, loki.compactor.stageproofPlaceholder, loki.distributor.stageproofPlaceholder, loki.extraMemberlistConfig.stageproofPlaceholder, loki.frontend.stageproofPlaceholder, loki.frontend_worker.stageproofPlaceholder, loki.index_gateway.stageproofPlaceholder, loki.ingester.stageproofPlaceholder, loki.limits_config.stageproofPlaceholder, loki.memberlistConfig.stageproofPlaceholder, loki.querier.stageproofPlaceholder, loki.query_range.stageproofPlaceholder, loki.query_scheduler.stageproofPlaceholder, loki.schemaConfig.stageproofPlaceholder, loki.server.stageproofPlaceholder, loki.storage_config.stageproofPlaceholder, loki.testSchemaConfig.stageproofPlaceholder, migrate.fromDistributed.stageproofPlaceholder, enterprise.enabled, loki.useTestSchema"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 42 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 33 of 42 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/enterprise-logs-backend",
+          "message": "Chart default `sidecar.image.tag` changed from `1.29.0` to `1.29.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "sidecar.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/enterprise-logs-backend changed at spec.template.spec.containers[name=loki-sc-rules].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/enterprise-logs-backend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. StatefulSet/stageproof-check/enterprise-logs-backend.template.spec.containers[0] loki-sc-rules container moves from kiwigrid/k8s-sidecar:1.29.0 to kiwigrid/k8s-sidecar:1.29.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `kiwigrid/k8s-sidecar:1.29.1` could not be checked. The registry did not answer.",
+          "resource": "kiwigrid/k8s-sidecar:1.29.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "6.25.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 6.25.0 --to 6.25.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "4065716a436de3050da6e7a133dbe29dc935e092ef325d49adc4e6b0192eed90"
+}

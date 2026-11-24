@@ -1,0 +1,28 @@
+{
+  "from_sha256": "22e53a1184a21a679bc7d8b94e955777f3506340fc29da5ab0cb6d729bdbde8d",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "3.6.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 3.6.0 failed: exit status 1\nError: template: minio/templates/statefulset.yaml:90:61: executing \"minio/templates/statefulset.yaml\" at <ge .Capabilities.KubeVersion.Minor 20>: error calling ge: incompatible types for comparison: string and int\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "3.6.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.min.io --chart minio --from 3.6.0 --to 3.6.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "d75b88162bfe54740a233bcecf87328bba2ae23d170bec3a35c828bc6fdc224c"
+}

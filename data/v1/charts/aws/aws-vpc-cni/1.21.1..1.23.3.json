@@ -1,0 +1,189 @@
+{
+  "from_sha256": "36bd79b04d717e0f6b7784998bab5e89d28bd8820054475d7640a5357281a303",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.21.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 6 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "4 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The CRD policyendpoints.networking.k8s.aws under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/policyendpoints.networking.k8s.aws",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/aws-node",
+          "message": "Chart default `env.VPC_CNI_VERSION` changed from `v1.21.1` to `v1.23.3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.VPC_CNI_VERSION",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/aws-node",
+          "message": "Chart default `image.pullPolicy` changed from `Always` to `IfNotPresent` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.pullPolicy",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/aws-node",
+          "message": "Chart default `image.tag` changed from `v1.21.1` to `v1.23.3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/aws-node",
+          "message": "Chart default `init.image.pullPolicy` changed from `Always` to `IfNotPresent` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "init.image.pullPolicy",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/aws-node",
+          "message": "Chart default `init.image.tag` changed from `v1.21.1` to `v1.23.3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "init.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/aws-node",
+          "message": "Chart default `livenessProbe.exec.command` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "livenessProbe.exec.command",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/aws-node",
+          "message": "Chart default `nodeAgent.image.pullPolicy` changed from `Always` to `IfNotPresent` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "nodeAgent.image.pullPolicy",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/aws-node",
+          "message": "Chart default `nodeAgent.image.tag` changed from `v1.3.1` to `v1.5.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "nodeAgent.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/aws-node",
+          "message": "Chart default `readinessProbe.exec.command` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "readinessProbe.exec.command",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/aws-node changed at spec.template.spec.containers[name=aws-eks-nodeagent].args. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/aws-node",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 1.21.1 to 1.23.3, skipping 1 minor version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.21.1 to v1.23.3. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. DaemonSet/stageproof-check/aws-node.template.spec.containers[0] aws-node container moves from 602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni:v1.21.1 to 602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni:v1.23.3. DaemonSet/stageproof-check/aws-node.template.spec.containers[1] aws-eks-nodeagent container moves from 602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-network-policy-agent:v1.3.1 to 602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-network-policy-agent:v1.5.0. DaemonSet/stageproof-check/aws-node.template.spec.initContainers[0] aws-vpc-cni-init container moves from 602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni-init:v1.21.1 to 602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni-init:v1.23.3.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni-init:v1.23.3` could not be checked. The registry refused the request.",
+          "resource": "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni-init:v1.23.3",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni:v1.23.3` could not be checked. The registry refused the request.",
+          "resource": "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni:v1.23.3",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-network-policy-agent:v1.5.0` could not be checked. The registry refused the request.",
+          "resource": "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-network-policy-agent:v1.5.0",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.23.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://aws.github.io/eks-charts --chart aws-vpc-cni --from 1.21.1 --to 1.23.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "a97141eb51da492ed5b72bb2761a454463e0b95554a30766461d7b1ee8190e9d"
+}

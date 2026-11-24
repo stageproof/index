@@ -1,0 +1,161 @@
+{
+  "from_sha256": "86def68cb4ed25b965e79105fd924f3c72ee41465adf71b29d50a5894ad40e3a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.16.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 7 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vminsert",
+          "message": "Chart default `vminsert.probe.readiness.failureThreshold` changed from `3` to `10` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "vminsert.probe.readiness.failureThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vminsert",
+          "message": "Chart default `vminsert.probe.readiness.periodSeconds` changed from `15` to `5` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "vminsert.probe.readiness.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmselect",
+          "message": "Chart default `vmselect.probe.readiness.failureThreshold` changed from `3` to `10` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "vmselect.probe.readiness.failureThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmselect",
+          "message": "Chart default `vmselect.probe.readiness.periodSeconds` changed from `15` to `5` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "vmselect.probe.readiness.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmstorage",
+          "message": "Chart default `vmstorage.probe.liveness.failureThreshold` changed from `10` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "vmstorage.probe.liveness.failureThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmstorage",
+          "message": "Chart default `vmstorage.probe.liveness.initialDelaySeconds` changed from `30` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "vmstorage.probe.liveness.initialDelaySeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmstorage",
+          "message": "Chart default `vmstorage.probe.liveness.periodSeconds` changed from `30` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "vmstorage.probe.liveness.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmstorage",
+          "message": "Chart default `vmstorage.probe.liveness.tcpSocket` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "vmstorage.probe.liveness.tcpSocket",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmstorage",
+          "message": "Chart default `vmstorage.probe.liveness.timeoutSeconds` changed from `5` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "vmstorage.probe.liveness.timeoutSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmstorage",
+          "message": "Chart default `vmstorage.probe.readiness.failureThreshold` changed from `3` to `10` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "vmstorage.probe.readiness.failureThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmstorage",
+          "message": "Chart default `vmstorage.probe.readiness.periodSeconds` changed from `15` to `5` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "vmstorage.probe.readiness.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vminsert changed at spec.template.spec.containers[name=vminsert].readinessProbe.failureThreshold. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vminsert",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmselect changed at spec.template.spec.containers[name=vmselect].readinessProbe.failureThreshold. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmselect",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmstorage changed at spec.template.spec.containers[name=vmstorage].livenessProbe. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmstorage",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.17.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://victoriametrics.github.io/helm-charts/ --chart victoria-metrics-cluster --from 0.16.2 --to 0.17.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "eda2945b083632c632b2e200c0797b27ae520ccc320bb53405ee93dba090bb78"
+}

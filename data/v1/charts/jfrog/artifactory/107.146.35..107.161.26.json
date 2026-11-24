@@ -1,0 +1,42 @@
+{
+  "from_sha256": "e7e4c4fb1a2c3b6be9000b8ff747604bb0c4ba62a705c216d5d41035c2c78e63",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "107.146.35",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: nginx.generateSelfSignedCert"
+        },
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 107.161.26 failed: exit status 1\nError: execution error at (artifactory/templates/validations.yaml:60:8): \n********JFrog has introduced new services (e.g., JFbus, Frontend) that are now managed as independent deployments. These services now require a Master Key and a Join Key for mandatory configuration********\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n 🛑  ERROR: MISSING MANDATORY KEYS (Artifactory)\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nArtifactory requires a Master Key and a Join Key.\n\n👉 STEP 1: PROVIDE KEYS\n   • FRESH INSTALL — GENERATE SECURE KEYS:\n       export MASTER_KEY=$(openssl rand -hex 32)\n       export JOIN_KEY=$(openssl rand -hex 32)\n\n   • UPGRADE — RETRIEVE EXISTING KEYS:\n       JOIN KEY (Via UI):\n         Administration -> Security -> General -> Connection Details\n         -> Enter Password -> Join Key (copy to JOIN_KEY env)\n       MASTER KEY (Via CLI):\n         export MASTER_KEY=$(kubectl exec -it stageproof-rel-artifactory-0 -n stageproof-check -c artifactory -- cat /opt/jfrog/artifactory/var/etc/security/master.key)\n\n👉 STEP 2: PASS KEYS TO HELM\n    OPTION 1: (Production Recommended): PASS KUBERNETES SECRETS VIA HELM VALUES\n\n      Create a kubernetes secret\n\n      kubectl create secret generic artifactory-mandatory-keys -n <namespace> \\\n      --from-literal=master-key=${MASTER_KEY} \\\n      --from-literal=join-key=${JOIN_KEY}\n\n      Reference the secret name in helm values\n\n      --set global.masterKeySecretName=artifactory-mandatory-keys \\\n      --set global.joinKeySecretName=artifactory-mandatory-keys\n\n    OPTION 2: PASS KEYS VIA HELM VALUES\n      --set global.masterKey=${MASTER_KEY} \\\n      --set global.joinKey=${JOIN_KEY}\n\n👉 KEYS EXISTING IN SYSTEM YAML: If keys are already defined in system.yaml(via extraSystemYaml, systemYaml, or systemYamlOverride), skip previous steps and use the flag\n    - --set keysPassedViaSystemyaml=true\n\n📚 TO LEARN MORE:\n    https://docs.jfrog.com/installation/docs/helm-charts#install-jfrog-artifactory-using-helm\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "107.161.26",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "107.161.26",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.jfrog.io --chart artifactory --from 107.146.35 --to 107.161.26 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "8f64c314fc13cf25c98b4a76c016d76a84cc2a914b545f4bbf4ec9fb5eda7996"
+}

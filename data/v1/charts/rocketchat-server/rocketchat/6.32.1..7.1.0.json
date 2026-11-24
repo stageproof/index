@@ -1,0 +1,139 @@
+{
+  "from_sha256": "725b54b9f387cf777be6dd34297e70d933b1c0fcdf0c4e73d8fd2194ae38876b",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.32.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 29 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "5 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 28 of 29 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-rocketchat",
+          "message": "Chart default `containerSecurityContext.runAsUser` changed from `999` to `65533` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "containerSecurityContext.runAsUser",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-rocketchat",
+          "message": "Chart default `securityContext.fsGroup` changed from `999` to `65533` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "securityContext.fsGroup",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-rocketchat",
+          "message": "Chart default `securityContext.runAsUser` changed from `999` to `65533` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "securityContext.runAsUser",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-account changed at spec.template.spec.containers[name=account-service].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-account",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-authorization changed at spec.template.spec.containers[name=authorization-service].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-authorization",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-ddp-streamer changed at spec.template.spec.containers[name=ddp-streamer].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-ddp-streamer",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-presence changed at spec.template.spec.containers[name=presence-service].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-presence",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-rocketchat changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-rocketchat",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 6.32.1 to 7.1.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 8.2.0 to 8.6.1. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "5 container images changed. Deployment/default/stageproof-rel-account.template.spec.containers[0] account-service container moves from rocketchat/account-service:8.2.0 to rocketchat/account-service:8.6.1. Deployment/default/stageproof-rel-authorization.template.spec.containers[0] authorization-service container moves from rocketchat/authorization-service:8.2.0 to rocketchat/authorization-service:8.6.1. Deployment/default/stageproof-rel-ddp-streamer.template.spec.containers[0] ddp-streamer container moves from rocketchat/ddp-streamer-service:8.2.0 to rocketchat/ddp-streamer-service:8.6.1. Deployment/default/stageproof-rel-presence.template.spec.containers[0] presence-service container moves from rocketchat/presence-service:8.2.0 to rocketchat/presence-service:8.6.1. Deployment/default/stageproof-rel-rocketchat.template.spec.containers[0] rocketchat container moves from registry.rocket.chat/rocketchat/rocket.chat:8.2.0 to registry.rocket.chat/rocketchat/rocket.chat:8.6.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `registry.rocket.chat/rocketchat/rocket.chat:8.6.1` could not be checked. The registry did not answer.",
+          "resource": "registry.rocket.chat/rocketchat/rocket.chat:8.6.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "7.1.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://rocketchat.github.io/helm-charts --chart rocketchat --from 6.32.1 --to 7.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "8340abfbb3395da7489d0e9d9940879107f103b677db2214effd0fa537190bc3"
+}

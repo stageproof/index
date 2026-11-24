@@ -1,0 +1,148 @@
+{
+  "from_sha256": "c04e1341adfce1714e0732ebbf9835106fa8f68382f33cac8bd08e4cec30b888",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.22.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 12 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "4 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 4 of 9 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (2 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on datadogagentinternals.datadoghq.com: spec.features.npm.directSend (removed), spec.features.npm.directSend (type), spec.features.serviceDiscovery.networkStats (removed), spec.features.serviceDiscovery.networkStats (type), spec.features.serviceDiscovery.networkStats.enabled (removed), spec.features.serviceDiscovery.networkStats.enabled (type), spec.global.secretBackend.config.additionalProperties (type), status.remoteConfigConfiguration.features.npm.directSend (removed), status.remoteConfigConfiguration.features.npm.directSend (type), status.remoteConfigConfiguration.features.serviceDiscovery.networkStats (removed), status.remoteConfigConfiguration.features.serviceDiscovery.networkStats (type), status.remoteConfigConfiguration.features.serviceDiscovery.networkStats.enabled (removed), status.remoteConfigConfiguration.features.serviceDiscovery.networkStats.enabled (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/datadogagentinternals.datadoghq.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on datadogagents.datadoghq.com: spec.features.npm.directSend (removed), spec.features.npm.directSend (type), spec.features.serviceDiscovery.networkStats (removed), spec.features.serviceDiscovery.networkStats (type), spec.features.serviceDiscovery.networkStats.enabled (removed), spec.features.serviceDiscovery.networkStats.enabled (type), spec.global.secretBackend.config.additionalProperties (type), status.experiment.phase (enum), status.remoteConfigConfiguration.features.npm.directSend (removed), status.remoteConfigConfiguration.features.npm.directSend (type), status.remoteConfigConfiguration.features.serviceDiscovery.networkStats (removed), status.remoteConfigConfiguration.features.serviceDiscovery.networkStats (type), status.remoteConfigConfiguration.features.serviceDiscovery.networkStats.enabled (removed), status.remoteConfigConfiguration.features.serviceDiscovery.networkStats.enabled (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/datadogagents.datadoghq.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-datadog-operator adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/stageproof-rel-datadog-operator",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CustomResourceDefinition/default/datadogcsidrivers.datadoghq.com",
+          "message": "Chart default `datadogCRDs.crds.datadogCSIDrivers` changed from `false` to `true` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "datadogCRDs.crds.datadogCSIDrivers",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ClusterRole/default/stageproof-rel-datadog-operator, Deployment/stageproof-check/stageproof-rel-datadog-operator",
+          "message": "Chart default `datadogCSIDriver.enabled` changed from `false` to `true` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "datadogCSIDriver.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-datadog-operator",
+          "message": "Chart default `image.tag` changed from `1.26.0` to `1.32.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-datadog-operator changed at spec.template.spec.containers[name=datadog-operator].args. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-datadog-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 2.22.1 to 2.33.0, skipping 10 minor versions.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.26.0 to 1.32.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-datadog-operator.template.spec.containers[0] datadog-operator container moves from registry.datadoghq.com/operator:1.26.0 to registry.datadoghq.com/operator:1.32.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 487 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/datadogagentinternals.datadoghq.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 492 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/datadogagents.datadoghq.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "2.33.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.datadoghq.com --chart datadog-operator --from 2.22.1 --to 2.33.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "e3e03573657cb97c880f650443f9ac9a0bc3bc8d17ee828076edd9eec808f841"
+}

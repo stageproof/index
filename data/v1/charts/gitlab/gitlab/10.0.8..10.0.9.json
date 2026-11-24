@@ -1,0 +1,33 @@
+{
+  "from_sha256": "15fd26efb4da0fce7ed89abb07d721d013cc857257a8dc09a5a3f1ba7dd74324",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "10.0.8",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "required values shim",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: global.hosts.workspaces.name"
+        },
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 10.0.8 failed: exit status 1\nError: execution error at (gitlab/templates/NOTES.txt:214:3): \nCONFIGURATION CHECKS:\n\nRegistry Object Storage:\n  The chart provides no longer bundled object storage solution. Please\n  prepare an external object storage solution for the Registry by following \n  https://docs.gitlab.com/charts/advanced/external-object-storage/#registry-configuration\n\nBackup Object Storage:\n  The chart provides no longer bundled object storage solution. Please\n  prepare an external object storage solution for backup and restore by following\n  https://docs.gitlab.com/charts/advanced/external-object-storage/#backups\n\nObject Storage:\n  When type-specific object storage is enabled the `connection` property can not be empty. Check the following object storage configuration(s): artifacts,lfs,uploads,packages\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "10.0.9",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo http://charts.gitlab.io/ --chart gitlab --from 10.0.8 --to 10.0.9 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "3e19eb0e87cc37c19b7e9b5fb164aa4c63b8b0581b34d54cedcdd9b651a5a994"
+}

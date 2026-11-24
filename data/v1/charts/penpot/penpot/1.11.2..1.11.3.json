@@ -1,0 +1,177 @@
+{
+  "from_sha256": "62cdb6deb7a6f122e7c8e899457bce12b3da3df08755bfb78950ac9ec4743594",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.11.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 13 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "5 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 12 of 13 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-penpot-admin-console",
+          "message": "Chart default `adminConsole.image.tag` changed from `2.18.2` to `2.18.3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "adminConsole.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-penpot-backend",
+          "message": "Chart default `backend.image.tag` changed from `2.18.2` to `2.18.3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "backend.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-penpot-exporter",
+          "message": "Chart default `exporter.image.tag` changed from `2.18.2` to `2.18.3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "exporter.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-penpot-frontend",
+          "message": "Chart default `frontend.image.tag` changed from `2.18.2` to `2.18.3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "frontend.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-penpot-mcp",
+          "message": "Chart default `mcp.image.tag` changed from `2.18.2` to `2.18.3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "mcp.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-penpot-admin-console changed at spec.template.spec.containers[name=penpot-admin-console].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-penpot-admin-console",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-penpot-backend changed at spec.template.spec.containers[name=penpot-backend].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-penpot-backend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-penpot-exporter changed at spec.template.spec.containers[name=penpot-exporter].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-penpot-exporter",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-penpot-frontend changed at spec.template.spec.containers[name=penpot-frontend].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-penpot-frontend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-penpot-mcp changed at spec.template.spec.containers[name=penpot-mcp].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-penpot-mcp",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.18.2 to 2.18.3. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "5 container images changed. Deployment/stageproof-check/stageproof-rel-penpot-admin-console.template.spec.containers[0] penpot-admin-console container moves from penpotapp/admin-console:2.18.2 to penpotapp/admin-console:2.18.3. Deployment/stageproof-check/stageproof-rel-penpot-backend.template.spec.containers[0] penpot-backend container moves from penpotapp/backend:2.18.2 to penpotapp/backend:2.18.3. Deployment/stageproof-check/stageproof-rel-penpot-exporter.template.spec.containers[0] penpot-exporter container moves from penpotapp/exporter:2.18.2 to penpotapp/exporter:2.18.3. Deployment/stageproof-check/stageproof-rel-penpot-frontend.template.spec.containers[0] penpot-frontend container moves from penpotapp/frontend:2.18.2 to penpotapp/frontend:2.18.3. Deployment/stageproof-check/stageproof-rel-penpot-mcp.template.spec.containers[0] penpot-mcp container moves from penpotapp/mcp:2.18.2 to penpotapp/mcp:2.18.3.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `penpotapp/admin-console:2.18.3` could not be checked. The registry did not answer.",
+          "resource": "penpotapp/admin-console:2.18.3",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `penpotapp/backend:2.18.3` could not be checked. The registry did not answer.",
+          "resource": "penpotapp/backend:2.18.3",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `penpotapp/exporter:2.18.3` could not be checked. The registry did not answer.",
+          "resource": "penpotapp/exporter:2.18.3",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `penpotapp/frontend:2.18.3` could not be checked. The registry did not answer.",
+          "resource": "penpotapp/frontend:2.18.3",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `penpotapp/mcp:2.18.3` could not be checked. The registry did not answer.",
+          "resource": "penpotapp/mcp:2.18.3",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.11.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.penpot.app --chart penpot --from 1.11.2 --to 1.11.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "cbe3cfdc4b4d1d0d3fe7ccaf32afaafb534f3f07d54b1d6daab7de9add51f55e"
+}

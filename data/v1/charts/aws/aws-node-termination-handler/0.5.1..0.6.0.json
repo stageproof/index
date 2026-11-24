@@ -1,0 +1,75 @@
+{
+  "from_sha256": "3e8e9b4836975f815d80ef549cb22f07d5788684c1ba0f6056a33ba3a2f6f892",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.5.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 7 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "ClusterRole/default/stageproof-rel-aws-node-termination-handler-psp adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-aws-node-termination-handler-psp",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ClusterRole/default/stageproof-rel-aws-node-termination-handler-psp, PodSecurityPolicy/default/stageproof-rel-aws-node-termination-handler, RoleBinding/default/stageproof-rel-aws-node-termination-handler-psp",
+          "message": "Chart default `rbac.pspEnabled` changed from `false` to `true` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "rbac.pspEnabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodSecurityPolicy) is not served by Kubernetes 1.35.0.",
+          "resource": "PodSecurityPolicy/default/stageproof-rel-aws-node-termination-handler",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.6.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://aws.github.io/eks-charts --chart aws-node-termination-handler --from 0.5.1 --to 0.6.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "c3af19abeace2039dc4f46df416595c6f5be73a0c3ad9d644ba55aea44b540bd"
+}

@@ -152,19 +152,59 @@ func buildChart(ctx context.Context, chart charts.Chart, opt Options, minors []s
 		return catalogChart{}, err
 	}
 	for _, pair := range chosen {
-		blocked, err := buildPair(ctx, chart, pair, opt, minors, dir)
-		if err != nil {
+		if _, err := buildPair(ctx, chart, pair, opt, minors, dir); err != nil {
 			row.Failed++
 			if row.Error == "" {
 				row.Error = err.Error()
 			}
-			continue
-		}
-		if blocked {
-			row.Blocked++
 		}
 	}
+	// Files already on disk stay in the catalog. A nightly run that checks
+	// only the newest pair must not drop the older reports from the counts.
+	pairs, blocked, err := countPairFiles(dir)
+	if err != nil {
+		return catalogChart{}, err
+	}
+	row.Pairs = pairs
+	row.Blocked = blocked
 	return row, nil
+}
+
+func countPairFiles(dir string) (int, int, error) {
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return 0, 0, nil
+		}
+		return 0, 0, err
+	}
+	pairs, blocked := 0, 0
+	for _, entry := range entries {
+		name := entry.Name()
+		if entry.IsDir() || name == "meta.json" || !strings.HasSuffix(name, ".json") {
+			continue
+		}
+		buf, err := os.ReadFile(filepath.Join(dir, name))
+		if err != nil {
+			return 0, 0, err
+		}
+		var doc struct {
+			Results map[string]any `json:"k8s_results"`
+		}
+		dec := json.NewDecoder(bytes.NewReader(buf))
+		dec.UseNumber()
+		if err := dec.Decode(&doc); err != nil {
+			return 0, 0, fmt.Errorf("%s: %w", name, err)
+		}
+		pairs++
+		for _, minor := range report.MinorKeys(doc.Results) {
+			if report.Verdict(doc.Results[minor]) == "BLOCKED" {
+				blocked++
+				break
+			}
+		}
+	}
+	return pairs, blocked, nil
 }
 
 func buildPair(ctx context.Context, chart charts.Chart, pair pairs.Pair, opt Options, minors []string, dir string) (blocked bool, err error) {

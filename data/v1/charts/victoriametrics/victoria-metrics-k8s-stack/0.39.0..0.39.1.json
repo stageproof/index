@@ -1,0 +1,110 @@
+{
+  "from_sha256": "c6665ca8904699b9c33e24815fc40522f67427166c2b1d7a178ee073ef2d2c02",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.39.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 134 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 109 of 134 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (4 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/vmalertmanager-stageproof-rel-victoria-metrics-k8s-stack-monzo-tpl, Secret/stageproof-check/vmalertmanager-stageproof-rel-victoria-metrics-k8s-stack, VMAlertmanager/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-alertmanager.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-etcd, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-general.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-k8s.rules.containercpulimits, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-k8s.rules.containercpurequests, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-k8s.rules.containercpuusagesecondstotal, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-k8s.rules.containermemorycache, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-k8s.rules.containermemorylimits, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-k8s.rules.containermemoryrequests, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-k8s.rules.containermemoryrss, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-k8s.rules.containermemoryswap, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-k8s.rules.containermemoryworkingsetbytes, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-k8s.rules.podowner, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kube-apiserver-availability.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kube-apiserver-burnrate.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kube-apiserver-histogram.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kube-apiserver-slos, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kube-prometheus-general.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kube-prometheus-node-recording.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kube-scheduler.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kube-state-metrics, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kubelet.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kubernetes-apps, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kubernetes-resources, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kubernetes-storage, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kubernetes-system, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kubernetes-system-apiserver, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kubernetes-system-controller-manager, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kubernetes-system-kubelet, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kubernetes-system-scheduler, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-node-exporter, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-node-exporter.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-node-network, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-node.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-vm-health, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-vmagent, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-vmcluster, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-vmoperator, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-vmsingle, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-windows.node.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-windows.pod.rules",
+          "message": "Chart default `alertmanager.spec.image.tag` changed from `v0.27.0` to `v0.28.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "alertmanager.spec.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-grafana changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-grafana",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "must be no more than 63 characters",
+          "message": "Kubernetes rejected `metadata.name` on Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager. The current chart failed the same validation; the upgrade did not introduce it.",
+          "resource": "Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission, ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 356 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmagents.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 339 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmalertmanagerconfigs.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 338 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmclusters.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 304 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmscrapeconfigs.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.39.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://victoriametrics.github.io/helm-charts/ --chart victoria-metrics-k8s-stack --from 0.39.0 --to 0.39.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "c8f61692c7381521b28d84fb75cbf7e08f4958563b269403d4037096f9201e92"
+}

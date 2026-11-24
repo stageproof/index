@@ -1,0 +1,160 @@
+{
+  "from_sha256": "21129f23b3b72413fd3cecef463a7a37a3d659ff1034d2729c3862d8118c7c2d",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "3.4.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 5 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "3 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared rendered objects. The API server did not return a stored form for both sides of any object."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete StatefulSet/default/stageproof-rel-cassandra. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/default/stageproof-rel-cassandra",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: DaemonSet/default/stageproof-rel-jaeger-agent, Deployment/default/stageproof-rel-jaeger-collector, Deployment/default/stageproof-rel-jaeger-query, Job/default/stageproof-rel-jaeger-cassandra-schema, Secret/default/stageproof-rel-jaeger-cassandra, Service/default/stageproof-rel-cassandra, ServiceAccount/default/stageproof-rel-jaeger-agent, ServiceAccount/default/stageproof-rel-jaeger-cassandra-schema, ServiceAccount/default/stageproof-rel-jaeger-collector, ServiceAccount/default/stageproof-rel-jaeger-query.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/default/stageproof-rel-jaeger-agent, Service/default/stageproof-rel-jaeger-agent, Service/default/stageproof-rel-jaeger-agent#1, ServiceAccount/default/stageproof-rel-jaeger-agent",
+          "message": "Chart default `agent.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "agent.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-jaeger, Service/default/stageproof-rel-jaeger-agent, Service/default/stageproof-rel-jaeger-collector, Service/default/stageproof-rel-jaeger-query, ServiceAccount/default/stageproof-rel-jaeger",
+          "message": "Chart default `allInOne.enabled` changed from `false` to `true` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "allInOne.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-jaeger",
+          "message": "Chart default `allInOne.image.repository` changed from `jaegertracing/all-in-one` to `jaegertracing/jaeger` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "allInOne.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-jaeger-collector, Service/default/stageproof-rel-jaeger-collector#1, ServiceAccount/default/stageproof-rel-jaeger-collector",
+          "message": "Chart default `collector.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "collector.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Service/default/stageproof-rel-cassandra, StatefulSet/default/stageproof-rel-cassandra",
+          "message": "Chart default `provisionDataStore.cassandra` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "provisionDataStore.cassandra",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-jaeger-query, Service/default/stageproof-rel-jaeger-query#1, ServiceAccount/default/stageproof-rel-jaeger-query",
+          "message": "Chart default `query.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "query.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-jaeger, Secret/default/stageproof-rel-jaeger-cassandra, ServiceAccount/default/stageproof-rel-jaeger-cassandra-schema",
+          "message": "Chart default `storage.type` changed from `cassandra` to `memory` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "storage.type",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 3.4.1 to 4.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.53.0 to 2.0.0-rc2. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "may not change once set",
+          "message": "Kubernetes rejected `spec.clusterIPs[0]` on Service/default/stageproof-rel-jaeger-agent.",
+          "resource": "Service/default/stageproof-rel-jaeger-agent",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        },
+        {
+          "detail": "may not change once set",
+          "message": "Kubernetes rejected `spec.clusterIPs[0]` on Service/default/stageproof-rel-jaeger-collector.",
+          "resource": "Service/default/stageproof-rel-jaeger-collector",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        },
+        {
+          "detail": "may not change once set",
+          "message": "Kubernetes rejected `spec.clusterIPs[0]` on Service/default/stageproof-rel-jaeger-query.",
+          "resource": "Service/default/stageproof-rel-jaeger-query",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "4.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://jaegertracing.github.io/helm-charts --chart jaeger --from 3.4.1 --to 4.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "5d951d6d6f788337bd755b3afac93119317f394cfc0e3e9a0a21d441fdb036c4"
+}

@@ -1,0 +1,128 @@
+{
+  "from_sha256": "5dcdac53fbf50151b68b0439d22c7a45824fe6f5355560070b6b9e94aae62567",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v1.8.10",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 28 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 23 of 27 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: CephCluster/default/stageproof-check",
+          "message": "Chart default `cephClusterSpec.cephVersion.image` changed from `quay.io/ceph/ceph:v16.2.9` to `quay.io/ceph/ceph:v16.2.7` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.cephVersion.image",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephCluster/default/stageproof-check",
+          "message": "Chart default `cephClusterSpec.mgr.count` changed from `1` to `2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.mgr.count",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephFilesystem/default/ceph-filesystem",
+          "message": "Chart default `cephFileSystems` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephFileSystems",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephObjectStore/default/ceph-objectstore",
+          "message": "Chart default `cephObjectStores` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephObjectStores",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.8.10 to v1.9.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. CephCluster/default/stageproof-check.cephVersion field moves from quay.io/ceph/ceph:v16.2.9 to quay.io/ceph/ceph:v16.2.7.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "message": "CephBlockPool/default/ceph-blockpool was not judged. the API group is not installed on this server.",
+          "resource": "CephBlockPool/default/ceph-blockpool",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephCluster/default/stageproof-check was not judged. the API group is not installed on this server.",
+          "resource": "CephCluster/default/stageproof-check",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephFilesystem/default/ceph-filesystem was not judged. the API group is not installed on this server.",
+          "resource": "CephFilesystem/default/ceph-filesystem",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephObjectStore/default/ceph-objectstore was not judged. the API group is not installed on this server.",
+          "resource": "CephObjectStore/default/ceph-objectstore",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "v1.9.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.rook.io/release --chart rook-ceph-cluster --from v1.8.10 --to v1.9.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "6a7f1e075ec172b17b0bc94fd2cac1f64122292dbbf00a712b77d69ff08d3344"
+}

@@ -1,0 +1,160 @@
+{
+  "from_sha256": "87ff6d6ef2b3aee6388ff93b6bad5a4a775a9229ca87c4964e978088eff273f7",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.6.3",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 28 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 26 of 28 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-dify-api, Deployment/default/stageproof-rel-dify-frontend, Deployment/default/stageproof-rel-dify-worker",
+          "message": "Chart default `global.image.tag` changed from `1.1.0` to `1.4.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-dify-plugin-daemon",
+          "message": "Chart default `pluginDaemon.image.tag` changed from `0.0.5-local` to `0.1.1-local` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "pluginDaemon.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-dify-sandbox",
+          "message": "Chart default `sandbox.image.tag` changed from `0.2.10` to `0.2.12` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "sandbox.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dify-api changed at spec.template.spec.containers[name=dify-api].env[name=INNER_API_KEY_FOR_PLUGIN]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dify-api",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dify-frontend changed at spec.template.spec.containers[name=dify].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dify-frontend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dify-plugin-daemon changed at spec.template.spec.containers[name=dify-plugin-daemon].env[name=INNER_API_KEY_FOR_PLUGIN]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dify-plugin-daemon",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dify-sandbox changed at spec.template.spec.containers[name=dify].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dify-sandbox",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dify-worker changed at spec.template.spec.containers[name=dify].env[name=INNER_API_KEY_FOR_PLUGIN]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dify-worker",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.1.0 to 1.4.1. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "4 container images changed. Deployment/default/stageproof-rel-dify-api.template.spec.containers[0] dify-api container moves from langgenius/dify-api:1.1.0 to langgenius/dify-api:1.4.1. Deployment/default/stageproof-rel-dify-frontend.template.spec.containers[0] dify container moves from langgenius/dify-web:1.1.0 to langgenius/dify-web:1.4.1. Deployment/default/stageproof-rel-dify-plugin-daemon.template.spec.containers[0] dify-plugin-daemon container moves from langgenius/dify-plugin-daemon:0.0.5-local to langgenius/dify-plugin-daemon:0.1.1-local. Deployment/default/stageproof-rel-dify-sandbox.template.spec.containers[0] dify container moves from langgenius/dify-sandbox:0.2.10 to langgenius/dify-sandbox:0.2.12.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-api:1.4.1` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-api:1.4.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-plugin-daemon:0.1.1-local` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-plugin-daemon:0.1.1-local",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-sandbox:0.2.12` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-sandbox:0.2.12",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-web:1.4.1` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-web:1.4.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "Deployment/default/stageproof-rel-dify-plugin-daemon was not judged. the API server did not return a field error.",
+          "resource": "Deployment/default/stageproof-rel-dify-plugin-daemon",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.6.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://douban.github.io/charts/ --chart dify --from 0.6.3 --to 0.6.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "8c404c754160a29483f922c5c8ccdce1fee377f2eaabc495066855b9ff0b4e21"
+}

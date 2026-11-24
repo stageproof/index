@@ -1,0 +1,80 @@
+{
+  "from_sha256": "cd01aa8f9ef4d5c4edb7ef3dbcd2dc6fee1001cf6e56922b12c3fc4f9030f26c",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "5.9.10",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 14 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 12 of 13 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config, Pod/stageproof-check/stageproof-rel-ui-test-51cyc, Pod/stageproof-check/stageproof-rel-ui-test-u3xc8",
+          "message": "Chart default `agent.image.tag` changed from `3355.v388858a_47b_33-16` to `3355.v388858a_47b_33-17` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "agent.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-jenkins changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-jenkins",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config jenkins/inbound-agent image moves from jenkins/inbound-agent:3355.v388858a_47b_33-16 to jenkins/inbound-agent:3355.v388858a_47b_33-17.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "5.9.11",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.9.10 --to 5.9.11 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "f44bf7576285c4ea8aac7f1154285d770ee2ed5fc7e34ed054b4f06f5337f17a"
+}

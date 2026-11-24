@@ -1,0 +1,99 @@
+{
+  "from_sha256": "00af2ffb0422e9ff0584ed8c1326175ec7ccbb839ed4a68731acaa5c7de79197",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.1.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 6 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "DaemonSet/stageproof-check/stageproof-rel-falco adds hostPath volumes container-engine-socket-0, container-engine-socket-1, container-engine-socket-2, container-engine-socket-3, container-engine-socket-4, container-engine-socket-5.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-falco",
+          "rule_id": "impact.privilege.hostpath",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-falco, ConfigMap/stageproof-check/stageproof-rel-falco-falcoctl, DaemonSet/stageproof-check/stageproof-rel-falco",
+          "message": "Chart default `collectors.containerEngine.enabled` changed from `false` to `true` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "collectors.containerEngine.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-falco, DaemonSet/stageproof-check/stageproof-rel-falco",
+          "message": "Chart default `collectors.containerEngine.engines.containerd.sockets` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "collectors.containerEngine.engines.containerd.sockets",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-falco, DaemonSet/stageproof-check/stageproof-rel-falco",
+          "message": "Chart default `collectors.containerEngine.engines.cri.sockets` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "collectors.containerEngine.engines.cri.sockets",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-falco-falcoctl",
+          "message": "Chart default `collectors.containerEngine.pluginRef` changed from `ghcr.io/falcosecurity/plugins/plugin/container:0.3.1` to `ghcr.io/falcosecurity/plugins/plugin/container:0.3.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "collectors.containerEngine.pluginRef",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-falco changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-falco",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "6.2.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://falcosecurity.github.io/charts --chart falco --from 6.1.0 --to 6.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "cfcfc6476471d91ca6543681533381dfa58e4d6ce0537d5a352b604282f2a40b"
+}

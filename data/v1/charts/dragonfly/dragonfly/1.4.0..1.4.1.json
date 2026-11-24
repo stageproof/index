@@ -1,0 +1,126 @@
+{
+  "from_sha256": "7b02d2e4ed64cbe065ca9de756fc1244669942009aa1251974a6d5d9a672b14b",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.4.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 36 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-client, DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "message": "Chart default `client.config.download.pieceTimeout` changed from `120s` to `40s` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "client.config.download.pieceTimeout",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-client, DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "message": "Chart default `client.config.storage.writePieceTimeout` changed from `90s` to `30s` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "client.config.storage.writePieceTimeout",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "message": "Chart default `client.image.tag` changed from `v1.0.0` to `v1.0.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "client.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-seed-client, StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "message": "Chart default `seedClient.config.download.pieceTimeout` changed from `120s` to `40s` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "seedClient.config.download.pieceTimeout",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-dragonfly-seed-client, StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "message": "Chart default `seedClient.config.storage.writePieceTimeout` changed from `90s` to `30s` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "seedClient.config.storage.writePieceTimeout",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "message": "Chart default `seedClient.image.tag` changed from `v1.0.0` to `v1.0.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "seedClient.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-dragonfly-client changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. DaemonSet/stageproof-check/stageproof-rel-dragonfly-client.template.spec.containers[0] client container moves from docker.io/dragonflyoss/client:v1.0.0 to docker.io/dragonflyoss/client:v1.0.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "1.4.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://dragonflyoss.github.io/helm-charts/ --chart dragonfly --from 1.4.0 --to 1.4.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "d8f60071bd2eb06bf647a751c4124f22213cc5642be2b568699d66a9dd1d714d"
+}

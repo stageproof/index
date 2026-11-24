@@ -1,0 +1,154 @@
+{
+  "from_sha256": "1c40fb925dcc19fb24b6af864400642360e188f2ee2b63c029b5441c0a906160",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.2.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 2 these values is set: controller.service.loadBalancerIP, controller.service.type"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 7 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "3 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared rendered objects. No object is in both charts to diff as a stored form."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: ClusterRole/default/nginx-ingress, ClusterRoleBinding/default/nginx-ingress, ConfigMap/default/nginx-config, Deployment/default/nginx-ingress, Secret/default/default-server-secret, Service/default/nginx-ingress, ServiceAccount/default/nginx-ingress.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-nginx-ingress adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/stageproof-rel-nginx-ingress",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-nginx-ingress",
+          "message": "Chart default `controller.image.tag` changed from `1.4.6` to `1.5.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/nginx-ingress, Deployment/stageproof-check/stageproof-rel-nginx-ingress",
+          "message": "Chart default `controller.name` changed from `nginx-ingress` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.name",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-nginx-ingress",
+          "message": "Chart default `controller.reportIngressStatus.externalService` changed from `nginx-ingress` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.reportIngressStatus.externalService",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ClusterRoleBinding/default/stageproof-rel-nginx-ingress, Deployment/stageproof-check/stageproof-rel-nginx-ingress, ServiceAccount/stageproof-check/nginx-ingress, ServiceAccount/stageproof-check/stageproof-rel-nginx-ingress",
+          "message": "Chart default `controller.serviceAccount.name` changed from `nginx-ingress` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.serviceAccount.name",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-nginx-ingress",
+          "message": "Chart default `prometheus.create` changed from `false` to `true` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "prometheus.create",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.4.6 to 1.5.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `nginx/nginx-ingress:1.5.0` could not be checked. The registry did not answer.",
+          "resource": "nginx/nginx-ingress:1.5.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/stageproof-rel-nginx-ingress",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-nginx-ingress",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "detail": "supported values: \"ClusterIP\", \"ExternalName\", \"LoadBalancer\", \"NodePort\"",
+          "message": "Kubernetes rejected `spec.type` on Service/stageproof-check/stageproof-rel-nginx-ingress.",
+          "resource": "Service/stageproof-check/stageproof-rel-nginx-ingress",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        },
+        {
+          "message": "Deployment/stageproof-check/stageproof-rel-nginx-ingress was not judged. the API group is not installed on this server.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-nginx-ingress",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.3.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.nginx.com/stable --chart nginx-ingress --from 0.2.1 --to 0.3.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "c205aaa25a641353f3c255c99b18bafe150267b8dc4a9ac276c1e3dab1cc83ee"
+}

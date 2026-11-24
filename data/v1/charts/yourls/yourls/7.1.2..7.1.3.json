@@ -1,0 +1,72 @@
+{
+  "from_sha256": "68da45509be88e9ce53e09aa0fe0fadcd7d4e035e4dd3f7f35d74a7914ffc5da",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "7.1.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 12 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-yourls changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-yourls",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "helm template renders the chart that is already on disk. Run helm dependency update if the new constraint should be what this check renders.",
+          "message": "A Chart.yaml dependency constraint changed, and the packaged chart under charts/ did not: mariadb ^20.2.1 to ^20.2.2.",
+          "rule_id": "helm.dependency.not_updated",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "7.1.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.yourls.org/ --chart yourls --from 7.1.2 --to 7.1.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "2ec0b587321d2a1f0a87474744ee891522d562f577444e029c05822514cfa1c4"
+}

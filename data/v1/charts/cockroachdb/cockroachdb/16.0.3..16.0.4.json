@@ -1,0 +1,98 @@
+{
+  "from_sha256": "a1dff4707bc295b153fa5a88e882a1a5c8a9f0679926d1b1fc89cb1234104620",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "16.0.3",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 23 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "2 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 10 of 23 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "Affected objects: CronJob/stageproof-check/stageproof-rel-cockroachdb-rotate-self-signer, CronJob/stageproof-check/stageproof-rel-cockroachdb-rotate-self-signer-client, Job/stageproof-check/stageproof-rel-cockroachdb-self-signer, Job/stageproof-check/stageproof-rel-cockroachdb-self-signer-cleaner",
+          "message": "Chart default `tls.selfSigner.image.tag` changed from `1.6` to `1.7` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "tls.selfSigner.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of CronJob/stageproof-check/stageproof-rel-cockroachdb-rotate-self-signer changed at spec.jobTemplate.spec.template.spec.containers[name=cert-rotate-job].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/stageproof-check/stageproof-rel-cockroachdb-rotate-self-signer",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of CronJob/stageproof-check/stageproof-rel-cockroachdb-rotate-self-signer-client changed at spec.jobTemplate.spec.template.spec.containers[name=cert-rotate-job].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/stageproof-check/stageproof-rel-cockroachdb-rotate-self-signer-client",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. CronJob/stageproof-check/stageproof-rel-cockroachdb-rotate-self-signer-client.jobTemplate.spec.template.spec.containers[0] cert-rotate-job container moves from gcr.io/cockroachlabs-helm-charts/cockroach-self-signer-cert:1.6 to gcr.io/cockroachlabs-helm-charts/cockroach-self-signer-cert:1.7.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "message": "API `batch/v1beta1` (CronJob) is not served by Kubernetes 1.35.0.",
+          "resource": "CronJob/stageproof-check/stageproof-rel-cockroachdb-rotate-self-signer",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `batch/v1beta1` (CronJob) is not served by Kubernetes 1.35.0.",
+          "resource": "CronJob/stageproof-check/stageproof-rel-cockroachdb-rotate-self-signer-client",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "16.0.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.cockroachdb.com/ --chart cockroachdb --from 16.0.3 --to 16.0.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "79a7644d56a00e1067d37017380812046790d97fba2c979290bf21af9941b58c"
+}

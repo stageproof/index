@@ -1,0 +1,278 @@
+{
+  "from_sha256": "c8d23e33a99231f232483b12bf3abbe17139ea2dc1325a2c4ea48d108c761efc",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.97.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 85 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "4 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 52 of 85 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (3 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job-config",
+          "message": "Chart default `defaultDashboards.dashboards.node-exporter-full.clusterMetric` changed from `node_uname_info` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "defaultDashboards.dashboards.node-exporter-full.clusterMetric",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job-config",
+          "message": "Chart default `defaultDashboards.dashboards.victorialogs-cluster.clusterMetric` changed from `vm_app_version` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "defaultDashboards.dashboards.victorialogs-cluster.clusterMetric",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job-config",
+          "message": "Chart default `defaultDashboards.dashboards.victorialogs-single-node.clusterMetric` changed from `vm_app_version` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "defaultDashboards.dashboards.victorialogs-single-node.clusterMetric",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job-config",
+          "message": "Chart default `defaultDashboards.dashboards.victorialogs-vlagent.clusterMetric` changed from `vm_app_version` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "defaultDashboards.dashboards.victorialogs-vlagent.clusterMetric",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job-config",
+          "message": "Chart default `defaultDashboards.dashboards.victoriametrics-cluster.clusterMetric` changed from `vm_app_version` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "defaultDashboards.dashboards.victoriametrics-cluster.clusterMetric",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job-config",
+          "message": "Chart default `defaultDashboards.dashboards.victoriametrics-operator.clusterMetric` changed from `vm_app_version` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "defaultDashboards.dashboards.victoriametrics-operator.clusterMetric",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job-config",
+          "message": "Chart default `defaultDashboards.dashboards.victoriametrics-single-node.clusterMetric` changed from `vm_app_version` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "defaultDashboards.dashboards.victoriametrics-single-node.clusterMetric",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job-config",
+          "message": "Chart default `defaultDashboards.dashboards.victoriametrics-vmagent.clusterMetric` changed from `vm_app_version` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "defaultDashboards.dashboards.victoriametrics-vmagent.clusterMetric",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job-config",
+          "message": "Chart default `defaultDashboards.dashboards.victoriametrics-vmalert.clusterMetric` changed from `vm_app_version` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "defaultDashboards.dashboards.victoriametrics-vmalert.clusterMetric",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job-config",
+          "message": "Chart default `defaultDashboards.dashboards.victoriatraces-cluster.clusterMetric` changed from `vm_app_version` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "defaultDashboards.dashboards.victoriatraces-cluster.clusterMetric",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job-config",
+          "message": "Chart default `defaultDashboards.dashboards.victoriatraces-single-node.clusterMetric` changed from `vm_app_version` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "defaultDashboards.dashboards.victoriatraces-single-node.clusterMetric",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/vmalertmanager-stageproof-rel-victoria-metrics-k8s-stack-monzo-tpl, Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator, VMAlertmanager/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack",
+          "message": "Chart default `global.versions.alertmanager` changed from `v0.34.2` to `v0.35.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.versions.alertmanager",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator",
+          "message": "Chart default `global.versions.anomaly` changed from `v1.31.1` to `v1.32.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.versions.anomaly",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator",
+          "message": "Chart default `global.versions.logs` changed from `v1.53.0` to `v1.54.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.versions.logs",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator",
+          "message": "Chart default `global.versions.metrics` changed from `v1.155.0` to `v1.157.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.versions.metrics",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator",
+          "message": "Chart default `global.versions.traces` changed from `v0.12.1` to `v0.13.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.versions.traces",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job-config, Job/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job, Role/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job, RoleBinding/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job, ServiceAccount/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job",
+          "message": "Chart default `syncJob.image.tag` changed from `v0.0.17` to `v0.0.18` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "syncJob.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter changed at spec.template.spec.containers[name=node-exporter].livenessProbe.timeoutSeconds. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-grafana changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-grafana",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-kube-state-metrics changed at spec.template.spec.nodeSelector. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-kube-state-metrics",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator changed at spec.template.spec.containers[name=operator].env[name=VM_ANOMALY_VERSION].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 0.97.1 to 0.99.0, skipping 1 minor version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.155.0 to v1.157.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. Deployment/stageproof-check/stageproof-rel-grafana.template.spec.containers[0] grafana-sc-dashboard container moves from quay.io/kiwigrid/k8s-sidecar:2.11.2 to quay.io/kiwigrid/k8s-sidecar:2.14.3. Deployment/stageproof-check/stageproof-rel-grafana.template.spec.containers[2] grafana container moves from docker.io/grafana/grafana:13.2.3-distroless to docker.io/grafana/grafana:13.3.1-distroless. Job/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-sync-job.template.spec.containers[0] sync-job container moves from ghcr.io/victoriametrics/sync-job:v0.0.17 to ghcr.io/victoriametrics/sync-job:v0.0.18.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "must be no more than 63 characters",
+          "message": "Kubernetes rejected `metadata.name` on Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager. The current chart failed the same validation; the upgrade did not introduce it.",
+          "resource": "Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission, ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 328 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vldistributed.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 378 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmdistributed.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 454 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmscrapeconfigs.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.99.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://victoriametrics.github.io/helm-charts/ --chart victoria-metrics-k8s-stack --from 0.97.1 --to 0.99.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "5ff16b3c92b92f855574d7ca99e984ada1e0100205fdbee7fdeb0de4d9b110d9"
+}

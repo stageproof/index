@@ -1,0 +1,337 @@
+{
+  "from_sha256": "967dd307a5deb0a873708997367943724d1a80a2fc1830b96c005a5c33e82637",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.1.6",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 16 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 7 of 8 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "fail",
+          "summary": "1 removed API or immutable upgrade blocker"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete StatefulSet/default/stageproof-rel-openldap-stack-ha. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/default/stageproof-rel-openldap-stack-ha",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/default/stageproof-rel-openldap-stack-ha-env, Secret/default/stageproof-rel-openldap-stack-ha, Service/default/stageproof-rel-openldap-stack-ha-headless, Service/stageproof-check/stageproof-rel-openldap-stack-ha.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.CONTAINER_LOG_LEVEL` changed from `4` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.CONTAINER_LOG_LEVEL",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.KEEP_EXISTING_CONFIG` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.KEEP_EXISTING_CONFIG",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_BACKEND` changed from `mdb` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_BACKEND",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_DOMAIN` changed from `example.org` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_DOMAIN",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_LOG_LEVEL` changed from `256` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_LOG_LEVEL",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_ORGANISATION` changed from `Example Inc.` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_ORGANISATION",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_READONLY_USER` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_READONLY_USER",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_READONLY_USER_PASSWORD` changed from `readonly` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_READONLY_USER_PASSWORD",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_READONLY_USER_USERNAME` changed from `readonly` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_READONLY_USER_USERNAME",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_REMOVE_CONFIG_AFTER_SETUP` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_REMOVE_CONFIG_AFTER_SETUP",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_RFC2307BIS_SCHEMA` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_RFC2307BIS_SCHEMA",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_SSL_HELPER_PREFIX` changed from `ldap` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_SSL_HELPER_PREFIX",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_TLS` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_TLS",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_TLS_CA_CRT_FILENAME` changed from `ca.crt` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_TLS_CA_CRT_FILENAME",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_TLS_CIPHER_SUITE` changed from `NORMAL` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_TLS_CIPHER_SUITE",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_TLS_CRT_FILENAME` changed from `tls.crt` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_TLS_CRT_FILENAME",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_TLS_DH_PARAM_FILENAME` changed from `dhparam.pem` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_TLS_DH_PARAM_FILENAME",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_TLS_ENFORCE` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_TLS_ENFORCE",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_TLS_KEY_FILENAME` changed from `tls.key` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_TLS_KEY_FILENAME",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_TLS_PROTOCOL_MIN` changed from `3.0` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_TLS_PROTOCOL_MIN",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_TLS_REQCERT` changed from `never` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_TLS_REQCERT",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_TLS_VERIFY_CLIENT` changed from `never` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_TLS_VERIFY_CLIENT",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel",
+          "message": "Chart default `image.repository` changed from `osixia/openldap` to `jpgouin/openldap` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel",
+          "message": "Chart default `image.tag` changed from `1.5.0` to `2.6.9-fix` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-phpldapadmin",
+          "message": "Chart default `phpldapadmin.env.PHPLDAPADMIN_LDAP_HOSTS` changed from `openldap-openldap-stack-ha` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "phpldapadmin.env.PHPLDAPADMIN_LDAP_HOSTS",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel",
+          "message": "Chart default `startupProbe.enabled` changed from `false` to `true` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "startupProbe.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-ltb-passwd changed at spec.template.metadata.labels.app.kubernetes.io/name. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-ltb-passwd",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 2.1.6 to 4.3.3, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.4.57 to 2.6.9. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/default/stageproof-rel-ltb-passwd.template.spec.containers[0] ltb-passwd container moves from tiredofit/self-service-password:latest to tiredofit/self-service-password:5.2.3.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `debian:latest` could not be checked. The registry did not answer.",
+          "resource": "debian:latest",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `jpgouin/openldap:2.6.9-fix` could not be checked. The registry did not answer.",
+          "resource": "jpgouin/openldap:2.6.9-fix",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `tiredofit/self-service-password:5.2.3` could not be checked. The registry refused the request.",
+          "resource": "tiredofit/self-service-password:5.2.3",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.selector` is immutable.",
+          "resource": "Deployment/default/stageproof-rel-ltb-passwd",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:stageproof-rel] to map[app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:stageproof-rel-ltb]. An in-place `helm upgrade` will fail.",
+          "resource": "Deployment/default/stageproof-rel-ltb-passwd",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "4.3.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://jp-gouin.github.io/helm-openldap/ --chart openldap-stack-ha --from 2.1.6 --to 4.3.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "fecd5437a980e7f08cfd60629b9eb494a8b0abd67bd6bab28b0031d5f82993b1"
+}

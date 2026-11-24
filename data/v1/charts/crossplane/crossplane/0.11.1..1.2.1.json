@@ -1,0 +1,371 @@
+{
+  "from_sha256": "bdea379dbb45c921cc517411e2e3e836a334243110d31978a434d082b049c3ac",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.11.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 22 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "4 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/applicationconfigurations.core.oam.dev. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/applicationconfigurations.core.oam.dev",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/buckets.storage.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/buckets.storage.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/components.core.oam.dev. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/components.core.oam.dev",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/compositions.apiextensions.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/compositions.apiextensions.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/containerizedworkloads.core.oam.dev. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/containerizedworkloads.core.oam.dev",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/infrastructuredefinitions.apiextensions.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/infrastructuredefinitions.apiextensions.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/infrastructurepublications.apiextensions.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/infrastructurepublications.apiextensions.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/kubernetesapplicationresources.workload.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/kubernetesapplicationresources.workload.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/kubernetesapplications.workload.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/kubernetesapplications.workload.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/kubernetesclusters.compute.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/kubernetesclusters.compute.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/kubernetestargets.workload.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/kubernetestargets.workload.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/machineinstances.compute.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/machineinstances.compute.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/manualscalertraits.core.oam.dev. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/manualscalertraits.core.oam.dev",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/mysqlinstances.database.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/mysqlinstances.database.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/nosqlinstances.database.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/nosqlinstances.database.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/packages.packages.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/packages.packages.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/postgresqlinstances.database.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/postgresqlinstances.database.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/providers.kubernetes.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/providers.kubernetes.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/redisclusters.cache.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/redisclusters.cache.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/scopedefinitions.core.oam.dev. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/scopedefinitions.core.oam.dev",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/stackdefinitions.packages.crossplane.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/stackdefinitions.packages.crossplane.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/traitdefinitions.core.oam.dev. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/traitdefinitions.core.oam.dev",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/workloaddefinitions.core.oam.dev. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/workloaddefinitions.core.oam.dev",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: ClusterRole/default/crossplane-env-admin, ClusterRole/default/crossplane-env-edit, ClusterRole/default/crossplane-env-view, ClusterRole/default/crossplane:package-manager:env:default:admin, ClusterRole/default/crossplane:package-manager:env:default:edit, ClusterRole/default/crossplane:package-manager:env:default:view, ClusterRole/default/crossplane:package-manager:ns:default:admin, ClusterRole/default/crossplane:package-manager:ns:default:edit, ClusterRole/default/crossplane:package-manager:ns:default:view, ClusterRole/default/crossplane:system:aggregate-to-crossplane-admin, ClusterRole/default/crossplane:system:ns-persona-cluster-rights, ClusterRoleBinding/default/crossplane-package-manager, Deployment/default/crossplane-package-manager, ServiceAccount/default/package-manager.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD applicationconfigurations.core.oam.dev under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/applicationconfigurations.core.oam.dev",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD clusterpackageinstalls.packages.crossplane.io under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/clusterpackageinstalls.packages.crossplane.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD components.core.oam.dev under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/components.core.oam.dev",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD containerizedworkloads.core.oam.dev under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/containerizedworkloads.core.oam.dev",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD healthscopes.core.oam.dev under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/healthscopes.core.oam.dev",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD manualscalertraits.core.oam.dev under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/manualscalertraits.core.oam.dev",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD packageinstalls.packages.crossplane.io under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/packageinstalls.packages.crossplane.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD scopedefinitions.core.oam.dev under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/scopedefinitions.core.oam.dev",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD traitdefinitions.core.oam.dev under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/traitdefinitions.core.oam.dev",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD workloaddefinitions.core.oam.dev under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/workloaddefinitions.core.oam.dev",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/crossplane-rbac-manager adds rules. Flags: bind, escalate, wildcard.",
+          "resource": "ClusterRole/default/crossplane-rbac-manager",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/crossplane:aggregate-to-admin adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/crossplane:aggregate-to-admin",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/crossplane:aggregate-to-browse adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/crossplane:aggregate-to-browse",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/crossplane:aggregate-to-edit adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/crossplane:aggregate-to-edit",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/crossplane:aggregate-to-ns-admin adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/crossplane:aggregate-to-ns-admin",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/crossplane:aggregate-to-ns-edit adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/crossplane:aggregate-to-ns-edit",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/crossplane:aggregate-to-ns-view adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/crossplane:aggregate-to-ns-view",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/crossplane:aggregate-to-view adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/crossplane:aggregate-to-view",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/crossplane:system:aggregate-to-crossplane adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/crossplane:system:aggregate-to-crossplane",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/crossplane",
+          "message": "Chart default `args` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "args",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/crossplane, Deployment/default/crossplane-rbac-manager",
+          "message": "Chart default `image.pullPolicy` changed from `Always` to `IfNotPresent` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.pullPolicy",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/crossplane, Deployment/default/crossplane-rbac-manager",
+          "message": "Chart default `image.tag` changed from `v0.11.1` to `v1.2.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/crossplane changed at spec.template.spec.containers[name=crossplane].args. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/crossplane",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 0.11.1 to 1.2.1, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 0.11.1 to 1.2.1. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/default/crossplane.template.spec.containers[0] crossplane container moves from crossplane/crossplane:v0.11.1 to crossplane/crossplane:v1.2.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "1.2.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.crossplane.io/master/ --chart crossplane --from 0.11.1 --to 1.2.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "3b95609aa0c4185e4e7900ba2cfdd7d9b84c612a315d6722831379e25d6e8193"
+}

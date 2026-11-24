@@ -1,0 +1,118 @@
+{
+  "from_sha256": "3b632c15fbfe0705914c465cb61308d0c6d413948bcdb2d6f57e3c93a571e483",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.29.3",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 13 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 9 of 11 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "replaced: delete then create. Helm will delete ClusterRoleBinding/default/stageproof-rel-openbao-agent-injector-binding. ClusterRoleBinding/default/stageproof-check-stageproof-rel-openbao-agent-injector-binding is created in its place.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-openbao-agent-injector-binding",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "replaced: delete then create. Helm will delete ClusterRoleBinding/default/stageproof-rel-openbao-server-binding. ClusterRoleBinding/default/stageproof-check-stageproof-rel-openbao-server-binding is created in its place.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-openbao-server-binding",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-openbao-agent-injector",
+          "message": "Chart default `injector.image.tag` changed from `1.7.2` to `1.7.6` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "injector.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-openbao-config",
+          "message": "Chart default `server.standalone.config` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "server.standalone.config",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-openbao-agent-injector changed at spec.template.spec.containers[name=sidecar-injector].env[name=AGENT_INJECT_VAULT_IMAGE].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-openbao-agent-injector",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-openbao changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-openbao",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v2.6.2 to v2.7.3. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Deployment/stageproof-check/stageproof-rel-openbao-agent-injector.template.spec.containers[0] sidecar-injector container moves from docker.io/hashicorp/vault-k8s:1.7.2 to docker.io/hashicorp/vault-k8s:1.7.6. Pod/stageproof-check/stageproof-rel-openbao-server-test.containers[0] stageproof-rel-server-test container moves from quay.io/openbao/openbao:2.6.2 to quay.io/openbao/openbao:2.7.3.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/default/stageproof-rel-openbao-agent-injector-cfg, MutatingWebhookConfiguration/default/stageproof-rel-openbao-agent-injector-cfg.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.30.8",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://openbao.github.io/openbao-helm --chart openbao --from 0.29.3 --to 0.30.8 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "a1a202d6300de36b3be9d924d52ba7dd24c6a1c7cd5b660b9bbda975f725f02b"
+}

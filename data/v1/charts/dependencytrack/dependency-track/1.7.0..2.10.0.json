@@ -1,0 +1,37 @@
+{
+  "from_sha256": "ad356aee0e79c03b5f35b28afeb9a42b8e4f0e33de2e8c7eaaab00d19b68a802",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.7.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 2.10.0 failed: exit status 1\nError: execution error at (dependency-track/templates/secrets/db.yaml:7:4): database.username and database.password must be set, or database.existingSecret.name must reference an existing Secret\n\nUse --debug flag to render out invalid YAML",
+          "file": "2.10.0",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "2.10.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://dependencytrack.github.io/helm-charts --chart dependency-track --from 1.7.0 --to 2.10.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "7e1de2eef9256866bb0291860745b6264d812b611d96f72e22516792053b3a90"
+}

@@ -1,0 +1,85 @@
+{
+  "from_sha256": "dcf35da18601c183333915afd59ed6edb8c7f055b1403b251b819d48aeaa466a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.1.3",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "required values shim",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: tunnelConfig.name"
+        },
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 2 these values is set: tunnelSecrets.base64EncodedConfigJsonFile, tunnelSecrets.base64EncodedPemFile"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 4 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 3 of 4 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: DaemonSet/default/stageproof-rel-cloudflared",
+          "message": "Chart default `securityContext.capabilities.add` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "securityContext.capabilities.add",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/default/stageproof-rel-cloudflared changed at spec.template.spec.containers[name=cloudflared].env. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/default/stageproof-rel-cloudflared",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "Secret/default/tunnel-credentials was not judged. the API server did not return a field error.",
+          "resource": "Secret/default/tunnel-credentials",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "2.2.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://community-charts.github.io/helm-charts --chart cloudflared --from 2.1.3 --to 2.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "2a7b6fab3c11a762fe51f7c023a19c060a6257148163d9fb9a6e1adbb729ff8d"
+}

@@ -1,0 +1,28 @@
+{
+  "from_sha256": "97146a6ea1c4cecfeba8febf07e35e40e2f7e663bf3f95d18e87014c7ccc7e0e",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.12.7",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 1.12.7 failed: exit status 1\nError: values don't meet the specifications of the schema(s) in the following chart(s):\ndagster:\nfailing loading \"https://kubernetesjsonschema.dev/v1.18.0/_definitions.json\": HTTP request failed for https://kubernetesjsonschema.dev/v1.18.0/_definitions.json: Get \"https://kubernetesjsonschema.dev/v1.18.0/_definitions.json\": tls: failed to verify certificate: x509: certificate is valid for *.netlify.app, netlify.app, not kubernetesjsonschema.devdagster-user-deployments:\nfailing loading \"https://kubernetesjsonschema.dev/v1.18.0/_definitions.json\": HTTP request failed for https://kubernetesjsonschema.dev/v1.18.0/_definitions.json: Get \"https://kubernetesjsonschema.dev/v1.18.0/_definitions.json\": tls: failed to verify certificate: x509: certificate is valid for *.netlify.app, netlify.app, not kubernetesjsonschema.dev"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "1.12.8",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://dagster-io.github.io/helm --chart dagster --from 1.12.7 --to 1.12.8 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "dd2c786fa6e44c70d1cc2c9858370fe59802c375437e821f42f146009b0951df"
+}

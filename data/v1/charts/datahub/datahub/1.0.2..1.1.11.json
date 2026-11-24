@@ -1,0 +1,158 @@
+{
+  "from_sha256": "ae71c2813e8fdef642e524ec3b5654e3aa7bb22217a6c1513e87ac575d301968",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.0.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 15 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 8 of 15 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-datahub-gms",
+          "message": "Chart default `datahub-gms.theme_v2.toggeable` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "datahub-gms.theme_v2.toggeable",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-datahub-frontend",
+          "message": "Chart default `global.datahub.appVersion` changed from `1.6.0` to `1.7.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.datahub.appVersion",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-datahub-gms, Job/default/stageproof-rel-system-update, Job/default/stageproof-rel-system-update-nonblk",
+          "message": "Chart default `global.datahub.managed_ingestion.defaultCliVersion` changed from `1.6.0` to `1.7.0.19` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.datahub.managed_ingestion.defaultCliVersion",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-datahub-gms, Job/default/stageproof-rel-system-update, Job/default/stageproof-rel-system-update-nonblk",
+          "message": "Chart default `global.datahub.systemUpdate.zdu.enable` changed from `false` to `true` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.datahub.systemUpdate.zdu.enable",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-acryl-datahub-actions, Deployment/default/stageproof-rel-datahub-frontend, Deployment/default/stageproof-rel-datahub-gms, Job/default/stageproof-rel-system-update, Job/default/stageproof-rel-system-update-nonblk, Service/default/stageproof-rel-datahub-gms",
+          "message": "Chart default `global.datahub.version` changed from `v1.6.0` to `v1.9.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.datahub.version",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-acryl-datahub-actions changed at spec.template.spec.containers[name=acryl-datahub-actions].env[name=UV_LINK_MODE]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-acryl-datahub-actions",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-datahub-frontend changed at spec.template.spec.containers[name=datahub-frontend].env[name=DATAHUB_APP_VERSION].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-datahub-frontend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-datahub-gms changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-datahub-gms",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.6.0 to v1.9.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "4 container images changed. Deployment/default/stageproof-rel-acryl-datahub-actions.template.spec.containers[0] acryl-datahub-actions container moves from docker.io/acryldata/datahub-actions:v1.6.0 to docker.io/acryldata/datahub-actions:v1.9.0. Deployment/default/stageproof-rel-datahub-frontend.template.spec.containers[0] datahub-frontend container moves from docker.io/acryldata/datahub-frontend-react:v1.6.0 to docker.io/acryldata/datahub-frontend-react:v1.9.0. Deployment/default/stageproof-rel-datahub-gms.template.spec.containers[0] datahub-gms container moves from docker.io/acryldata/datahub-gms:v1.6.0 to docker.io/acryldata/datahub-gms:v1.9.0. Job/default/stageproof-rel-system-update-nonblk.template.spec.containers[0] datahub-system-update-job container moves from docker.io/acryldata/datahub-upgrade:v1.6.0 to docker.io/acryldata/datahub-upgrade:v1.9.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/acryldata/datahub-actions:v1.9.0` could not be checked. The registry did not answer.",
+          "resource": "docker.io/acryldata/datahub-actions:v1.9.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/acryldata/datahub-frontend-react:v1.9.0` could not be checked. The registry did not answer.",
+          "resource": "docker.io/acryldata/datahub-frontend-react:v1.9.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/acryldata/datahub-gms:v1.9.0` could not be checked. The registry did not answer.",
+          "resource": "docker.io/acryldata/datahub-gms:v1.9.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/acryldata/datahub-upgrade:v1.9.0` could not be checked. The registry did not answer.",
+          "resource": "docker.io/acryldata/datahub-upgrade:v1.9.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.1.11",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.datahubproject.io --chart datahub --from 1.0.2 --to 1.1.11 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "d1b6602d869711574accd1ce2cc89edd9e3374f2267ee9fc44427393c05104d5"
+}

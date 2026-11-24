@@ -1,0 +1,87 @@
+{
+  "from_sha256": "0473b2815c2c79cafd96fd632eb59cf0700f67953deed9bbc4ec703735835b7f",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.8.16",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 14 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 12 of 14 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-system-update",
+          "message": "Chart default `datahubSystemUpdate.elasticsearch.setup.enabled` changed from `false` to `true` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "datahubSystemUpdate.elasticsearch.setup.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-system-update",
+          "message": "Chart default `datahubSystemUpdate.sql.setup.enabled` changed from `false` to `true` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "datahubSystemUpdate.sql.setup.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-elasticsearch-setup-job, Job/default/stageproof-rel-system-update",
+          "message": "Chart default `elasticsearchSetupJob.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "elasticsearchSetupJob.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-mysql-setup-job, Job/default/stageproof-rel-system-update",
+          "message": "Chart default `mysqlSetupJob.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "mysqlSetupJob.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.8.17",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.datahubproject.io --chart datahub --from 0.8.16 --to 0.8.17 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "f34e38aef2803a7dcc4be1acacfd218ad0b8a8720e8976942f1a8770669667f5"
+}

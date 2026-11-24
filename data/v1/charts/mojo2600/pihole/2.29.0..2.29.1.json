@@ -1,0 +1,93 @@
+{
+  "from_sha256": "29fae7d6b8c52b739027655d0a195e38e9a9d2eddd661e550f6d3f7f6a9cb2d4",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.29.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 8 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 7 of 8 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-pihole",
+          "message": "Chart default `probes.liveness.port` changed from `https` to `http` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "probes.liveness.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-pihole",
+          "message": "Chart default `probes.liveness.scheme` changed from `HTTPS` to `HTTP` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "probes.liveness.scheme",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-pihole",
+          "message": "Chart default `probes.readiness.port` changed from `https` to `http` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "probes.readiness.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-pihole",
+          "message": "Chart default `probes.readiness.scheme` changed from `HTTPS` to `HTTP` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "probes.readiness.scheme",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-pihole changed at spec.template.metadata.annotations.checksum.config.dnsmasqConfig. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-pihole",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "2.29.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://mojo2600.github.io/pihole-kubernetes/ --chart pihole --from 2.29.0 --to 2.29.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "5b5cea79796ebaaa847bd9fa0d10a817fbc793b70055288ec5bfe8465e30750b"
+}

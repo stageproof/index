@@ -1,0 +1,159 @@
+{
+  "from_sha256": "b1dec81bf68735fb663d4ea186c374404d17a504d14c33fc998fdf8ddad3e8fc",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.15.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 31 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "8 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared rendered objects. No object is in both charts to diff as a stored form."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete StatefulSet/default/stageproof-rel-harbor-database. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/default/stageproof-rel-harbor-database",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete StatefulSet/default/stageproof-rel-harbor-redis. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/default/stageproof-rel-harbor-redis",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete StatefulSet/default/stageproof-rel-harbor-trivy. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/default/stageproof-rel-harbor-trivy",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/default/stageproof-rel-harbor-core, ConfigMap/default/stageproof-rel-harbor-jobservice, ConfigMap/default/stageproof-rel-harbor-jobservice-env, ConfigMap/default/stageproof-rel-harbor-portal, ConfigMap/default/stageproof-rel-harbor-registry, ConfigMap/default/stageproof-rel-harbor-registryctl, Deployment/default/stageproof-rel-harbor-core, Deployment/default/stageproof-rel-harbor-jobservice, Deployment/default/stageproof-rel-harbor-portal, Deployment/default/stageproof-rel-harbor-registry, Ingress/default/stageproof-rel-harbor-ingress, Secret/default/stageproof-rel-harbor-core, Secret/default/stageproof-rel-harbor-database, Secret/default/stageproof-rel-harbor-ingress, Secret/default/stageproof-rel-harbor-jobservice, Secret/default/stageproof-rel-harbor-registry, Secret/default/stageproof-rel-harbor-registry-htpasswd, Secret/default/stageproof-rel-harbor-registryctl, Secret/default/stageproof-rel-harbor-trivy, Service/default/stageproof-rel-harbor-core, Service/default/stageproof-rel-harbor-database, Service/default/stageproof-rel-harbor-jobservice, Service/default/stageproof-rel-harbor-portal, Service/default/stageproof-rel-harbor-redis, Service/default/stageproof-rel-harbor-registry, Service/default/stageproof-rel-harbor-trivy.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "Ingress/stageproof-check/stageproof-rel-harbor-ingress adds hosts core.harbor.domain.",
+          "resource": "Ingress/stageproof-check/stageproof-rel-harbor-ingress",
+          "rule_id": "impact.exposure.route",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-core",
+          "message": "Chart default `core.image.tag` changed from `v2.11.2` to `v2.12.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "core.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-harbor-database",
+          "message": "Chart default `database.internal.image.tag` changed from `v2.11.2` to `v2.12.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "database.internal.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-jobservice",
+          "message": "Chart default `jobservice.image.tag` changed from `v2.11.2` to `v2.12.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "jobservice.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-portal",
+          "message": "Chart default `portal.image.tag` changed from `v2.11.2` to `v2.12.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "portal.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-harbor-redis",
+          "message": "Chart default `redis.internal.image.tag` changed from `v2.11.2` to `v2.12.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.internal.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-registry",
+          "message": "Chart default `registry.controller.image.tag` changed from `v2.11.2` to `v2.12.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "registry.controller.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-registry",
+          "message": "Chart default `registry.registry.image.tag` changed from `v2.11.2` to `v2.12.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "registry.registry.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-harbor-trivy",
+          "message": "Chart default `trivy.image.tag` changed from `v2.11.2` to `v2.12.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "trivy.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.11.2 to 2.12.1. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "1.16.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.goharbor.io --chart harbor --from 1.15.2 --to 1.16.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "15e5f9ad4f2a9cd3dfd868cded6e5a98e8500275e350079fc54064867a2ce09a"
+}

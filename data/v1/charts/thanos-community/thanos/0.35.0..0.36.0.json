@@ -1,0 +1,113 @@
+{
+  "from_sha256": "6612761998401756c69e5b3595c1f34df0a3a78143d42617124738a1bde8574d",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.35.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 12 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "4 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 7 of 12 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "fail",
+          "summary": "4 removed API or immutable upgrade blockers"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Kubernetes rejected the update. `spec.selector` is immutable.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-thanos-query",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec` is immutable.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-thanos-compactor",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec` is immutable.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-thanos-receive",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec` is immutable.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-thanos-storegateway",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "message": "PrometheusRule/stageproof-check/stageproof-rel-thanos-rules was not judged. the API group is not installed on this server.",
+          "resource": "PrometheusRule/stageproof-check/stageproof-rel-thanos-rules",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app.kubernetes.io/component:query app.kubernetes.io/instance:stageproof-rel] to map[app.kubernetes.io/component:query app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:thanos]. An in-place `helm upgrade` will fail.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-thanos-query",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app.kubernetes.io/component:compactor app.kubernetes.io/instance:stageproof-rel] to map[app.kubernetes.io/component:compactor app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:thanos]. An in-place `helm upgrade` will fail.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-thanos-compactor",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app.kubernetes.io/component:receive app.kubernetes.io/instance:stageproof-rel] to map[app.kubernetes.io/component:receive app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:thanos]. An in-place `helm upgrade` will fail.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-thanos-receive",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app.kubernetes.io/component:storegateway app.kubernetes.io/instance:stageproof-rel] to map[app.kubernetes.io/component:storegateway app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:thanos]. An in-place `helm upgrade` will fail.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-thanos-storegateway",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.36.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://thanos-community.github.io/helm-charts --chart thanos --from 0.35.0 --to 0.36.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "f90129c198e3299f9651a786df450b0af18037a61e1432e5bb3b1b717e718673"
+}

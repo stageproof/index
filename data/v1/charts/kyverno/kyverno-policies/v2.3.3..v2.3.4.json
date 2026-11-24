@@ -1,0 +1,121 @@
+{
+  "from_sha256": "69232bf54303d1f2cb50e8fe9453e665a86dfcd0dc041c448d91c07be555f20d",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v2.3.3",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 11 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared rendered objects. The API server did not return a stored form for both sides of any object."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "ClusterPolicy/default/disallow-capabilities was not judged. the API group is not installed on this server.",
+          "resource": "ClusterPolicy/default/disallow-capabilities",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "ClusterPolicy/default/disallow-host-namespaces was not judged. the API group is not installed on this server.",
+          "resource": "ClusterPolicy/default/disallow-host-namespaces",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "ClusterPolicy/default/disallow-host-path was not judged. the API group is not installed on this server.",
+          "resource": "ClusterPolicy/default/disallow-host-path",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "ClusterPolicy/default/disallow-host-ports was not judged. the API group is not installed on this server.",
+          "resource": "ClusterPolicy/default/disallow-host-ports",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "ClusterPolicy/default/disallow-host-process was not judged. the API group is not installed on this server.",
+          "resource": "ClusterPolicy/default/disallow-host-process",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "ClusterPolicy/default/disallow-privileged-containers was not judged. the API group is not installed on this server.",
+          "resource": "ClusterPolicy/default/disallow-privileged-containers",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "ClusterPolicy/default/disallow-proc-mount was not judged. the API group is not installed on this server.",
+          "resource": "ClusterPolicy/default/disallow-proc-mount",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "ClusterPolicy/default/disallow-selinux was not judged. the API group is not installed on this server.",
+          "resource": "ClusterPolicy/default/disallow-selinux",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "ClusterPolicy/default/restrict-apparmor-profiles was not judged. the API group is not installed on this server.",
+          "resource": "ClusterPolicy/default/restrict-apparmor-profiles",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "ClusterPolicy/default/restrict-seccomp was not judged. the API group is not installed on this server.",
+          "resource": "ClusterPolicy/default/restrict-seccomp",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "ClusterPolicy/default/restrict-sysctls was not judged. the API group is not installed on this server.",
+          "resource": "ClusterPolicy/default/restrict-sysctls",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "v2.3.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kyverno.github.io/kyverno/ --chart kyverno-policies --from v2.3.3 --to v2.3.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "14018d974333a827d45475420e3c1cc85d583c07c2a4224d1b74d0b20df099ce"
+}

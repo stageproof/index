@@ -1,0 +1,97 @@
+{
+  "from_sha256": "4480ac0b427824e06d1fd22158ef741b0472083f145cdaf6a246f7870e7fa11e",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.0.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 15 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-ltb-passwd, Deployment/default/stageproof-rel-phpldapadmin, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `global.imagePullSecrets` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.imagePullSecrets",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-phpldapadmin, Service/default/stageproof-rel-headless, Service/stageproof-check/stageproof-rel",
+          "message": "Chart default `global.ldapPort` changed from `1389` to `389` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.ldapPort",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-ltb-passwd, Service/stageproof-check/stageproof-rel",
+          "message": "Chart default `global.sslLdapPort` changed from `1636` to `636` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.sslLdapPort",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-ltb-passwd changed at spec.template.spec.containers[name=ltb-passwd].env[name=LDAP_SERVER].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-ltb-passwd",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-phpldapadmin changed at spec.template.spec.imagePullSecrets. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-phpldapadmin",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel changed at spec.template.metadata.annotations.checksum/configmap-env. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "4.0.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://jp-gouin.github.io/helm-openldap/ --chart openldap-stack-ha --from 4.0.1 --to 4.0.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "425f832d5de319e232f7ae62f786a91de1dfa738e624c42c3707218121648721"
+}

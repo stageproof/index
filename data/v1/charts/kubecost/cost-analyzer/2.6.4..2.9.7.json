@@ -1,0 +1,38 @@
+{
+  "from_sha256": "7a84de98acbe15da704931ab312a88be3986e014720d36ca4662898a60b8e258",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.6.4",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "a required value is unset"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 2.9.7 failed: exit status 1\nError: execution error at (cost-analyzer/charts/finopsagent/templates/deployment.yaml:166:25): \n\nclusterId is required. Please set .Values.global.clusterId\n\nUse --debug flag to render out invalid YAML",
+          "file": "2.9.7",
+          "message": "The new chart does not render because a required value is unset.",
+          "proof": "render",
+          "rule_id": "helm.values.new_required_unset",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "2.9.7",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 2.6.4 --to 2.9.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "1eac106c4e2739ca832432a9413a6edd74a85f3981a85beca2328ac584f3b36c"
+}

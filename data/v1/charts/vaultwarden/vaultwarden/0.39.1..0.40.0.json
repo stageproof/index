@@ -1,0 +1,82 @@
+{
+  "from_sha256": "67980aa256fa15095f535f4cbfacd4ffea93aaa7d6c97b04a1405d11a728da29",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.39.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 4 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Role/stageproof-check/stageproof-rel-vaultwarden, RoleBinding/stageproof-check/stageproof-rel-vaultwarden, ServiceAccount/stageproof-check/vaultwarden-svc.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Secret/stageproof-check/stageproof-rel-vaultwarden, StatefulSet/stageproof-check/stageproof-rel-vaultwarden",
+          "message": "Chart default `adminToken.value` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "adminToken.value",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ServiceAccount/stageproof-check/",
+          "message": "Chart default `serviceAccount.create` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "serviceAccount.create",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-vaultwarden changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-vaultwarden",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.40.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://guerzon.github.io/vaultwarden --chart vaultwarden --from 0.39.1 --to 0.40.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "7a4bd607512e75d0ceae686322a8963649dca4d4976eaa083c06d443ed48c64f"
+}

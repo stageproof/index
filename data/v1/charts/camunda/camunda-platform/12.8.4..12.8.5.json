@@ -1,0 +1,182 @@
+{
+  "from_sha256": "48c6905a863b01b7afad441b4e560ec9d073a86d673c7340d7180fb213d28aef",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "12.8.4",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 60 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-release, ConfigMap/default/stageproof-rel-operate-configuration, Deployment/default/stageproof-rel-operate, Service/default/stageproof-rel-operate, ServiceAccount/default/stageproof-rel-operate",
+          "message": "Chart default `operate.image.tag` changed from `8.7.26` to `8.7.27` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "operate.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-release, ConfigMap/default/stageproof-rel-optimize-configuration, Deployment/default/stageproof-rel-optimize, Service/default/stageproof-rel-optimize, ServiceAccount/default/stageproof-rel-optimize",
+          "message": "Chart default `optimize.image.tag` changed from `8.7.19` to `8.7.20` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "optimize.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-release, ConfigMap/default/stageproof-rel-tasklist-configuration, Deployment/default/stageproof-rel-tasklist, Service/default/stageproof-rel-tasklist, ServiceAccount/default/stageproof-rel-tasklist",
+          "message": "Chart default `tasklist.image.tag` changed from `8.7.26` to `8.7.27` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "tasklist.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-release, ConfigMap/default/stageproof-rel-zeebe-configuration, Service/default/stageproof-rel-zeebe, ServiceAccount/default/stageproof-rel-zeebe, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.image.tag` changed from `8.7.26` to `8.7.27` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-release, ConfigMap/default/stageproof-rel-zeebe-gateway-configuration, Deployment/default/stageproof-rel-zeebe-gateway, Service/default/stageproof-rel-zeebe-gateway, ServiceAccount/default/stageproof-rel-zeebe-gateway",
+          "message": "Chart default `zeebeGateway.image.tag` changed from `8.7.26` to `8.7.27` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebeGateway.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-connectors changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-connectors",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-identity changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-identity",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-operate changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-operate",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-optimize changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-optimize",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-tasklist changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-tasklist",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-zeebe-gateway changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-zeebe-gateway",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-zeebe changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-zeebe",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-keycloak changed at spec.template.metadata.annotations.checksum/secrets. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-keycloak",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "4 container images changed. Deployment/default/stageproof-rel-operate.template.spec.containers[0] operate container moves from camunda/operate:8.7.26 to camunda/operate:8.7.27. Deployment/default/stageproof-rel-optimize.template.spec.containers[0] optimize container moves from camunda/optimize:8.7.19 to camunda/optimize:8.7.20. Deployment/default/stageproof-rel-tasklist.template.spec.containers[0] tasklist container moves from camunda/tasklist:8.7.26 to camunda/tasklist:8.7.27. Deployment/default/stageproof-rel-zeebe-gateway.template.spec.containers[0] zeebe-gateway container moves from camunda/zeebe:8.7.26 to camunda/zeebe:8.7.27.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `camunda/operate:8.7.27` could not be checked. The registry did not answer.",
+          "resource": "camunda/operate:8.7.27",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `camunda/optimize:8.7.20` could not be checked. The registry did not answer.",
+          "resource": "camunda/optimize:8.7.20",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `camunda/tasklist:8.7.27` could not be checked. The registry did not answer.",
+          "resource": "camunda/tasklist:8.7.27",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `camunda/zeebe:8.7.27` could not be checked. The registry did not answer.",
+          "resource": "camunda/zeebe:8.7.27",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "12.8.5",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.camunda.io --chart camunda-platform --from 12.8.4 --to 12.8.5 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "74b0e666a95e23ea94f9660846abba02dfbb1b086b3a2f0ac0f86731c016aeac"
+}

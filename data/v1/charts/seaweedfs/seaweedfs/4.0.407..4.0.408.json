@@ -1,0 +1,132 @@
+{
+  "from_sha256": "18a3c96a5ae2fac5814582e7cf0b1d3de458d1c1ad3c22924afe8b1cebad8e0f",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.0.407",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 12 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "replaced: delete then create. Helm will delete ClusterRole/default/seaweedfs-rw-cr. ClusterRole/default/stageproof-rel-seaweedfs-rw-cr is created in its place.",
+          "resource": "ClusterRole/default/seaweedfs-rw-cr",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "replaced: delete then create. Helm will delete ConfigMap/stageproof-check/seaweedfs-master-config. ConfigMap/stageproof-check/stageproof-rel-seaweedfs-master-config is created in its place.",
+          "resource": "ConfigMap/stageproof-check/seaweedfs-master-config",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete StatefulSet/stageproof-check/seaweedfs-filer. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/stageproof-check/seaweedfs-filer",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete StatefulSet/stageproof-check/seaweedfs-master. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/stageproof-check/seaweedfs-master",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete StatefulSet/stageproof-check/seaweedfs-volume. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/stageproof-check/seaweedfs-volume",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: ClusterRoleBinding/default/system:serviceaccount:seaweedfs:default, Service/stageproof-check/seaweedfs-filer, Service/stageproof-check/seaweedfs-filer-client, Service/stageproof-check/seaweedfs-master, Service/stageproof-check/seaweedfs-volume.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "StatefulSet/stageproof-check/stageproof-rel-seaweedfs-filer adds hostPath volumes data-filer, seaweedfs-filer-log-volume.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-seaweedfs-filer",
+          "rule_id": "impact.privilege.hostpath",
+          "severity": "warning"
+        },
+        {
+          "message": "StatefulSet/stageproof-check/stageproof-rel-seaweedfs-master adds hostPath volumes data-stageproof-check, seaweedfs-master-log-volume.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-seaweedfs-master",
+          "rule_id": "impact.privilege.hostpath",
+          "severity": "warning"
+        },
+        {
+          "message": "StatefulSet/stageproof-check/stageproof-rel-seaweedfs-volume adds hostPath volumes data1.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-seaweedfs-volume",
+          "rule_id": "impact.privilege.hostpath",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-seaweedfs-rw-cr adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-seaweedfs-rw-cr",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 4.07 to 4.08. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `chrislusf/seaweedfs:4.08` could not be checked. The registry did not answer.",
+          "resource": "chrislusf/seaweedfs:4.08",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "4.0.408",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://seaweedfs.github.io/seaweedfs/helm --chart seaweedfs --from 4.0.407 --to 4.0.408 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "5bad1a71041616ca0c23c8d3937c828bc62d0f45e5209dbe46de78e397ccb4b4"
+}

@@ -1,0 +1,85 @@
+{
+  "from_sha256": "4c911f3a6451514363f3c015ccfad346c23a92a96b5605590cfb664da78667e2",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "5.9.12",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 14 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 12 of 13 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-gejdi, Pod/stageproof-check/stageproof-rel-ui-test-robr8",
+          "message": "Chart default `controller.ingress.apiVersion` changed from `extensions/v1beta1` to `networking.k8s.io/v1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.ingress.apiVersion",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-65nva, Pod/stageproof-check/stageproof-rel-ui-test-gejdi",
+          "message": "Chart default `controller.secondaryingress.apiVersion` changed from `extensions/v1beta1` to `networking.k8s.io/v1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.secondaryingress.apiVersion",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-gejdi, Pod/stageproof-check/stageproof-rel-ui-test-otkez",
+          "message": "Chart default `controller.topologySpreadConstraints` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.topologySpreadConstraints",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-jenkins changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-jenkins",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "5.9.13",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.9.12 --to 5.9.13 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "06fc107c38036c705d99da412efceb11127b1a834a652138b4885541a54aeb99"
+}

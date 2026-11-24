@@ -1,0 +1,28 @@
+{
+  "from_sha256": "c2f152d0ed99244184d09ab543e745b16e54d67ca58e07f0d74e773f0856d9fd",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "11.2.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 11.2.0 failed: exit status 1\nError: template: camunda-platform/charts/identityKeycloak/templates/statefulset.yaml:163:27: executing \"camunda-platform/charts/identityKeycloak/templates/statefulset.yaml\" at <include \"keycloak.databaseSecretName\" .>: error calling include: template: camunda-platform/charts/identityKeycloak/templates/_helpers.tpl:168:75: executing \"keycloak.databaseSecretName\" at <.Values.postgresql.auth.existingSecret>: wrong type for value; expected string; got interface {}\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "11.2.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.camunda.io --chart camunda-platform --from 11.2.0 --to 11.2.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "63a3cab40676ff8c4fa04315e223a3a208203805de80d4a77b9add9595af4b6c"
+}

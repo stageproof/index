@@ -1,0 +1,134 @@
+{
+  "from_sha256": "1f8866f137581472003ddaaa84801610df38e0d2333958ca09f4bd2c714a630b",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.5.21",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 37 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "4 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 7 of 18 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: ClusterRole/default/stageproof-rel-ambassador-agent, ClusterRoleBinding/default/stageproof-rel-ambassador-agent, Deployment/stageproof-check/stageproof-rel-ambassador-agent, Role/stageproof-check/stageproof-rel-ambassador-agent-config, RoleBinding/stageproof-check/stageproof-rel-ambassador-agent-config, ServiceAccount/stageproof-check/stageproof-rel-ambassador-agent.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/stageproof-check/stageproof-rel-ambassador adds rules that the current chart did not have.",
+          "resource": "ClusterRole/stageproof-check/stageproof-rel-ambassador",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ClusterRole/default/stageproof-rel-ambassador-agent, ClusterRoleBinding/default/stageproof-rel-ambassador-agent, Deployment/stageproof-check/stageproof-rel-ambassador-agent, Role/stageproof-check/stageproof-rel-ambassador-agent-config, RoleBinding/stageproof-check/stageproof-rel-ambassador-agent-config, ServiceAccount/stageproof-check/stageproof-rel-ambassador-agent",
+          "message": "Chart default `agent.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "agent.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/stageproof-rel-ambassador-crds",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/stageproof-check/stageproof-rel-ambassador",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-ambassador-crds",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/stageproof-check/stageproof-rel-ambassador",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "AuthService/stageproof-check/stageproof-rel-ambassador-auth was not judged. the API group is not installed on this server.",
+          "resource": "AuthService/stageproof-check/stageproof-rel-ambassador-auth",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Mapping/default/stageproof-rel-ambassador-devportal was not judged. the API group is not installed on this server.",
+          "resource": "Mapping/default/stageproof-rel-ambassador-devportal",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Mapping/default/stageproof-rel-ambassador-devportal-assets was not judged. the API group is not installed on this server.",
+          "resource": "Mapping/default/stageproof-rel-ambassador-devportal-assets",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Mapping/default/stageproof-rel-ambassador-devportal-demo was not judged. the API group is not installed on this server.",
+          "resource": "Mapping/default/stageproof-rel-ambassador-devportal-demo",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Mapping/default/stageproof-rel-ambassador-devportal-api was not judged. the API group is not installed on this server.",
+          "resource": "Mapping/default/stageproof-rel-ambassador-devportal-api",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "RateLimitService/stageproof-check/stageproof-rel-ambassador-ratelimit was not judged. the API group is not installed on this server.",
+          "resource": "RateLimitService/stageproof-check/stageproof-rel-ambassador-ratelimit",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "6.5.22",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://getambassador.io/ --chart ambassador --from 6.5.21 --to 6.5.22 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "da21aa67ef42f6bd260e7510bd753cd633ee06f23c55416fa178d8cfbbc3139c"
+}

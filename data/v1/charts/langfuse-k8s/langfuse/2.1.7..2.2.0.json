@@ -1,0 +1,113 @@
+{
+  "from_sha256": "02eb54d89ba178a087df53bbc56d89f285b1ced712b856cd0a1d88afe70283cd",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.1.7",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 3 these values is set: clickhouse.crdCheck, clickhouse.deploy, clickhouse.keeper.enabled; assumed Kubernetes APIs clickhouse.com/v1alpha1/ClickHouseCluster, clickhouse.com/v1alpha1/KeeperCluster"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 32 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 27 of 32 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ClickHouseCluster/stageproof-check/stageproof-rel-langfuse",
+          "message": "Chart default `clickhouse.cluster.image.tag` changed from `26.4` to `26.8.36.3-lts` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "clickhouse.cluster.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: KeeperCluster/stageproof-check/stageproof-rel-langfuse",
+          "message": "Chart default `clickhouse.keeper.image.tag` changed from `26.4` to `26.8.36.3-lts` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "clickhouse.keeper.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. ClickHouseCluster/stageproof-check/stageproof-rel-langfuse.containerTemplate field moves from clickhouse/clickhouse-server:26.4 to clickhouse/clickhouse-server:26.8.36.3-lts. KeeperCluster/stageproof-check/stageproof-rel-langfuse.containerTemplate field moves from clickhouse/clickhouse-keeper:26.4 to clickhouse/clickhouse-keeper:26.8.36.3-lts.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `clickhouse/clickhouse-server:26.8.36.3-lts` could not be checked. The registry did not answer.",
+          "resource": "ClickHouseCluster/stageproof-check/stageproof-rel-langfuse.containerTemplate",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `clickhouse/clickhouse-keeper:26.8.36.3-lts` could not be checked. The registry did not answer.",
+          "resource": "KeeperCluster/stageproof-check/stageproof-rel-langfuse.containerTemplate",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "ClickHouseCluster/stageproof-check/stageproof-rel-langfuse was not judged. the API group is not installed on this server.",
+          "resource": "ClickHouseCluster/stageproof-check/stageproof-rel-langfuse",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "KeeperCluster/stageproof-check/stageproof-rel-langfuse was not judged. the API group is not installed on this server.",
+          "resource": "KeeperCluster/stageproof-check/stageproof-rel-langfuse",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "2.2.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://langfuse.github.io/langfuse-k8s/ --chart langfuse --from 2.1.7 --to 2.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "445963d35af145ed4997b940850faf42dd3ed148672d28847b02fd01b7f6b81b"
+}

@@ -1,0 +1,104 @@
+{
+  "from_sha256": "71af5c9fb9b29fc266cd9df962dd07ef51f242bcc21e0cb0fb7bbcbff8b67171",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.13.6",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 23 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dagster-daemon changed at spec.template.metadata.annotations.checksum/dagster-instance. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dagster-daemon",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dagster-user-deployments-k8s-example-user-code-1 changed at spec.template.spec.containers[name=dagster-user-deployments].env[name=DAGSTER_CURRENT_IMAGE].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dagster-user-deployments-k8s-example-user-code-1",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dagster-webserver changed at spec.template.metadata.annotations.checksum/dagster-instance. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dagster-webserver",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.13.6 to 1.13.7. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. ConfigMap/default/stageproof-rel-dagster-daemon-env docker.io/dagster/user-code-example image moves from docker.io/dagster/user-code-example:1.13.6 to docker.io/dagster/user-code-example:1.13.7. Deployment/default/stageproof-rel-dagster-daemon.template.spec.containers[0] dagster container moves from docker.io/dagster/dagster-celery-k8s:1.13.6 to docker.io/dagster/dagster-celery-k8s:1.13.7.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/dagster/dagster-celery-k8s:1.13.7` could not be checked. The registry did not answer.",
+          "resource": "docker.io/dagster/dagster-celery-k8s:1.13.7",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/dagster/user-code-example:1.13.7` could not be checked. The registry did not answer.",
+          "resource": "docker.io/dagster/user-code-example:1.13.7",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.13.7",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://dagster-io.github.io/helm --chart dagster --from 1.13.6 --to 1.13.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "d49907a0eaa83cd1b1add8fdedf80e2bef2555d498bb07a2f9f6cf1e48a1d918"
+}

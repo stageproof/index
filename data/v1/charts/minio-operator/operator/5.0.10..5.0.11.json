@@ -1,0 +1,137 @@
+{
+  "from_sha256": "5a989ef3e1c1a7d43350012bd7ddb305232b3bd804788a8874cc2742eae80a80",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "5.0.10",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 15 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 4 of 6 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (1 deprecation, EOL, or CRD warning)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/default/console-env, Deployment/default/console, Deployment/default/minio-operator, Secret/default/console-sa-secret, Service/default/console, Service/default/operator, Service/default/sts, ServiceAccount/default/console-sa, ServiceAccount/default/minio-operator.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on tenants.minio.min.io: spec.pools.items.volumeClaimTemplate.status.resizeStatus (removed), spec.pools.items.volumeClaimTemplate.status.resizeStatus (type), spec.sideCars.volumeClaimTemplates.items.status.resizeStatus (removed), spec.sideCars.volumeClaimTemplates.items.status.resizeStatus (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/tenants.minio.min.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/minio-operator-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/minio-operator-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/console",
+          "message": "Chart default `console.image.tag` changed from `v5.0.10` to `v5.0.11` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/console",
+          "message": "Chart default `console.volumeMounts` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.volumeMounts",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/console",
+          "message": "Chart default `console.volumes` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.volumes",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/minio-operator",
+          "message": "Chart default `operator.env` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "operator.env",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/minio-operator",
+          "message": "Chart default `operator.image.tag` changed from `v5.0.10` to `v5.0.11` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "operator.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v5.0.10 to v5.0.11. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 359 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/tenants.minio.min.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "5.0.11",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://operator.min.io --chart operator --from 5.0.10 --to 5.0.11 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "0198f0939b54a44face01b3f54fc8f12ff176e8a371114608856a1d0e53fe01a"
+}

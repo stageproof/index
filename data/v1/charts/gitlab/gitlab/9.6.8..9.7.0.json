@@ -1,0 +1,37 @@
+{
+  "from_sha256": "603c032b6a05a6fb7f2b67e76d9e7034395791928201416e37816ec4711f0e26",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "9.6.8",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "required values gate",
+          "status": "fail",
+          "summary": "1 new unset `required` value introduced by the upgrade"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "Template requirement: \"Missing required workspaces host. Make sure to set `.Values.global.hosts.workspaces.name`\"",
+          "message": "Upgraded chart introduces a NEW `required` value `global.hosts.workspaces.name` that is unset in your values.",
+          "resource": "global.hosts.workspaces.name",
+          "rule_id": "helm.values.new_required_unset",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "9.7.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo http://charts.gitlab.io/ --chart gitlab --from 9.6.8 --to 9.7.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "32e1f305720bdb8d20324d3805151d348e34f7817144e349815e54c529d010a4"
+}

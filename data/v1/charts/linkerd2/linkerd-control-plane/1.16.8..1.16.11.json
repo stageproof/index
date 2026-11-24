@@ -1,0 +1,115 @@
+{
+  "from_sha256": "f44f8d736264e272e04f0f2d65c5ef1a8b2269eedad31369f1a13aa57ce4f62d",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.16.8",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 2 these values is set: identity.issuer.tls.crtPEM, identity.issuer.tls.keyPEM"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 40 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 37 of 40 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/linkerd-config, ConfigMap/stageproof-check/linkerd-identity-trust-roots, CronJob/stageproof-check/linkerd-heartbeat, Deployment/stageproof-check/linkerd-destination, Deployment/stageproof-check/linkerd-identity, Deployment/stageproof-check/linkerd-proxy-injector, Role/stageproof-check/ext-namespace-metadata-linkerd-config, Secret/stageproof-check/linkerd-identity-issuer, Secret/stageproof-check/linkerd-policy-validator-k8s-tls, Secret/stageproof-check/linkerd-proxy-injector-k8s-tls, Secret/stageproof-check/linkerd-sp-validator-k8s-tls, Service/stageproof-check/linkerd-dst, Service/stageproof-check/linkerd-dst-headless, Service/stageproof-check/linkerd-identity, Service/stageproof-check/linkerd-identity-headless, Service/stageproof-check/linkerd-policy, Service/stageproof-check/linkerd-policy-validator, Service/stageproof-check/linkerd-proxy-injector, Service/stageproof-check/linkerd-sp-validator",
+          "message": "Chart default `linkerdVersion` changed from `stable-2.14.7` to `stable-2.14.10` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "linkerdVersion",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/linkerd-destination changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/linkerd-destination",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/linkerd-identity changed at spec.template.metadata.annotations.linkerd.io/created-by. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/linkerd-identity",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/linkerd-proxy-injector changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/linkerd-proxy-injector",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of CronJob/stageproof-check/linkerd-heartbeat changed at spec.jobTemplate.spec.template.metadata.annotations.linkerd.io/created-by. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/stageproof-check/linkerd-heartbeat",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from stable-2.14.7 to stable-2.14.10. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. CronJob/stageproof-check/linkerd-heartbeat.jobTemplate.spec.template.spec.containers[0] heartbeat container moves from cr.l5d.io/linkerd/controller:stable-2.14.7 to cr.l5d.io/linkerd/controller:stable-2.14.10. Deployment/stageproof-check/linkerd-destination.template.spec.containers[0] linkerd-proxy container moves from cr.l5d.io/linkerd/proxy:stable-2.14.7 to cr.l5d.io/linkerd/proxy:stable-2.14.10. Deployment/stageproof-check/linkerd-destination.template.spec.containers[3] policy container moves from cr.l5d.io/linkerd/policy-controller:stable-2.14.7 to cr.l5d.io/linkerd/policy-controller:stable-2.14.10.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/default/linkerd-proxy-injector-webhook-config, ValidatingWebhookConfiguration/default/linkerd-sp-validator-webhook-config, ValidatingWebhookConfiguration/default/linkerd-policy-validator-webhook-config, MutatingWebhookConfiguration/default/linkerd-proxy-injector-webhook-config, ValidatingWebhookConfiguration/default/linkerd-sp-validator-webhook-config, ValidatingWebhookConfiguration/default/linkerd-policy-validator-webhook-config.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.16.11",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.linkerd.io/stable --chart linkerd-control-plane --from 1.16.8 --to 1.16.11 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "913e4425cf1ec4293ab3ccdf161b9e09669df2ba551a6fc195fedb455f989247"
+}

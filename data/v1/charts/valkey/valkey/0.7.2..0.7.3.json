@@ -1,0 +1,37 @@
+{
+  "from_sha256": "fd67b224f58eeec91f521039848ee2f0c8c463dfb0dec4eb65bf3b447c0ec4b4",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.7.2",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 0.7.3 failed: exit status 1\nError: template: valkey/templates/NOTES.txt:2:14: executing \"valkey/templates/NOTES.txt\" at <.Values.ingress.enabled>: nil pointer evaluating interface {}.enabled\n\nUse --debug flag to render out invalid YAML",
+          "file": "0.7.3",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.7.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://valkey.io/valkey-helm/ --chart valkey --from 0.7.2 --to 0.7.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "314219ddea445f191faf6a14a980165b445261c5b003ba1e42e889457da3986e"
+}

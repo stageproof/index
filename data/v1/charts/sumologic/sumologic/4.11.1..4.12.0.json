@@ -1,0 +1,257 @@
+{
+  "from_sha256": "5c2e1de1c2ac1eaa07ad6189049a06dccd2b30bd85c518c88ae140ae9c5fa856",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.11.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 2 these values is set: sumologic.accessId, sumologic.accessKey; the chart schema document is invalid, so schema validation was skipped"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 105 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "9 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects for 78 of 92 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (5 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The CRD instrumentations.opentelemetry.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/instrumentations.opentelemetry.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD opampbridges.opentelemetry.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/opampbridges.opentelemetry.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD opentelemetrycollectors.opentelemetry.io under crds/ changed (spec required). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/opentelemetrycollectors.opentelemetry.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "MutatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-mutation webhook mopentelemetrycollectorbeta.kb.io has failurePolicy Fail and no namespace selector.",
+          "resource": "MutatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-mutation",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-validation webhook vopentelemetrycollectorcreateupdatebeta.kb.io has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-validation",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-opentelemetry-operator",
+          "message": "Chart default `opentelemetry-operator.manager.autoInstrumentationImage.dotnet.tag` changed from `0.7.0` to `1.9.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "opentelemetry-operator.manager.autoInstrumentationImage.dotnet.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-opentelemetry-operator",
+          "message": "Chart default `opentelemetry-operator.manager.autoInstrumentationImage.java.tag` changed from `1.26.0` to `2.10.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "opentelemetry-operator.manager.autoInstrumentationImage.java.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-opentelemetry-operator",
+          "message": "Chart default `opentelemetry-operator.manager.autoInstrumentationImage.nodejs.tag` changed from `0.40.0` to `0.54.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "opentelemetry-operator.manager.autoInstrumentationImage.nodejs.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-opentelemetry-operator",
+          "message": "Chart default `opentelemetry-operator.manager.autoInstrumentationImage.python.tag` changed from `0.39b0` to `0.48b0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "opentelemetry-operator.manager.autoInstrumentationImage.python.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-opentelemetry-operator",
+          "message": "Chart default `opentelemetry-operator.manager.collectorImage.tag` changed from `0.108.0-sumo-0` to `0.114.0-sumo-0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "opentelemetry-operator.manager.collectorImage.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-sumolog-otelcol-logs-collector, Deployment/stageproof-check/stageproof-rel-sumolog-traces-gateway, Deployment/stageproof-check/stageproof-rel-sumolog-traces-sampler, OpenTelemetryCollector/stageproof-check/stageproof-rel-sumolog-metrics, StatefulSet/stageproof-check/stageproof-rel-sumolog-otelcol-events, StatefulSet/stageproof-check/stageproof-rel-sumolog-otelcol-instrumentation, StatefulSet/stageproof-check/stageproof-rel-sumolog-otelcol-logs, StatefulSet/stageproof-check/stageproof-rel-sumolog-otelcol-metrics",
+          "message": "Chart default `sumologic.otelcolImage.tag` changed from `0.108.0-sumo-0` to `0.114.0-sumo-0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "sumologic.otelcolImage.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-sumolog-otelcol-logs-collector changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-sumolog-otelcol-logs-collector",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-opentelemetry-operator changed at spec.template.spec.containers[name=kube-rbac-proxy].args. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-opentelemetry-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-sumolog-traces-gateway changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-sumolog-traces-gateway",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-sumolog-traces-sampler changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-sumolog-traces-sampler",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-sumolog-otelcol-events changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-sumolog-otelcol-events",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-sumolog-otelcol-instrumentation changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-sumolog-otelcol-instrumentation",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-sumolog-otelcol-logs changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-sumolog-otelcol-logs",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-sumolog-otelcol-metrics changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-sumolog-otelcol-metrics",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 4.11.1 to 4.12.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "7 container images changed. DaemonSet/stageproof-check/stageproof-rel-sumolog-otelcol-logs-collector.template.spec.containers[0] otelcol container moves from public.ecr.aws/sumologic/sumologic-otel-collector:0.108.0-sumo-0 to public.ecr.aws/sumologic/sumologic-otel-collector:0.114.0-sumo-0. Deployment/stageproof-check/stageproof-rel-opentelemetry-operator.template.spec.containers[0] auto-instrumentation-dotnet-image argument moves from public.ecr.aws/sumologic/autoinstrumentation-dotnet:0.7.0 to public.ecr.aws/sumologic/autoinstrumentation-dotnet:1.9.0. Deployment/stageproof-check/stageproof-rel-opentelemetry-operator.template.spec.containers[0] auto-instrumentation-java-image argument moves from public.ecr.aws/sumologic/autoinstrumentation-java:1.26.0 to public.ecr.aws/sumologic/autoinstrumentation-java:2.10.0. Deployment/stageproof-check/stageproof-rel-opentelemetry-operator.template.spec.containers[0] auto-instrumentation-nodejs-image argument moves from public.ecr.aws/sumologic/autoinstrumentation-nodejs:0.40.0 to public.ecr.aws/sumologic/autoinstrumentation-nodejs:0.54.0. Deployment/stageproof-check/stageproof-rel-opentelemetry-operator.template.spec.containers[0] auto-instrumentation-python-image argument moves from public.ecr.aws/sumologic/autoinstrumentation-python:0.39b0 to public.ecr.aws/sumologic/autoinstrumentation-python:0.48b0. Deployment/stageproof-check/stageproof-rel-opentelemetry-operator.template.spec.containers[0] manager container moves from public.ecr.aws/sumologic/opentelemetry-operator:0.98.0 to public.ecr.aws/sumologic/opentelemetry-operator:0.115.0. Deployment/stageproof-check/stageproof-rel-opentelemetry-operator.template.spec.containers[1] kube-rbac-proxy container moves from public.ecr.aws/sumologic/kube-rbac-proxy:v0.15.0 to public.ecr.aws/sumologic/kube-rbac-proxy:v0.18.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "expected map, got &{exporters:\n  otlphttp:\n    disable_keep_alives: true\n    endpoint: http://${METADATA_METRICS_SVC}.${NAMESPACE}.svc.cluster.local.:4318\n    sending_queue:\n      num_consumers: 10\n      queue_size: 10000\n      storage: file_storage\nextensions:\n  file_storage:\n    compaction:\n      directory: /tmp\n      on_rebound: true\n    directory: /var/lib/storage/otc\n    timeout: 10s\n  health_check:\n    endpoint: ${env:MY_POD_IP}:13133\n  pprof: {}\nprocessors:\n  batch:\n    send_batch_max_size: 2000\n    send_batch_size: 1000\n    timeout: 1s\n  filter/drop_stale_datapoints:\n    metrics:\n      datapoint:\n      - flags == FLAG_NO_RECORDED_VALUE\n  transform/drop_unnecessary_attributes:\n    error_mode: ignore\n    metric_statements:\n    - context: resource\n      statements:\n      - delete_key(attributes, \"http.scheme\")\n      - delete_key(attributes, \"net.host.name\")\n      - delete_key(attributes, \"net.host.port\")\n      - delete_key(attributes, \"service.instance.id\")\n      - delete_matching_keys(attributes, \"k8s.*\")\n  transform/extract_sum_count_from_histograms:\n    error_mode: ignore\n    metric_statements:\n    - context: metric\n      statements:\n      - extract_sum_metric(true) where (not IsMatch(name, \"^$\")) and (type == METRIC_DATA_TYPE_HISTOGRAM\n        or type == METRIC_DATA_TYPE_EXPONENTIAL_HISTOGRAM or type == METRIC_DATA_TYPE_SUMMARY)\n      - extract_count_metric(true) where (not IsMatch(name, \"^$\")) and (type == METRIC_DATA_TYPE_HISTOGRAM\n        or type == METRIC_DATA_TYPE_EXPONENTIAL_HISTOGRAM or type == METRIC_DATA_TYPE_SUMMARY)\nreceivers:\n  prometheus:\n    config:\n      global:\n        scrape_interval: 30s\n      scrape_configs:\n      - job_name: pod-annotations\n        kubernetes_sd_configs:\n        - role: pod\n        relabel_configs:\n        - action: keep\n          regex: true\n          source_labels:\n          - __meta_kubernetes_pod_annotation_prometheus_io_scrape\n        - action: replace\n          regex: (.+)\n          source_labels:\n          - __meta_kubernetes_pod_annotation_prometheus_io_path\n          target_label: __metrics_path__\n        - action: replace\n          regex: ([^:]+)(?::\\d+)?;(\\d+)\n          replacement: $1:$2\n          source_labels:\n          - __address__\n          - __meta_kubernetes_pod_annotation_prometheus_io_port\n          target_label: __address__\n        - action: replace\n          regex: (.*)\n          replacement: $1\n          separator: ;\n          source_labels:\n          - __metrics_path__\n          target_label: endpoint\n        - action: replace\n          source_labels:\n          - __meta_kubernetes_namespace\n          target_label: namespace\n        - action: labelmap\n          regex: __meta_kubernetes_pod_label_(.+)\n        - action: replace\n          regex: (.*)\n          replacement: $1\n          separator: ;\n          source_labels:\n          - __meta_kubernetes_pod_name\n          target_label: pod\n      - authorization:\n          credentials_file: /var/run/secrets/kubernetes.io/serviceaccount/token\n        honor_labels: true\n        job_name: kubelet\n        kubernetes_sd_configs:\n        - role: node\n        metric_relabel_configs:\n        - action: keep\n          regex: (?:kubelet_docker_operations_errors(?:|_total)|kubelet_(?:docker|runtime)_operations_duration_seconds_(?:count|sum)|kubelet_running_(?:container|pod)(?:_count|s)|kubelet_(:?docker|runtime)_operations_latency_microseconds(?:|_count|_sum))\n          source_labels:\n          - __name__\n        - action: labeldrop\n          regex: id\n        relabel_configs:\n        - source_labels:\n          - __meta_kubernetes_node_name\n          target_label: node\n        - replacement: https-metrics\n          target_label: endpoint\n        - action: replace\n          source_labels:\n          - __metrics_path__\n          target_label: metrics_path\n        - action: replace\n          source_labels:\n          - __address__\n          target_label: instance\n        scheme: https\n        tls_config:\n          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt\n          insecure_skip_verify: true\n      - authorization:\n          credentials_file: /var/run/secrets/kubernetes.io/serviceaccount/token\n        honor_labels: true\n        job_name: cadvisor\n        kubernetes_sd_configs:\n        - role: node\n        metric_relabel_configs:\n        - action: replace\n          regex: .*\n          replacement: kubelet\n          source_labels:\n          - __name__\n          target_label: job\n        - action: keep\n          regex: (?:container_cpu_usage_seconds_total|container_memory_working_set_bytes|container_fs_usage_bytes|container_fs_limit_bytes|container_cpu_cfs_throttled_seconds_total|container_network_receive_bytes_total|container_network_transmit_bytes_total)\n          source_labels:\n          - __name__\n        - action: drop\n          regex: (?:container_cpu_usage_seconds_total|container_memory_working_set_bytes|container_fs_usage_bytes|container_fs_limit_bytes);$\n          source_labels:\n          - __name__\n          - container\n        - action: labelmap\n          regex: container_name\n          replacement: container\n        - action: drop\n          regex: POD\n          source_labels:\n          - container\n        - action: labeldrop\n          regex: (id|name)\n        metrics_path: /metrics/cadvisor\n        relabel_configs:\n        - replacement: https-metrics\n          target_label: endpoint\n        - action: replace\n          source_labels:\n          - __metrics_path__\n          target_label: metrics_path\n        - action: replace\n          source_labels:\n          - __address__\n          target_label: instance\n        scheme: https\n        tls_config:\n          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt\n          insecure_skip_verify: true\nservice:\n  extensions:\n  - health_check\n  - pprof\n  - file_storage\n  pipelines:\n    metrics:\n      exporters:\n      - otlphttp\n      processors:\n      - batch\n      - filter/drop_stale_datapoints\n      - transform/extract_sum_count_from_histograms\n      - transform/drop_unnecessary_attributes\n      receivers:\n      - prometheus\n  telemetry:\n    logs:\n      level: info\n    metrics:\n      address: 0.0.0.0:8888\n}",
+          "message": "Kubernetes rejected `spec.config` on OpenTelemetryCollector/stageproof-check/stageproof-rel-sumolog-metrics.",
+          "resource": "OpenTelemetryCollector/stageproof-check/stageproof-rel-sumolog-metrics",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-mutation, ValidatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-validation, MutatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-mutation, ValidatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-validation.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 640 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/opentelemetrycollectors.opentelemetry.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 338 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/alertmanagerconfigs.monitoring.coreos.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 455 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/alertmanagers.monitoring.coreos.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 585 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/prometheuses.monitoring.coreos.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 428 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/thanosrulers.monitoring.coreos.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "4.12.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://sumologic.github.io/sumologic-kubernetes-collection --chart sumologic --from 4.11.1 --to 4.12.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "8211ad8b595436792c62007bad91cca0de68426fced41ae1368152fb50d05acb"
+}

@@ -1,0 +1,28 @@
+{
+  "from_sha256": "2ada7bcb08913797c14e94f565b83891abff3e71bec34cbfe0e0e52046172072",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.0.1",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 1.0.1 failed: exit status 1\nError: template: kestra/templates/deployment.yaml:8:8: executing \"kestra/templates/deployment.yaml\" at <include \"kestra.deployment\" (merge (dict \"Name\" $name \"Type\" $name \"WorkerGroup\" false \"Merged\" $merged \"Global\" $global) $)>: error calling include: template: kestra/templates/_helpers.tpl:173:25: executing \"kestra.deployment\" at <$global.configurations.configmaps>: range can't iterate over stageproof-placeholder\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "1.0.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.kestra.io/ --chart kestra --from 1.0.1 --to 1.0.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "f257b8767d61d96948934497ee91095f25920df9a1486c4838c796a77b6aab84"
+}

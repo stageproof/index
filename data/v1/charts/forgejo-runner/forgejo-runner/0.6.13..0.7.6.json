@@ -1,0 +1,37 @@
+{
+  "from_sha256": "26b0422392d71396bd242d17749f31311a03b3b8711204c132c289af8bf2874c",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.6.13",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 0.7.6 failed: exit status 1\nError: execution error at (forgejo-runner/templates/deployment.yaml:2:4): This is the last version i release (install with setting `knownLastVersion=true`)\n\nUse --debug flag to render out invalid YAML",
+          "file": "0.7.6",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.7.6",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo oci://codeberg.org/wrenix/helm-charts --chart forgejo-runner --from 0.6.13 --to 0.7.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "5c14f08ed045495deb95ce3b24125bdbe81e06721dd69243196cefaff43e4c11"
+}

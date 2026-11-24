@@ -1,0 +1,37 @@
+{
+  "from_sha256": "c4d1685e5d6adfa2020906ecb9e71432eb7f4cee4d05d6807c51f29fd4e93cac",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.0.3",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 3.4.3 failed: exit status 1\nError: values don't meet the specifications of the schema(s) in the following chart(s):\npostgresql:\n- at '/postgresqlPassword': got null, want string",
+          "file": "3.4.3",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "3.4.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://adwerx.github.io/charts/ --chart awx --from 2.0.3 --to 3.4.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "b16bfa1421d55a6cd638a70b23b13f8415f9f42761bdf44cc2ed18d53b013873"
+}

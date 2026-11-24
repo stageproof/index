@@ -1,0 +1,176 @@
+{
+  "from_sha256": "f669415d243dff3704f3c596403c0d5c3eb787fca2f1becc13f5f42b91323fc4",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v1.13.3",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 27 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 22 of 27 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: CephCluster/stageproof-check/stageproof-check",
+          "message": "Chart default `cephClusterSpec.resources.cleanup.limits.cpu` changed from `500m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.resources.cleanup.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephCluster/stageproof-check/stageproof-check",
+          "message": "Chart default `cephClusterSpec.resources.crashcollector.limits.cpu` changed from `500m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.resources.crashcollector.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephCluster/stageproof-check/stageproof-check",
+          "message": "Chart default `cephClusterSpec.resources.exporter.limits.cpu` changed from `250m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.resources.exporter.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephCluster/stageproof-check/stageproof-check",
+          "message": "Chart default `cephClusterSpec.resources.logcollector.limits.cpu` changed from `500m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.resources.logcollector.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephCluster/stageproof-check/stageproof-check",
+          "message": "Chart default `cephClusterSpec.resources.mgr.limits.cpu` changed from `1000m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.resources.mgr.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephCluster/stageproof-check/stageproof-check",
+          "message": "Chart default `cephClusterSpec.resources.mgr-sidecar.limits.cpu` changed from `500m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.resources.mgr-sidecar.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephCluster/stageproof-check/stageproof-check",
+          "message": "Chart default `cephClusterSpec.resources.mon.limits.cpu` changed from `2000m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.resources.mon.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephCluster/stageproof-check/stageproof-check",
+          "message": "Chart default `cephClusterSpec.resources.osd.limits.cpu` changed from `2000m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.resources.osd.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephFilesystem/stageproof-check/ceph-filesystem",
+          "message": "Chart default `cephFileSystems` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephFileSystems",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephObjectStore/stageproof-check/ceph-objectstore",
+          "message": "Chart default `cephObjectStores` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephObjectStores",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.13.3 to v1.13.4. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "CephBlockPool/stageproof-check/ceph-blockpool was not judged. the API group is not installed on this server.",
+          "resource": "CephBlockPool/stageproof-check/ceph-blockpool",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephCluster/stageproof-check/stageproof-check was not judged. the API group is not installed on this server.",
+          "resource": "CephCluster/stageproof-check/stageproof-check",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephFilesystem/stageproof-check/ceph-filesystem was not judged. the API group is not installed on this server.",
+          "resource": "CephFilesystem/stageproof-check/ceph-filesystem",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephFilesystemSubVolumeGroup/stageproof-check/ceph-filesystem-csi was not judged. the API group is not installed on this server.",
+          "resource": "CephFilesystemSubVolumeGroup/stageproof-check/ceph-filesystem-csi",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephObjectStore/stageproof-check/ceph-objectstore was not judged. the API group is not installed on this server.",
+          "resource": "CephObjectStore/stageproof-check/ceph-objectstore",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "v1.13.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.rook.io/release --chart rook-ceph-cluster --from v1.13.3 --to v1.13.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "93a44e0b037af8a29840bcdc42409b7bdc06b65aea63115edbaae1d1b6a2594e"
+}

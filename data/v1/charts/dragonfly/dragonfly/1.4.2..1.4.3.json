@@ -1,0 +1,180 @@
+{
+  "from_sha256": "d01d376a5629d377c1d5de7f9361f5fd2e4c1a123994001b9feda88ccf7e593a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.4.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 36 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "4 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 32 of 36 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "fail",
+          "summary": "4 removed API or immutable upgrade blockers"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "message": "Chart default `client.image.tag` changed from `v1.0.1` to `v1.0.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "client.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-dragonfly-manager",
+          "message": "Chart default `manager.image.tag` changed from `v2.3.0` to `v2.3.1-beta.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "manager.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler",
+          "message": "Chart default `scheduler.image.tag` changed from `v2.3.0` to `v2.3.1-beta.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "scheduler.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "message": "Chart default `seedClient.image.tag` changed from `v1.0.1` to `v1.0.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "seedClient.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-dragonfly-client changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-dragonfly-manager changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-dragonfly-manager",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.3.0 to 2.3.1-beta.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. DaemonSet/stageproof-check/stageproof-rel-dragonfly-client.template.spec.containers[0] client container moves from docker.io/dragonflyoss/client:v1.0.1 to docker.io/dragonflyoss/client:v1.0.2. Deployment/stageproof-check/stageproof-rel-dragonfly-manager.template.spec.containers[0] manager container moves from docker.io/dragonflyoss/manager:v2.3.0 to docker.io/dragonflyoss/manager:v2.3.1-beta.0. StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler.template.spec.containers[0] scheduler container moves from docker.io/dragonflyoss/scheduler:v2.3.0 to docker.io/dragonflyoss/scheduler:v2.3.1-beta.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.selector` is immutable.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.selector` is immutable.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-dragonfly-manager",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec` is immutable.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec` is immutable.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app:stageproof-rel-dragonfly component:client release:stageproof-rel] to map[app:stageproof-rel-dragonfly component:client]. An in-place `helm upgrade` will fail.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-dragonfly-client",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app:stageproof-rel-dragonfly component:manager release:stageproof-rel] to map[app:stageproof-rel-dragonfly component:manager]. An in-place `helm upgrade` will fail.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-dragonfly-manager",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app:stageproof-rel-dragonfly component:scheduler release:stageproof-rel] to map[app:stageproof-rel-dragonfly component:scheduler]. An in-place `helm upgrade` will fail.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-dragonfly-scheduler",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app:stageproof-rel-dragonfly component:seed-client release:stageproof-rel] to map[app:stageproof-rel-dragonfly component:seed-client]. An in-place `helm upgrade` will fail.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "1.4.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://dragonflyoss.github.io/helm-charts/ --chart dragonfly --from 1.4.2 --to 1.4.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "01081b2617288595073b80ff6f1d7261aed338fc1c5347210691ba7802d59342"
+}

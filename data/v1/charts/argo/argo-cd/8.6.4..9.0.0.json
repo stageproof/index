@@ -1,0 +1,290 @@
+{
+  "from_sha256": "a81f8b88b07546e4233408e6599ee9daf5a6e7ed8014bb7ff34c5fd5e949f03a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "8.6.4",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 53 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 46 of 53 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (2 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"application.namespaces\"]` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"application.namespaces\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"applicationsetcontroller.enable.progressive.syncs\"]` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"applicationsetcontroller.enable.progressive.syncs\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"applicationsetcontroller.namespaces\"]` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"applicationsetcontroller.namespaces\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"applicationsetcontroller.policy\"]` changed from `sync` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"applicationsetcontroller.policy\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"controller.ignore.normalizer.jq.timeout\"]` changed from `1s` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"controller.ignore.normalizer.jq.timeout\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"controller.operation.processors\"]` changed from `10` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"controller.operation.processors\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"controller.repo.server.timeout.seconds\"]` changed from `60` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"controller.repo.server.timeout.seconds\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"controller.self.heal.timeout.seconds\"]` changed from `5` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"controller.self.heal.timeout.seconds\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"controller.status.processors\"]` changed from `20` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"controller.status.processors\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"controller.sync.timeout.seconds\"]` changed from `0` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"controller.sync.timeout.seconds\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"hydrator.enabled\"]` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"hydrator.enabled\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"otlp.address\"]` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"otlp.address\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"reposerver.parallelism.limit\"]` changed from `0` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"reposerver.parallelism.limit\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"server.basehref\"]` changed from `/` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"server.basehref\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"server.disable.auth\"]` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"server.disable.auth\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"server.enable.gzip\"]` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"server.enable.gzip\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"server.enable.proxy.extension\"]` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"server.enable.proxy.extension\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"server.insecure\"]` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"server.insecure\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"server.rootpath\"]` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"server.rootpath\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"server.staticassets\"]` changed from `/shared/app` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"server.staticassets\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-cmd-params-cm, Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller, Deployment/stageproof-check/stageproof-rel-argocd-dex-server, Deployment/stageproof-check/stageproof-rel-argocd-repo-server, Deployment/stageproof-check/stageproof-rel-argocd-server, StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "message": "Chart default `configs.params[\"server.x.frame.options\"]` changed from `sameorigin` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configs.params[\"server.x.frame.options\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller changed at spec.template.metadata.annotations.checksum/cmd-params. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-argocd-applicationset-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-argocd-dex-server changed at spec.template.metadata.annotations.checksum/cmd-params. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-argocd-dex-server",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-argocd-notifications-controller changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-argocd-notifications-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-argocd-redis changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-argocd-redis",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-argocd-repo-server changed at spec.template.metadata.annotations.checksum/cm. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-argocd-repo-server",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-argocd-server changed at spec.template.metadata.annotations.checksum/cm. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-argocd-server",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller changed at spec.template.metadata.annotations.checksum/cm. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-argocd-application-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 8.6.4 to 9.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 435 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/applications.argoproj.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 1810 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/applicationsets.argoproj.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "9.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://argoproj.github.io/argo-helm --chart argo-cd --from 8.6.4 --to 9.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "fa8057d8d4c510f0c2d40596511dd407b3abbbf6f6fc85900cb9574d049e3adc"
+}

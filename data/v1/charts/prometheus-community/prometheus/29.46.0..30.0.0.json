@@ -1,0 +1,98 @@
+{
+  "from_sha256": "b2b3bd24e357952621350bdf4cce85bba339a91cdf8dd31f450159764619d66a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "29.46.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 23 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-prometheus-server",
+          "message": "Chart default `configmapReload.prometheus.image.tag` changed from `v0.95.1` to `v0.95.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configmapReload.prometheus.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-prometheus-server changed at spec.template.spec.containers[name=prometheus-server-configmap-reload].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-prometheus-server",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-alertmanager changed at spec.template.spec.containers[name=alertmanager].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-alertmanager",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 29.46.0 to 30.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter.template.spec.containers[0] node-exporter container moves from quay.io/prometheus/node-exporter:v1.12.1 to quay.io/prometheus/node-exporter:v1.13.1. Deployment/stageproof-check/stageproof-rel-prometheus-server.template.spec.containers[0] prometheus-server-configmap-reload container moves from quay.io/prometheus-operator/prometheus-config-reloader:v0.95.1 to quay.io/prometheus-operator/prometheus-config-reloader:v0.95.2. StatefulSet/stageproof-check/stageproof-rel-alertmanager.template.spec.containers[1] alertmanager container moves from quay.io/prometheus/alertmanager:v0.34.2 to quay.io/prometheus/alertmanager:v0.35.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "30.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://prometheus-community.github.io/helm-charts --chart prometheus --from 29.46.0 --to 30.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "2e76e9b3c3f770f9c320220500874ce88a9c3c8b2264f42a97cb5d68909b1816"
+}

@@ -1,0 +1,127 @@
+{
+  "from_sha256": "f37e433eeb978b484dac589a73b0cae4a3637e962d8fada9e3fa4656f20423aa",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "14.2.26",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 27 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 22 of 24 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Deployment/stageproof-check/gateway container gateway securityContext is weaker at runAsNonRoot, readOnlyRootFilesystem.",
+          "resource": "Deployment/stageproof-check/gateway",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "Deployment/stageproof-check/gateway container faas-netes securityContext is weaker at runAsNonRoot, readOnlyRootFilesystem.",
+          "resource": "Deployment/stageproof-check/gateway",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "Deployment/stageproof-check/nats container nats securityContext is weaker at runAsNonRoot, readOnlyRootFilesystem.",
+          "resource": "Deployment/stageproof-check/nats",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "Deployment/stageproof-check/prometheus container prometheus securityContext is weaker at runAsNonRoot, readOnlyRootFilesystem.",
+          "resource": "Deployment/stageproof-check/prometheus",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/gateway, Deployment/stageproof-check/nats, Deployment/stageproof-check/prometheus",
+          "message": "Chart default `securityContext.readOnlyRootFilesystem` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "securityContext.readOnlyRootFilesystem",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/gateway, Deployment/stageproof-check/nats, Deployment/stageproof-check/prometheus",
+          "message": "Chart default `securityContext.runAsNonRoot` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "securityContext.runAsNonRoot",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/gateway, Deployment/stageproof-check/nats, Deployment/stageproof-check/prometheus",
+          "message": "Chart default `securityContext.runAsUser` changed from `10001` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "securityContext.runAsUser",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/alertmanager changed at spec.template.metadata.annotations.checksum/alertmanager-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/alertmanager",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/gateway changed at spec.template.spec.containers[name=faas-netes].securityContext. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/gateway",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/nats changed at spec.template.spec.containers[name=nats].securityContext. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/nats",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/prometheus changed at spec.template.metadata.annotations.checksum/prometheus-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/prometheus",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "14.2.27",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://openfaas.github.io/faas-netes --chart openfaas --from 14.2.26 --to 14.2.27 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "eabb45569c1c716e4e2d44e3895524e9f1a082bda44a4a120814713751ff39da"
+}

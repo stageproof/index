@@ -1,0 +1,230 @@
+{
+  "from_sha256": "bde40d9ee17f7a00b03868c95643a719f6605892a81713cbc4dc5e55b2aa62d9",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.29.17",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "required values shim",
+          "status": "warn",
+          "summary": "the chart does not render unless 2 these values is set: global.runtime.name, tunnel-client.tunnel.subdomainPrefix"
+        },
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 2 these values is set: global.codefresh.accountId, global.codefresh.userToken.secretKeyRef.stageproofPlaceholder"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 163 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "11 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 122 of 162 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (2 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/default/codefresh-cm, ConfigMap/default/helm-values-config, Deployment/default/argo-gateway, Deployment/default/cap-app-proxy, Deployment/default/cluster-event-reporter, Deployment/default/runtime-event-reporter",
+          "message": "Chart default `app-proxy.image.tag` changed from `1.4103.0` to `1.4118.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "app-proxy.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/cap-app-proxy-cm, ConfigMap/default/helm-values-config, Deployment/default/cap-app-proxy",
+          "message": "Chart default `app-proxy.image-enrichment.config.images.gitEnrichment.tag` changed from `1.1.28-main` to `1.1.30` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "app-proxy.image-enrichment.config.images.gitEnrichment.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/cap-app-proxy-cm, ConfigMap/default/helm-values-config, Deployment/default/cap-app-proxy",
+          "message": "Chart default `app-proxy.image-enrichment.config.images.jiraEnrichment.tag` changed from `1.1.28-main` to `1.1.30` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "app-proxy.image-enrichment.config.images.jiraEnrichment.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/cap-app-proxy-cm, ConfigMap/default/helm-values-config, Deployment/default/cap-app-proxy",
+          "message": "Chart default `app-proxy.image-enrichment.config.images.reportImage.tag` changed from `1.1.28-main` to `1.1.30` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "app-proxy.image-enrichment.config.images.reportImage.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/helm-values-config, Deployment/default/cap-app-proxy",
+          "message": "Chart default `app-proxy.initContainer.image.tag` changed from `1.4103.0` to `1.4118.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "app-proxy.initContainer.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/codefresh-cm, ConfigMap/default/helm-values-config, Deployment/default/argo-gateway, Deployment/default/cap-app-proxy, Deployment/default/cluster-event-reporter, Deployment/default/runtime-event-reporter",
+          "message": "Chart default `argo-gateway.image.tag` changed from `ace3860` to `1002401` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "argo-gateway.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/codefresh-cm, ConfigMap/default/helm-values-config, Deployment/default/argo-gateway, Deployment/default/cap-app-proxy, Deployment/default/cluster-event-reporter, Deployment/default/gitops-operator, Deployment/default/runtime-event-reporter",
+          "message": "Chart default `gitops-operator.image.tag` changed from `c03bf91` to `c0ef368` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "gitops-operator.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/codefresh-cm, ConfigMap/default/helm-values-config, Deployment/default/argo-gateway, Deployment/default/cap-app-proxy, Deployment/default/cluster-event-reporter, Deployment/default/runtime-event-reporter",
+          "message": "Chart default `global.event-reporters.image.tag` changed from `ace3860` to `1002401` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.event-reporters.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/helm-values-config, Deployment/default/internal-router",
+          "message": "Chart default `internal-router.image.tag` changed from `1.31.2-alpine3.23` to `1.31.3-alpine3.24` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "internal-router.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/argo-gateway changed at spec.template.metadata.annotations.checksum/config-argo-gateway. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/argo-gateway",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/cap-app-proxy changed at spec.template.metadata.annotations.checksum/config-cap-app-proxy. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/cap-app-proxy",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/cluster-event-reporter changed at spec.template.metadata.annotations.checksum/config-codefresh-cm. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/cluster-event-reporter",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/gitops-operator changed at spec.template.spec.containers[name=manager].env[name=CF_SERVICE_VERSION].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/gitops-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/internal-router changed at spec.template.spec.containers[name=internal-router].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/internal-router",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/runtime-event-reporter changed at spec.template.metadata.annotations.checksum/config-codefresh-cm. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/runtime-event-reporter",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/argo-server changed at spec.template.metadata.annotations.checksum/cm. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/argo-server",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/argo-workflow-controller changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/argo-workflow-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "11 container images changed. ConfigMap/default/cap-app-proxy-cm quay.io/codefreshplugins/argo-hub-codefresh-csdp-image-enricher-git-info image moves from quay.io/codefreshplugins/argo-hub-codefresh-csdp-image-enricher-git-info:1.1.28-main to quay.io/codefreshplugins/argo-hub-codefresh-csdp-image-enricher-git-info:1.1.30. ConfigMap/default/cap-app-proxy-cm quay.io/codefreshplugins/argo-hub-codefresh-csdp-image-enricher-jira-info image moves from quay.io/codefreshplugins/argo-hub-codefresh-csdp-image-enricher-jira-info:1.1.28-main to quay.io/codefreshplugins/argo-hub-codefresh-csdp-image-enricher-jira-info:1.1.30. ConfigMap/default/cap-app-proxy-cm quay.io/codefreshplugins/argo-hub-codefresh-csdp-report-image-info image moves from quay.io/codefreshplugins/argo-hub-codefresh-csdp-report-image-info:1.1.28-main to quay.io/codefreshplugins/argo-hub-codefresh-csdp-report-image-info:1.1.30. Deployment/default/argo-gateway.template.spec.containers[0] argo-gateway container moves from quay.io/codefresh/cf-argocd-extras:ace3860 to quay.io/codefresh/cf-argocd-extras:1002401. Deployment/default/cap-app-proxy.template.spec.containers[0] cap-app-proxy container moves from quay.io/codefresh/cap-app-proxy:1.4103.0 to quay.io/codefresh/cap-app-proxy:1.4118.0. Deployment/default/cap-app-proxy.template.spec.initContainers[0] init container moves from quay.io/codefresh/cap-app-proxy-init:1.4103.0 to quay.io/codefresh/cap-app-proxy-init:1.4118.0. Deployment/default/gitops-operator.template.spec.containers[0] manager container moves from quay.io/codefresh/codefresh-gitops-operator:c03bf91 to quay.io/codefresh/codefresh-gitops-operator:c0ef368. Deployment/default/internal-router.template.spec.containers[0] internal-router container moves from docker.io/nginxinc/nginx-unprivileged:1.31.2-alpine3.23 to docker.io/nginxinc/nginx-unprivileged:1.31.3-alpine3.24. Deployment/stageproof-check/argo-server.template.spec.containers[0] argo-server container moves from quay.io/codefresh/argocli:v3.6.7-cap-CFS-7012 to quay.io/codefresh/argocli:v3.6.7-cap-CF-2129. Deployment/stageproof-check/argo-workflow-controller.template.spec.containers[0] controller container moves from quay.io/codefresh/workflow-controller:v3.6.7-cap-CFS-7012 to quay.io/codefresh/workflow-controller:v3.6.7-cap-CF-2129. Job/default/cleanup-runtime-resources.template.spec.containers[0] cleanup-runtime-resources container moves from quay.io/codefresh/gitops-runtime-installer:0.29.17 to quay.io/codefresh/gitops-runtime-installer:0.29.22.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "A client-side Helm upgrade drops this field and continues.",
+          "message": "Kubernetes does not know `spec.template.spec.containers[name=\"cap-app-proxy\"].env[name=\"USER_TOKEN\"].valueFrom.secretKeyRef.stageproofPlaceholder`.",
+          "resource": "Deployment/default/cap-app-proxy",
+          "rule_id": "k8s.apply.unknown_field",
+          "severity": "warning"
+        },
+        {
+          "detail": "A client-side Helm upgrade drops this field and continues.",
+          "message": "Kubernetes does not know `spec.template.spec.containers[name=\"delete-runtime-from-platform\"].env[name=\"USER_TOKEN\"].valueFrom.secretKeyRef.stageproofPlaceholder`.",
+          "resource": "Job/default/delete-runtime-from-platform",
+          "rule_id": "k8s.apply.unknown_field",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 524 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/applications.argoproj.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 2442 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/applicationsets.argoproj.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.29.22",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo oci://quay.io/codefresh --chart gitops-runtime --from 0.29.17 --to 0.29.22 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "3b5d2d9bbcfae3d2d7a90e655f98410c33431267662debb95b2b3560e71cc6e9"
+}

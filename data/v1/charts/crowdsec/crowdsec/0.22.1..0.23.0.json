@@ -1,0 +1,28 @@
+{
+  "from_sha256": "a0bd402c6a48baf159697d71c7db467b4d970b0688560e7b5b09adc6ecbfe1cc",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.22.1",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 0.22.1 failed: exit status 1\ncoalesce.go:319: warning: destination for crowdsec.agent.acquisition is a table. Ignoring non-table value ([])\ncoalesce.go:319: warning: destination for crowdsec.agent.additionalAcquisition is a table. Ignoring non-table value ([])\nError: values don't meet the specifications of the schema(s) in the following chart(s):\ncrowdsec:\n- at '/agent': validation failed\n  - at '/agent/additionalAcquisition': got object, want array\n  - at '/agent/acquisition': got object, want array"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "0.23.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://crowdsecurity.github.io/helm-charts --chart crowdsec --from 0.22.1 --to 0.23.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "461b52c683f87536d93d145a084afb6232684e33a1d2c707415161e711144730"
+}

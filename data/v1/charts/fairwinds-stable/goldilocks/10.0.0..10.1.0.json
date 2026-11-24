@@ -1,0 +1,61 @@
+{
+  "from_sha256": "44cd1ff3c5422b4137db02b854283551013b7c5aa311899a2a9fecfde50aba79",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "10.0.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 9 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The CRD verticalpodautoscalers.autoscaling.k8s.io under crds/ changed (spec.updatePolicy.evictionRequirements.items required, spec.updatePolicy.evictionRequirements.items.resource removed, spec.updatePolicy.evictionRequirements.items.resource type, spec.updatePolicy.evictionRequirements.items.resource.items removed, spec.updatePolicy.evictionRequirements.items.resource.items type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/verticalpodautoscalers.autoscaling.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "10.1.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.fairwinds.com/stable --chart goldilocks --from 10.0.0 --to 10.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "a19b9130596b1179ecadf87866f6b30bae821bcc4d650ff5475c455bf6aedd56"
+}

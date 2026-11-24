@@ -1,0 +1,28 @@
+{
+  "from_sha256": "d3c75364b79c13727672e49642962a6ce28cb8ab1c69889f3c377e48c79e037a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.44.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 6.44.0 failed: exit status 1\nError: execution error at (loki/templates/validate.yaml:50:4): Please define loki.storage.bucketNames.ruler\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "6.45.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://grafana.github.io/helm-charts --chart loki --from 6.44.0 --to 6.45.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "b172d1ed8af383cbeb310bffdab27ebaefbd775b10e35b4307d1f2e7836e5812"
+}

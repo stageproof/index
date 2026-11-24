@@ -1,0 +1,86 @@
+{
+  "from_sha256": "0640b0ee74a90bcf697a7ccb33a86ec8cd9ab5a459983bdfef432b7ccfef79b8",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "11.4.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 19 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete PersistentVolumeClaim/default/stageproof-rel-openproject. The data on that claim goes with it.",
+          "resource": "PersistentVolumeClaim/default/stageproof-rel-openproject",
+          "rule_id": "impact.delete.pvc",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: Deployment/default/stageproof-rel-openproject-cron, Deployment/default/stageproof-rel-openproject-web, Deployment/default/stageproof-rel-openproject-worker-default, Ingress/default/stageproof-rel-openproject, Job/default/stageproof-rel-openproject-seeder-1, Secret/default/stageproof-rel-openproject-core, Secret/default/stageproof-rel-openproject-memcached, Service/default/stageproof-rel-openproject, ServiceAccount/default/stageproof-rel-openproject.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "Ingress/stageproof-check/stageproof-rel-openproject adds hosts openproject.example.com.",
+          "resource": "Ingress/stageproof-check/stageproof-rel-openproject",
+          "rule_id": "impact.exposure.route",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/openproject/openproject:16.6.1-slim` could not be checked. The registry did not answer.",
+          "resource": "docker.io/openproject/openproject:16.6.1-slim",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/postgres:16` could not be checked. The registry did not answer.",
+          "resource": "docker.io/postgres:16",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "11.5.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.openproject.org --chart openproject --from 11.4.2 --to 11.5.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "a0fb922ffea469df0a4e4239b8d1b74dbb9aa3af3035c928d000076eb06e90fe"
+}

@@ -1,0 +1,115 @@
+{
+  "from_sha256": "3431db7c538c3ff5f394f9cdccaea7aed17f7c08d35ab90ddd17080b91479175",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "7.67.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 14 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects for 9 of 13 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (1 deprecation, EOL, or CRD warning)"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The CRD checlusters.org.eclipse.che under crds/ changed (spec.components.database removed, spec.components.database type, spec.components.database.credentialsSecretName removed, spec.components.database.credentialsSecretName type, spec.components.database.deployment removed, spec.components.database.deployment type, spec.components.database.deployment.containers removed, spec.components.database.deployment.containers type, spec.components.database.deployment.containers.items removed, spec.components.database.deployment.containers.items type, spec.components.database.deployment.containers.items.env removed, spec.components.database.deployment.containers.items.env type, spec.components.database.deployment.containers.items.env.items removed, spec.components.database.deployment.containers.items.env.items type, spec.components.database.deployment.containers.items.env.items.name removed, spec.components.database.deployment.containers.items.env.items.name type, spec.components.database.deployment.containers.items.env.items.value removed, spec.components.database.deployment.containers.items.env.items.value type, spec.components.database.deployment.containers.items.env.items.valueFrom removed, spec.components.database.deployment.containers.items.env.items.valueFrom type, spec.components.database.deployment.containers.items.env.items.valueFrom.configMapKeyRef removed, spec.components.database.deployment.containers.items.env.items.valueFrom.configMapKeyRef type, spec.components.database.deployment.containers.items.env.items.valueFrom.configMapKeyRef.key removed, spec.components.database.deployment.containers.items.env.items.valueFrom.configMapKeyRef.key type, spec.components.database.deployment.containers.items.env.items.valueFrom.configMapKeyRef.name removed, spec.components.database.deployment.containers.items.env.items.valueFrom.configMapKeyRef.name type, spec.components.database.deployment.containers.items.env.items.valueFrom.configMapKeyRef.optional removed, spec.components.database.deployment.containers.items.env.items.valueFrom.configMapKeyRef.optional type, spec.components.database.deployment.containers.items.env.items.valueFrom.fieldRef removed, spec.components.database.deployment.containers.items.env.items.valueFrom.fieldRef type, spec.components.database.deployment.containers.items.env.items.valueFrom.fieldRef.apiVersion removed, spec.components.database.deployment.containers.items.env.items.valueFrom.fieldRef.apiVersion type, spec.components.database.deployment.containers.items.env.items.valueFrom.fieldRef.fieldPath removed, spec.components.database.deployment.containers.items.env.items.valueFrom.fieldRef.fieldPath type, spec.components.database.deployment.containers.items.env.items.valueFrom.resourceFieldRef removed, spec.components.database.deployment.containers.items.env.items.valueFrom.resourceFieldRef type, spec.components.database.deployment.containers.items.env.items.valueFrom.resourceFieldRef.containerName removed, spec.components.database.deployment.containers.items.env.items.valueFrom.resourceFieldRef.containerName type, spec.components.database.deployment.containers.items.env.items.valueFrom.resourceFieldRef.divisor removed, spec.components.database.deployment.containers.items.env.items.valueFrom.resourceFieldRef.divisor.anyOf[0] removed, spec.components.database.deployment.containers.items.env.items.valueFrom.resourceFieldRef.divisor.anyOf[0] type, spec.components.database.deployment.containers.items.env.items.valueFrom.resourceFieldRef.divisor.anyOf[1] removed, spec.components.database.deployment.containers.items.env.items.valueFrom.resourceFieldRef.divisor.anyOf[1] type, spec.components.database.deployment.containers.items.env.items.valueFrom.resourceFieldRef.resource removed, spec.components.database.deployment.containers.items.env.items.valueFrom.resourceFieldRef.resource type, spec.components.database.deployment.containers.items.env.items.valueFrom.secretKeyRef removed, spec.components.database.deployment.containers.items.env.items.valueFrom.secretKeyRef type, spec.components.database.deployment.containers.items.env.items.valueFrom.secretKeyRef.key removed, spec.components.database.deployment.containers.items.env.items.valueFrom.secretKeyRef.key type, spec.components.database.deployment.containers.items.env.items.valueFrom.secretKeyRef.name removed, spec.components.database.deployment.containers.items.env.items.valueFrom.secretKeyRef.name type, spec.components.database.deployment.containers.items.env.items.valueFrom.secretKeyRef.optional removed, spec.components.database.deployment.containers.items.env.items.valueFrom.secretKeyRef.optional type, spec.components.database.deployment.containers.items.image removed, spec.components.database.deployment.containers.items.image type, spec.components.database.deployment.containers.items.imagePullPolicy enum, spec.components.database.deployment.containers.items.imagePullPolicy removed, spec.components.database.deployment.containers.items.imagePullPolicy type, spec.components.database.deployment.containers.items.name removed, spec.components.database.deployment.containers.items.name type, spec.components.database.deployment.containers.items.resources removed, spec.components.database.deployment.containers.items.resources type, spec.components.database.deployment.containers.items.resources.limits removed, spec.components.database.deployment.containers.items.resources.limits type, spec.components.database.deployment.containers.items.resources.limits.cpu removed, spec.components.database.deployment.containers.items.resources.limits.cpu.anyOf[0] removed, spec.components.database.deployment.containers.items.resources.limits.cpu.anyOf[0] type, spec.components.database.deployment.containers.items.resources.limits.cpu.anyOf[1] removed, spec.components.database.deployment.containers.items.resources.limits.cpu.anyOf[1] type, spec.components.database.deployment.containers.items.resources.limits.memory removed, spec.components.database.deployment.containers.items.resources.limits.memory.anyOf[0] removed, spec.components.database.deployment.containers.items.resources.limits.memory.anyOf[0] type, spec.components.database.deployment.containers.items.resources.limits.memory.anyOf[1] removed, spec.components.database.deployment.containers.items.resources.limits.memory.anyOf[1] type, spec.components.database.deployment.containers.items.resources.request removed, spec.components.database.deployment.containers.items.resources.request type, spec.components.database.deployment.containers.items.resources.request.cpu removed, spec.components.database.deployment.containers.items.resources.request.cpu.anyOf[0] removed, spec.components.database.deployment.containers.items.resources.request.cpu.anyOf[0] type, spec.components.database.deployment.containers.items.resources.request.cpu.anyOf[1] removed, spec.components.database.deployment.containers.items.resources.request.cpu.anyOf[1] type, spec.components.database.deployment.containers.items.resources.request.memory removed, spec.components.database.deployment.containers.items.resources.request.memory.anyOf[0] removed, spec.components.database.deployment.containers.items.resources.request.memory.anyOf[0] type, spec.components.database.deployment.containers.items.resources.request.memory.anyOf[1] removed, spec.components.database.deployment.containers.items.resources.request.memory.anyOf[1] type, spec.components.database.deployment.securityContext removed, spec.components.database.deployment.securityContext type, spec.components.database.deployment.securityContext.fsGroup removed, spec.components.database.deployment.securityContext.fsGroup type, spec.components.database.deployment.securityContext.runAsUser removed, spec.components.database.deployment.securityContext.runAsUser type, spec.components.database.externalDb removed, spec.components.database.externalDb type, spec.components.database.postgresDb removed, spec.components.database.postgresDb type, spec.components.database.postgresHostName removed, spec.components.database.postgresHostName type, spec.components.database.postgresPort removed, spec.components.database.postgresPort type, spec.components.database.pvc removed, spec.components.database.pvc type, spec.components.database.pvc.claimSize removed, spec.components.database.pvc.claimSize type, spec.components.database.pvc.storageClass removed, spec.components.database.pvc.storageClass type, status.postgresVersion removed, status.postgresVersion type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/checlusters.org.eclipse.che",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "ClusterRole/default/che-operator adds rules. Flags: wildcard.",
+          "resource": "ClusterRole/default/che-operator",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/eclipse-che/che-operator changed at spec.template.spec.containers[name=che-operator].env[name=CHE_VERSION].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/eclipse-che/che-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/eclipse-che/che-operator.template.spec.containers[0] che-operator container moves from quay.io/eclipse/che-operator:7.67.0 to quay.io/eclipse/che-operator:7.68.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "message": "Certificate/eclipse-che/che-operator-serving-cert was not judged. the API group is not installed on this server.",
+          "resource": "Certificate/eclipse-che/che-operator-serving-cert",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Issuer/eclipse-che/che-operator-selfsigned-issuer was not judged. the API group is not installed on this server.",
+          "resource": "Issuer/eclipse-che/che-operator-selfsigned-issuer",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/default/org.eclipse.che, ValidatingWebhookConfiguration/default/org.eclipse.che, MutatingWebhookConfiguration/default/org.eclipse.che, ValidatingWebhookConfiguration/default/org.eclipse.che.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 537 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/checlusters.org.eclipse.che",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "7.68.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://eclipse-che.github.io/che-operator/charts --chart eclipse-che --from 7.67.0 --to 7.68.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "6a4dc4903dd14db23fed3cffa6152d54fc3bd0937fe15163ddf39833b3038471"
+}

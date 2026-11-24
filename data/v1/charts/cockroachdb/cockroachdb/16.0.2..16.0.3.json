@@ -1,0 +1,84 @@
+{
+  "from_sha256": "15cf5e8679a80c0ffcca5f3cfece14abe4e6a06fe6af8dc36de4b49afb5e31d1",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "16.0.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 23 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "2 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 10 of 21 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "replaced: delete then create. Helm will delete ClusterRole/stageproof-check/stageproof-rel-cockroachdb-node-reader. ClusterRole/stageproof-check/stageproof-rel-cockroachdb-stageproof-check-node-reader is created in its place.",
+          "resource": "ClusterRole/stageproof-check/stageproof-rel-cockroachdb-node-reader",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: ClusterRoleBinding/stageproof-check/stageproof-rel-cockroachdb-node-reader.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/stageproof-check/stageproof-rel-cockroachdb-stageproof-check-node-reader adds rules that the current chart did not have.",
+          "resource": "ClusterRole/stageproof-check/stageproof-rel-cockroachdb-stageproof-check-node-reader",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "API `batch/v1beta1` (CronJob) is not served by Kubernetes 1.35.0.",
+          "resource": "CronJob/stageproof-check/stageproof-rel-cockroachdb-rotate-self-signer",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `batch/v1beta1` (CronJob) is not served by Kubernetes 1.35.0.",
+          "resource": "CronJob/stageproof-check/stageproof-rel-cockroachdb-rotate-self-signer-client",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "16.0.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.cockroachdb.com/ --chart cockroachdb --from 16.0.2 --to 16.0.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "a1dff4707bc295b153fa5a88e882a1a5c8a9f0679926d1b1fc89cb1234104620"
+}

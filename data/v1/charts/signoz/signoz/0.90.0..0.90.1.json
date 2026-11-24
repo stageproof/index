@@ -1,0 +1,85 @@
+{
+  "from_sha256": "e7a560d5e8a21bec9a1ebc18e817cedf897311a0bc334f9800d67fc123f133c4",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.90.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 38 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 32 of 35 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-signoz-otel-collector, Deployment/default/stageproof-rel-signoz-otel-collector",
+          "message": "Chart default `otelCollector.config.service.pipelines.logs.exporters` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "otelCollector.config.service.pipelines.logs.exporters",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-signoz-otel-collector, Deployment/default/stageproof-rel-signoz-otel-collector",
+          "message": "Chart default `otelCollector.config.service.pipelines.metrics.exporters` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "otelCollector.config.service.pipelines.metrics.exporters",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-signoz-otel-collector, Deployment/default/stageproof-rel-signoz-otel-collector",
+          "message": "Chart default `otelCollector.config.service.pipelines.traces.exporters` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "otelCollector.config.service.pipelines.traces.exporters",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-signoz-otel-collector changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-signoz-otel-collector",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.90.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.signoz.io --chart signoz --from 0.90.0 --to 0.90.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "bafe72709ca870eed1a4a92e2fa0b424906d8c71a81bfe05dc083d835f258d50"
+}

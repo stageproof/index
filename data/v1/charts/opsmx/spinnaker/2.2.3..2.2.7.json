@@ -1,0 +1,28 @@
+{
+  "from_sha256": "3d75da6c05659cf784807ebd3c604b714adfbc4f5cab34307e24e2dab5ea9f00",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.2.3",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 2.2.3 failed: exit status 1\nError: template: spinnaker/charts/minio/templates/deployment.yaml:210:20: executing \"spinnaker/charts/minio/templates/deployment.yaml\" at <(not .Values.gcsgateway.enabled) (not .Values.azuregateway.enabled) (not .Values.s3gateway.enabled) (not .Values.b2gateway.enabled)>: can't give argument to non-function not .Values.gcsgateway.enabled\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "2.2.7",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helmcharts.opsmx.com/ --chart spinnaker --from 2.2.3 --to 2.2.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "edac82c6b31a6f613dfce18d8bac4aa5591ac3e9ade6f6ff53c75d758ab1f448"
+}

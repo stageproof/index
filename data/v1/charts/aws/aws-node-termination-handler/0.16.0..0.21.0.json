@@ -1,0 +1,222 @@
+{
+  "from_sha256": "38f00d658eb36df2c5af65277a388f6580f2dddeeaa2f2d93da53ff08cecb74d",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.16.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 4 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 3 of 4 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "fail",
+          "summary": "1 removed API or immutable upgrade blocker"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: PodSecurityPolicy/default/stageproof-rel-aws-node-termination-handler, Role/stageproof-check/stageproof-rel-aws-node-termination-handler-psp, RoleBinding/stageproof-check/stageproof-rel-aws-node-termination-handler-psp.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `deleteLocalData` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "deleteLocalData",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `enableScheduledEventDraining` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "enableScheduledEventDraining",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `enableSpotInterruptionDraining` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "enableSpotInterruptionDraining",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `ignoreDaemonSets` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "ignoreDaemonSets",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `image.tag` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `nodeTerminationGracePeriod` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "nodeTerminationGracePeriod",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `podTerminationGracePeriod` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "podTerminationGracePeriod",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `procUptimeFile` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "procUptimeFile",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `resources.limits.cpu` changed from `100m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "resources.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `resources.limits.memory` changed from `128Mi` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "resources.limits.memory",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `resources.requests.cpu` changed from `50m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "resources.requests.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `resources.requests.memory` changed from `64Mi` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "resources.requests.memory",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `securityContext.runAsGroupID` changed from `1000` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "securityContext.runAsGroupID",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `securityContext.runAsUserID` changed from `1000` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "securityContext.runAsUserID",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "message": "Chart default `updateStrategy.rollingUpdate.maxUnavailable` changed from `1` to `25%` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "updateStrategy.rollingUpdate.maxUnavailable",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler changed at spec.template.metadata.labels.app.kubernetes.io/component. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 0.16.0 to 0.21.0, skipping 4 minor versions.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.14.0 to 1.19.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler.template.spec.containers[0] aws-node-termination-handler container moves from public.ecr.aws/aws-ec2/aws-node-termination-handler:v1.14.0 to public.ecr.aws/aws-ec2/aws-node-termination-handler:v1.19.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.selector` is immutable.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:aws-node-termination-handler kubernetes.io/os:linux] to map[app.kubernetes.io/component:daemonset app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:aws-node-termination-handler kubernetes.io/os:linux]. An in-place `helm upgrade` will fail.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.21.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://aws.github.io/eks-charts --chart aws-node-termination-handler --from 0.16.0 --to 0.21.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "1ecfd0f542aaf2cf93c31fad72e09ff006c32119653a4ddf8ce4b5f2464f286b"
+}

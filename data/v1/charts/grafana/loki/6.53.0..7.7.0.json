@@ -1,0 +1,135 @@
+{
+  "from_sha256": "3a9dfcbbc5cca62c1a908793e9ae3efd4ce7efc99248233a728dc70abad948ce",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.53.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 3 these values is set: loki.storage.bucketNames.chunks, loki.storage.bucketNames.ruler, loki.useTestSchema"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 30 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 29 of 30 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The CRD replicatemplates.rollout-operator.grafana.com under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/replicatemplates.rollout-operator.grafana.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD zoneawarepoddisruptionbudgets.rollout-operator.grafana.com under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/zoneawarepoddisruptionbudgets.rollout-operator.grafana.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ClusterRole/default/stageproof-rel-loki-clusterrole, ClusterRoleBinding/default/stageproof-rel-loki-clusterrolebinding, ConfigMap/stageproof-check/loki, ConfigMap/stageproof-check/loki-runtime, ConfigMap/stageproof-check/stageproof-rel-loki-gateway, DaemonSet/stageproof-check/loki-canary, Deployment/stageproof-check/loki-read, Deployment/stageproof-check/stageproof-rel-loki-gateway, Pod/stageproof-check/loki-helm-test, PodDisruptionBudget/stageproof-check/loki-backend, PodDisruptionBudget/stageproof-check/loki-read, PodDisruptionBudget/stageproof-check/loki-write, Service/stageproof-check/loki-backend, Service/stageproof-check/loki-canary, Service/stageproof-check/loki-read, Service/stageproof-check/loki-write, Service/stageproof-check/stageproof-rel-loki-chunks-cache, Service/stageproof-check/stageproof-rel-loki-gateway, Service/stageproof-check/stageproof-rel-loki-memberlist, Service/stageproof-check/stageproof-rel-loki-results-cache, ServiceAccount/stageproof-check/loki-canary, ServiceAccount/stageproof-check/stageproof-rel-loki, StatefulSet/stageproof-check/loki-backend, StatefulSet/stageproof-check/loki-write, StatefulSet/stageproof-check/stageproof-rel-loki-chunks-cache, StatefulSet/stageproof-check/stageproof-rel-loki-results-cache",
+          "message": "Chart default `loki.image.tag` changed from `3.6.5` to `3.6.11` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "loki.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/loki-backend",
+          "message": "Chart default `sidecar.image.tag` changed from `1.30.9` to `2.5.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "sidecar.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/loki-canary changed at spec.template.spec.containers[name=loki-canary].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/loki-canary",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/loki-read changed at spec.template.spec.containers[name=loki].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/loki-read",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/loki-backend changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/loki-backend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/loki-write changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/loki-write",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 6.53.0 to 7.7.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 3.6.5 to 3.6.20. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. DaemonSet/stageproof-check/loki-canary.template.spec.containers[0] loki-canary container moves from docker.io/grafana/loki-canary:3.6.5 to docker.io/grafana/loki-canary:3.6.20. Deployment/stageproof-check/loki-read.template.spec.containers[0] loki container moves from docker.io/grafana/loki:3.6.5 to docker.io/grafana/loki:3.6.11. StatefulSet/stageproof-check/loki-backend.template.spec.containers[1] loki-sc-rules container moves from docker.io/kiwigrid/k8s-sidecar:1.30.9 to docker.io/kiwigrid/k8s-sidecar:2.5.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "7.7.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://grafana.github.io/helm-charts --chart loki --from 6.53.0 --to 7.7.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "174c803546f65879a5b4dac60d2780621fd69bc790c1e66de936046e43ccbc43"
+}
