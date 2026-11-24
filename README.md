@@ -1,6 +1,6 @@
 # stageproof/index
 
-Nightly upgrade reports for public Helm charts. Each report is produced by the pinned Stageproof release, `v0.3.0`, checked against the chart's default values.
+Nightly upgrade reports for public Helm charts. Each report is produced by the pinned Stageproof release, `v0.3.1`, checked against the chart's default values.
 
 These reports are chart defaults only. Run Stageproof with your values files before you treat a result as a check of your cluster. Nothing here is a verdict on a cluster the index has not seen.
 
@@ -19,7 +19,7 @@ go run ./cmd/discover -n 300 -o charts.yaml
 go run ./cmd/build -charts charts.yaml -o data
 ```
 
-`cmd/build` downloads `stageproof` `v0.3.0` from the GitHub release and checks its SHA-256. It does not build the Stageproof `main` branch. Chart archives stay in a local cache and are not committed. A chart whose repository cannot be read is recorded in `data/v1/index.json` and the build continues with the next chart.
+`cmd/build` downloads `stageproof` `v0.3.1` from the GitHub release and checks its SHA-256. It does not build the Stageproof `main` branch. Chart archives stay in a local cache and are not committed. A chart whose repository cannot be read is recorded in `data/v1/index.json` and the build continues with the next chart.
 
 The curated list currently expands to about 20,000 stable pairs. That history is committed under `data/`. The nightly workflow (`.github/workflows/build.yml`, `17 4 * * *` UTC, plus `workflow_dispatch`) builds only the newest pair of each chart on Kubernetes 1.35, with the API server on. It commits new and updated JSON files under `data/v1/` back to `main`. It does not commit chart archives. Older report files stay, and the catalog counts every report in that chart directory. Leave `-max-pairs` unset to build every pair.
 
