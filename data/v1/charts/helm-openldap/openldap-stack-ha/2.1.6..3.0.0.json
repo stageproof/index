@@ -1,0 +1,142 @@
+{
+  "from_sha256": "967dd307a5deb0a873708997367943724d1a80a2fc1830b96c005a5c33e82637",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.1.6",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 14 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete StatefulSet/default/stageproof-rel-openldap-stack-ha. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/default/stageproof-rel-openldap-stack-ha",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/default/stageproof-rel-openldap-stack-ha-env, Secret/default/stageproof-rel-openldap-stack-ha, Service/default/stageproof-rel-openldap-stack-ha-headless, Service/stageproof-check/stageproof-rel-openldap-stack-ha.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel",
+          "message": "Chart default `customTLS.enabled` changed from `false` to `true` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "customTLS.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.CONTAINER_LOG_LEVEL` changed from `4` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.CONTAINER_LOG_LEVEL",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_DOMAIN` changed from `example.org` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_DOMAIN",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-phpldapadmin",
+          "message": "Chart default `phpldapadmin.env.PHPLDAPADMIN_LDAP_HOSTS` changed from `openldap-openldap-stack-ha` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "phpldapadmin.env.PHPLDAPADMIN_LDAP_HOSTS",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-ltb-passwd changed at spec.template.spec.containers[name=ltb-passwd].env[name=CHANGE_SSHKEY]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-ltb-passwd",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-phpldapadmin changed at spec.template.spec.imagePullSecrets. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-phpldapadmin",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 2.1.6 to 3.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `alpine:latest` could not be checked. The registry did not answer.",
+          "resource": "alpine:latest",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `osixia/openldap:1.5.0` could not be checked. The registry did not answer.",
+          "resource": "osixia/openldap:1.5.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "Not found: \"secret-certs\"",
+          "message": "Kubernetes rejected `spec.template.spec.initContainers[0].volumeMounts[1].name` on StatefulSet/default/stageproof-rel.",
+          "resource": "StatefulSet/default/stageproof-rel",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "3.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://jp-gouin.github.io/helm-openldap/ --chart openldap-stack-ha --from 2.1.6 --to 3.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "c8758fbf1de6bfc581bf3e74fa89bc855eac5d38ab942fe328a992bedd787594"
+}

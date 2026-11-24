@@ -1,0 +1,77 @@
+{
+  "from_sha256": "11ecd29a7c8fc370450467fa91d0dfd7ef58e734dba0ff56ef03ec2cb22bc456",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.16.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 6 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-external-dns",
+          "message": "Chart default `automountServiceAccountToken` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "automountServiceAccountToken",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ServiceAccount/stageproof-check/stageproof-rel-external-dns",
+          "message": "Chart default `serviceAccount.automountServiceAccountToken` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "serviceAccount.automountServiceAccountToken",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-external-dns changed at spec.template.spec.automountServiceAccountToken. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-external-dns",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.16.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kubernetes-sigs.github.io/external-dns/ --chart external-dns --from 1.16.0 --to 1.16.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "6e560d8f57e3eb68ff61fdd1312b9ad5d52fc455f1928ab7c75bb33d90fcd472"
+}

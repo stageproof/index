@@ -1,0 +1,94 @@
+{
+  "from_sha256": "ff718346a809aaf06c34bd8f3ab6852ab7049ba2bba663ca22c89e29e43dbb4b",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "5.8.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 14 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 12 of 13 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-7dfpd, Pod/stageproof-check/stageproof-rel-ui-test-bvahl, StatefulSet/stageproof-check/stageproof-rel-jenkins",
+          "message": "Chart default `controller.sidecars.configAutoReload.image.tag` changed from `1.28.4` to `1.29.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.sidecars.configAutoReload.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-jenkins changed at spec.template.spec.containers[name=config-reload].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-jenkins",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-jenkins.template.spec.containers[1] config-reload container moves from docker.io/kiwigrid/k8s-sidecar:1.28.4 to docker.io/kiwigrid/k8s-sidecar:1.29.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bats/bats:1.11.1` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bats/bats:1.11.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/kiwigrid/k8s-sidecar:1.29.0` could not be checked. The registry did not answer.",
+          "resource": "docker.io/kiwigrid/k8s-sidecar:1.29.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "5.8.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.8.2 --to 5.8.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "6b546c4d0884612f6e79d6d275076c4f44b27807b5425ded1045a9e08c0beaec"
+}

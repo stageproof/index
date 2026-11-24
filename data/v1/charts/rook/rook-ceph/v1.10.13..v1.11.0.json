@@ -1,0 +1,125 @@
+{
+  "from_sha256": "1db016b03937423aebf0e84bee52d85f0731cefdd938ca9f2bc60472410b3be2",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v1.10.13",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 68 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 49 of 67 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (2 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on cephobjectstores.ceph.rook.io: spec.healthCheck.bucket (removed), spec.healthCheck.bucket (type), spec.healthCheck.bucket.disabled (removed), spec.healthCheck.bucket.disabled (type), spec.healthCheck.bucket.interval (removed), spec.healthCheck.bucket.interval (type), spec.healthCheck.bucket.timeout (removed), spec.healthCheck.bucket.timeout (type), spec.healthCheck.livenessProbe (removed), spec.healthCheck.livenessProbe (type), spec.healthCheck.livenessProbe.disabled (removed), spec.healthCheck.livenessProbe.disabled (type), spec.healthCheck.livenessProbe.probe (removed), spec.healthCheck.livenessProbe.probe (type), spec.healthCheck.livenessProbe.probe.exec (removed), spec.healthCheck.livenessProbe.probe.exec (type), spec.healthCheck.livenessProbe.probe.exec.command (removed), spec.healthCheck.livenessProbe.probe.exec.command (type), spec.healthCheck.livenessProbe.probe.exec.command.items (removed), spec.healthCheck.livenessProbe.probe.exec.command.items (type), spec.healthCheck.livenessProbe.probe.failureThreshold (removed), spec.healthCheck.livenessProbe.probe.failureThreshold (type), spec.healthCheck.livenessProbe.probe.grpc (removed), spec.healthCheck.livenessProbe.probe.grpc (type), spec.healthCheck.livenessProbe.probe.grpc.port (removed), spec.healthCheck.livenessProbe.probe.grpc.port (type), spec.healthCheck.livenessProbe.probe.grpc.service (removed), spec.healthCheck.livenessProbe.probe.grpc.service (type), spec.healthCheck.livenessProbe.probe.httpGet (removed), spec.healthCheck.livenessProbe.probe.httpGet (type), spec.healthCheck.livenessProbe.probe.httpGet.host (removed), spec.healthCheck.livenessProbe.probe.httpGet.host (type), spec.healthCheck.livenessProbe.probe.httpGet.httpHeaders (removed), spec.healthCheck.livenessProbe.probe.httpGet.httpHeaders (type), spec.healthCheck.livenessProbe.probe.httpGet.httpHeaders.items (removed), spec.healthCheck.livenessProbe.probe.httpGet.httpHeaders.items (type), spec.healthCheck.livenessProbe.probe.httpGet.httpHeaders.items.name (removed), spec.healthCheck.livenessProbe.probe.httpGet.httpHeaders.items.name (type), spec.healthCheck.livenessProbe.probe.httpGet.httpHeaders.items.value (removed), spec.healthCheck.livenessProbe.probe.httpGet.httpHeaders.items.value (type), spec.healthCheck.livenessProbe.probe.httpGet.path (removed), spec.healthCheck.livenessProbe.probe.httpGet.path (type), spec.healthCheck.livenessProbe.probe.httpGet.port (removed), spec.healthCheck.livenessProbe.probe.httpGet.port.anyOf[0] (removed), spec.healthCheck.livenessProbe.probe.httpGet.port.anyOf[0] (type), spec.healthCheck.livenessProbe.probe.httpGet.port.anyOf[1] (removed), spec.healthCheck.livenessProbe.probe.httpGet.port.anyOf[1] (type), spec.healthCheck.livenessProbe.probe.httpGet.scheme (removed), spec.healthCheck.livenessProbe.probe.httpGet.scheme (type), spec.healthCheck.livenessProbe.probe.initialDelaySeconds (removed), spec.healthCheck.livenessProbe.probe.initialDelaySeconds (type), spec.healthCheck.livenessProbe.probe.periodSeconds (removed), spec.healthCheck.livenessProbe.probe.periodSeconds (type), spec.healthCheck.livenessProbe.probe.successThreshold (removed), spec.healthCheck.livenessProbe.probe.successThreshold (type), spec.healthCheck.livenessProbe.probe.tcpSocket (removed), spec.healthCheck.livenessProbe.probe.tcpSocket (type), spec.healthCheck.livenessProbe.probe.tcpSocket.host (removed), spec.healthCheck.livenessProbe.probe.tcpSocket.host (type), spec.healthCheck.livenessProbe.probe.tcpSocket.port (removed), spec.healthCheck.livenessProbe.probe.tcpSocket.port.anyOf[0] (removed), spec.healthCheck.livenessProbe.probe.tcpSocket.port.anyOf[0] (type), spec.healthCheck.livenessProbe.probe.tcpSocket.port.anyOf[1] (removed), spec.healthCheck.livenessProbe.probe.tcpSocket.port.anyOf[1] (type), spec.healthCheck.livenessProbe.probe.terminationGracePeriodSeconds (removed), spec.healthCheck.livenessProbe.probe.terminationGracePeriodSeconds (type), spec.healthCheck.livenessProbe.probe.timeoutSeconds (removed), spec.healthCheck.livenessProbe.probe.timeoutSeconds (type), status.bucketStatus (removed), status.bucketStatus (type), status.bucketStatus.details (removed), status.bucketStatus.details (type), status.bucketStatus.health (removed), status.bucketStatus.health (type), status.bucketStatus.lastChanged (removed), status.bucketStatus.lastChanged (type), status.bucketStatus.lastChecked (removed), status.bucketStatus.lastChecked (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/cephobjectstores.ceph.rook.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/rbd-external-provisioner-runner adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/rbd-external-provisioner-runner",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/rook-ceph-system adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/rook-ceph-system",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/rook-ceph-operator",
+          "message": "Chart default `image.tag` changed from `v1.10.13` to `v1.11.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/rook-ceph-operator changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/rook-ceph-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.10.13 to v1.11.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/default/rook-ceph-operator.template.spec.containers[0] rook-ceph-operator container moves from rook/ceph:v1.10.13 to rook/ceph:v1.11.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 456 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/cephclusters.ceph.rook.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 613 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/cephnfses.ceph.rook.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "v1.11.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.rook.io/release --chart rook-ceph --from v1.10.13 --to v1.11.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "5990b40ce08c115f9594e274a00c7b8ed2978502f11e27bd5ce7cb95a2d68a47"
+}

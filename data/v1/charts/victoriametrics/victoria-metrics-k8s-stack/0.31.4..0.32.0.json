@@ -1,0 +1,195 @@
+{
+  "from_sha256": "23083f8b453d04b266d10719e6319cc5f5a19db24db287c62a0511107aa33f09",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.31.4",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 132 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 107 of 132 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (4 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmalertmanagerconfigs.operator.victoriametrics.com: status.lastSyncError (removed), status.lastSyncError (type), status.lastSyncErrorTimestamp (removed), status.lastSyncErrorTimestamp (type), status.status (removed), status.status (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmalertmanagerconfigs.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmauths.operator.victoriametrics.com: spec.default_url (removed), spec.default_url (type), spec.default_url.items (removed), spec.default_url.items (type), spec.discover_backend_ips (removed), spec.discover_backend_ips (type), spec.drop_src_path_prefix_parts (removed), spec.drop_src_path_prefix_parts (type), spec.headers (removed), spec.headers (type), spec.headers.items (removed), spec.headers.items (type), spec.ip_filters (removed), spec.ip_filters (type), spec.ip_filters.allow_list (removed), spec.ip_filters.allow_list (type), spec.ip_filters.allow_list.items (removed), spec.ip_filters.allow_list.items (type), spec.ip_filters.deny_list (removed), spec.ip_filters.deny_list (type), spec.ip_filters.deny_list.items (removed), spec.ip_filters.deny_list.items (type), spec.load_balancing_policy (enum), spec.load_balancing_policy (removed), spec.load_balancing_policy (type), spec.max_concurrent_requests (removed), spec.max_concurrent_requests (type), spec.response_headers (removed), spec.response_headers (type), spec.response_headers.items (removed), spec.response_headers.items (type), spec.retry_status_codes (removed), spec.retry_status_codes (type), spec.retry_status_codes.items (removed), spec.retry_status_codes.items (type), spec.tlsConfig (removed), spec.tlsConfig (type), spec.tlsConfig.ca (removed), spec.tlsConfig.ca (type), spec.tlsConfig.ca.configMap (removed), spec.tlsConfig.ca.configMap (type), spec.tlsConfig.ca.configMap.key (removed), spec.tlsConfig.ca.configMap.key (type), spec.tlsConfig.ca.configMap.name (removed), spec.tlsConfig.ca.configMap.name (type), spec.tlsConfig.ca.configMap.optional (removed), spec.tlsConfig.ca.configMap.optional (type), spec.tlsConfig.ca.secret (removed), spec.tlsConfig.ca.secret (type), spec.tlsConfig.ca.secret.key (removed), spec.tlsConfig.ca.secret.key (type), spec.tlsConfig.ca.secret.name (removed), spec.tlsConfig.ca.secret.name (type), spec.tlsConfig.ca.secret.optional (removed), spec.tlsConfig.ca.secret.optional (type), spec.tlsConfig.caFile (removed), spec.tlsConfig.caFile (type), spec.tlsConfig.cert (removed), spec.tlsConfig.cert (type), spec.tlsConfig.cert.configMap (removed), spec.tlsConfig.cert.configMap (type), spec.tlsConfig.cert.configMap.key (removed), spec.tlsConfig.cert.configMap.key (type), spec.tlsConfig.cert.configMap.name (removed), spec.tlsConfig.cert.configMap.name (type), spec.tlsConfig.cert.configMap.optional (removed), spec.tlsConfig.cert.configMap.optional (type), spec.tlsConfig.cert.secret (removed), spec.tlsConfig.cert.secret (type), spec.tlsConfig.cert.secret.key (removed), spec.tlsConfig.cert.secret.key (type), spec.tlsConfig.cert.secret.name (removed), spec.tlsConfig.cert.secret.name (type), spec.tlsConfig.cert.secret.optional (removed), spec.tlsConfig.cert.secret.optional (type), spec.tlsConfig.certFile (removed), spec.tlsConfig.certFile (type), spec.tlsConfig.insecureSkipVerify (removed), spec.tlsConfig.insecureSkipVerify (type), spec.tlsConfig.keyFile (removed), spec.tlsConfig.keyFile (type), spec.tlsConfig.keySecret (removed), spec.tlsConfig.keySecret (type), spec.tlsConfig.keySecret.key (removed), spec.tlsConfig.keySecret.key (type), spec.tlsConfig.keySecret.name (removed), spec.tlsConfig.keySecret.name (type), spec.tlsConfig.keySecret.optional (removed), spec.tlsConfig.keySecret.optional (type), spec.tlsConfig.serverName (removed), spec.tlsConfig.serverName (type), spec.unauthorizedAccessConfig (type), spec.unauthorizedAccessConfig.items (removed), spec.unauthorizedAccessConfig.items (type), spec.unauthorizedAccessConfig.items.discover_backend_ips (removed), spec.unauthorizedAccessConfig.items.discover_backend_ips (type), spec.unauthorizedAccessConfig.items.drop_src_path_prefix_parts (removed), spec.unauthorizedAccessConfig.items.drop_src_path_prefix_parts (type), spec.unauthorizedAccessConfig.items.headers (removed), spec.unauthorizedAccessConfig.items.headers (type), spec.unauthorizedAccessConfig.items.headers.items (removed), spec.unauthorizedAccessConfig.items.headers.items (type), spec.unauthorizedAccessConfig.items.load_balancing_policy (enum), spec.unauthorizedAccessConfig.items.load_balancing_policy (removed), spec.unauthorizedAccessConfig.items.load_balancing_policy (type), spec.unauthorizedAccessConfig.items.response_headers (removed), spec.unauthorizedAccessConfig.items.response_headers (type), spec.unauthorizedAccessConfig.items.response_headers.items (removed), spec.unauthorizedAccessConfig.items.response_headers.items (type), spec.unauthorizedAccessConfig.items.retry_status_codes (removed), spec.unauthorizedAccessConfig.items.retry_status_codes (type), spec.unauthorizedAccessConfig.items.retry_status_codes.items (removed), spec.unauthorizedAccessConfig.items.retry_status_codes.items (type), spec.unauthorizedAccessConfig.items.src_headers (removed), spec.unauthorizedAccessConfig.items.src_headers (type), spec.unauthorizedAccessConfig.items.src_headers.items (removed), spec.unauthorizedAccessConfig.items.src_headers.items (type), spec.unauthorizedAccessConfig.items.src_hosts (removed), spec.unauthorizedAccessConfig.items.src_hosts (type), spec.unauthorizedAccessConfig.items.src_hosts.items (removed), spec.unauthorizedAccessConfig.items.src_hosts.items (type), spec.unauthorizedAccessConfig.items.src_paths (removed), spec.unauthorizedAccessConfig.items.src_paths (type), spec.unauthorizedAccessConfig.items.src_paths.items (removed), spec.unauthorizedAccessConfig.items.src_paths.items (type), spec.unauthorizedAccessConfig.items.src_query_args (removed), spec.unauthorizedAccessConfig.items.src_query_args (type), spec.unauthorizedAccessConfig.items.src_query_args.items (removed), spec.unauthorizedAccessConfig.items.src_query_args.items (type), spec.unauthorizedAccessConfig.items.url_prefix (removed), spec.unauthorizedAccessConfig.items.url_prefix (type), spec.unauthorizedAccessConfig.items.url_prefix.items (removed), spec.unauthorizedAccessConfig.items.url_prefix.items (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmauths.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmnodescrapes.operator.victoriametrics.com: status.lastSyncError (removed), status.lastSyncError (type), status.status (removed), status.status (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmnodescrapes.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmpodscrapes.operator.victoriametrics.com: status.lastSyncError (removed), status.lastSyncError (type), status.status (removed), status.status (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmpodscrapes.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmprobes.operator.victoriametrics.com: status.lastSyncError (removed), status.lastSyncError (type), status.status (removed), status.status (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmprobes.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmrules.operator.victoriametrics.com: status.lastSyncError (removed), status.lastSyncError (type), status.status (removed), status.status (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmrules.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmscrapeconfigs.operator.victoriametrics.com: status.lastSyncError (removed), status.lastSyncError (type), status.status (removed), status.status (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmscrapeconfigs.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmservicescrapes.operator.victoriametrics.com: status.lastSyncError (removed), status.lastSyncError (type), status.status (removed), status.status (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmservicescrapes.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmstaticscrapes.operator.victoriametrics.com: status.lastSyncError (removed), status.lastSyncError (type), status.status (removed), status.status (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmstaticscrapes.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmusers.operator.victoriametrics.com: status.lastSyncError (removed), status.lastSyncError (type), status.status (removed), status.status (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmusers.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-grafana changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-grafana",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator changed at spec.template.spec.automountServiceAccountToken. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator.template.spec.containers[0] operator container moves from victoriametrics/operator:v0.50.0 to victoriametrics/operator:v0.51.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "must be no more than 63 characters",
+          "message": "Kubernetes rejected `metadata.name` on Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager. The current chart failed the same validation; the upgrade did not introduce it.",
+          "resource": "Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission, ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 353 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmagents.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 339 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmalertmanagerconfigs.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 335 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmclusters.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 304 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmscrapeconfigs.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.32.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://victoriametrics.github.io/helm-charts/ --chart victoria-metrics-k8s-stack --from 0.31.4 --to 0.32.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "64ccbcc2e71929f360685a32d198fb2d7252f838ed1aa6ffcc8d53e306cab952"
+}

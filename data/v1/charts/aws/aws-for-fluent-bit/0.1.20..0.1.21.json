@@ -1,0 +1,28 @@
+{
+  "from_sha256": "43ba60faf02d4082648fd50243efe0ede4577436d89024f13d90edafe58f48ce",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.1.20",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 0.1.20 failed: exit status 1\nError: YAML parse error on aws-for-fluent-bit/templates/daemonset.yaml: error converting YAML to JSON: yaml: line 29: could not find expected ':'\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "0.1.21",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://aws.github.io/eks-charts --chart aws-for-fluent-bit --from 0.1.20 --to 0.1.21 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "f13be3134e4ec6ab5eb0f255d2b6862597e9598f1468bc86084a6f84f534adc6"
+}

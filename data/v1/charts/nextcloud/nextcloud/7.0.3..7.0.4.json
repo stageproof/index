@@ -1,0 +1,53 @@
+{
+  "from_sha256": "e4d28e95c9e0430a31aa5fb58034e01a22ded94d08aad4261f9f84f4ad6df5c9",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "7.0.3",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 3 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "head_ref": "7.0.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://nextcloud.github.io/helm/ --chart nextcloud --from 7.0.3 --to 7.0.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "d171ef85cc553ac0865f42e6debaa043a54e6bd8254d39830bc1cfb9360fe0e4"
+}

@@ -1,0 +1,107 @@
+{
+  "from_sha256": "bdd669a80a8bc9d1e651b7680f4227cbc374a861e89c0ed3120e328b4aacfd39",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.14.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 28 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 21 of 28 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (1 deprecation, EOL, or CRD warning)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on scaledjobs.keda.sh: spec.jobTargetRef.template.spec.containers.items.ports.items (required), spec.jobTargetRef.template.spec.ephemeralContainers.items.ports.items (required), spec.jobTargetRef.template.spec.initContainers.items.ports.items (required), spec.triggers.items.metricType (removed), spec.triggers.items.metricType (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/scaledjobs.keda.sh",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/keda-operator adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/keda-operator",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ClusterRole/default/keda-operator",
+          "message": "Chart default `rbac.scaledRefKinds` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "rbac.scaledRefKinds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/keda-admission-webhooks changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/keda-admission-webhooks",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/keda-operator changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/keda-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/keda-operator-metrics-apiserver changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/keda-operator-metrics-apiserver",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: APIService/default/v1beta1.external.metrics.k8s.io, ValidatingWebhookConfiguration/default/keda-admission, APIService/default/v1beta1.external.metrics.k8s.io, ValidatingWebhookConfiguration/default/keda-admission.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 801 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/scaledjobs.keda.sh",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "2.14.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kedacore.github.io/charts --chart keda --from 2.14.0 --to 2.14.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "8ad2f13172e1e38b96a3ff8e8737137e2c43026354b3c4ac4fb2e51bccdeb213"
+}

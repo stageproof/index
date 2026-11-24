@@ -1,0 +1,106 @@
+{
+  "from_sha256": "db62e8442bd1927df3fdcdcef5a7667bdc518e51fa3f853f6d43d26bdf25127a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.15.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 8 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 4 of 8 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (1 deprecation, EOL, or CRD warning)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on datadogpodautoscalers.datadoghq.com: spec.fallback.horizontal.objectives.items.customQueryObjective (removed), spec.fallback.horizontal.objectives.items.customQueryObjective (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.formulas (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.formulas (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.formulas.items (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.formulas.items (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.formulas.items.formula (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.formulas.items.formula (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.group_by (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.group_by (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.group_by.items (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.group_by.items (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.operation_name (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.operation_name (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.query_filter (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.query_filter (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.resource_hash (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.resource_hash (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.resource_name (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.resource_name (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.service (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.service (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.span_kind (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.span_kind (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.stat (enum), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.stat (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.apm_metrics.stat (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.metrics (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.metrics (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.metrics.query (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.metrics.query (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.name (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.name (type), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.source (enum), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.source (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.query.queries.items.source (type), spec.fallback.horizontal.objectives.items.customQueryObjective.value (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.value (type), spec.fallback.horizontal.objectives.items.customQueryObjective.value.absoluteValue (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.value.absoluteValue.anyOf[0] (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.value.absoluteValue.anyOf[0] (type), spec.fallback.horizontal.objectives.items.customQueryObjective.value.absoluteValue.anyOf[1] (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.value.absoluteValue.anyOf[1] (type), spec.fallback.horizontal.objectives.items.customQueryObjective.value.type (enum), spec.fallback.horizontal.objectives.items.customQueryObjective.value.type (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.value.type (type), spec.fallback.horizontal.objectives.items.customQueryObjective.value.utilization (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.value.utilization (type), spec.fallback.horizontal.objectives.items.customQueryObjective.window (removed), spec.fallback.horizontal.objectives.items.customQueryObjective.window (type), spec.objectives.items.customQueryObjective (removed), spec.objectives.items.customQueryObjective (type), spec.objectives.items.customQueryObjective.query (removed), spec.objectives.items.customQueryObjective.query (type), spec.objectives.items.customQueryObjective.query.formulas (removed), spec.objectives.items.customQueryObjective.query.formulas (type), spec.objectives.items.customQueryObjective.query.formulas.items (removed), spec.objectives.items.customQueryObjective.query.formulas.items (type), spec.objectives.items.customQueryObjective.query.formulas.items.formula (removed), spec.objectives.items.customQueryObjective.query.formulas.items.formula (type), spec.objectives.items.customQueryObjective.query.queries (removed), spec.objectives.items.customQueryObjective.query.queries (type), spec.objectives.items.customQueryObjective.query.queries.items (removed), spec.objectives.items.customQueryObjective.query.queries.items (type), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics (removed), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics (type), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.group_by (removed), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.group_by (type), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.group_by.items (removed), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.group_by.items (type), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.operation_name (removed), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.operation_name (type), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.query_filter (removed), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.query_filter (type), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.resource_hash (removed), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.resource_hash (type), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.resource_name (removed), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.resource_name (type), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.service (removed), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.service (type), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.span_kind (removed), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.span_kind (type), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.stat (enum), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.stat (removed), spec.objectives.items.customQueryObjective.query.queries.items.apm_metrics.stat (type), spec.objectives.items.customQueryObjective.query.queries.items.metrics (removed), spec.objectives.items.customQueryObjective.query.queries.items.metrics (type), spec.objectives.items.customQueryObjective.query.queries.items.metrics.query (removed), spec.objectives.items.customQueryObjective.query.queries.items.metrics.query (type), spec.objectives.items.customQueryObjective.query.queries.items.name (removed), spec.objectives.items.customQueryObjective.query.queries.items.name (type), spec.objectives.items.customQueryObjective.query.queries.items.source (enum), spec.objectives.items.customQueryObjective.query.queries.items.source (removed), spec.objectives.items.customQueryObjective.query.queries.items.source (type), spec.objectives.items.customQueryObjective.value (removed), spec.objectives.items.customQueryObjective.value (type), spec.objectives.items.customQueryObjective.value.absoluteValue (removed), spec.objectives.items.customQueryObjective.value.absoluteValue.anyOf[0] (removed), spec.objectives.items.customQueryObjective.value.absoluteValue.anyOf[0] (type), spec.objectives.items.customQueryObjective.value.absoluteValue.anyOf[1] (removed), spec.objectives.items.customQueryObjective.value.absoluteValue.anyOf[1] (type), spec.objectives.items.customQueryObjective.value.type (enum), spec.objectives.items.customQueryObjective.value.type (removed), spec.objectives.items.customQueryObjective.value.type (type), spec.objectives.items.customQueryObjective.value.utilization (removed), spec.objectives.items.customQueryObjective.value.utilization (type), spec.objectives.items.customQueryObjective.window (removed), spec.objectives.items.customQueryObjective.window (type), spec.targets.items.customQueryObjective (removed), spec.targets.items.customQueryObjective (type), spec.targets.items.customQueryObjective.query (removed), spec.targets.items.customQueryObjective.query (type), spec.targets.items.customQueryObjective.query.formulas (removed), spec.targets.items.customQueryObjective.query.formulas (type), spec.targets.items.customQueryObjective.query.formulas.items (removed), spec.targets.items.customQueryObjective.query.formulas.items (type), spec.targets.items.customQueryObjective.query.formulas.items.formula (removed), spec.targets.items.customQueryObjective.query.formulas.items.formula (type), spec.targets.items.customQueryObjective.query.queries (removed), spec.targets.items.customQueryObjective.query.queries (type), spec.targets.items.customQueryObjective.query.queries.items (removed), spec.targets.items.customQueryObjective.query.queries.items (type), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics (removed), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics (type), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.group_by (removed), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.group_by (type), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.group_by.items (removed), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.group_by.items (type), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.operation_name (removed), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.operation_name (type), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.query_filter (removed), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.query_filter (type), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.resource_hash (removed), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.resource_hash (type), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.resource_name (removed), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.resource_name (type), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.service (removed), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.service (type), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.span_kind (removed), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.span_kind (type), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.stat (enum), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.stat (removed), spec.targets.items.customQueryObjective.query.queries.items.apm_metrics.stat (type), spec.targets.items.customQueryObjective.query.queries.items.metrics (removed), spec.targets.items.customQueryObjective.query.queries.items.metrics (type), spec.targets.items.customQueryObjective.query.queries.items.metrics.query (removed), spec.targets.items.customQueryObjective.query.queries.items.metrics.query (type), spec.targets.items.customQueryObjective.query.queries.items.name (removed), spec.targets.items.customQueryObjective.query.queries.items.name (type), spec.targets.items.customQueryObjective.query.queries.items.source (enum), spec.targets.items.customQueryObjective.query.queries.items.source (removed), spec.targets.items.customQueryObjective.query.queries.items.source (type), spec.targets.items.customQueryObjective.value (removed), spec.targets.items.customQueryObjective.value (type), spec.targets.items.customQueryObjective.value.absoluteValue (removed), spec.targets.items.customQueryObjective.value.absoluteValue.anyOf[0] (removed), spec.targets.items.customQueryObjective.value.absoluteValue.anyOf[0] (type), spec.targets.items.customQueryObjective.value.absoluteValue.anyOf[1] (removed), spec.targets.items.customQueryObjective.value.absoluteValue.anyOf[1] (type), spec.targets.items.customQueryObjective.value.type (enum), spec.targets.items.customQueryObjective.value.type (removed), spec.targets.items.customQueryObjective.value.type (type), spec.targets.items.customQueryObjective.value.utilization (removed), spec.targets.items.customQueryObjective.value.utilization (type), spec.targets.items.customQueryObjective.window (removed), spec.targets.items.customQueryObjective.window (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/datadogpodautoscalers.datadoghq.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-datadog-operator adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-datadog-operator",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-datadog-operator",
+          "message": "Chart default `image.tag` changed from `1.20.0` to `1.21.0-rc.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-datadog-operator changed at spec.template.spec.containers[name=datadog-operator].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-datadog-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-datadog-operator.template.spec.containers[0] datadog-operator container moves from gcr.io/datadoghq/operator:1.20.0 to gcr.io/datadoghq/operator:1.21.0-rc.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 406 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/datadogagents.datadoghq.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "2.15.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.datadoghq.com --chart datadog-operator --from 2.15.0 --to 2.15.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "2cf707574b451fb710d43400d3227899ca5df9172adc27acd1aa2340cf2ea251"
+}

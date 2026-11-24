@@ -1,0 +1,149 @@
+{
+  "from_sha256": "011f74235b24a10a6de4ebb659875a53418ca5a5bb6c246ada8c6c9b5b59558d",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.87.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 85 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 53 of 84 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (3 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "ClusterRole/default/stageproof-rel-victoria-metrics-operator adds rules. Flags: wildcard.",
+          "resource": "ClusterRole/default/stageproof-rel-victoria-metrics-operator",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-victoria-metrics-operator-victoriametrics-admin adds rules. Flags: wildcard.",
+          "resource": "ClusterRole/default/stageproof-rel-victoria-metrics-operator-victoriametrics-admin",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-victoria-metrics-operator-victoriametrics-view adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-victoria-metrics-operator-victoriametrics-view",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/stageproof-check/stageproof-rel-victoria-metrics-operator-cleanup-hook adds rules. Flags: wildcard.",
+          "resource": "ClusterRole/stageproof-check/stageproof-rel-victoria-metrics-operator-cleanup-hook",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-grafana changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-grafana",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator changed at spec.template.spec.containers[name=operator].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Deployment/stageproof-check/stageproof-rel-grafana.template.spec.containers[2] grafana container moves from docker.io/grafana/grafana:13.1.0 to docker.io/grafana/grafana:13.1.1. Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator.template.spec.containers[0] operator container moves from victoriametrics/operator:v0.73.1 to victoriametrics/operator:v0.74.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `victoriametrics/operator:v0.74.0` could not be checked. The registry did not answer.",
+          "resource": "victoriametrics/operator:v0.74.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "must be no more than 63 characters",
+          "message": "Kubernetes rejected `metadata.name` on Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager. The current chart failed the same validation; the upgrade did not introduce it.",
+          "resource": "Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission, ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 1228 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vldistributed.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 1278 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmdistributed.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 454 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmscrapeconfigs.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.88.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://victoriametrics.github.io/helm-charts/ --chart victoria-metrics-k8s-stack --from 0.87.0 --to 0.88.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "a0112ca096ca6cc4e2b4b8be94976e2c4f7e7ef4430f7e8d308a66f173ecff33"
+}

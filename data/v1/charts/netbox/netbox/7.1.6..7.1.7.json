@@ -1,0 +1,91 @@
+{
+  "from_sha256": "3bba38e5b747d982ceb4fd818c61c7ed3d7c3b63a27e263fb5f93eb9e2dff812",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "7.1.6",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 33 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 32 of 33 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-netbox changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-netbox",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-netbox-worker changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-netbox-worker",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-postgresql changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-valkey-primary changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-valkey-primary",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-valkey-replicas changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-valkey-replicas",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of CronJob/stageproof-check/stageproof-rel-netbox-housekeeping changed at spec.jobTemplate.spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/stageproof-check/stageproof-rel-netbox-housekeeping",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "7.1.7",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.netbox.oss.netboxlabs.com/ --chart netbox --from 7.1.6 --to 7.1.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "7c05f86fd4974d519bbcc8783607ad59efd42292c68fd5fbd005700059fd1ecd"
+}

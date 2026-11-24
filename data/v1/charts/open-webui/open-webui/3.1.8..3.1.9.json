@@ -1,0 +1,28 @@
+{
+  "from_sha256": "23e636373322354ae93de830fbb9b4d586b0cfd9d93944923bf568cc08837f1e",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "3.1.8",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 3.1.8 failed: exit status 1\nError: YAML parse error on open-webui/templates/service.yaml: error converting YAML to JSON: yaml: line 20: did not find expected key\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "3.1.9",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.openwebui.com --chart open-webui --from 3.1.8 --to 3.1.9 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "256fa60699896a423eaa8ff651f1762ff49e3dea2c9d0d077a5ea4546e9e18ce"
+}

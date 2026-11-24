@@ -1,0 +1,73 @@
+{
+  "from_sha256": "1e1648a26049514bede8e876bf580fff3050292a95767ae955af820d89ec1744",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "3.7.130",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 15 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/netdata-child changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/netdata-child",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/netdata-k8s-state changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/netdata-k8s-state",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/netdata-parent changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/netdata-parent",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "3.7.131",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://netdata.github.io/helmchart --chart netdata --from 3.7.130 --to 3.7.131 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "e154a9d0db65f1770a2369f8b995163a492b4036cec72659eb0451386d870a4f"
+}

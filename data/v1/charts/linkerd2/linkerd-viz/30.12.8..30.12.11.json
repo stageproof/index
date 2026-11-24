@@ -1,0 +1,194 @@
+{
+  "from_sha256": "375e916a389f452d9ddddd3dd903b3f9df44d1cb9ab94b5aab30cbbe494a8f39",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "30.12.8",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 56 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 36 of 56 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: AuthorizationPolicy/stageproof-check/metrics-api, AuthorizationPolicy/stageproof-check/prometheus-admin, AuthorizationPolicy/stageproof-check/tap, AuthorizationPolicy/stageproof-check/tap-injector, ConfigMap/stageproof-check/prometheus-config, Deployment/stageproof-check/metrics-api, Deployment/stageproof-check/prometheus, Deployment/stageproof-check/tap, Deployment/stageproof-check/tap-injector, Deployment/stageproof-check/web, Job/stageproof-check/namespace-metadata, MeshTLSAuthentication/stageproof-check/metrics-api-web, NetworkAuthentication/stageproof-check/kube-api-server, NetworkAuthentication/stageproof-check/kubelet, Role/stageproof-check/namespace-metadata, RoleBinding/linkerd/viz-namespace-metadata-linkerd-config, RoleBinding/stageproof-check/namespace-metadata, Secret/stageproof-check/tap-injector-k8s-tls, Secret/stageproof-check/tap-k8s-tls, Server/stageproof-check/metrics-api, Server/stageproof-check/prometheus-admin, Server/stageproof-check/tap-api, Server/stageproof-check/tap-injector-webhook, Service/stageproof-check/metrics-api, Service/stageproof-check/prometheus, Service/stageproof-check/tap, Service/stageproof-check/tap-injector, Service/stageproof-check/web, ServiceAccount/stageproof-check/namespace-metadata",
+          "message": "Chart default `linkerdVersion` changed from `stable-2.14.7` to `stable-2.14.10` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "linkerdVersion",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/metrics-api changed at spec.template.metadata.annotations.linkerd.io/created-by. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/metrics-api",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/prometheus changed at spec.template.metadata.annotations.linkerd.io/created-by. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/prometheus",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/tap changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/tap",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/tap-injector changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/tap-injector",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/web changed at spec.template.metadata.annotations.linkerd.io/created-by. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/web",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from stable-2.14.7 to stable-2.14.10. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. Deployment/stageproof-check/metrics-api.template.spec.containers[0] metrics-api container moves from cr.l5d.io/linkerd/metrics-api:stable-2.14.7 to cr.l5d.io/linkerd/metrics-api:stable-2.14.10. Deployment/stageproof-check/tap-injector.template.spec.containers[0] tap-injector container moves from cr.l5d.io/linkerd/tap:stable-2.14.7 to cr.l5d.io/linkerd/tap:stable-2.14.10. Deployment/stageproof-check/web.template.spec.containers[0] web container moves from cr.l5d.io/linkerd/web:stable-2.14.7 to cr.l5d.io/linkerd/web:stable-2.14.10.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "message": "AuthorizationPolicy/stageproof-check/metrics-api was not judged. the API group is not installed on this server.",
+          "resource": "AuthorizationPolicy/stageproof-check/metrics-api",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "AuthorizationPolicy/stageproof-check/prometheus-admin was not judged. the API group is not installed on this server.",
+          "resource": "AuthorizationPolicy/stageproof-check/prometheus-admin",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "AuthorizationPolicy/stageproof-check/tap-injector was not judged. the API group is not installed on this server.",
+          "resource": "AuthorizationPolicy/stageproof-check/tap-injector",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "AuthorizationPolicy/stageproof-check/tap was not judged. the API group is not installed on this server.",
+          "resource": "AuthorizationPolicy/stageproof-check/tap",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "MeshTLSAuthentication/stageproof-check/metrics-api-web was not judged. the API group is not installed on this server.",
+          "resource": "MeshTLSAuthentication/stageproof-check/metrics-api-web",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "NetworkAuthentication/stageproof-check/kubelet was not judged. the API group is not installed on this server.",
+          "resource": "NetworkAuthentication/stageproof-check/kubelet",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "NetworkAuthentication/stageproof-check/kube-api-server was not judged. the API group is not installed on this server.",
+          "resource": "NetworkAuthentication/stageproof-check/kube-api-server",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Server/stageproof-check/metrics-api was not judged. the API group is not installed on this server.",
+          "resource": "Server/stageproof-check/metrics-api",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Server/stageproof-check/prometheus-admin was not judged. the API group is not installed on this server.",
+          "resource": "Server/stageproof-check/prometheus-admin",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Server/stageproof-check/tap-injector-webhook was not judged. the API group is not installed on this server.",
+          "resource": "Server/stageproof-check/tap-injector-webhook",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Server/stageproof-check/tap-api was not judged. the API group is not installed on this server.",
+          "resource": "Server/stageproof-check/tap-api",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "ServiceProfile/stageproof-check/metrics-api.stageproof-check.svc.cluster.local was not judged. the API group is not installed on this server.",
+          "resource": "ServiceProfile/stageproof-check/metrics-api.stageproof-check.svc.cluster.local",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "ServiceProfile/stageproof-check/prometheus.stageproof-check.svc.cluster.local was not judged. the API group is not installed on this server.",
+          "resource": "ServiceProfile/stageproof-check/prometheus.stageproof-check.svc.cluster.local",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: APIService/default/v1alpha1.tap.linkerd.io, MutatingWebhookConfiguration/default/linkerd-tap-injector-webhook-config, APIService/default/v1alpha1.tap.linkerd.io, MutatingWebhookConfiguration/default/linkerd-tap-injector-webhook-config.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "30.12.11",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.linkerd.io/stable --chart linkerd-viz --from 30.12.8 --to 30.12.11 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "40c056070b4c7644da47747eb8ea173df366e01cfc3d0dc2d1890157adb18421"
+}

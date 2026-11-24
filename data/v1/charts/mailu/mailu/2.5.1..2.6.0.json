@@ -1,0 +1,127 @@
+{
+  "from_sha256": "da242c5c844dc7593f5f847fe461b000da10f64f94a36360e4b54c515943d6f6",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.5.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: domain"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 35 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 32 of 35 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-admin changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-admin",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-dovecot changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-dovecot",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-front changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-front",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-oletools changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-oletools",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-postfix changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-postfix",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-rspamd changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-rspamd",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-tika changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-tika",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-webmail changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-webmail",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-mailu-clamav changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-mailu-clamav",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec` is immutable.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-mailu-clamav",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "detail": "either `defaultBackend` or `rules` must be specified",
+          "message": "Kubernetes rejected `spec` on Ingress/stageproof-check/stageproof-rel-mailu. The current chart failed the same validation; the upgrade did not introduce it.",
+          "resource": "Ingress/stageproof-check/stageproof-rel-mailu",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "2.6.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://mailu.github.io/helm-charts/ --chart mailu --from 2.5.1 --to 2.6.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "e654acd14bd2723d5a1e12c3ac7ebc02a51b3cc77e9901e4bf5395289e68eb1c"
+}

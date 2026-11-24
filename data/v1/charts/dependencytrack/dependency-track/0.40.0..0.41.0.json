@@ -1,0 +1,83 @@
+{
+  "from_sha256": "b91b6e60ec9616eab49779e6d907e39da315ffee66fa781f9b0dc0c7fbf6e9c3",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.40.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 5 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-dependency-track-api-server",
+          "message": "Chart default `apiServer.resources.limits.cpu` changed from `4` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "apiServer.resources.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-dependency-track-frontend",
+          "message": "Chart default `frontend.resources.limits.cpu` changed from `500m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "frontend.resources.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-dependency-track-frontend changed at spec.template.spec.containers[name=dependency-track-frontend].resources.limits.cpu. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-dependency-track-frontend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-dependency-track-api-server changed at spec.template.spec.containers[name=dependency-track-api-server].resources.limits.cpu. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-dependency-track-api-server",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.41.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://dependencytrack.github.io/helm-charts --chart dependency-track --from 0.40.0 --to 0.41.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "37677800c0bfd7bab797ecb40a4df32eff9cd5ffadb7214fae79de3a1fd87e07"
+}

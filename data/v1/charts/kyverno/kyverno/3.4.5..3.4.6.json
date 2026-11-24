@@ -1,0 +1,93 @@
+{
+  "from_sha256": "c2b5e86ca5b0960a103730a34efc3c6f67edd3b40682b54cfac2c4c319a9f41e",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "3.4.5",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 76 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 47 of 76 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (2 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/stageproof-check/kyverno-admission-controller changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/kyverno-admission-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/kyverno-background-controller changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/kyverno-background-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/kyverno-cleanup-controller changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/kyverno-cleanup-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/kyverno-reports-controller changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/kyverno-reports-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 2012 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/clusterpolicies.kyverno.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 2012 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/policies.kyverno.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "3.4.6",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kyverno.github.io/kyverno/ --chart kyverno --from 3.4.5 --to 3.4.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "cc4255991d736e2b6c30a6508db4cd8add1572e52165996f9aa483928c5fa452"
+}

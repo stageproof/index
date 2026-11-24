@@ -1,0 +1,117 @@
+{
+  "from_sha256": "ff20d2771a187dd3df31a11afecc5be8bbd7dad5cfc30b0d115a94376f414830",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.38.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 6 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 5 of 6 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-pgadmin4",
+          "message": "Chart default `livenessProbe.periodSeconds` changed from `60` to `20` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "livenessProbe.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-pgadmin4",
+          "message": "Chart default `livenessProbe.successThreshold` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "livenessProbe.successThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-pgadmin4",
+          "message": "Chart default `livenessProbe.timeoutSeconds` changed from `15` to `5` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "livenessProbe.timeoutSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-pgadmin4",
+          "message": "Chart default `readinessProbe.initialDelaySeconds` changed from `30` to `10` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "readinessProbe.initialDelaySeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-pgadmin4",
+          "message": "Chart default `readinessProbe.periodSeconds` changed from `60` to `10` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "readinessProbe.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-pgadmin4",
+          "message": "Chart default `readinessProbe.successThreshold` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "readinessProbe.successThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-pgadmin4",
+          "message": "Chart default `readinessProbe.timeoutSeconds` changed from `15` to `3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "readinessProbe.timeoutSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-pgadmin4 changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-pgadmin4",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.39.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.runix.net/ --chart pgadmin4 --from 1.38.0 --to 1.39.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "58d4e4f063e2161ebb1ff9701db2591178cc1650a90483d3e1ee4d3c60943704"
+}

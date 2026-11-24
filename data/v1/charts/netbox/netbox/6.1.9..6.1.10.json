@@ -1,0 +1,109 @@
+{
+  "from_sha256": "8bbbf1c0c625b57cd2cb8d39f72c38975422f41f426f8683ade2163390c92d20",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.1.9",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 33 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 32 of 33 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-netbox changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-netbox",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-netbox-worker changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-netbox-worker",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-postgresql changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-valkey-primary changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-valkey-primary",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-valkey-replicas changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-valkey-replicas",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of CronJob/stageproof-check/stageproof-rel-netbox-housekeeping changed at spec.jobTemplate.spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/stageproof-check/stageproof-rel-netbox-housekeeping",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-postgresql.template.spec.containers[0] postgresql container moves from docker.io/bitnami/postgresql:17.5.0-debian-12-r20 to docker.io/bitnami/postgresql:17.6.0-debian-12-r0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnami/postgresql:17.6.0-debian-12-r0` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bitnami/postgresql:17.6.0-debian-12-r0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "6.1.10",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.netbox.oss.netboxlabs.com/ --chart netbox --from 6.1.9 --to 6.1.10 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "86c211224d7b968384fdde604523f95078e518693abc613107dccde00f6594c8"
+}

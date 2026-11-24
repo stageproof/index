@@ -1,0 +1,78 @@
+{
+  "from_sha256": "e6bb2f8c7bec60ce3c4ba22969ca25a5e0d62c50b38d27bb03ccdace0e08718a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v1.0.65",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 5 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The CRD brokers.meshery.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/brokers.meshery.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD meshsyncs.meshery.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/meshsyncs.meshery.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.0.65 to v1.0.66. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "v1.0.66",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://meshery.io/charts/ --chart meshery --from v1.0.65 --to v1.0.66 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "e0e1667ae22de77f327a7c082f4831de174b502e127e841a5f8e9d22e3cd289f"
+}

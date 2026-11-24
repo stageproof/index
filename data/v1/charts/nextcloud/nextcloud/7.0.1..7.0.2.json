@@ -1,0 +1,78 @@
+{
+  "from_sha256": "e3d4b7d98a80602dc07f2b5e1946a81321eb7f7cf2a53635048a77400eba96ad",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "7.0.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 3 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-nextcloud changed at spec.template.spec.containers[name=nextcloud].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-nextcloud",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 31.0.7 to 31.0.8. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/default/stageproof-rel-nextcloud.template.spec.containers[0] nextcloud container moves from nextcloud:31.0.7-apache to nextcloud:31.0.8-apache.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "7.0.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://nextcloud.github.io/helm/ --chart nextcloud --from 7.0.1 --to 7.0.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "f00943f65f3bd0e657b57563173f705a03b992b7e781b85d47d34c8aacb40699"
+}

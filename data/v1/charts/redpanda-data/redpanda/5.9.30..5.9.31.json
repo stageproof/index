@@ -1,0 +1,114 @@
+{
+  "from_sha256": "fae909972449a84069dac2d19ba28ac92105fb9e9fbe05eb28688bd5de542732",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "5.9.30",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 2 these values is set: console.ingress.className, console.service.targetPort"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 39 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 17 of 39 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "Certificate/stageproof-check/stageproof-rel-default-root-certificate was not judged. the API group is not installed on this server.",
+          "resource": "Certificate/stageproof-check/stageproof-rel-default-root-certificate",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Certificate/stageproof-check/stageproof-rel-external-root-certificate was not judged. the API group is not installed on this server.",
+          "resource": "Certificate/stageproof-check/stageproof-rel-external-root-certificate",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Certificate/stageproof-check/stageproof-rel-default-cert was not judged. the API group is not installed on this server.",
+          "resource": "Certificate/stageproof-check/stageproof-rel-default-cert",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Certificate/stageproof-check/stageproof-rel-external-cert was not judged. the API group is not installed on this server.",
+          "resource": "Certificate/stageproof-check/stageproof-rel-external-cert",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Issuer/stageproof-check/stageproof-rel-default-selfsigned-issuer was not judged. the API group is not installed on this server.",
+          "resource": "Issuer/stageproof-check/stageproof-rel-default-selfsigned-issuer",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Issuer/stageproof-check/stageproof-rel-default-root-issuer was not judged. the API group is not installed on this server.",
+          "resource": "Issuer/stageproof-check/stageproof-rel-default-root-issuer",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Issuer/stageproof-check/stageproof-rel-external-selfsigned-issuer was not judged. the API group is not installed on this server.",
+          "resource": "Issuer/stageproof-check/stageproof-rel-external-selfsigned-issuer",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Issuer/stageproof-check/stageproof-rel-external-root-issuer was not judged. the API group is not installed on this server.",
+          "resource": "Issuer/stageproof-check/stageproof-rel-external-root-issuer",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "5.9.31",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.redpanda.com --chart redpanda --from 5.9.30 --to 5.9.31 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "b0b663fbc1de94927919a56f1954d82f51464a01f188405366fe530cc8663ed2"
+}

@@ -1,0 +1,37 @@
+{
+  "from_sha256": "780058b1b55b944c901a85cb78db063f905a96817545bb096e82e1fe28fb5a65",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.3.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 0.4.0 failed: exit status 1\nError: values don't meet the specifications of the schema(s) in the following chart(s):\nvalkey:\n- at '/storage/className': got null, want string",
+          "file": "0.4.0",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.4.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://valkey.io/valkey-helm/ --chart valkey --from 0.3.0 --to 0.4.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "9ced97956238b306db90907a1bb89e78e5c7e10aeaa93786d10a69042a875a65"
+}

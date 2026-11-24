@@ -1,0 +1,69 @@
+{
+  "from_sha256": "7f2c6aaa82405ad3a13c88cb387d4f3323ae8135ad135b3d45f77719c591344c",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.5.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 7 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "ClusterRole/default/stageproof-rel-alloy adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-alloy",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ClusterRole/default/stageproof-rel-alloy",
+          "message": "Chart default `rbac.clusterRules` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "rbac.clusterRules",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "1.5.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://grafana.github.io/helm-charts --chart alloy --from 1.5.2 --to 1.5.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "7c158153594c0d63aa6819b4a03b59e8e1bc1380289937760dbcc5195d7c544c"
+}

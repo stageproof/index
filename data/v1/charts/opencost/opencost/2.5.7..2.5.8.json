@@ -1,0 +1,94 @@
+{
+  "from_sha256": "0e392cfe7b7a04c53c089b88a8d109bfdbf9b42863b4b759268281dbafab2303",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.5.7",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 6 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-opencost",
+          "message": "Chart default `opencost.exporter.image.tag` changed from `1.119.1@sha256:43fbd73e2d13f79c07801511877b6c9d70896bc10e2cadcf6a04f4c5d37f6ed3` to `1.119.2@sha256:4b8de6e029b9dc1f7e68bdf1cf02fca7649614c23812e51a63820f113ca97b89` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "opencost.exporter.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-opencost",
+          "message": "Chart default `opencost.ui.image.tag` changed from `1.119.1@sha256:ae134411a088658d003a06bb3cdfe03336abfc861c2fbe2e7cb54dd54b26714b` to `1.119.2@sha256:0dba1a93db7ae88e956556caf9a9240879d7fcb1d5a7cb9fec0b83970c0ce50c` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "opencost.ui.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-opencost changed at spec.template.spec.containers[name=opencost-ui].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-opencost",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.119.1 to 1.119.2. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Deployment/stageproof-check/stageproof-rel-opencost.template.spec.containers[0] stageproof-rel-opencost container moves from ghcr.io/opencost/opencost:1.119.1@sha256:43fbd73e2d13f79c07801511877b6c9d70896bc10e2cadcf6a04f4c5d37f6ed3 to ghcr.io/opencost/opencost:1.119.2@sha256:4b8de6e029b9dc1f7e68bdf1cf02fca7649614c23812e51a63820f113ca97b89. Deployment/stageproof-check/stageproof-rel-opencost.template.spec.containers[1] opencost-ui container moves from ghcr.io/opencost/opencost-ui:1.119.1@sha256:ae134411a088658d003a06bb3cdfe03336abfc861c2fbe2e7cb54dd54b26714b to ghcr.io/opencost/opencost-ui:1.119.2@sha256:0dba1a93db7ae88e956556caf9a9240879d7fcb1d5a7cb9fec0b83970c0ce50c.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "2.5.8",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://opencost.github.io/opencost-helm-chart/ --chart opencost --from 2.5.7 --to 2.5.8 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "7beb2575f6760bb3747ded6ea0b21dc4f69d6f248fdae121f93e3ff766e2688c"
+}

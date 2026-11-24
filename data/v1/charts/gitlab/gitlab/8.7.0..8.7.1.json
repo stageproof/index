@@ -1,0 +1,174 @@
+{
+  "from_sha256": "f4cf7822ab916efcdf5a7591e04dc0c93c84c22e082353a57259235aa0a79b99",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "8.7.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: certmanager-issuer.email"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 149 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "13 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 111 of 147 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-gitaly",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-gitlab-shell",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-kas",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-sidekiq-all-in-1-v1",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-webservice-default",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-minio-v1",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-nginx-ingress-controller",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-registry-v1",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
+          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-gitlab-shell",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
+          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-kas",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
+          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-sidekiq-all-in-1-v2",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
+          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-webservice-default",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
+          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-registry",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "StatefulSet/stageproof-check/stageproof-rel-gitaly was not judged. the API server did not return a field error.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-gitaly",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Ingress/stageproof-check/stageproof-rel-kas was not judged. the API group is not installed on this server.",
+          "resource": "Ingress/stageproof-check/stageproof-rel-kas",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Ingress/stageproof-check/stageproof-rel-webservice-default was not judged. the API group is not installed on this server.",
+          "resource": "Ingress/stageproof-check/stageproof-rel-webservice-default",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Ingress/stageproof-check/stageproof-rel-minio was not judged. the API group is not installed on this server.",
+          "resource": "Ingress/stageproof-check/stageproof-rel-minio",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Ingress/stageproof-check/stageproof-rel-registry was not judged. the API group is not installed on this server.",
+          "resource": "Ingress/stageproof-check/stageproof-rel-registry",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/default/stageproof-rel-certmanager-webhook, ValidatingWebhookConfiguration/default/stageproof-rel-certmanager-webhook, MutatingWebhookConfiguration/default/stageproof-rel-certmanager-webhook, ValidatingWebhookConfiguration/default/stageproof-rel-certmanager-webhook.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "8.7.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo http://charts.gitlab.io/ --chart gitlab --from 8.7.0 --to 8.7.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "a0172a416bc7a7b6648a079b26e1c9486cf885ec86286e3a16d700b51427dd67"
+}

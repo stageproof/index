@@ -1,0 +1,150 @@
+{
+  "from_sha256": "1239eae5ce90333dce0fc043be01c69740280bc9c40602212ec03bf010258884",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.19.10",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 9 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 4 of 5 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/stageproof-check/stageproof-rel-coredns, ConfigMap/stageproof-check/stageproof-rel-init-manifests, Role/stageproof-check/stageproof-rel, RoleBinding/stageproof-check/stageproof-rel.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/vc-stageproof-rel adds rules. Flags: pods/exec.",
+          "resource": "Role/stageproof-check/vc-stageproof-rel",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Secret/stageproof-check/vc-config-stageproof-rel, StatefulSet/stageproof-check/stageproof-rel",
+          "message": "Chart default `plugin` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "plugin",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Secret/stageproof-check/vc-config-stageproof-rel, StatefulSet/stageproof-check/stageproof-rel",
+          "message": "Chart default `pro` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "pro",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Secret/stageproof-check/vc-config-stageproof-rel, StatefulSet/stageproof-check/stageproof-rel",
+          "message": "Chart default `telemetry.instanceCreator` changed from `helm` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "telemetry.instanceCreator",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Secret/stageproof-check/vc-config-stageproof-rel, StatefulSet/stageproof-check/stageproof-rel",
+          "message": "Chart default `telemetry.machineID` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "telemetry.machineID",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Secret/stageproof-check/vc-config-stageproof-rel, StatefulSet/stageproof-check/stageproof-rel",
+          "message": "Chart default `telemetry.platformInstanceID` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "telemetry.platformInstanceID",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Secret/stageproof-check/vc-config-stageproof-rel, StatefulSet/stageproof-check/stageproof-rel",
+          "message": "Chart default `telemetry.platformUserID` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "telemetry.platformUserID",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel changed at spec.template.metadata.annotations. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 0.19.10 to 0.20.6. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel.template.spec.containers[0] syncer container moves from ghcr.io/loft-sh/vcluster:0.19.10 to ghcr.io/loft-sh/vcluster-pro:0.20.6.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `ghcr.io/loft-sh/vcluster` to `ghcr.io/loft-sh/vcluster-pro`.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel.template.spec.containers[0] syncer",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec` is immutable.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.20.6",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.loft.sh --chart vcluster --from 0.19.10 --to 0.20.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "d926ac3d0bca0aec5a8a6be5531d252f57cd6d7dcd1e17754886d9dc71bc0e47"
+}

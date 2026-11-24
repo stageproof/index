@@ -1,0 +1,215 @@
+{
+  "from_sha256": "f0cd361979eb3b0230731fe179e4ac4c12b57ec118c0a31906dfd5017d8786f0",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.14.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 11 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 5 of 7 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Deployment/stageproof-check/stageproof-rel-argocd-image-updater.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/stageproof-check/stageproof-rel-argocd-image-updater adds rules that the current chart did not have.",
+          "resource": "ClusterRole/stageproof-check/stageproof-rel-argocd-image-updater",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/stageproof-rel-argocd-image-updater-leader-election-role adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/stageproof-rel-argocd-image-updater-leader-election-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.applicationsAPIKind` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.applicationsAPIKind",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.argocd.grpcWeb` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.argocd.grpcWeb",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.argocd.insecure` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.argocd.insecure",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.argocd.plaintext` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.argocd.plaintext",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.argocd.serverAddress` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.argocd.serverAddress",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.argocd.token` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.argocd.token",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.argocd.tokenSecretName` changed from `argocd-image-updater-secret` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.argocd.tokenSecretName",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.disableKubeEvents` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.disableKubeEvents",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.gitCommitMail` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.gitCommitMail",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.gitCommitSignOff` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.gitCommitSignOff",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.gitCommitSigningKey` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.gitCommitSigningKey",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.gitCommitSigningMethod` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.gitCommitSigningMethod",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.gitCommitTemplate` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.gitCommitTemplate",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.gitCommitUser` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.gitCommitUser",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/argocd-image-updater-config, Deployment/stageproof-check/stageproof-rel-argocd-image-updater-controller",
+          "message": "Chart default `config.logLevel` changed from `info` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.logLevel",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 0.14.0 to 1.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v0.17.0 to v1.0.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "1.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://argoproj.github.io/argo-helm --chart argocd-image-updater --from 0.14.0 --to 1.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "2d1c43359d7ecbb48b2cac669e23cc10806a32eb92ce498a15c5a5049fd79be6"
+}

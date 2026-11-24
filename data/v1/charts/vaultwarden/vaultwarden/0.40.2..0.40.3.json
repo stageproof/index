@@ -1,0 +1,67 @@
+{
+  "from_sha256": "c3a7daca2c9fcee00f4ab46e87532a85ff846ec2da8600847c176dcfdd7ab05c",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.40.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 5 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 4 of 5 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-vaultwarden changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-vaultwarden",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec` is immutable.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-vaultwarden",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.40.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://guerzon.github.io/vaultwarden --chart vaultwarden --from 0.40.2 --to 0.40.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "52b71bb2002bfddfe463560e3ca4892ef746cdd07c6fc4d3264d3543f1003889"
+}

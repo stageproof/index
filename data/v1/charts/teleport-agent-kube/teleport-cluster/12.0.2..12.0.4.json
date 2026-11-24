@@ -1,0 +1,33 @@
+{
+  "from_sha256": "09a2a812e051976f933bcf398a000d16d5e42aaf510e82c9ac998ace4676593f",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "12.0.2",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "required values shim",
+          "status": "warn",
+          "summary": "the chart does not render unless 9 these values is set: auth.teleportConfig, aws.backendTable, aws.region, aws.sessionRecordingBucket, clusterName, gcp.backendTable, gcp.projectId, gcp.sessionRecordingBucket, proxy.teleportConfig"
+        },
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 12.0.2 failed: exit status 1\ncoalesce.go:316: warning: cannot overwrite table with non table for teleport-cluster.proxy.teleportConfig (map[])\ncoalesce.go:316: warning: cannot overwrite table with non table for teleport-cluster.auth.teleportConfig (map[])\ncoalesce.go:316: warning: cannot overwrite table with non table for teleport-cluster.auth.teleportConfig (map[])\ncoalesce.go:316: warning: cannot overwrite table with non table for teleport-cluster.proxy.teleportConfig (map[])\nError: template: teleport-cluster/templates/proxy/predeploy_config.yaml:15:72: executing \"teleport-cluster/templates/proxy/predeploy_config.yaml\" at <$proxy.teleportConfig>: wrong type for value; expected map[string]interface {}; got string\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "12.0.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.releases.teleport.dev --chart teleport-cluster --from 12.0.2 --to 12.0.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "47d79a4cad751ada3f0c9bc5948c009b29360d6e01590916d576c372a443f747"
+}

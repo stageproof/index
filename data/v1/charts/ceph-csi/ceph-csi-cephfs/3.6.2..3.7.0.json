@@ -1,0 +1,37 @@
+{
+  "from_sha256": "27b9b2a6945999e2c7b57a08c6a8b63734233f762890e7163342f408a6b44fbe",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "3.6.2",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 3.7.0 failed: exit status 1\nError: template: ceph-csi-cephfs/templates/provisioner-rules-clusterrole.yaml:41:14: executing \"ceph-csi-cephfs/templates/provisioner-rules-clusterrole.yaml\" at <.Values.provisioner.attacher.enabled>: nil pointer evaluating interface {}.enabled\n\nUse --debug flag to render out invalid YAML",
+          "file": "3.7.0",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "3.7.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://ceph.github.io/csi-charts --chart ceph-csi-cephfs --from 3.6.2 --to 3.7.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "72d99e41d5098b6d9252337100e001c19a4e20b12d8c712a5ab982bcc8a1aaaa"
+}

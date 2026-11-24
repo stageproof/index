@@ -1,0 +1,270 @@
+{
+  "from_sha256": "6a1cabf02f906ecc5f8103fbfecd68073029eb5477e799c04ae1b37f3b48f336",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "10.2.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 24 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "5 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 17 of 24 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-admission-controller pod securityContext is weaker at runAsNonRoot.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-admission-controller",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-recommender pod securityContext is weaker at runAsNonRoot.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-recommender",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-updater pod securityContext is weaker at runAsNonRoot.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-updater",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "Job/stageproof-check/stageproof-rel-vertical-pod-autoscaler-crds pod securityContext is weaker at runAsNonRoot.",
+          "resource": "Job/stageproof-check/stageproof-rel-vertical-pod-autoscaler-crds",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-admission-controller",
+          "message": "Chart default `admissionController.image.tag` changed from `1.4.1` to `1.5.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "admissionController.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-admission-controller",
+          "message": "Chart default `admissionController.podSecurityContext.runAsGroup` changed from `65534` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "admissionController.podSecurityContext.runAsGroup",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-admission-controller",
+          "message": "Chart default `admissionController.podSecurityContext.runAsNonRoot` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "admissionController.podSecurityContext.runAsNonRoot",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-admission-controller",
+          "message": "Chart default `admissionController.podSecurityContext.runAsUser` changed from `65534` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "admissionController.podSecurityContext.runAsUser",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-vertical-pod-autoscaler-crds",
+          "message": "Chart default `crds.image.repository` changed from `bitnami/kubectl` to `bitnamilegacy/kubectl` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "crds.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-vertical-pod-autoscaler-crds",
+          "message": "Chart default `crds.podSecurityContext.runAsGroup` changed from `1001` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "crds.podSecurityContext.runAsGroup",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-vertical-pod-autoscaler-crds",
+          "message": "Chart default `crds.podSecurityContext.runAsNonRoot` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "crds.podSecurityContext.runAsNonRoot",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-vertical-pod-autoscaler-crds",
+          "message": "Chart default `crds.podSecurityContext.runAsUser` changed from `1001` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "crds.podSecurityContext.runAsUser",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-recommender",
+          "message": "Chart default `recommender.image.tag` changed from `1.4.1` to `1.5.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "recommender.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-recommender",
+          "message": "Chart default `recommender.podSecurityContext.runAsGroup` changed from `65534` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "recommender.podSecurityContext.runAsGroup",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-recommender",
+          "message": "Chart default `recommender.podSecurityContext.runAsNonRoot` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "recommender.podSecurityContext.runAsNonRoot",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-recommender",
+          "message": "Chart default `recommender.podSecurityContext.runAsUser` changed from `65534` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "recommender.podSecurityContext.runAsUser",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-vertical-pod-autoscaler-tests",
+          "message": "Chart default `tests.image.tag` changed from `1.0.41` to `1.2.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "tests.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-updater",
+          "message": "Chart default `updater.image.tag` changed from `1.4.1` to `1.5.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "updater.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-updater",
+          "message": "Chart default `updater.podSecurityContext.runAsGroup` changed from `65534` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "updater.podSecurityContext.runAsGroup",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-updater",
+          "message": "Chart default `updater.podSecurityContext.runAsNonRoot` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "updater.podSecurityContext.runAsNonRoot",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-updater",
+          "message": "Chart default `updater.podSecurityContext.runAsUser` changed from `65534` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "updater.podSecurityContext.runAsUser",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-admission-controller changed at spec.template.metadata.annotations.checksum/tls-secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-admission-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-recommender changed at spec.template.spec.containers[name=recommender].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-recommender",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-updater changed at spec.template.spec.containers[name=updater].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-updater",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 10.2.1 to 11.1.1, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.4.0 to 1.5.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "5 container images changed. Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-admission-controller.template.spec.containers[0] admission-controller container moves from registry.k8s.io/autoscaling/vpa-admission-controller:1.4.1 to registry.k8s.io/autoscaling/vpa-admission-controller:1.5.1. Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-recommender.template.spec.containers[0] recommender container moves from registry.k8s.io/autoscaling/vpa-recommender:1.4.1 to registry.k8s.io/autoscaling/vpa-recommender:1.5.1. Deployment/stageproof-check/stageproof-rel-vertical-pod-autoscaler-updater.template.spec.containers[0] updater container moves from registry.k8s.io/autoscaling/vpa-updater:1.4.1 to registry.k8s.io/autoscaling/vpa-updater:1.5.1. Job/stageproof-check/stageproof-rel-vertical-pod-autoscaler-crds.template.spec.containers[0] kubectl container moves from docker.io/bitnami/kubectl:1.29.3 to docker.io/bitnamilegacy/kubectl:1.29.3. Pod/stageproof-check/stageproof-rel-vertical-pod-autoscaler-tests.containers[0] tests container moves from ghcr.io/cowboysysop/pytest:1.0.41 to ghcr.io/cowboysysop/pytest:1.2.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/bitnami/kubectl` to `index.docker.io/bitnamilegacy/kubectl`.",
+          "resource": "Job/stageproof-check/stageproof-rel-vertical-pod-autoscaler-crds.template.spec.containers[0] kubectl",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnamilegacy/kubectl:1.29.3` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bitnamilegacy/kubectl:1.29.3",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "11.1.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://cowboysysop.github.io/charts/ --chart vertical-pod-autoscaler --from 10.2.1 --to 11.1.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "fbef3ad036f59dc3cf9fc361cb92fae0564aa11f335f59b8b9e878dc490a4970"
+}

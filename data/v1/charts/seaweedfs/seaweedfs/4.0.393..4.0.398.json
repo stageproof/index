@@ -1,0 +1,136 @@
+{
+  "from_sha256": "3ab02c914a6b2f0cb82830332334a743b69f944130cecc41f6c256c93a6da42e",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.0.393",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 14 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 11 of 12 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Deployment/stageproof-check/seaweedfs-s3 adds hostPath volumes logs.",
+          "resource": "Deployment/stageproof-check/seaweedfs-s3",
+          "rule_id": "impact.privilege.hostpath",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/seaweedfs-filer",
+          "message": "Chart default `filer.nodeSelector` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "filer.nodeSelector",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/seaweedfs-master",
+          "message": "Chart default `master.nodeSelector` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "master.nodeSelector",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/seaweedfs-s3, Service/stageproof-check/seaweedfs-s3",
+          "message": "Chart default `s3.enabled` changed from `false` to `true` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "s3.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/seaweedfs-s3",
+          "message": "Chart default `s3.nodeSelector` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "s3.nodeSelector",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/seaweedfs-volume",
+          "message": "Chart default `volume.nodeSelector` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "volume.nodeSelector",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/seaweedfs-filer changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/seaweedfs-filer",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/seaweedfs-master changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/seaweedfs-master",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/seaweedfs-volume changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/seaweedfs-volume",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 3.93 to 3.98. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. StatefulSet/stageproof-check/seaweedfs-filer.template.spec.containers[0] seaweedfs container moves from chrislusf/seaweedfs:3.93 to chrislusf/seaweedfs:3.98.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "4.0.398",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://seaweedfs.github.io/seaweedfs/helm --chart seaweedfs --from 4.0.393 --to 4.0.398 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "71dd31cbbb0b51cb994df900ac6884abebd1ffbb5c1949834aa6f37a778a0268"
+}

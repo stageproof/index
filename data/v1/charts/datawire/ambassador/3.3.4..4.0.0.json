@@ -1,0 +1,90 @@
+{
+  "from_sha256": "4d8edaa207d27180332aa458016303e1c36205eca7a9f6c6b4d7bfeba67bff20",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "3.3.4",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 9 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "4 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 4 of 9 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 3.3.4 to 4.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/stageproof-rel-ambassador-crds",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/stageproof-rel-ambassador",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-ambassador-crds",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-ambassador",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "4.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://getambassador.io/ --chart ambassador --from 3.3.4 --to 4.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "fbca94623e41583dcc70c9edcbc8abaf59eda3626bc37cff4df53099bc8d3198"
+}

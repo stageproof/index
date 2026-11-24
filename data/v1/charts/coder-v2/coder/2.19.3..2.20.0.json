@@ -1,0 +1,83 @@
+{
+  "from_sha256": "99d84d012ca968b1f068e006d572eeb4c6eac11fb16239b833c265c09122ac6a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.19.3",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 5 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared rendered objects. No object is in both charts to diff as a stored form."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Deployment/default/coder, Role/default/coder-workspace-perms, RoleBinding/default/coder, Service/default/coder, ServiceAccount/default/coder.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/coder-workspace-perms adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/coder-workspace-perms",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "Service/stageproof-check/coder type moves to LoadBalancer.",
+          "resource": "Service/stageproof-check/coder",
+          "rule_id": "impact.exposure.service",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.19.3 to 2.20.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "2.20.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.coder.com/v2 --chart coder --from 2.19.3 --to 2.20.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "61d4c4ef13e670e291741c17cefaf638c4c55042461c94b82ebf2e5c8446c2a5"
+}

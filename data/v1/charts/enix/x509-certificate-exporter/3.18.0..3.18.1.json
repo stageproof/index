@@ -1,0 +1,97 @@
+{
+  "from_sha256": "474061e2be74d1427f59e35ee2b1e148fe1b4b8edf344464b6aa35c678b06c39",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "3.18.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 7 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 5 of 7 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-x509-certificate-exporter changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-x509-certificate-exporter",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 3.18.0 to 3.18.1. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-x509-certificate-exporter.template.spec.containers[0] x509-certificate-exporter container moves from docker.io/enix/x509-certificate-exporter:3.18.0 to docker.io/enix/x509-certificate-exporter:3.18.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/enix/x509-certificate-exporter:3.18.1` could not be checked. The registry did not answer.",
+          "resource": "docker.io/enix/x509-certificate-exporter:3.18.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "PrometheusRule/stageproof-check/stageproof-rel-x509-certificate-exporter was not judged. the API group is not installed on this server.",
+          "resource": "PrometheusRule/stageproof-check/stageproof-rel-x509-certificate-exporter",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "ServiceMonitor/stageproof-check/stageproof-rel-x509-certificate-exporter was not judged. the API group is not installed on this server.",
+          "resource": "ServiceMonitor/stageproof-check/stageproof-rel-x509-certificate-exporter",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "3.18.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.enix.io --chart x509-certificate-exporter --from 3.18.0 --to 3.18.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "b055819d01ab8e73aebc00ca25d2a79825cacca62a48047b1a30be104c2f6441"
+}

@@ -1,0 +1,203 @@
+{
+  "from_sha256": "c3235ca127a7218012718248203932dd86d380a2dbd51342e0022c8298265527",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.71.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 136 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 107 of 135 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (1 deprecation, EOL, or CRD warning)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vlagents.operator.victoriametrics.com: spec.storage.disableMountSubPath (removed), spec.storage.disableMountSubPath (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vlagents.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vlclusters.operator.victoriametrics.com: spec.vlstorage.storage.disableMountSubPath (removed), spec.vlstorage.storage.disableMountSubPath (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vlclusters.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmagents.operator.victoriametrics.com: spec.statefulStorage.disableMountSubPath (removed), spec.statefulStorage.disableMountSubPath (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmagents.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmalertmanagers.operator.victoriametrics.com: spec.storage.disableMountSubPath (removed), spec.storage.disableMountSubPath (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmalertmanagers.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmanomalies.operator.victoriametrics.com: spec.storage.disableMountSubPath (removed), spec.storage.disableMountSubPath (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmanomalies.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmclusters.operator.victoriametrics.com: spec.vmselect.storage.disableMountSubPath (removed), spec.vmselect.storage.disableMountSubPath (type), spec.vmstorage.storage.disableMountSubPath (removed), spec.vmstorage.storage.disableMountSubPath (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmclusters.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmrules.operator.victoriametrics.com: spec.groups.items.extra_filter_labels (removed), spec.groups.items.extra_filter_labels (type), spec.groups.items.extra_filter_labels.additionalProperties (removed), spec.groups.items.extra_filter_labels.additionalProperties (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmrules.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vtclusters.operator.victoriametrics.com: spec.storage.storage.disableMountSubPath (removed), spec.storage.storage.disableMountSubPath (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vtclusters.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmdistributed.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-victoria-metrics-operator adds rules. Flags: wildcard.",
+          "resource": "ClusterRole/default/stageproof-rel-victoria-metrics-operator",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-victoria-metrics-operator-victoriametrics-admin adds rules. Flags: wildcard.",
+          "resource": "ClusterRole/default/stageproof-rel-victoria-metrics-operator-victoriametrics-admin",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-victoria-metrics-operator-victoriametrics-view adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-victoria-metrics-operator-victoriametrics-view",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/stageproof-check/stageproof-rel-victoria-metrics-operator-cleanup-hook adds rules. Flags: wildcard.",
+          "resource": "ClusterRole/stageproof-check/stageproof-rel-victoria-metrics-operator-cleanup-hook",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-grafana changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-grafana",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator changed at spec.template.spec.containers[name=operator].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Deployment/stageproof-check/stageproof-rel-grafana.template.spec.containers[2] grafana container moves from docker.io/grafana/grafana:12.3.1 to docker.io/grafana/grafana:12.3.3. Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator.template.spec.containers[0] operator container moves from victoriametrics/operator:v0.67.0 to victoriametrics/operator:v0.68.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `victoriametrics/operator:v0.68.0` could not be checked. The registry did not answer.",
+          "resource": "victoriametrics/operator:v0.68.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "must be no more than 63 characters",
+          "message": "Kubernetes rejected `metadata.name` on Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager. The current chart failed the same validation; the upgrade did not introduce it.",
+          "resource": "Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission, ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 1154 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmdistributed.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.72.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://victoriametrics.github.io/helm-charts/ --chart victoria-metrics-k8s-stack --from 0.71.1 --to 0.72.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "35b3e3c415f98b77e39374d1cc840947b096de7184e78a4073fa65f52c8cc121"
+}

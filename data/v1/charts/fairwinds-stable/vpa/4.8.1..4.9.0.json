@@ -1,0 +1,73 @@
+{
+  "from_sha256": "cad75306ba23b7c231b2b43bebde4459352a42b9d3b985fefd73d471f4cbccf4",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.8.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 44 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 23 of 40 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The CRD verticalpodautoscalers.autoscaling.k8s.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/verticalpodautoscalers.autoscaling.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/vpa-updater-in-place adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/vpa-updater-in-place",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/default/stageproof-rel-vpa-webhook-config, MutatingWebhookConfiguration/default/stageproof-rel-vpa-webhook-config.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "4.9.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.fairwinds.com/stable --chart vpa --from 4.8.1 --to 4.9.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "33d5e264a2abbfd8b094981855651daad2ecf0db59413adbfcf669fac1c08258"
+}

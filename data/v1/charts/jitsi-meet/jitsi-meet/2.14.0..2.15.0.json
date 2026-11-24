@@ -1,0 +1,129 @@
+{
+  "from_sha256": "71bc93a726908bab5a3a4a47071d569a9ac42f9e46a7b5546a7ef4c6a58c9ee6",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.14.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: publicURL"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 16 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 15 of 16 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-jitsi-meet-jicofo changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-jitsi-meet-jicofo",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-jitsi-meet-jvb-0 changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-jitsi-meet-jvb-0",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-jitsi-meet-web changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-jitsi-meet-web",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-jitsi-meet-prosody changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-jitsi-meet-prosody",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from stable-10741 to stable-10888. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "4 container images changed. Deployment/default/stageproof-rel-jitsi-meet-jicofo.template.spec.containers[0] jitsi-meet container moves from jitsi/jicofo:stable-10741 to jitsi/jicofo:stable-10888. Deployment/default/stageproof-rel-jitsi-meet-jvb-0.template.spec.containers[0] jitsi-meet container moves from jitsi/jvb:stable-10741 to jitsi/jvb:stable-10888. Deployment/default/stageproof-rel-jitsi-meet-web.template.spec.containers[0] jitsi-meet container moves from jitsi/web:stable-10741 to jitsi/web:stable-10888. StatefulSet/default/stageproof-rel-jitsi-meet-prosody.template.spec.containers[0] jitsi-meet container moves from jitsi/prosody:stable-10741 to jitsi/prosody:stable-10888.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `jitsi/jicofo:stable-10888` could not be checked. The registry did not answer.",
+          "resource": "jitsi/jicofo:stable-10888",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `jitsi/jvb:stable-10888` could not be checked. The registry did not answer.",
+          "resource": "jitsi/jvb:stable-10888",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `jitsi/prosody:stable-10888` could not be checked. The registry did not answer.",
+          "resource": "jitsi/prosody:stable-10888",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `jitsi/web:stable-10888` could not be checked. The registry did not answer.",
+          "resource": "jitsi/web:stable-10888",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "2.15.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://jitsi-contrib.github.io/jitsi-helm/ --chart jitsi-meet --from 2.14.0 --to 2.15.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "62d117183818980bf296ab48fc13a38ccdd8c84c919e53847b374eacb3a48c82"
+}

@@ -1,0 +1,67 @@
+{
+  "from_sha256": "99b626477e34c28e2ae8ab75e364aeb3f8a4c8436ec48013106728b260389e7c",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.9.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 7 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 6 of 7 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler changed at spec.template.spec.containers[name=aws-node-termination-handler].env[name=CORDON_ONLY].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-aws-node-termination-handler",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodSecurityPolicy) is not served by Kubernetes 1.35.0.",
+          "resource": "PodSecurityPolicy/default/stageproof-rel-aws-node-termination-handler",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.9.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://aws.github.io/eks-charts --chart aws-node-termination-handler --from 0.9.2 --to 0.9.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "ee2c32466cd0648de466274ea31061fb9a95e456c7fc02e99d405acf6369ad62"
+}

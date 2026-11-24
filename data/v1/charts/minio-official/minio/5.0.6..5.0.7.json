@@ -1,0 +1,28 @@
+{
+  "from_sha256": "82ef858ce483c2d736444792986cb36bd0fb4fc90a80b97fe30d7b2f2034d24a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "5.0.6",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 5.0.6 failed: exit status 1\nError: parse error at (minio/templates/poddisruptionbudget.yaml:2): unexpected right paren\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "5.0.7",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.min.io --chart minio --from 5.0.6 --to 5.0.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "3f935a310e1b5b873052629b66005c160356ca7b2bd394cb07b34dbaf9905e3f"
+}

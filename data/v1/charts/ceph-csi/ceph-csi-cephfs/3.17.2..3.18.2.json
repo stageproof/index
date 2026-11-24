@@ -1,0 +1,138 @@
+{
+  "from_sha256": "7682b7b34e2d68151b0355812f66cdff8456312806cd44a57cf139819992c546",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "3.17.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 16 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "6 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "ClusterRole/default/stageproof-rel-ceph-csi-cephfs-provisioner adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-ceph-csi-cephfs-provisioner",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin, Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner",
+          "message": "Chart default `nodeplugin.plugin.image.tag` changed from `v3.17.2` to `v3.18.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "nodeplugin.plugin.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin",
+          "message": "Chart default `nodeplugin.registrar.image.tag` changed from `v2.16.0` to `v2.18.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "nodeplugin.registrar.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner",
+          "message": "Chart default `provisioner.attacher.image.tag` changed from `v4.11.0` to `v4.13.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "provisioner.attacher.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner",
+          "message": "Chart default `provisioner.provisioner.image.tag` changed from `v6.2.0` to `v6.3.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "provisioner.provisioner.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner",
+          "message": "Chart default `provisioner.resizer.image.tag` changed from `v2.1.0` to `v2.2.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "provisioner.resizer.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner",
+          "message": "Chart default `provisioner.snapshotter.image.tag` changed from `v8.5.0` to `v8.6.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "provisioner.snapshotter.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin changed at spec.template.metadata.labels.chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner changed at spec.template.metadata.labels.chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 3.17.2 to 3.18.2. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "6 container images changed. DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin.template.spec.containers[0] csi-cephfsplugin container moves from quay.io/cephcsi/cephcsi:v3.17.2 to quay.io/cephcsi/cephcsi:v3.18.2. DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin.template.spec.containers[1] driver-registrar container moves from registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.16.0 to registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.18.0. Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner.template.spec.containers[1] csi-provisioner container moves from registry.k8s.io/sig-storage/csi-provisioner:v6.2.0 to registry.k8s.io/sig-storage/csi-provisioner:v6.3.0. Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner.template.spec.containers[2] csi-snapshotter container moves from registry.k8s.io/sig-storage/csi-snapshotter:v8.5.0 to registry.k8s.io/sig-storage/csi-snapshotter:v8.6.0. Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner.template.spec.containers[3] csi-attacher container moves from registry.k8s.io/sig-storage/csi-attacher:v4.11.0 to registry.k8s.io/sig-storage/csi-attacher:v4.13.0. Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner.template.spec.containers[4] csi-resizer container moves from registry.k8s.io/sig-storage/csi-resizer:v2.1.0 to registry.k8s.io/sig-storage/csi-resizer:v2.2.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "3.18.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://ceph.github.io/csi-charts --chart ceph-csi-cephfs --from 3.17.2 --to 3.18.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "56516f9c43f047cf607d8d78b57995a3704f372eb2e6b4f0df4e5a91110f615b"
+}

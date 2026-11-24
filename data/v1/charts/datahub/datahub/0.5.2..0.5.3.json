@@ -1,0 +1,83 @@
+{
+  "from_sha256": "0a04133d41e6dee8944906926ece18dcbf295133e1c4e7c394654e3e8e335874",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.5.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 19 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 13 of 19 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-system-update, Job/default/stageproof-rel-system-update-nonblk",
+          "message": "Chart default `datahubSystemUpdate.resources.limits.memory` changed from `512Mi` to `2Gi` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "datahubSystemUpdate.resources.limits.memory",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-system-update, Job/default/stageproof-rel-system-update-nonblk",
+          "message": "Chart default `datahubSystemUpdate.resources.requests.memory` changed from `256Mi` to `2Gi` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "datahubSystemUpdate.resources.requests.memory",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "memory request increased on container datahub-system-update-job of Job/default/stageproof-rel-system-update.",
+          "resource": "Job/default/stageproof-rel-system-update",
+          "rule_id": "impact.capacity.requests",
+          "severity": "info"
+        },
+        {
+          "message": "memory request increased on container datahub-system-update-job of Job/default/stageproof-rel-system-update-nonblk.",
+          "resource": "Job/default/stageproof-rel-system-update-nonblk",
+          "rule_id": "impact.capacity.requests",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.5.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.datahubproject.io --chart datahub --from 0.5.2 --to 0.5.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "333dec45ca8c51b6e68963e0331577aa8a452d213a0594d71389562eb90c5f9b"
+}

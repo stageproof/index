@@ -1,0 +1,79 @@
+{
+  "from_sha256": "8503bdae6f0f986717053b80cdb309afc7a900465da81edc211ef108a72f1f0b",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.12.4",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 12 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 11 of 12 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The CRD apisixroutes.apisix.apache.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/apisixroutes.apisix.apache.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD apisixupstreams.apisix.apache.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/apisixupstreams.apisix.apache.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD gatewayproxies.apisix.apache.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/gatewayproxies.apisix.apache.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-etcd changed at spec.template.metadata.annotations.checksum/token-secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-etcd",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "2.12.5",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.apiseven.com --chart apisix --from 2.12.4 --to 2.12.5 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "0f40d74fa30df762c8fa9daaaac7867060962d475041f894bfe3f28f474769bd"
+}

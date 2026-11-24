@@ -1,0 +1,28 @@
+{
+  "from_sha256": "4a48cee481fda1122b24d2ffe67a7b2b9cb9af50d3d1b8d8a009f9d1414d7271",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "3.3.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 3.3.0 failed: exit status 1\nError: execution error at (rocketchat/templates/secret.yaml:27:23): Please specify a MongoDB password\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "4.3.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://rocketchat.github.io/helm-charts --chart rocketchat --from 3.3.0 --to 4.3.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "798c240a19dd298c7e8f04f8428560bcc906fb0222309c6a6a5425af67af0898"
+}

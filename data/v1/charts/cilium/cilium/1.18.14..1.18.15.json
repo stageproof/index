@@ -1,0 +1,138 @@
+{
+  "from_sha256": "8ecfcd2ec0d6795fb195cac173782215a5e5b454c4e607b2f1969eb7972a4d69",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.18.14",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 23 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/cilium-envoy",
+          "message": "Chart default `envoy.image.digest` changed from `sha256:af7382699576b9e65e9184efa52eeca0b58aea70ad6e511bf260c91d9f740463` to `sha256:d6c8c0c91954d1885026d82a31b341f37dcd34a4b127fdaf1587e43ddd224cef` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "envoy.image.digest",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/cilium-envoy",
+          "message": "Chart default `envoy.image.tag` changed from `v1.37.6-1789133542-cbec91f666af0bf742da986d43832932dbb26b82` to `v1.38.6-1791537840-00e749f11f69334c625e53fc1ce2fc6c7f34a51f` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "envoy.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/cilium",
+          "message": "Chart default `image.digest` changed from `sha256:0e65a0910d74be4d56ebc8f8a010b566f9177444667dbb8eb5b2d8d840ea5406` to `sha256:ab7ccf148b235887a7824313ddfa3edc10d76fcfb13a38e4d5dd213b08533f0a` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.digest",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/cilium",
+          "message": "Chart default `image.tag` changed from `v1.18.14` to `v1.18.15` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/cilium-operator",
+          "message": "Chart default `operator.image.genericDigest` changed from `sha256:6a77082c3938edad0433f53c46a90b8da08c9e4a9a255e51a1c2ff410db60104` to `sha256:9b0668bd849b58c01e51db43956f949b8b1b8c11c448c3572edcb8595132ebfb` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "operator.image.genericDigest",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/cilium-operator",
+          "message": "Chart default `operator.image.tag` changed from `v1.18.14` to `v1.18.15` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "operator.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/cilium changed at spec.template.spec.containers[name=cilium-agent].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/cilium",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/cilium-envoy changed at spec.template.spec.containers[name=cilium-envoy].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/cilium-envoy",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/cilium-operator changed at spec.template.spec.containers[name=cilium-operator].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/cilium-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.18.14 to 1.18.15. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. DaemonSet/stageproof-check/cilium-envoy.template.spec.containers[0] cilium-envoy container moves from quay.io/cilium/cilium-envoy:v1.37.6-1789133542-cbec91f666af0bf742da986d43832932dbb26b82@sha256:af7382699576b9e65e9184efa52eeca0b58aea70ad6e511bf260c91d9f740463 to quay.io/cilium/cilium-envoy:v1.38.6-1791537840-00e749f11f69334c625e53fc1ce2fc6c7f34a51f@sha256:d6c8c0c91954d1885026d82a31b341f37dcd34a4b127fdaf1587e43ddd224cef. DaemonSet/stageproof-check/cilium.template.spec.containers[0] cilium-agent container moves from quay.io/cilium/cilium:v1.18.14@sha256:0e65a0910d74be4d56ebc8f8a010b566f9177444667dbb8eb5b2d8d840ea5406 to quay.io/cilium/cilium:v1.18.15@sha256:ab7ccf148b235887a7824313ddfa3edc10d76fcfb13a38e4d5dd213b08533f0a. Deployment/stageproof-check/cilium-operator.template.spec.containers[0] cilium-operator container moves from quay.io/cilium/operator-generic:v1.18.14@sha256:6a77082c3938edad0433f53c46a90b8da08c9e4a9a255e51a1c2ff410db60104 to quay.io/cilium/operator-generic:v1.18.15@sha256:9b0668bd849b58c01e51db43956f949b8b1b8c11c448c3572edcb8595132ebfb.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "1.18.15",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.cilium.io/ --chart cilium --from 1.18.14 --to 1.18.15 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "8991506b1620a8c1751b66338ebd7d5e51413917736f2e1c9b957fc548eab127"
+}

@@ -1,0 +1,67 @@
+{
+  "from_sha256": "ee625646870282b916898faf9b89cd0fc76abcbef0c34bd9d6b8b1cf7e9603ac",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.50.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 30 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 10 of 11 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmanomalies.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission, ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.50.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://victoriametrics.github.io/helm-charts/ --chart victoria-metrics-operator --from 0.50.0 --to 0.50.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "20ddd2df26a59253774b4a9d72d46131d40018f66a56da93bc2403bf841167f4"
+}

@@ -1,0 +1,28 @@
+{
+  "from_sha256": "91462b3bdd79d7fba7d78b14f9b18a0cf98d1d3ab774eb2cd863d2a6c87c0d47",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.3.1",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 6.3.1 failed: exit status 1\nError: template: rocketchat/charts/mongodb/templates/secrets.yaml:31:24: executing \"rocketchat/charts/mongodb/templates/secrets.yaml\" at <include \"mongodb.customPasswords\" .>: error calling include: template: rocketchat/charts/mongodb/templates/_helpers.tpl:151:21: executing \"mongodb.customPasswords\" at <.Values.auth.passwords>: range can't iterate over stageproof-placeholder\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "6.3.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://rocketchat.github.io/helm-charts --chart rocketchat --from 6.3.1 --to 6.3.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "3f087594af6a140a44ced8e12ecf8e9e9ce39a7fdb8692dcac533402a35c1a34"
+}

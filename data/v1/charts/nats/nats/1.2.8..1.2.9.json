@@ -1,0 +1,108 @@
+{
+  "from_sha256": "57fd89bf7b55e52650dfdc5986a711d0eb70f585bbbd61fa418f55d1d3ecbd9e",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.2.8",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 8 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 7 of 8 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-nats-box, Pod/default/stageproof-rel-nats-test-request-reply",
+          "message": "Chart default `natsBox.container.image.tag` changed from `0.15.0` to `0.16.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "natsBox.container.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-nats",
+          "message": "Chart default `reloader.image.tag` changed from `0.16.0` to `0.16.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "reloader.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-nats-box changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-nats-box",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-nats changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-nats",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Deployment/default/stageproof-rel-nats-box.template.spec.containers[0] nats-box container moves from natsio/nats-box:0.15.0 to natsio/nats-box:0.16.0. StatefulSet/default/stageproof-rel-nats.template.spec.containers[1] reloader container moves from natsio/nats-server-config-reloader:0.16.0 to natsio/nats-server-config-reloader:0.16.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `natsio/nats-box:0.16.0` could not be checked. The registry did not answer.",
+          "resource": "natsio/nats-box:0.16.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `natsio/nats-server-config-reloader:0.16.1` could not be checked. The registry did not answer.",
+          "resource": "natsio/nats-server-config-reloader:0.16.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.2.9",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://nats-io.github.io/k8s/helm/charts/ --chart nats --from 1.2.8 --to 1.2.9 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "cbec52ad3ef31251bef3d84c56ddb302a1090a8c709136c3f8edba5b54c823eb"
+}

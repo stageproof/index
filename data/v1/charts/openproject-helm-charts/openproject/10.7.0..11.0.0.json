@@ -1,0 +1,152 @@
+{
+  "from_sha256": "92996e0a0a51e57ca77c1175c2aaa8edbd02114dac1f64309eca90ebaef355f0",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "10.7.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 20 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 18 of 20 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-openproject-web",
+          "message": "Chart default `probes.liveness.initialDelaySeconds` changed from `120` to `0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "probes.liveness.initialDelaySeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-openproject-web",
+          "message": "Chart default `probes.liveness.periodSeconds` changed from `30` to `15` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "probes.liveness.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-openproject-web",
+          "message": "Chart default `probes.liveness.timeoutSeconds` changed from `3` to `5` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "probes.liveness.timeoutSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-openproject-web",
+          "message": "Chart default `probes.readiness.failureThreshold` changed from `30` to `3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "probes.readiness.failureThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-openproject-web",
+          "message": "Chart default `probes.readiness.initialDelaySeconds` changed from `30` to `0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "probes.readiness.initialDelaySeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-openproject-web",
+          "message": "Chart default `probes.readiness.periodSeconds` changed from `15` to `10` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "probes.readiness.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-openproject-web",
+          "message": "Chart default `probes.readiness.timeoutSeconds` changed from `3` to `5` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "probes.readiness.timeoutSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-openproject-cron changed at spec.template.metadata.annotations.checksum/env-core. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-openproject-cron",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-openproject-web changed at spec.template.metadata.annotations.checksum/env-core. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-openproject-web",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-openproject-worker-default changed at spec.template.metadata.annotations.checksum/env-core. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-openproject-worker-default",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Job/default/stageproof-rel-openproject-seeder-1 changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Job/default/stageproof-rel-openproject-seeder-1",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 10.7.0 to 11.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
+          "resource": "Job/default/stageproof-rel-openproject-seeder-1",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "11.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.openproject.org --chart openproject --from 10.7.0 --to 11.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "55b9934e1d958529175d0dd82a543695e7a4b37fe4eb18a1c62a03d1af76f222"
+}

@@ -1,0 +1,116 @@
+{
+  "from_sha256": "59f6647b8c0aa12267722fa0ade16713fb0b16a1af932227af2065fdd1a7f3bc",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.12.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 18 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 10 of 18 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-ingress-nginx-admission-create, Job/stageproof-check/stageproof-rel-ingress-nginx-admission-patch",
+          "message": "Chart default `controller.admissionWebhooks.patch.image.digest` changed from `sha256:e8825994b7a2c7497375a9b945f386506ca6a3eda80b89b74ef2db743f66a5ea` to `sha256:2cf4ebfa82a37c357455458f6dfc334aea1392d508270b2517795a9933a02524` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.admissionWebhooks.patch.image.digest",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-ingress-nginx-admission-create, Job/stageproof-check/stageproof-rel-ingress-nginx-admission-patch",
+          "message": "Chart default `controller.admissionWebhooks.patch.image.tag` changed from `v1.5.2` to `v1.5.3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.admissionWebhooks.patch.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-ingress-nginx-controller",
+          "message": "Chart default `controller.image.digest` changed from `sha256:d2fbc4ec70d8aa2050dd91a91506e998765e86c96f32cffb56c503c9c34eed5b` to `sha256:03497ee984628e95eca9b2279e3f3a3c1685dd48635479e627d219f00c8eefa9` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.image.digest",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-ingress-nginx-controller",
+          "message": "Chart default `controller.image.tag` changed from `v1.12.1` to `v1.12.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-ingress-nginx-controller changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-ingress-nginx-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.12.1 to 1.12.2. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Deployment/stageproof-check/stageproof-rel-ingress-nginx-controller.template.spec.containers[0] controller container moves from registry.k8s.io/ingress-nginx/controller:v1.12.1@sha256:d2fbc4ec70d8aa2050dd91a91506e998765e86c96f32cffb56c503c9c34eed5b to registry.k8s.io/ingress-nginx/controller:v1.12.2@sha256:03497ee984628e95eca9b2279e3f3a3c1685dd48635479e627d219f00c8eefa9. Job/stageproof-check/stageproof-rel-ingress-nginx-admission-create.template.spec.containers[0] create container moves from registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.5.2@sha256:e8825994b7a2c7497375a9b945f386506ca6a3eda80b89b74ef2db743f66a5ea to registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.5.3@sha256:2cf4ebfa82a37c357455458f6dfc334aea1392d508270b2517795a9933a02524.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: ValidatingWebhookConfiguration/default/stageproof-rel-ingress-nginx-admission, ValidatingWebhookConfiguration/default/stageproof-rel-ingress-nginx-admission.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "4.12.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kubernetes.github.io/ingress-nginx --chart ingress-nginx --from 4.12.1 --to 4.12.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "2dbeec3052a3744762131a7c042f242b834f50fe773591a502dacea38b64a319"
+}

@@ -1,0 +1,111 @@
+{
+  "from_sha256": "c52c37acc45effc783e56a3b0927525502452d60ab27818f00ea21f642cb1d75",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.2.3",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 3 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-akhq",
+          "message": "Chart default `image.tag` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-akhq",
+          "message": "Chart default `securityContext.fsGroup` changed from `1000` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "securityContext.fsGroup",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-akhq",
+          "message": "Chart default `securityContext.runAsGroup` changed from `1000` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "securityContext.runAsGroup",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-akhq",
+          "message": "Chart default `securityContext.runAsUser` changed from `1000` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "securityContext.runAsUser",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-akhq changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-akhq",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/default/stageproof-rel-akhq.template.spec.containers[0] akhq container moves from tchiotludo/akhq:latest to tchiotludo/akhq:0.18.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `tchiotludo/akhq:0.18.0` could not be checked. The registry did not answer.",
+          "resource": "tchiotludo/akhq:0.18.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.2.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://akhq.io/ --chart akhq --from 0.2.3 --to 0.2.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "2a2c659a589ec962dba35f952b0ca2e711426c5d5f2db5c0c2503b766364255e"
+}

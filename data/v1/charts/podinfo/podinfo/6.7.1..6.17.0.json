@@ -1,0 +1,123 @@
+{
+  "from_sha256": "887ba6bdf74e24c1499b044fa395bad97a142e1d3e7ffc28278dcab112c50632",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.7.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 5 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared rendered objects. No object is in both charts to diff as a stored form."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Deployment/default/stageproof-rel-podinfo, Service/default/stageproof-rel-podinfo.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-podinfo, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-ehako, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-wufob, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-dd8de, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-gterf, Pod/stageproof-check/stageproof-rel-podinfo-service-test-0afg4, Pod/stageproof-check/stageproof-rel-podinfo-service-test-xsz5x",
+          "message": "Chart default `image.tag` changed from `6.7.1` to `6.17.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-5xphb, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-wufob, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-5y3xu, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-gterf, Pod/stageproof-check/stageproof-rel-podinfo-service-test-0afg4, Pod/stageproof-check/stageproof-rel-podinfo-service-test-lcoqa",
+          "message": "Chart default `linkerd.profile.enabled` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "linkerd.profile.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-kklwf, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-wufob, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-ea9kp, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-gterf, Pod/stageproof-check/stageproof-rel-podinfo-service-test-0afg4, Pod/stageproof-check/stageproof-rel-podinfo-service-test-imqkf",
+          "message": "Chart default `redis.repository` changed from `redis` to `docker.io/redis` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-fyrlo, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-wufob, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-gterf, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-rbxm5, Pod/stageproof-check/stageproof-rel-podinfo-service-test-0afg4, Pod/stageproof-check/stageproof-rel-podinfo-service-test-jpdel",
+          "message": "Chart default `redis.tag` changed from `7.0.7` to `8.8.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 6.7.1 to 6.17.0, skipping 9 minor versions.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 6.7.1 to 6.17.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `curlimages/curl:7.69.0` could not be checked. The registry did not answer.",
+          "resource": "curlimages/curl:7.69.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `giantswarm/tiny-tools` could not be checked. The registry did not answer.",
+          "resource": "giantswarm/tiny-tools",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "6.17.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://stefanprodan.github.io/podinfo --chart podinfo --from 6.7.1 --to 6.17.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "d3d67f460f9f94bb6d10950315fc0953799efc0ee60332e3c475e755e99c0e04"
+}

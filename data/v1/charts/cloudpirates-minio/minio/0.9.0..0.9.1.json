@@ -1,0 +1,87 @@
+{
+  "from_sha256": "d65bab006f87d45a71fc259e3366c8a8df92cf55df0050e31851ef1983ceff2f",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.9.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 5 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-minio",
+          "message": "Chart default `image.tag` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-minio changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-minio",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-minio.template.spec.containers[0] minio container moves from docker.io/cloudpirates/image-minio:RELEASE.2025-10-15T17-29-55Z-hardened@sha256:c153752e0278d6d7817e173d8ea44c15f2a5b20f3eee62a71eee4ea30e3bd046 to docker.io/cloudpirates/image-minio:RELEASE.2025-10-15T17-29-55Z-hardened@sha256:11e00b6678a57044dd98a7ff53e65dd6d03be0300a97d69e6df9ccb773321eac.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/cloudpirates/image-minio:RELEASE.2025-10-15T17-29-55Z-hardened@sha256:11e00b6678a57044dd98a7ff53e65dd6d03be0300a97d69e6df9ccb773321eac` could not be checked. The registry did not answer.",
+          "resource": "docker.io/cloudpirates/image-minio:RELEASE.2025-10-15T17-29-55Z-hardened@sha256:11e00b6678a57044dd98a7ff53e65dd6d03be0300a97d69e6df9ccb773321eac",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.9.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo oci://registry-1.docker.io/cloudpirates --chart minio --from 0.9.0 --to 0.9.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "43136632e47a0c698fbc67d5908052a3e8fffc10f2a9c6f3da87900cb0b7df8d"
+}

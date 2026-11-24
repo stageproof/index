@@ -1,0 +1,188 @@
+{
+  "from_sha256": "fdafd9a5fd79e08dcc0acd31090b7baabb3f26dc22c4ad4a3c1de3e718e854b2",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.28.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 46 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 44 of 46 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-dify-api, Deployment/default/stageproof-rel-dify-worker",
+          "message": "Chart default `image.api.tag` changed from `1.7.1` to `1.8.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.api.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-dify-web",
+          "message": "Chart default `image.web.tag` changed from `1.7.1` to `1.8.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.web.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-dify-test-postgres-connection, StatefulSet/stageproof-check/stageproof-rel-postgresql-primary, StatefulSet/stageproof-check/stageproof-rel-postgresql-read",
+          "message": "Chart default `postgresql.image.repository` changed from `bitnami/postgresql` to `bitnamilegacy/postgresql` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "postgresql.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-dify-test-redis-connection, StatefulSet/stageproof-check/stageproof-rel-redis-master, StatefulSet/stageproof-check/stageproof-rel-redis-replicas",
+          "message": "Chart default `redis.image.repository` changed from `bitnami/redis` to `bitnamilegacy/redis` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dify-api changed at spec.template.spec.containers[name=api].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dify-api",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dify-web changed at spec.template.spec.containers[name=web].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dify-web",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dify-worker changed at spec.template.spec.containers[name=worker].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dify-worker",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-postgresql-primary changed at spec.template.spec.containers[name=postgresql].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql-primary",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-postgresql-read changed at spec.template.spec.containers[name=postgresql].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql-read",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-redis-master changed at spec.template.spec.containers[name=redis].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-redis-master",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-redis-replicas changed at spec.template.spec.containers[name=redis].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-redis-replicas",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.7.1 to 1.8.1. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "4 container images changed. Deployment/default/stageproof-rel-dify-api.template.spec.containers[0] api container moves from langgenius/dify-api:1.7.1 to langgenius/dify-api:1.8.1. Deployment/default/stageproof-rel-dify-web.template.spec.containers[0] web container moves from langgenius/dify-web:1.7.1 to langgenius/dify-web:1.8.1. Job/default/stageproof-rel-dify-test-postgres-connection.template.spec.containers[0] check-postgres container moves from docker.io/bitnami/postgresql:15.3.0-debian-11-r7 to docker.io/bitnamilegacy/postgresql:15.3.0-debian-11-r7. Job/default/stageproof-rel-dify-test-redis-connection.template.spec.containers[0] check-redis container moves from docker.io/bitnami/redis:7.0.11-debian-11-r12 to docker.io/bitnamilegacy/redis:7.0.11-debian-11-r12.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/bitnami/postgresql` to `index.docker.io/bitnamilegacy/postgresql`.",
+          "resource": "Job/default/stageproof-rel-dify-test-postgres-connection.template.spec.containers[0] check-postgres",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/bitnami/redis` to `index.docker.io/bitnamilegacy/redis`.",
+          "resource": "Job/default/stageproof-rel-dify-test-redis-connection.template.spec.containers[0] check-redis",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnamilegacy/postgresql:15.3.0-debian-11-r7` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bitnamilegacy/postgresql:15.3.0-debian-11-r7",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnamilegacy/redis:7.0.11-debian-11-r12` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bitnamilegacy/redis:7.0.11-debian-11-r12",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-api:1.8.1` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-api:1.8.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-web:1.8.1` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-web:1.8.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.29.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://borispolonsky.github.io/dify-helm --chart dify --from 0.28.1 --to 0.29.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "22e923458f32352eacc785e10cf5b5991ad6c907347bf4db8db0cf2b9d967509"
+}

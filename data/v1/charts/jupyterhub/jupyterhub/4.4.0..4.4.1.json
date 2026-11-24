@@ -1,0 +1,136 @@
+{
+  "from_sha256": "99e429ca8205bf21468eaed978da7b425b94ead966db1875211dc310c6ebf228",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.4.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 30 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 24 of 30 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/default/hub, Secret/default/hub",
+          "message": "Chart default `hub.image.tag` changed from `4.4.0` to `4.4.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "hub.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/hook-image-awaiter, Secret/default/hub",
+          "message": "Chart default `prePuller.hook.image.tag` changed from `4.4.0` to `4.4.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "prePuller.hook.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Secret/default/hub",
+          "message": "Chart default `proxy.secretSync.image.tag` changed from `4.4.0` to `4.4.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "proxy.secretSync.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/hub, DaemonSet/default/continuous-image-puller, DaemonSet/default/hook-image-puller, Deployment/default/hub, Secret/default/hub",
+          "message": "Chart default `singleuser.image.tag` changed from `4.4.0` to `4.4.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "singleuser.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/hub, DaemonSet/default/continuous-image-puller, DaemonSet/default/hook-image-puller, Deployment/default/hub, Secret/default/hub",
+          "message": "Chart default `singleuser.networkTools.image.tag` changed from `4.4.0` to `4.4.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "singleuser.networkTools.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/default/continuous-image-puller changed at spec.template.spec.initContainers[name=image-pull-metadata-block].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/default/continuous-image-puller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/hub changed at spec.template.metadata.annotations.checksum/config-map. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/hub",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/proxy changed at spec.template.metadata.annotations.checksum/auth-token. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/proxy",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/user-scheduler changed at spec.template.metadata.annotations.checksum/config-map. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/user-scheduler",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 5.5.0 to 5.5.1. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "4 container images changed. DaemonSet/default/continuous-image-puller.template.spec.initContainers[0] image-pull-metadata-block container moves from quay.io/jupyterhub/k8s-network-tools:4.4.0 to quay.io/jupyterhub/k8s-network-tools:4.4.1. DaemonSet/default/continuous-image-puller.template.spec.initContainers[1] image-pull-singleuser container moves from quay.io/jupyterhub/k8s-singleuser-sample:4.4.0 to quay.io/jupyterhub/k8s-singleuser-sample:4.4.1. Deployment/default/hub.template.spec.containers[0] hub container moves from quay.io/jupyterhub/k8s-hub:4.4.0 to quay.io/jupyterhub/k8s-hub:4.4.1. Job/default/hook-image-awaiter.template.spec.containers[0] hook-image-awaiter container moves from quay.io/jupyterhub/k8s-image-awaiter:4.4.0 to quay.io/jupyterhub/k8s-image-awaiter:4.4.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "4.4.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://jupyterhub.github.io/helm-chart/ --chart jupyterhub --from 4.4.0 --to 4.4.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "5967508a6e2bdb33d382d96b1841a1363064375cabe9006fb270e4d2e5f143cf"
+}

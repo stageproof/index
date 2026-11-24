@@ -1,0 +1,72 @@
+{
+  "from_sha256": "625dcccd0a406a5a66de3c8f728ccc8d68a66dcd51620bd7dc625df8537a2a4f",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v1.0.75",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 5 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/stageproof-check/meshery changed at spec.template.spec.containers[name=meshery].env[name=MESHSYNC_DEFAULT_DEPLOYMENT_MODE]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/meshery",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.0.75 to v1.0.83. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "v1.0.83",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://meshery.io/charts/ --chart meshery --from v1.0.75 --to v1.0.83 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "513042530f5eb0ccd702821c0285bff00249c4fbbee1e0b2d267cdb9f86453aa"
+}

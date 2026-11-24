@@ -1,0 +1,37 @@
+{
+  "from_sha256": "67d5fcd3f3a725c48333fe0dba61b856c1b9c93cfc86a7ee22c2e79c901f860f",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.13.1",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 1.0.0 failed: exit status 1\nError: execution error at (langfuse/templates/worker/deployment.yaml:63:16): no valid value or secretKeyRef provided for langfuse.salt\n\nUse --debug flag to render out invalid YAML",
+          "file": "1.0.0",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "1.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://langfuse.github.io/langfuse-k8s/ --chart langfuse --from 0.13.1 --to 1.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "d297bedf82eadb2205a83f4d0e139df99e72815b17747d810cd26b1f84f5ea0d"
+}

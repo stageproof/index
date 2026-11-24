@@ -1,0 +1,74 @@
+{
+  "from_sha256": "5c909ff6a3cba23e55b803964e13ab6e71f601c243295274c4b02040f77be6e0",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.2.10",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 5 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 4 of 5 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "fail",
+          "summary": "1 removed API or immutable upgrade blocker"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The pod template of DaemonSet/kube-system/stageproof-rel-node-local-dns changed at spec.template.metadata.labels.app.kubernetes.io/instance. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/kube-system/stageproof-rel-node-local-dns",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.selector` is immutable.",
+          "resource": "DaemonSet/kube-system/stageproof-rel-node-local-dns",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[k8s-app:node-local-dns] to map[app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:node-local-dns]. An in-place `helm upgrade` will fail.",
+          "resource": "DaemonSet/kube-system/stageproof-rel-node-local-dns",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "2.3.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://raw.githubusercontent.com/deliveryhero/helm-charts/refs/heads/master/ --chart node-local-dns --from 2.2.10 --to 2.3.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "a409f011c6a50379607f55aff54b679e9dafd6a2200065906639db2bf5249e07"
+}

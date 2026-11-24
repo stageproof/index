@@ -1,0 +1,72 @@
+{
+  "from_sha256": "3b43d4cadb8ab0983a17048ba528e02c80dd77566e9cafc72e692f104cfe689f",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "13.3.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 3 these values is set: loki.storage.bucketNames.chunks, loki.storage.bucketNames.ruler, loki.useTestSchema"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 22 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/loki-canary changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/loki-canary",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-loki changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-loki",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "13.3.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 13.3.1 --to 13.3.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "b6f3ec8d82206aafac286ba0a7ff48ab43807473078b8f378b500d0459169d58"
+}

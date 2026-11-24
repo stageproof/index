@@ -1,0 +1,79 @@
+{
+  "from_sha256": "f25a698cf4983186d750ba8ac6c3eacecbfaa8d620bfa5258a71eaeb7e5c7072",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v1.7.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 23 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 19 of 23 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "CephBlockPool/default/ceph-blockpool was not judged. the API group is not installed on this server.",
+          "resource": "CephBlockPool/default/ceph-blockpool",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephCluster/default/stageproof-check was not judged. the API group is not installed on this server.",
+          "resource": "CephCluster/default/stageproof-check",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephFilesystem/default/ceph-filesystem was not judged. the API group is not installed on this server.",
+          "resource": "CephFilesystem/default/ceph-filesystem",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephObjectStore/default/ceph-objectstore was not judged. the API group is not installed on this server.",
+          "resource": "CephObjectStore/default/ceph-objectstore",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "v1.7.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.rook.io/release --chart rook-ceph-cluster --from v1.7.1 --to v1.7.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "14a3ab59aec4101cb4107d4de05809fb39acc75ef0e6ae33116763327e1081c1"
+}

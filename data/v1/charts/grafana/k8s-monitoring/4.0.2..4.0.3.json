@@ -1,0 +1,28 @@
+{
+  "from_sha256": "faa5579902bd30717b7b681d84e72fb24b9d21e3337beb7056136107a4c59ce6",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.0.2",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 4.0.2 failed: exit status 1\nError: execution error at (k8s-monitoring/templates/validations.yaml:1:4): \nAt least one collector should be enabled\nPlease enable one by setting:\ncollectors:\n  <collector-name>:\n    <collector-settings>\nSee https://github.com/grafana/k8s-monitoring-helm/blob/main/charts/k8s-monitoring/docs/collectors/README.md for more details.\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "4.0.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://grafana.github.io/helm-charts --chart k8s-monitoring --from 4.0.2 --to 4.0.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "64dd796283f907206acada02b62e0331aa238944e040c63c122ae3512d46007e"
+}

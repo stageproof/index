@@ -1,0 +1,100 @@
+{
+  "from_sha256": "edf9f3443a3f850c090e84f02b8f26b4392c26054801c04a63f0562f2ba8b217",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "21.4.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 3 these values is set: loki.storage.bucketNames.chunks, loki.storage.bucketNames.ruler, loki.useTestSchema"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 23 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 22 of 23 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-loki-gateway",
+          "message": "Chart default `gateway.image.tag` changed from `1.31.9-alpine3.24` to `1.31.10-alpine3.24` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "gateway.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-loki-gateway",
+          "message": "Chart default `gateway.metrics.image.tag` changed from `1.0.2` to `1.0.3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "gateway.metrics.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-loki-gateway changed at spec.template.spec.containers[name=exporter].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-loki-gateway",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Deployment/stageproof-check/stageproof-rel-loki-gateway.template.spec.containers[0] nginx container moves from docker.io/nginx/nginx-unprivileged:1.31.9-alpine3.24 to docker.io/nginx/nginx-unprivileged:1.31.10-alpine3.24. Deployment/stageproof-check/stageproof-rel-loki-gateway.template.spec.containers[1] exporter container moves from ghcr.io/jkroepke/access-log-exporter:1.0.2 to ghcr.io/jkroepke/access-log-exporter:1.0.3.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/nginx/nginx-unprivileged:1.31.10-alpine3.24` could not be checked. The registry did not answer.",
+          "resource": "docker.io/nginx/nginx-unprivileged:1.31.10-alpine3.24",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "21.5.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 21.4.1 --to 21.5.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "fd7172d46feb75c7477b8599d08a94e1befe0ba4a6a27b9ccea0f5bb4f88a84d"
+}

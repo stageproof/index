@@ -1,0 +1,177 @@
+{
+  "from_sha256": "569b922638c6b0e8435d674cc11328d5852c653f2d11cbefc4bf590169a9c08a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.1.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 17 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "fail",
+          "summary": "a new or changed image tag was not found, or it lacks the required platform"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete StatefulSet/default/stageproof-rel-ceph-csi-rbd-provisioner. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/default/stageproof-rel-ceph-csi-rbd-provisioner",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/default/ceph-csi-config, DaemonSet/default/stageproof-rel-ceph-csi-rbd-nodeplugin, Role/default/stageproof-rel-ceph-csi-rbd-provisioner, RoleBinding/default/stageproof-rel-ceph-csi-rbd-provisioner, Service/default/stageproof-rel-ceph-csi-rbd-provisioner, ServiceAccount/default/stageproof-rel-ceph-csi-rbd-nodeplugin, ServiceAccount/default/stageproof-rel-ceph-csi-rbd-provisioner.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "DaemonSet/stageproof-check/stageproof-rel-ceph-csi-rbd-nodeplugin container csi-rbdplugin securityContext is weaker at privileged, capabilities.add.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-ceph-csi-rbd-nodeplugin",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "DaemonSet/stageproof-check/stageproof-rel-ceph-csi-rbd-nodeplugin adds hostPath volumes host-dev, host-sys, lib-modules, mountpoint-dir, plugin-dir, registration-dir, socket-dir.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-ceph-csi-rbd-nodeplugin",
+          "rule_id": "impact.privilege.hostpath",
+          "severity": "warning"
+        },
+        {
+          "message": "Deployment/stageproof-check/stageproof-rel-ceph-csi-rbd-provisioner container csi-snapshotter securityContext is weaker at privileged.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-ceph-csi-rbd-provisioner",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "Deployment/stageproof-check/stageproof-rel-ceph-csi-rbd-provisioner container csi-rbdplugin securityContext is weaker at privileged, capabilities.add.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-ceph-csi-rbd-provisioner",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "Deployment/stageproof-check/stageproof-rel-ceph-csi-rbd-provisioner adds hostPath volumes host-dev, host-sys, lib-modules, socket-dir.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-ceph-csi-rbd-provisioner",
+          "rule_id": "impact.privilege.hostpath",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-ceph-csi-rbd-provisioner-rules adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-ceph-csi-rbd-provisioner-rules",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/stageproof-rel-ceph-csi-rbd-provisioner adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/stageproof-rel-ceph-csi-rbd-provisioner",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "DaemonSet/stageproof-check/stageproof-rel-ceph-csi-rbd-nodeplugin sets hostNetwork.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-ceph-csi-rbd-nodeplugin",
+          "rule_id": "impact.exposure.host",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/ceph-csi-config, ConfigMap/stageproof-check/ceph-csi-config-rbd, DaemonSet/stageproof-check/stageproof-rel-ceph-csi-rbd-nodeplugin, Deployment/stageproof-check/stageproof-rel-ceph-csi-rbd-provisioner",
+          "message": "Chart default `configMapName` changed from `ceph-csi-config` to `ceph-csi-config-rbd` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configMapName",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-ceph-csi-rbd-nodeplugin, Deployment/stageproof-check/stageproof-rel-ceph-csi-rbd-provisioner",
+          "message": "Chart default `nodeplugin.plugin.image.tag` changed from `v1.1.0` to `v1.2.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "nodeplugin.plugin.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-ceph-csi-rbd-provisioner",
+          "message": "Chart default `provisioner.replicaCount` changed from `1` to `3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "provisioner.replicaCount",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.1.0 to 1.2.2. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `quay.io/k8scsi/csi-attacher:v1.2.1` could not be checked. The registry refused the request.",
+          "resource": "quay.io/k8scsi/csi-attacher:v1.2.1",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `quay.io/k8scsi/csi-node-driver-registrar:v1.1.0` was not found.",
+          "resource": "quay.io/k8scsi/csi-node-driver-registrar:v1.1.0",
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `quay.io/k8scsi/csi-provisioner:v1.3.0` could not be checked. The registry refused the request.",
+          "resource": "quay.io/k8scsi/csi-provisioner:v1.3.0",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `quay.io/k8scsi/csi-snapshotter:v1.2.1` could not be checked. The registry refused the request.",
+          "resource": "quay.io/k8scsi/csi-snapshotter:v1.2.1",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.2.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://ceph.github.io/csi-charts --chart ceph-csi-rbd --from 1.1.0 --to 1.2.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "c0e1f6dc424aab7abfe66f1fac52cbd3d30416784b66880fb249dd0495f698ad"
+}

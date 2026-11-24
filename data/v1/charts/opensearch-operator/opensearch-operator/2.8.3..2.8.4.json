@@ -1,0 +1,105 @@
+{
+  "from_sha256": "456a03d381cb67d3186431a2e352bd4b00e5ff89b6c74f04dfba7095d5208c65",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.8.3",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 35 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 6 of 29 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (2 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/default/stageproof-rel-opensearch-operator, Deployment/default/stageproof-rel-opensearch-operator, Role/default/stageproof-rel-opensearch-operator-leader-election, RoleBinding/default/stageproof-rel-opensearch-operator-leader-election, Service/default/stageproof-rel-opensearch-operator, ServiceAccount/default/stageproof-rel-opensearch-operator.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/stageproof-rel-opensearch-operator-leader-election adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/stageproof-rel-opensearch-operator-leader-election",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `opensearchproject/opensearch-operator:3.0.0-alpha` could not be checked. The registry did not answer.",
+          "resource": "opensearchproject/opensearch-operator:3.0.0-alpha",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "Certificate/stageproof-check/stageproof-rel-opensearch-operator-serving-cert was not judged. the API group is not installed on this server.",
+          "resource": "Certificate/stageproof-check/stageproof-rel-opensearch-operator-serving-cert",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Issuer/stageproof-check/stageproof-rel-opensearch-operator-selfsigned-issuer was not judged. the API group is not installed on this server.",
+          "resource": "Issuer/stageproof-check/stageproof-rel-opensearch-operator-selfsigned-issuer",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration, ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 657 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/opensearchclusters.opensearch.opster.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 779 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/opensearchclusters.opensearch.org",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "2.8.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://opensearch-project.github.io/opensearch-k8s-operator/ --chart opensearch-operator --from 2.8.3 --to 2.8.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "b5d6d91f34e4a96cb7671913e70a4c046206b10ad074a67c224e3283ca244252"
+}

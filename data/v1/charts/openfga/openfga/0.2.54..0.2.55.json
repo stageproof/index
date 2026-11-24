@@ -1,0 +1,90 @@
+{
+  "from_sha256": "8fc79ed50e149d6ec3cf346af0215b49410eeb651ce8aeb0b1ec018a145164cc",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.2.54",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 6 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "4 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 5 of 6 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-openfga changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-openfga",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.11.5 to v1.11.6. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/default/stageproof-rel-openfga.template.spec.containers[0] openfga container moves from openfga/openfga:v1.11.5 to openfga/openfga:v1.11.6.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Source: https://cloudnative-pg.io/documentation/current/installation_upgrade/",
+          "message": "An operator upgrade can switch over or restart the current primary even when the Postgres image tag does not change. The rehearsal had no Cluster.",
+          "rule_id": "helm.operator.documented_upgrade_behavior",
+          "severity": "warning"
+        },
+        {
+          "detail": "Source: https://cloudnative-pg.io/documentation/current/installation_upgrade/",
+          "message": "An operator upgrade can switch over or restart the current primary even when the Postgres image tag does not change. The rehearsal had no Cluster.",
+          "rule_id": "helm.operator.primary_restart",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.2.55",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://openfga.github.io/helm-charts --chart openfga --from 0.2.54 --to 0.2.55 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "ef1faed87059f8b1082585216f8b3eb2cb4c9c467adedfad560939ffbd21d99a"
+}

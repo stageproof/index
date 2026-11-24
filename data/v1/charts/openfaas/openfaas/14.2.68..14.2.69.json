@@ -1,0 +1,80 @@
+{
+  "from_sha256": "631a25871d6b0479ac713b6f3c3d92307cdc0966117e1238264462b7da21a157",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "14.2.68",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 28 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 22 of 25 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Ingress/stageproof-check/openfaas-ingress.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Ingress/stageproof-check/openfaas-ingress",
+          "message": "Chart default `ingress.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "ingress.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/alertmanager changed at spec.template.metadata.annotations.checksum/alertmanager-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/alertmanager",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/prometheus changed at spec.template.metadata.annotations.checksum/prometheus-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/prometheus",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "14.2.69",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://openfaas.github.io/faas-netes --chart openfaas --from 14.2.68 --to 14.2.69 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "ef87625fd638c73c0a69acfe628412a166ebf31a2d1e78351ddfd056ac9d5a3b"
+}

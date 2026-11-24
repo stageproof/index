@@ -1,0 +1,98 @@
+{
+  "from_sha256": "dad84eef692d8075d41a650089d41738fa9497aa73dcc3ba94670aa5e7e76476",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v2.1.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 29 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 21 of 29 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on clusterpolicies.kyverno.io: spec.rules.items.mutate.foreach (type), spec.rules.items.mutate.foreach.context (removed), spec.rules.items.mutate.foreach.context (type), spec.rules.items.mutate.foreach.context.items (removed), spec.rules.items.mutate.foreach.context.items (type), spec.rules.items.mutate.foreach.context.items.apiCall (removed), spec.rules.items.mutate.foreach.context.items.apiCall (type), spec.rules.items.mutate.foreach.context.items.apiCall.jmesPath (removed), spec.rules.items.mutate.foreach.context.items.apiCall.jmesPath (type), spec.rules.items.mutate.foreach.context.items.apiCall.urlPath (removed), spec.rules.items.mutate.foreach.context.items.apiCall.urlPath (type), spec.rules.items.mutate.foreach.context.items.configMap (removed), spec.rules.items.mutate.foreach.context.items.configMap (type), spec.rules.items.mutate.foreach.context.items.configMap.name (removed), spec.rules.items.mutate.foreach.context.items.configMap.name (type), spec.rules.items.mutate.foreach.context.items.configMap.namespace (removed), spec.rules.items.mutate.foreach.context.items.configMap.namespace (type), spec.rules.items.mutate.foreach.context.items.name (removed), spec.rules.items.mutate.foreach.context.items.name (type), spec.rules.items.mutate.foreach.list (removed), spec.rules.items.mutate.foreach.list (type), spec.rules.items.mutate.foreach.patchStrategicMerge (removed), spec.rules.items.mutate.foreach.preconditions (removed), spec.rules.items.mutate.foreach.preconditions (type), spec.rules.items.mutate.foreach.preconditions.all (removed), spec.rules.items.mutate.foreach.preconditions.all (type), spec.rules.items.mutate.foreach.preconditions.all.items (removed), spec.rules.items.mutate.foreach.preconditions.all.items (type), spec.rules.items.mutate.foreach.preconditions.all.items.key (removed), spec.rules.items.mutate.foreach.preconditions.all.items.operator (enum), spec.rules.items.mutate.foreach.preconditions.all.items.operator (removed), spec.rules.items.mutate.foreach.preconditions.all.items.operator (type), spec.rules.items.mutate.foreach.preconditions.all.items.value (removed), spec.rules.items.mutate.foreach.preconditions.any (removed), spec.rules.items.mutate.foreach.preconditions.any (type), spec.rules.items.mutate.foreach.preconditions.any.items (removed), spec.rules.items.mutate.foreach.preconditions.any.items (type), spec.rules.items.mutate.foreach.preconditions.any.items.key (removed), spec.rules.items.mutate.foreach.preconditions.any.items.operator (enum), spec.rules.items.mutate.foreach.preconditions.any.items.operator (removed), spec.rules.items.mutate.foreach.preconditions.any.items.operator (type), spec.rules.items.mutate.foreach.preconditions.any.items.value (removed), spec.rules.items.validate.foreach (type), spec.rules.items.validate.foreach.anyPattern (removed), spec.rules.items.validate.foreach.context (removed), spec.rules.items.validate.foreach.context (type), spec.rules.items.validate.foreach.context.items (removed), spec.rules.items.validate.foreach.context.items (type), spec.rules.items.validate.foreach.context.items.apiCall (removed), spec.rules.items.validate.foreach.context.items.apiCall (type), spec.rules.items.validate.foreach.context.items.apiCall.jmesPath (removed), spec.rules.items.validate.foreach.context.items.apiCall.jmesPath (type), spec.rules.items.validate.foreach.context.items.apiCall.urlPath (removed), spec.rules.items.validate.foreach.context.items.apiCall.urlPath (type), spec.rules.items.validate.foreach.context.items.configMap (removed), spec.rules.items.validate.foreach.context.items.configMap (type), spec.rules.items.validate.foreach.context.items.configMap.name (removed), spec.rules.items.validate.foreach.context.items.configMap.name (type), spec.rules.items.validate.foreach.context.items.configMap.namespace (removed), spec.rules.items.validate.foreach.context.items.configMap.namespace (type), spec.rules.items.validate.foreach.context.items.name (removed), spec.rules.items.validate.foreach.context.items.name (type), spec.rules.items.validate.foreach.deny (removed), spec.rules.items.validate.foreach.deny (type), spec.rules.items.validate.foreach.deny.conditions (removed), spec.rules.items.validate.foreach.list (removed), spec.rules.items.validate.foreach.list (type), spec.rules.items.validate.foreach.pattern (removed), spec.rules.items.validate.foreach.preconditions (removed), spec.rules.items.validate.foreach.preconditions (type), spec.rules.items.validate.foreach.preconditions.all (removed), spec.rules.items.validate.foreach.preconditions.all (type), spec.rules.items.validate.foreach.preconditions.all.items (removed), spec.rules.items.validate.foreach.preconditions.all.items (type), spec.rules.items.validate.foreach.preconditions.all.items.key (removed), spec.rules.items.validate.foreach.preconditions.all.items.operator (enum), spec.rules.items.validate.foreach.preconditions.all.items.operator (removed), spec.rules.items.validate.foreach.preconditions.all.items.operator (type), spec.rules.items.validate.foreach.preconditions.all.items.value (removed), spec.rules.items.validate.foreach.preconditions.any (removed), spec.rules.items.validate.foreach.preconditions.any (type), spec.rules.items.validate.foreach.preconditions.any.items (removed), spec.rules.items.validate.foreach.preconditions.any.items (type), spec.rules.items.validate.foreach.preconditions.any.items.key (removed), spec.rules.items.validate.foreach.preconditions.any.items.operator (enum), spec.rules.items.validate.foreach.preconditions.any.items.operator (removed), spec.rules.items.validate.foreach.preconditions.any.items.operator (type), spec.rules.items.validate.foreach.preconditions.any.items.value (removed). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/clusterpolicies.kyverno.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on policies.kyverno.io: spec.rules.items.mutate.foreach (type), spec.rules.items.mutate.foreach.context (removed), spec.rules.items.mutate.foreach.context (type), spec.rules.items.mutate.foreach.context.items (removed), spec.rules.items.mutate.foreach.context.items (type), spec.rules.items.mutate.foreach.context.items.apiCall (removed), spec.rules.items.mutate.foreach.context.items.apiCall (type), spec.rules.items.mutate.foreach.context.items.apiCall.jmesPath (removed), spec.rules.items.mutate.foreach.context.items.apiCall.jmesPath (type), spec.rules.items.mutate.foreach.context.items.apiCall.urlPath (removed), spec.rules.items.mutate.foreach.context.items.apiCall.urlPath (type), spec.rules.items.mutate.foreach.context.items.configMap (removed), spec.rules.items.mutate.foreach.context.items.configMap (type), spec.rules.items.mutate.foreach.context.items.configMap.name (removed), spec.rules.items.mutate.foreach.context.items.configMap.name (type), spec.rules.items.mutate.foreach.context.items.configMap.namespace (removed), spec.rules.items.mutate.foreach.context.items.configMap.namespace (type), spec.rules.items.mutate.foreach.context.items.name (removed), spec.rules.items.mutate.foreach.context.items.name (type), spec.rules.items.mutate.foreach.list (removed), spec.rules.items.mutate.foreach.list (type), spec.rules.items.mutate.foreach.patchStrategicMerge (removed), spec.rules.items.mutate.foreach.preconditions (removed), spec.rules.items.mutate.foreach.preconditions (type), spec.rules.items.mutate.foreach.preconditions.all (removed), spec.rules.items.mutate.foreach.preconditions.all (type), spec.rules.items.mutate.foreach.preconditions.all.items (removed), spec.rules.items.mutate.foreach.preconditions.all.items (type), spec.rules.items.mutate.foreach.preconditions.all.items.key (removed), spec.rules.items.mutate.foreach.preconditions.all.items.operator (enum), spec.rules.items.mutate.foreach.preconditions.all.items.operator (removed), spec.rules.items.mutate.foreach.preconditions.all.items.operator (type), spec.rules.items.mutate.foreach.preconditions.all.items.value (removed), spec.rules.items.mutate.foreach.preconditions.any (removed), spec.rules.items.mutate.foreach.preconditions.any (type), spec.rules.items.mutate.foreach.preconditions.any.items (removed), spec.rules.items.mutate.foreach.preconditions.any.items (type), spec.rules.items.mutate.foreach.preconditions.any.items.key (removed), spec.rules.items.mutate.foreach.preconditions.any.items.operator (enum), spec.rules.items.mutate.foreach.preconditions.any.items.operator (removed), spec.rules.items.mutate.foreach.preconditions.any.items.operator (type), spec.rules.items.mutate.foreach.preconditions.any.items.value (removed), spec.rules.items.validate.foreach (type), spec.rules.items.validate.foreach.anyPattern (removed), spec.rules.items.validate.foreach.context (removed), spec.rules.items.validate.foreach.context (type), spec.rules.items.validate.foreach.context.items (removed), spec.rules.items.validate.foreach.context.items (type), spec.rules.items.validate.foreach.context.items.apiCall (removed), spec.rules.items.validate.foreach.context.items.apiCall (type), spec.rules.items.validate.foreach.context.items.apiCall.jmesPath (removed), spec.rules.items.validate.foreach.context.items.apiCall.jmesPath (type), spec.rules.items.validate.foreach.context.items.apiCall.urlPath (removed), spec.rules.items.validate.foreach.context.items.apiCall.urlPath (type), spec.rules.items.validate.foreach.context.items.configMap (removed), spec.rules.items.validate.foreach.context.items.configMap (type), spec.rules.items.validate.foreach.context.items.configMap.name (removed), spec.rules.items.validate.foreach.context.items.configMap.name (type), spec.rules.items.validate.foreach.context.items.configMap.namespace (removed), spec.rules.items.validate.foreach.context.items.configMap.namespace (type), spec.rules.items.validate.foreach.context.items.name (removed), spec.rules.items.validate.foreach.context.items.name (type), spec.rules.items.validate.foreach.deny (removed), spec.rules.items.validate.foreach.deny (type), spec.rules.items.validate.foreach.deny.conditions (removed), spec.rules.items.validate.foreach.list (removed), spec.rules.items.validate.foreach.list (type), spec.rules.items.validate.foreach.pattern (removed), spec.rules.items.validate.foreach.preconditions (removed), spec.rules.items.validate.foreach.preconditions (type), spec.rules.items.validate.foreach.preconditions.all (removed), spec.rules.items.validate.foreach.preconditions.all (type), spec.rules.items.validate.foreach.preconditions.all.items (removed), spec.rules.items.validate.foreach.preconditions.all.items (type), spec.rules.items.validate.foreach.preconditions.all.items.key (removed), spec.rules.items.validate.foreach.preconditions.all.items.operator (enum), spec.rules.items.validate.foreach.preconditions.all.items.operator (removed), spec.rules.items.validate.foreach.preconditions.all.items.operator (type), spec.rules.items.validate.foreach.preconditions.all.items.value (removed), spec.rules.items.validate.foreach.preconditions.any (removed), spec.rules.items.validate.foreach.preconditions.any (type), spec.rules.items.validate.foreach.preconditions.any.items (removed), spec.rules.items.validate.foreach.preconditions.any.items (type), spec.rules.items.validate.foreach.preconditions.any.items.key (removed), spec.rules.items.validate.foreach.preconditions.any.items.operator (enum), spec.rules.items.validate.foreach.preconditions.any.items.operator (removed), spec.rules.items.validate.foreach.preconditions.any.items.operator (type), spec.rules.items.validate.foreach.preconditions.any.items.value (removed). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/policies.kyverno.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-kyverno changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-kyverno",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.5.0-rc1 to v1.5.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Deployment/stageproof-check/stageproof-rel-kyverno.template.spec.containers[0] kyverno container moves from ghcr.io/kyverno/kyverno:v1.5.0-rc1 to ghcr.io/kyverno/kyverno:v1.5.0. Deployment/stageproof-check/stageproof-rel-kyverno.template.spec.initContainers[0] kyverno-pre container moves from ghcr.io/kyverno/kyvernopre:v1.5.0-rc1 to ghcr.io/kyverno/kyvernopre:v1.5.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "v2.1.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kyverno.github.io/kyverno/ --chart kyverno --from v2.1.0 --to v2.1.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "f4c649b70f883ac169e16b7e2742b20cf99e0244355ab0ede75fd3aa302c991b"
+}

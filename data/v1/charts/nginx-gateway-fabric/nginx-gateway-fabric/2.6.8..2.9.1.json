@@ -1,0 +1,209 @@
+{
+  "from_sha256": "55034401990c2e2bac11c89c9e7fcc54326f15bd1a8437af97b662f7fc8398a0",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.6.8",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 26 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "4 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 7 of 12 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (1 deprecation, EOL, or CRD warning)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The CRD accesspolicies.gateway.nginx.org under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/accesspolicies.gateway.nginx.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD authenticationfilters.gateway.nginx.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/authenticationfilters.gateway.nginx.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD clientsettingspolicies.gateway.nginx.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/clientsettingspolicies.gateway.nginx.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD externalloadbalancers.gateway.nginx.org under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/externalloadbalancers.gateway.nginx.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD nginxgateways.gateway.nginx.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/nginxgateways.gateway.nginx.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD nginxproxies.gateway.nginx.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/nginxproxies.gateway.nginx.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD observabilitypolicies.gateway.nginx.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/observabilitypolicies.gateway.nginx.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD payloadprocessors.gateway.nginx.org under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/payloadprocessors.gateway.nginx.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD proxysettingspolicies.gateway.nginx.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/proxysettingspolicies.gateway.nginx.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD ratelimitpolicies.gateway.nginx.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/ratelimitpolicies.gateway.nginx.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD snippetsfilters.gateway.nginx.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/snippetsfilters.gateway.nginx.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD snippetspolicies.gateway.nginx.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/snippetspolicies.gateway.nginx.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD upstreamsettingspolicies.gateway.nginx.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/upstreamsettingspolicies.gateway.nginx.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD wafpolicies.gateway.nginx.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/wafpolicies.gateway.nginx.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-nginx-gateway-fabric adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-nginx-gateway-fabric",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: NginxProxy/stageproof-check/stageproof-rel-proxy-config",
+          "message": "Chart default `nginx.image.tag` changed from `2.6.8` to `2.9.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "nginx.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-nginx-gateway-fabric, Job/stageproof-check/stageproof-rel-nginx-gateway-fabric-cert-generator",
+          "message": "Chart default `nginxGateway.image.tag` changed from `2.6.8` to `2.9.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "nginxGateway.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-nginx-gateway-fabric changed at spec.template.spec.containers[name=nginx-gateway].args. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-nginx-gateway-fabric",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 2.6.8 to 2.9.1, skipping 2 minor versions.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.6.8 to 2.9.1. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Deployment/stageproof-check/stageproof-rel-nginx-gateway-fabric.template.spec.containers[0] nginx-gateway container moves from ghcr.io/nginx/nginx-gateway-fabric:2.6.8 to ghcr.io/nginx/nginx-gateway-fabric:2.9.1. NginxProxy/stageproof-check/stageproof-rel-proxy-config.kubernetes.deployment.container field moves from ghcr.io/nginx/nginx-gateway-fabric/nginx:2.6.8 to ghcr.io/nginx/nginx-gateway-fabric/nginx:2.9.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "message": "GatewayClass/default/nginx was not judged. the API group is not installed on this server.",
+          "resource": "GatewayClass/default/nginx",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 1032 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/nginxproxies.gateway.nginx.org",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "2.9.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo oci://ghcr.io/nginx/charts --chart nginx-gateway-fabric --from 2.6.8 --to 2.9.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "d98344da21e79ada6de3830ecc1371090ece7ce7ba94a666a1732bd335b2b382"
+}

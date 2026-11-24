@@ -1,0 +1,28 @@
+{
+  "from_sha256": "15392b326b7bc40a205ae4717ec2e712dc0715a1e53850c7817b304c7d29e546",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.0.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 2.0.0 failed: exit status 1\nError: execution error at (jitsi-meet/templates/jvb/deployment.yaml:96:16): (jvb.publicIPs | jvb.useNodeIP) Please set an external IP addresses for JVB(s) or enable the Node IP autodetection!\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "2.0.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://jitsi-contrib.github.io/jitsi-helm/ --chart jitsi-meet --from 2.0.0 --to 2.0.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "4c6605cf588748c0236dbabd28b380e1b4d58020aeb3164a9023cd20b2ba6e7f"
+}

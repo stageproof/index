@@ -1,0 +1,67 @@
+{
+  "from_sha256": "1edfeabf7c6bedf483b4df82d7c30f2cd456ff87f0beea837f491d2c766449db",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.24.3",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 4 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "warn",
+          "summary": "the new chart is deprecated"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-tempo changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-tempo",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The chart maintainer has marked this chart as deprecated.",
+          "message": "The new chart's Chart.yaml sets deprecated to true.",
+          "rule_id": "supply.chart.deprecated",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "1.24.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart tempo --from 1.24.3 --to 1.24.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "f1f6e318d5bca3b5097cb676077796cdf8135beb2c1f71c4d14614ccf9b0081b"
+}

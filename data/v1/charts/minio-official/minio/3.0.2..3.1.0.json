@@ -1,0 +1,37 @@
+{
+  "from_sha256": "18e10be4d0458bc590ca9abf753227e0c70f60511495387b8d4fb15a4daf932e",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "3.0.2",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 3.1.0 failed: exit status 1\nError: template: minio/templates/serviceaccount.yaml:5:11: executing \"minio/templates/serviceaccount.yaml\" at <include \"minio.serviceAccountName\" .>: error calling include: template: no template \"minio.serviceAccountName\" associated with template \"gotpl\"\n\nUse --debug flag to render out invalid YAML",
+          "file": "3.1.0",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "3.1.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.min.io --chart minio --from 3.0.2 --to 3.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "6c01af55d2e2e5f716eabf6fef3a92a8464d0674529e9bacab292e5478a73b7a"
+}

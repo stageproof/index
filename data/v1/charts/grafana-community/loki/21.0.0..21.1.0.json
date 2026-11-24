@@ -1,0 +1,92 @@
+{
+  "from_sha256": "33e18ba4148a352581ca48c99c9df754ba6776f00c2ea41bab3e59e22c76b151",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "21.0.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 3 these values is set: loki.storage.bucketNames.chunks, loki.storage.bucketNames.ruler, loki.useTestSchema"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 23 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 22 of 23 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-loki-gateway",
+          "message": "Chart default `gateway.image.repository` changed from `nginxinc/nginx-unprivileged` to `nginx/nginx-unprivileged` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "gateway.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-loki-gateway changed at spec.template.spec.containers[name=nginx].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-loki-gateway",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-loki-gateway.template.spec.containers[0] nginx container moves from docker.io/nginxinc/nginx-unprivileged:1.31-alpine to docker.io/nginx/nginx-unprivileged:1.31-alpine.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/nginxinc/nginx-unprivileged` to `index.docker.io/nginx/nginx-unprivileged`.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-loki-gateway.template.spec.containers[0] nginx",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "21.1.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 21.0.0 --to 21.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "258b8f35d93fbe09b839e2af08bc76fc5d8f10f7f495ccbe2f1829372a0936d4"
+}

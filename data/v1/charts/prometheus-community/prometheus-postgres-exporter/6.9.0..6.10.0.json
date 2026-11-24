@@ -1,0 +1,60 @@
+{
+  "from_sha256": "e3b61828b092578de2a8a8603e3ca349ea99f4c29135b166f52dc7fb869ce249",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.9.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 6 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared rendered objects. No object is in both charts to diff as a stored form."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Deployment/default/stageproof-rel-prometheus-postgres-exporter, Role/default/stageproof-rel-prometheus-postgres-exporter, RoleBinding/default/stageproof-rel-prometheus-postgres-exporter, Secret/default/stageproof-rel-prometheus-postgres-exporter, Service/default/stageproof-rel-prometheus-postgres-exporter, ServiceAccount/default/stageproof-rel-prometheus-postgres-exporter.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "6.10.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://prometheus-community.github.io/helm-charts --chart prometheus-postgres-exporter --from 6.9.0 --to 6.10.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "9d677759c82c12fb3aa16ff96f055aa3d21c664a6c8516fb6c2024768b0a11e0"
+}

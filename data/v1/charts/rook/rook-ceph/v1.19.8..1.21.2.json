@@ -1,0 +1,189 @@
+{
+  "from_sha256": "3c0acdce8d3dea2ae1e360a9047b96fdd1f0e3bf1e8b729ef20ae3bdf1f44a85",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v1.19.8",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 88 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "4 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 55 of 80 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (3 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: ClusterRole/default/ceph-csi-cephfs-ctrlplugin-cr, ClusterRole/default/ceph-csi-cephfs-nodeplugin-cr, ClusterRole/default/ceph-csi-nfs-ctrlplugin-cr, ClusterRole/default/ceph-csi-nfs-nodeplugin-cr, ClusterRole/default/ceph-csi-nvmeof-ctrlplugin-cr, ClusterRole/default/ceph-csi-nvmeof-nodeplugin-cr, ClusterRole/default/ceph-csi-rbd-ctrlplugin-cr, ClusterRole/default/ceph-csi-rbd-nodeplugin-cr, ClusterRole/default/cephfs-csi-nodeplugin, ClusterRole/default/cephfs-external-provisioner-runner, ClusterRole/default/rbd-csi-nodeplugin, ClusterRole/default/rbd-external-provisioner-runner, ClusterRoleBinding/default/ceph-csi-cephfs-ctrlplugin-crb, ClusterRoleBinding/default/ceph-csi-cephfs-nodeplugin-crb, ClusterRoleBinding/default/ceph-csi-nfs-ctrlplugin-crb, ClusterRoleBinding/default/ceph-csi-nfs-nodeplugin-crb, ClusterRoleBinding/default/ceph-csi-nvmeof-ctrlplugin-crb, ClusterRoleBinding/default/ceph-csi-nvmeof-nodeplugin-crb, ClusterRoleBinding/default/ceph-csi-rbd-ctrlplugin-crb, ClusterRoleBinding/default/ceph-csi-rbd-nodeplugin-crb, ClusterRoleBinding/default/cephfs-csi-nodeplugin-role, ClusterRoleBinding/default/cephfs-csi-provisioner-role, ClusterRoleBinding/default/rbd-csi-nodeplugin, ClusterRoleBinding/default/rbd-csi-provisioner-role, Role/stageproof-check/ceph-csi-cephfs-ctrlplugin-r, Role/stageproof-check/ceph-csi-cephfs-nodeplugin-r, Role/stageproof-check/ceph-csi-nvmeof-ctrlplugin-r, Role/stageproof-check/ceph-csi-nvmeof-nodeplugin-r, Role/stageproof-check/ceph-csi-rbd-ctrlplugin-r, Role/stageproof-check/ceph-csi-rbd-nodeplugin-r, Role/stageproof-check/cephfs-external-provisioner-cfg, Role/stageproof-check/rbd-external-provisioner-cfg, RoleBinding/stageproof-check/ceph-csi-cephfs-ctrlplugin-rb, RoleBinding/stageproof-check/ceph-csi-cephfs-nodeplugin-rb, RoleBinding/stageproof-check/ceph-csi-nvmeof-ctrlplugin-rb, RoleBinding/stageproof-check/ceph-csi-nvmeof-nodeplugin-rb, RoleBinding/stageproof-check/ceph-csi-rbd-ctrlplugin-rb, RoleBinding/stageproof-check/ceph-csi-rbd-nodeplugin-rb, RoleBinding/stageproof-check/cephfs-csi-provisioner-role-cfg, RoleBinding/stageproof-check/rbd-csi-provisioner-role-cfg, ServiceAccount/stageproof-check/ceph-csi-cephfs-ctrlplugin-sa, ServiceAccount/stageproof-check/ceph-csi-cephfs-nodeplugin-sa, ServiceAccount/stageproof-check/ceph-csi-controller-manager, ServiceAccount/stageproof-check/ceph-csi-nfs-ctrlplugin-sa, ServiceAccount/stageproof-check/ceph-csi-nfs-nodeplugin-sa, ServiceAccount/stageproof-check/ceph-csi-nvmeof-ctrlplugin-sa, ServiceAccount/stageproof-check/ceph-csi-nvmeof-nodeplugin-sa, ServiceAccount/stageproof-check/ceph-csi-rbd-ctrlplugin-sa, ServiceAccount/stageproof-check/ceph-csi-rbd-nodeplugin-sa, ServiceAccount/stageproof-check/rook-csi-cephfs-plugin-sa, ServiceAccount/stageproof-check/rook-csi-cephfs-provisioner-sa, ServiceAccount/stageproof-check/rook-csi-rbd-plugin-sa, ServiceAccount/stageproof-check/rook-csi-rbd-provisioner-sa.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on cephnvmeofgateways.ceph.rook.io: spec.pool (removed), spec.pool (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/cephnvmeofgateways.ceph.rook.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on objectbucketclaims.objectbucket.io: spec (required). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/objectbucketclaims.objectbucket.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on objectbuckets.objectbucket.io: spec (required), spec.authentication (removed), spec.authentication (type), spec.authentication.items (removed), spec.authentication.items (type), spec.reclaimPolicy (enum). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/objectbuckets.objectbucket.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-clientprofilereplication-admin-role adds rules. Flags: wildcard.",
+          "resource": "ClusterRole/default/ceph-csi-clientprofilereplication-admin-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-clientprofilereplication-editor-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-clientprofilereplication-editor-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-clientprofilereplication-viewer-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-clientprofilereplication-viewer-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/ceph-csi-manager-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/ceph-csi-manager-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/rook-ceph-global adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/rook-ceph-global",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/ceph-csi-controller-manager",
+          "message": "Chart default `ceph-csi-operator.controllerManager.manager.env.csiServiceAccountPrefix` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "ceph-csi-operator.controllerManager.manager.env.csiServiceAccountPrefix",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/rook-ceph-operator",
+          "message": "Chart default `image.tag` changed from `v1.19.8` to `v1.21.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/ceph-csi-controller-manager changed at spec.template.spec.containers[name=manager].env[name=CSI_SERVICE_ACCOUNT_PREFIX].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/ceph-csi-controller-manager",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/rook-ceph-operator changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/rook-ceph-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from v1.19.8 to 1.21.2, skipping 1 minor version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.19.8 to v1.21.2. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Deployment/stageproof-check/ceph-csi-controller-manager.template.spec.containers[0] manager container moves from quay.io/cephcsi/ceph-csi-operator:v0.6.0 to quay.io/cephcsi/ceph-csi-operator:v1.1.0. Deployment/stageproof-check/rook-ceph-operator.template.spec.containers[0] rook-ceph-operator container moves from docker.io/rook/ceph:v1.19.8 to docker.io/rook/ceph:v1.21.2.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 744 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/drivers.csi.ceph.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 799 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/operatorconfigs.csi.ceph.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 462 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/cephclusters.ceph.rook.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "1.21.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.rook.io/release --chart rook-ceph --from v1.19.8 --to 1.21.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "263d830f7b57cac24bbe552ce11c908eed4a0d0d4d88ed07ebdab13a95747edf"
+}

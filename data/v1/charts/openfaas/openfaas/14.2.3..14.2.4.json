@@ -1,0 +1,139 @@
+{
+  "from_sha256": "5a2e502296b49413bc41466d6c42ef79f8dfe5cfeec9d12c5da0008f9a84bfe1",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "14.2.3",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 27 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "fail",
+          "summary": "a new or changed image tag was not found, or it lacks the required platform"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 22 of 24 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/gateway",
+          "message": "Chart default `faasnetes.image` changed from `ghcr.io/openfaas/faas-netes:0.17.3` to `ghcr.io/openfaas/faas-netes:0.17.4` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "faasnetes.image",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/gateway",
+          "message": "Chart default `faasnetes.resources.requests.cpu` changed from `50m` to `100m` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "faasnetes.resources.requests.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/gateway",
+          "message": "Chart default `gateway.resources.requests.cpu` changed from `50m` to `100m` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "gateway.resources.requests.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/alertmanager changed at spec.template.metadata.annotations.checksum/alertmanager-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/alertmanager",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/gateway changed at spec.template.spec.containers[name=faas-netes].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/gateway",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/nats changed at spec.template.spec.containers[name=nats].resources.requests.cpu. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/nats",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/prometheus changed at spec.template.metadata.annotations.checksum/prometheus-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/prometheus",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "cpu request increased on container gateway of Deployment/stageproof-check/gateway.",
+          "resource": "Deployment/stageproof-check/gateway",
+          "rule_id": "impact.capacity.requests",
+          "severity": "info"
+        },
+        {
+          "message": "cpu request increased on container faas-netes of Deployment/stageproof-check/gateway.",
+          "resource": "Deployment/stageproof-check/gateway",
+          "rule_id": "impact.capacity.requests",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/stageproof-check/gateway.template.spec.containers[1] faas-netes container moves from ghcr.io/openfaas/faas-netes:0.17.3 to ghcr.io/openfaas/faas-netes:0.17.4.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `ghcr.io/openfaas/faas-netes:0.17.4` was not found.",
+          "resource": "ghcr.io/openfaas/faas-netes:0.17.4",
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "14.2.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://openfaas.github.io/faas-netes --chart openfaas --from 14.2.3 --to 14.2.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "1852fae9ae3b626675f656fa3da26f4d12dc53f7b9b8b17c64cf6c4c1a581188"
+}

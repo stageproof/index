@@ -1,0 +1,162 @@
+{
+  "from_sha256": "c2345323909da71dc08467098b78a677b5d1a8cf376dc16640e90a76d96b6359",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.30.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 37 these values is set: enterprise.config, global.clusterDomain, loki.auth_enabled, loki.config, loki.pattern_ingester.enabled, loki.storage.bucketNames.chunks, loki.storage.use_thanos_objstore, loki.tracing.enabled, loki.ui.enabled, resultsCache.enabled, ruler.enabled, tableManager.retention_deletes_enabled, tableManager.retention_period, chunksCache.stageproofPlaceholder, loki.analytics.stageproofPlaceholder, loki.bloom_build.stageproofPlaceholder, loki.bloom_gateway.stageproofPlaceholder, loki.commonConfig.stageproofPlaceholder, loki.compactor.stageproofPlaceholder, loki.distributor.stageproofPlaceholder, loki.extraMemberlistConfig.stageproofPlaceholder, loki.frontend.stageproofPlaceholder, loki.frontend_worker.stageproofPlaceholder, loki.index_gateway.stageproofPlaceholder, loki.ingester.stageproofPlaceholder, loki.limits_config.stageproofPlaceholder, loki.memberlistConfig.stageproofPlaceholder, loki.querier.stageproofPlaceholder, loki.query_range.stageproofPlaceholder, loki.query_scheduler.stageproofPlaceholder, loki.schemaConfig.stageproofPlaceholder, loki.server.stageproofPlaceholder, loki.storage_config.stageproofPlaceholder, loki.testSchemaConfig.stageproofPlaceholder, migrate.fromDistributed.stageproofPlaceholder, enterprise.enabled, loki.useTestSchema"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 42 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 33 of 41 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Job/stageproof-check/enterprise-logs-provisioner",
+          "message": "Chart default `enterprise.provisioner.image.registry` changed from `docker.io` to `us-docker.pkg.dev` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "enterprise.provisioner.image.registry",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/stageproof-check/enterprise-logs-provisioner",
+          "message": "Chart default `enterprise.provisioner.image.repository` changed from `grafana/enterprise-logs-provisioner` to `grafanalabs-global/docker-enterprise-provisioner-prod/enterprise-provisioner` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "enterprise.provisioner.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ClusterRole/default/enterprise-logs-tokengen, ClusterRole/default/stageproof-rel-enterprise-logs-clusterrole, ClusterRole/stageproof-check/enterprise-logs-provisioner, ClusterRoleBinding/default/enterprise-logs-tokengen, ClusterRoleBinding/default/stageproof-rel-enterprise-logs-clusterrolebinding, ClusterRoleBinding/stageproof-check/enterprise-logs-provisioner, ConfigMap/stageproof-check/enterprise-logs, ConfigMap/stageproof-check/enterprise-logs-runtime, DaemonSet/stageproof-check/enterprise-logs-canary, Deployment/default/stageproof-rel-enterprise-logs-admin-api, Deployment/default/stageproof-rel-enterprise-logs-gateway, Deployment/stageproof-check/enterprise-logs-read, Job/stageproof-check/enterprise-logs-provisioner, Job/stageproof-check/enterprise-logs-tokengen, Pod/stageproof-check/enterprise-logs-helm-test, PodDisruptionBudget/stageproof-check/enterprise-logs-backend, PodDisruptionBudget/stageproof-check/enterprise-logs-read, PodDisruptionBudget/stageproof-check/enterprise-logs-write, Secret/stageproof-check/enterprise-logs-license, Service/default/stageproof-rel-enterprise-logs-admin-api, Service/stageproof-check/enterprise-logs-backend, Service/stageproof-check/enterprise-logs-canary, Service/stageproof-check/enterprise-logs-memberlist, Service/stageproof-check/enterprise-logs-read, Service/stageproof-check/enterprise-logs-write, Service/stageproof-check/stageproof-rel-enterprise-logs-chunks-cache, Service/stageproof-check/stageproof-rel-enterprise-logs-gateway, Service/stageproof-check/stageproof-rel-enterprise-logs-results-cache, ServiceAccount/stageproof-check/enterprise-logs, ServiceAccount/stageproof-check/enterprise-logs-canary, ServiceAccount/stageproof-check/enterprise-logs-provisioner, ServiceAccount/stageproof-check/enterprise-logs-tokengen, StatefulSet/stageproof-check/enterprise-logs-backend, StatefulSet/stageproof-check/enterprise-logs-write, StatefulSet/stageproof-check/stageproof-rel-enterprise-logs-chunks-cache, StatefulSet/stageproof-check/stageproof-rel-enterprise-logs-results-cache",
+          "message": "Chart default `loki.image.tag` changed from `3.5.0` to `3.5.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "loki.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-enterprise-logs-chunks-cache, StatefulSet/stageproof-check/stageproof-rel-enterprise-logs-results-cache",
+          "message": "Chart default `memcachedExporter.image.tag` changed from `v0.15.2` to `v0.15.3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "memcachedExporter.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/enterprise-logs-backend",
+          "message": "Chart default `sidecar.image.tag` changed from `1.30.3` to `1.30.6` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "sidecar.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-enterprise-logs-admin-api changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-enterprise-logs-admin-api",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/enterprise-logs-backend changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/enterprise-logs-backend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/enterprise-logs-write changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/enterprise-logs-write",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-enterprise-logs-chunks-cache changed at spec.template.spec.containers[name=exporter].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-enterprise-logs-chunks-cache",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-enterprise-logs-results-cache changed at spec.template.spec.containers[name=exporter].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-enterprise-logs-results-cache",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. Job/stageproof-check/enterprise-logs-provisioner.template.spec.initContainers[0] provisioner container moves from docker.io/grafana/enterprise-logs-provisioner:latest to us-docker.pkg.dev/grafanalabs-global/docker-enterprise-provisioner-prod/enterprise-provisioner:latest. StatefulSet/stageproof-check/enterprise-logs-backend.template.spec.containers[0] loki-sc-rules container moves from kiwigrid/k8s-sidecar:1.30.3 to kiwigrid/k8s-sidecar:1.30.6. StatefulSet/stageproof-check/stageproof-rel-enterprise-logs-chunks-cache.template.spec.containers[1] exporter container moves from prom/memcached-exporter:v0.15.2 to prom/memcached-exporter:v0.15.3.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/grafana/enterprise-logs-provisioner` to `us-docker.pkg.dev/grafanalabs-global/docker-enterprise-provisioner-prod/enterprise-provisioner`.",
+          "resource": "Job/stageproof-check/enterprise-logs-provisioner.template.spec.initContainers[0] provisioner",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `kiwigrid/k8s-sidecar:1.30.6` could not be checked. The registry did not answer.",
+          "resource": "kiwigrid/k8s-sidecar:1.30.6",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `prom/memcached-exporter:v0.15.3` could not be checked. The registry did not answer.",
+          "resource": "prom/memcached-exporter:v0.15.3",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "6.31.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 6.30.1 --to 6.31.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "d59e734520bced7248d96f386e5254ffa0f1835499fe175531ff79fc165c3ef4"
+}

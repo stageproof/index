@@ -1,0 +1,131 @@
+{
+  "from_sha256": "56f4ec0aa907532229bad57654d73e72e7f5ed149c9f38dcaca19fa1cc898f31",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.0.73",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 8 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 6 of 8 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "fail",
+          "summary": "1 removed API or immutable upgrade blocker"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-rustfs-config",
+          "message": "Chart default `config.rustfs.address` changed from `0.0.0.0:9000` to `:9000` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.rustfs.address",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-rustfs-config",
+          "message": "Chart default `config.rustfs.console_address` changed from `0.0.0.0:9001` to `:9001` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.rustfs.console_address",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-rustfs",
+          "message": "Chart default `image.tag` changed from `1.0.0-alpha.73` to `1.0.0-alpha.76` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-rustfs",
+          "message": "Chart default `livenessProbe.httpGet.port` changed from `http` to `endpoint` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "livenessProbe.httpGet.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-rustfs",
+          "message": "Chart default `readinessProbe.httpGet.port` changed from `http` to `endpoint` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "readinessProbe.httpGet.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-rustfs changed at spec.template.metadata.labels.app. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-rustfs",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.0.0-alpha.73 to 1.0.0-alpha.76. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. StatefulSet/default/stageproof-rel-rustfs.template.spec.containers[0] rustfs container moves from rustfs/rustfs:1.0.0-alpha.73 to rustfs/rustfs:1.0.0-alpha.76.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec` is immutable.",
+          "resource": "StatefulSet/default/stageproof-rel-rustfs",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app:rustfs] to map[app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:rustfs]. An in-place `helm upgrade` will fail.",
+          "resource": "StatefulSet/default/stageproof-rel-rustfs",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.0.76",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.rustfs.com --chart rustfs --from 0.0.73 --to 0.0.76 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "82382e942ac81e86204d6467c46cdb85ffe53ee8d226c6addf4d6d2fe7e6ba1d"
+}

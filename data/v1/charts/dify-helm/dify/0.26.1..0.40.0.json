@@ -1,0 +1,327 @@
+{
+  "from_sha256": "b416ecc621a67307bfd93f7afd12183228c50628520f9fc6230003c5259a22da",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.26.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 59 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "10 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 43 of 44 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "StatefulSet/default/weaviate container configure-sysctl securityContext is weaker at privileged, runAsUser.",
+          "resource": "StatefulSet/default/weaviate",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-dify-api",
+          "message": "Chart default `api.extraEnv` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "api.extraEnv",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-dify-api, Deployment/default/stageproof-rel-dify-beat, Deployment/default/stageproof-rel-dify-worker",
+          "message": "Chart default `image.api.tag` changed from `1.5.0` to `1.18.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.api.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-dify-plugin-daemon",
+          "message": "Chart default `image.pluginDaemon.tag` changed from `0.1.2-local` to `0.6.10-local` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.pluginDaemon.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-dify-sandbox",
+          "message": "Chart default `image.sandbox.tag` changed from `0.2.12` to `0.2.15` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.sandbox.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-dify-web",
+          "message": "Chart default `image.web.tag` changed from `1.5.0` to `1.18.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.web.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-dify-test-postgres-connection, StatefulSet/stageproof-check/stageproof-rel-postgresql-primary, StatefulSet/stageproof-check/stageproof-rel-postgresql-read",
+          "message": "Chart default `postgresql.image.repository` changed from `bitnami/postgresql` to `bitnamilegacy/postgresql` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "postgresql.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-dify-test-redis-connection, StatefulSet/stageproof-check/stageproof-rel-redis-master, StatefulSet/stageproof-check/stageproof-rel-redis-replicas",
+          "message": "Chart default `redis.image.repository` changed from `bitnami/redis` to `bitnamilegacy/redis` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/weaviate",
+          "message": "Chart default `weaviate.image.registry` changed from `docker.io` to `cr.weaviate.io` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "weaviate.image.registry",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/weaviate",
+          "message": "Chart default `weaviate.image.tag` changed from `1.19.1` to `1.39.13` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "weaviate.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-dify-web",
+          "message": "Chart default `web.extraEnv` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "web.extraEnv",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dify-api changed at spec.template.metadata.annotations.checksum/api-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dify-api",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dify-plugin-daemon changed at spec.template.metadata.annotations.checksum/plugin-daemon-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dify-plugin-daemon",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dify-proxy changed at spec.template.metadata.annotations.checksum/proxy-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dify-proxy",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dify-sandbox changed at spec.template.metadata.annotations.checksum/sandbox-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dify-sandbox",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dify-web changed at spec.template.metadata.annotations.checksum/web-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dify-web",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-dify-worker changed at spec.template.metadata.annotations.checksum/worker-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-dify-worker",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/weaviate changed at spec.template.metadata.annotations. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/weaviate",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-postgresql-primary changed at spec.template.spec.containers[name=postgresql].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql-primary",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-postgresql-read changed at spec.template.spec.containers[name=postgresql].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql-read",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-redis-master changed at spec.template.spec.containers[name=redis].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-redis-master",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-redis-replicas changed at spec.template.spec.containers[name=redis].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-redis-replicas",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 0.26.1 to 0.40.0, skipping 13 minor versions.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.5.0 to 1.18.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "7 container images changed. Deployment/default/stageproof-rel-dify-api.template.spec.containers[0] api container moves from langgenius/dify-api:1.5.0 to langgenius/dify-api:1.18.0. Deployment/default/stageproof-rel-dify-plugin-daemon.template.spec.containers[0] plugin-daemon container moves from langgenius/dify-plugin-daemon:0.1.2-local to langgenius/dify-plugin-daemon:0.6.10-local. Deployment/default/stageproof-rel-dify-sandbox.template.spec.containers[0] sandbox container moves from langgenius/dify-sandbox:0.2.12 to langgenius/dify-sandbox:0.2.15. Deployment/default/stageproof-rel-dify-web.template.spec.containers[0] web container moves from langgenius/dify-web:1.5.0 to langgenius/dify-web:1.18.0. StatefulSet/default/weaviate.template.spec.containers[0] weaviate container moves from docker.io/semitechnologies/weaviate:1.19.1 to cr.weaviate.io/semitechnologies/weaviate:1.39.13. StatefulSet/stageproof-check/stageproof-rel-postgresql-primary.template.spec.containers[0] postgresql container moves from docker.io/bitnami/postgresql:15.3.0-debian-11-r7 to docker.io/bitnamilegacy/postgresql:15.3.0-debian-11-r7. StatefulSet/stageproof-check/stageproof-rel-redis-master.template.spec.containers[0] redis container moves from docker.io/bitnami/redis:7.0.11-debian-11-r12 to docker.io/bitnamilegacy/redis:7.0.11-debian-11-r12.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/semitechnologies/weaviate` to `cr.weaviate.io/semitechnologies/weaviate`.",
+          "resource": "StatefulSet/default/weaviate.template.spec.containers[0] weaviate",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/bitnami/postgresql` to `index.docker.io/bitnamilegacy/postgresql`.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql-primary.template.spec.containers[0] postgresql",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/bitnami/redis` to `index.docker.io/bitnamilegacy/redis`.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-redis-master.template.spec.containers[0] redis",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `cr.weaviate.io/semitechnologies/weaviate:1.39.13` could not be checked. The registry did not answer.",
+          "resource": "cr.weaviate.io/semitechnologies/weaviate:1.39.13",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/alpine:latest` could not be checked. The registry did not answer.",
+          "resource": "docker.io/alpine:latest",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnamilegacy/postgresql:15.3.0-debian-11-r7` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bitnamilegacy/postgresql:15.3.0-debian-11-r7",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnamilegacy/redis:7.0.11-debian-11-r12` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bitnamilegacy/redis:7.0.11-debian-11-r12",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-agent-backend:1.18.0` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-agent-backend:1.18.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-agent-local-sandbox:1.18.0` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-agent-local-sandbox:1.18.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-api:1.18.0` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-api:1.18.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-plugin-daemon:0.6.10-local` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-plugin-daemon:0.6.10-local",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-sandbox:0.2.15` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-sandbox:0.2.15",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-web:1.18.0` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-web:1.18.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec` is immutable.",
+          "resource": "StatefulSet/default/weaviate",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.40.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://borispolonsky.github.io/dify-helm --chart dify --from 0.26.1 --to 0.40.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "cebf75042f4b5c060ef94f009ded45ea7f1e8f91590db93982a975b9b3ac70e7"
+}

@@ -1,0 +1,83 @@
+{
+  "from_sha256": "9d05730c952929d261895dcdfcdd9f4a9610e9c6b9819e04e3cbc9d42edc7231",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.32.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 39 these values is set: enterprise.config, global.clusterDomain, loki.auth_enabled, loki.config, loki.pattern_ingester.enabled, loki.storage.bucketNames.chunks, loki.storage.use_thanos_objstore, loki.tracing.enabled, loki.ui.enabled, resultsCache.enabled, ruler.enabled, tableManager.retention_deletes_enabled, tableManager.retention_period, chunksCache.stageproofPlaceholder, loki.analytics.stageproofPlaceholder, loki.block_builder.stageproofPlaceholder, loki.bloom_build.stageproofPlaceholder, loki.bloom_gateway.stageproofPlaceholder, loki.commonConfig.stageproofPlaceholder, loki.compactor.stageproofPlaceholder, loki.distributor.stageproofPlaceholder, loki.extraMemberlistConfig.stageproofPlaceholder, loki.frontend.stageproofPlaceholder, loki.frontend_worker.stageproofPlaceholder, loki.index_gateway.stageproofPlaceholder, loki.ingester.stageproofPlaceholder, loki.limits_config.stageproofPlaceholder, loki.memberlistConfig.stageproofPlaceholder, loki.operational_config.stageproofPlaceholder, loki.querier.stageproofPlaceholder, loki.query_range.stageproofPlaceholder, loki.query_scheduler.stageproofPlaceholder, loki.schemaConfig.stageproofPlaceholder, loki.server.stageproofPlaceholder, loki.storage_config.stageproofPlaceholder, loki.testSchemaConfig.stageproofPlaceholder, migrate.fromDistributed.stageproofPlaceholder, enterprise.enabled, loki.useTestSchema"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 40 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 31 of 40 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: PodDisruptionBudget/stageproof-check/stageproof-rel-enterprise-logs-memcached-chunks-cache, PodDisruptionBudget/stageproof-check/stageproof-rel-enterprise-logs-memcached-results-cache.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-enterprise-logs-admin-api changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-enterprise-logs-admin-api",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/enterprise-logs-backend changed at spec.template.metadata.annotations.kubectl.kubernetes.io/default-container. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/enterprise-logs-backend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/enterprise-logs-write changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/enterprise-logs-write",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "6.33.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://grafana.github.io/helm-charts --chart loki --from 6.32.0 --to 6.33.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "e1d6877c3ac9eebe88672ece2111dce59e7297886e919972e48a618cd33bde46"
+}

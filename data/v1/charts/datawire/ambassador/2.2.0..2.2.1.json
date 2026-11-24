@@ -1,0 +1,73 @@
+{
+  "from_sha256": "699d014803339626be22408acd03e196026ed371a98814c54abd5e72300a8f2c",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.2.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 7 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "2 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 4 of 7 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "ClusterRole/default/stageproof-rel-ambassador adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/stageproof-rel-ambassador",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/stageproof-rel-ambassador",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-ambassador",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "2.2.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://getambassador.io/ --chart ambassador --from 2.2.0 --to 2.2.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "12699763b9eb0e2d4e478447da90d563021e54229ccb51dcba55d989c05272c7"
+}

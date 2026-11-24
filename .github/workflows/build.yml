@@ -29,14 +29,15 @@ jobs:
         with:
           version: "v3.22.1"
 
+      # Chart archives and envtest only. data/ is committed, and an older
+      # cache that included it would replace the history on restore.
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: |
-            data
             ~/.cache/stageproof-index
             ~/.cache/stageproof/envtest
-          key: index-data-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: index-data-
+          key: index-tools-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: index-tools-
 
       - name: Build the index
         run: go run ./cmd/build -charts charts.yaml -o data -max-pairs 1 -minors 1.35 -api-server auto

@@ -1,0 +1,160 @@
+{
+  "from_sha256": "fe43d0265e350c68637b773023d05343e06f60f4d18981a2c170924606b5fb6f",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.17.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 17 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 10 of 11 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "fail",
+          "summary": "1 removed API or immutable upgrade blocker"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/stageproof-check/stageproof-rel-minio, Service/stageproof-check/stageproof-rel-minio-console, ServiceAccount/stageproof-check/minio-sa.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-kestra-standalone",
+          "message": "Chart default `deployments.standalone.command` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "deployments.standalone.command",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-kestra-standalone",
+          "message": "Chart default `deployments.standalone.workerThreads` changed from `128` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "deployments.standalone.workerThreads",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-kestra-standalone",
+          "message": "Chart default `image.tag` changed from `latest-full` to `latest` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-kestra-standalone changed at spec.template.metadata.annotations.checksum/secrets. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-kestra-standalone",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-minio changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-minio",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-postgresql changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 0.17.0 to 0.18.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. Deployment/default/stageproof-rel-kestra-standalone.template.spec.containers[0] kestra-standalone container moves from kestra/kestra:latest-full to kestra/kestra:latest. Deployment/stageproof-check/stageproof-rel-minio.template.spec.containers[0] minio container moves from quay.io/minio/minio:RELEASE.2022-10-24T18-35-07Z to docker.io/bitnami/minio:2024.9.22-debian-12-r1. StatefulSet/stageproof-check/stageproof-rel-postgresql.template.spec.containers[0] postgresql container moves from docker.io/bitnami/postgresql:15.2.0-debian-11-r21 to docker.io/bitnami/postgresql:16.4.0-debian-12-r14.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `quay.io/minio/minio` to `index.docker.io/bitnami/minio`.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-minio.template.spec.containers[0] minio",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnami/minio:2024.9.22-debian-12-r1` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bitnami/minio:2024.9.22-debian-12-r1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnami/postgresql:16.4.0-debian-12-r14` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bitnami/postgresql:16.4.0-debian-12-r14",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `kestra/kestra:latest` could not be checked. The registry did not answer.",
+          "resource": "kestra/kestra:latest",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.selector` is immutable.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-minio",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app:minio release:stageproof-rel] to map[app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:minio]. An in-place `helm upgrade` will fail.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-minio",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.18.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.kestra.io/ --chart kestra --from 0.17.0 --to 0.18.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "6e2de73cf674f1b0545543b8ae64375beb6c67176dc8bb6a9315d8a00afbc1d2"
+}

@@ -1,0 +1,114 @@
+{
+  "from_sha256": "0d1ee49ef21cb5a2814cf6e9e9f0740ec5c9f559454804da5c6eae5dfcab7b2b",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "10.1.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 26 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 7 of 13 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-velero-upgrade-crds",
+          "message": "Chart default `kubectl.image.repository` changed from `docker.io/bitnami/kubectl` to `docker.io/bitnamilegacy/kubectl` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "kubectl.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-velero changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-velero",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Job/stageproof-check/stageproof-rel-velero-upgrade-crds.template.spec.initContainers[0] kubectl container moves from docker.io/bitnami/kubectl:1.35 to docker.io/bitnamilegacy/kubectl:1.35.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/bitnami/kubectl` to `index.docker.io/bitnamilegacy/kubectl`.",
+          "resource": "Job/stageproof-check/stageproof-rel-velero-upgrade-crds.template.spec.initContainers[0] kubectl",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnamilegacy/kubectl:1.35` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bitnamilegacy/kubectl:1.35",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "spec.credential in body must be of type object: \"null\"",
+          "message": "Kubernetes rejected `spec.credential` on BackupStorageLocation/stageproof-check/default. The current chart failed the same validation; the upgrade did not introduce it.",
+          "resource": "BackupStorageLocation/stageproof-check/default",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "warning"
+        },
+        {
+          "detail": "spec.credential in body must be of type object: \"null\"",
+          "message": "Kubernetes rejected `spec.credential` on VolumeSnapshotLocation/stageproof-check/default. The current chart failed the same validation; the upgrade did not introduce it.",
+          "resource": "VolumeSnapshotLocation/stageproof-check/default",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "10.1.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://vmware-tanzu.github.io/helm-charts/ --chart velero --from 10.1.1 --to 10.1.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "d58faeae35264f288d492dc0a8bfcf43acae1d9eb783217e15dfa8bdf089d2c2"
+}

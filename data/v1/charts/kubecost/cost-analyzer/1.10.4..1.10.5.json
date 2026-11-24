@@ -1,0 +1,133 @@
+{
+  "from_sha256": "eeb3aee7de32bc3b2d2d9b7807905e3152751562408259ad42a22ec8d015452c",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.10.4",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 38 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "7 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 25 of 38 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "PodSecurityPolicy/default/stageproof-rel-grafana was not judged. the API group is not installed on this server.",
+          "resource": "PodSecurityPolicy/default/stageproof-rel-grafana",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/stageproof-rel-prometheus-kube-state-metrics",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/stageproof-rel-prometheus-server",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-prometheus-kube-state-metrics",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-prometheus-server",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (Role) is not served by Kubernetes 1.35.0.",
+          "resource": "Role/default/stageproof-rel-grafana",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (RoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "RoleBinding/default/stageproof-rel-grafana",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "DaemonSet/default/stageproof-rel-prometheus-node-exporter was not judged. the API group is not installed on this server.",
+          "resource": "DaemonSet/default/stageproof-rel-prometheus-node-exporter",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "API `apps/v1beta2` (Deployment) is not served by Kubernetes 1.35.0.",
+          "resource": "Deployment/default/stageproof-rel-grafana",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "Deployment/default/stageproof-rel-prometheus-kube-state-metrics was not judged. the API group is not installed on this server.",
+          "resource": "Deployment/default/stageproof-rel-prometheus-kube-state-metrics",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Deployment/default/stageproof-rel-prometheus-pushgateway was not judged. the API group is not installed on this server.",
+          "resource": "Deployment/default/stageproof-rel-prometheus-pushgateway",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Deployment/default/stageproof-rel-prometheus-server was not judged. the API group is not installed on this server.",
+          "resource": "Deployment/default/stageproof-rel-prometheus-server",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Deployment/default/stageproof-rel-cost-analyzer was not judged. the API group is not installed on this server.",
+          "resource": "Deployment/default/stageproof-rel-cost-analyzer",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.10.5",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 1.10.4 --to 1.10.5 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "ad696ed3c629275aa85ae76aba9eeecded623db14ca5be9f92824e26005baa6f"
+}

@@ -1,0 +1,140 @@
+{
+  "from_sha256": "2bfc17abac9b79c7b88e33b76f0229bef2dd69b4e69416746f10997775241c9c",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.13.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 9 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "6 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/csi-nfs-controller",
+          "message": "Chart default `image.csiProvisioner.tag` changed from `v6.1.0` to `v6.3.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.csiProvisioner.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/csi-nfs-controller",
+          "message": "Chart default `image.csiResizer.tag` changed from `v2.0.0` to `v2.2.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.csiResizer.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/csi-nfs-controller",
+          "message": "Chart default `image.csiSnapshotter.tag` changed from `v8.4.0` to `v8.6.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.csiSnapshotter.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/csi-nfs-node, Deployment/stageproof-check/csi-nfs-controller",
+          "message": "Chart default `image.livenessProbe.tag` changed from `v2.17.0` to `v2.19.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.livenessProbe.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/csi-nfs-node, Deployment/stageproof-check/csi-nfs-controller",
+          "message": "Chart default `image.nfs.tag` changed from `v4.13.0` to `v4.13.6` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.nfs.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/csi-nfs-node",
+          "message": "Chart default `image.nodeDriverRegistrar.tag` changed from `v2.15.0` to `v2.17.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.nodeDriverRegistrar.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/csi-nfs-node",
+          "message": "Chart default `nodeDriverRegistrar.livenessProbe.enabled` changed from `false` to `true` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "nodeDriverRegistrar.livenessProbe.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/csi-nfs-node changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/csi-nfs-node",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/csi-nfs-controller changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/csi-nfs-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 4.13.0 to 4.13.6. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "6 container images changed. DaemonSet/stageproof-check/csi-nfs-node.template.spec.containers[0] liveness-probe container moves from registry.k8s.io/sig-storage/livenessprobe:v2.17.0 to registry.k8s.io/sig-storage/livenessprobe:v2.19.0. DaemonSet/stageproof-check/csi-nfs-node.template.spec.containers[1] node-driver-registrar container moves from registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.15.0 to registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.17.0. DaemonSet/stageproof-check/csi-nfs-node.template.spec.containers[2] nfs container moves from registry.k8s.io/sig-storage/nfsplugin:v4.13.0 to registry.k8s.io/sig-storage/nfsplugin:v4.13.6. Deployment/stageproof-check/csi-nfs-controller.template.spec.containers[0] csi-provisioner container moves from registry.k8s.io/sig-storage/csi-provisioner:v6.1.0 to registry.k8s.io/sig-storage/csi-provisioner:v6.3.0. Deployment/stageproof-check/csi-nfs-controller.template.spec.containers[1] csi-resizer container moves from registry.k8s.io/sig-storage/csi-resizer:v2.0.0 to registry.k8s.io/sig-storage/csi-resizer:v2.2.1. Deployment/stageproof-check/csi-nfs-controller.template.spec.containers[2] csi-snapshotter container moves from registry.k8s.io/sig-storage/csi-snapshotter:v8.4.0 to registry.k8s.io/sig-storage/csi-snapshotter:v8.6.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "4.13.6",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts --chart csi-driver-nfs --from 4.13.0 --to 4.13.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "4b471fb134bfea4fcaa3dc3342a67acd646431b746c673c978327353db5d22da"
+}

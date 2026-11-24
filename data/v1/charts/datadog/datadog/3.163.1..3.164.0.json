@@ -1,0 +1,108 @@
+{
+  "from_sha256": "1395a95d9ad655e36ead680bd15e7f24e37586191654b281e09304f5311d4d34",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "3.163.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 30 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 26 of 30 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap, Deployment/stageproof-check/stageproof-rel-operator",
+          "message": "Chart default `operator.datadogGenericResource.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "operator.datadogGenericResource.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap, Deployment/stageproof-check/stageproof-rel-operator",
+          "message": "Chart default `operator.datadogSLO.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "operator.datadogSLO.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap, Deployment/stageproof-check/stageproof-rel-operator",
+          "message": "Chart default `operator.image.tag` changed from `1.21.0` to `1.22.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "operator.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-datadog-cluster-agent changed at spec.template.metadata.annotations.checksum/api_key. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-datadog-cluster-agent",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-operator changed at spec.template.spec.containers[name=operator].args[9]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-operator.template.spec.containers[0] operator container moves from gcr.io/datadoghq/operator:1.21.0 to gcr.io/datadoghq/operator:1.22.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "3.164.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.datadoghq.com --chart datadog --from 3.163.1 --to 3.164.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "a22335e5f63a72ca8608eb1f640e3e2eaab5db5bfef49027f9e2a0b3d20fae60"
+}

@@ -1,0 +1,37 @@
+{
+  "from_sha256": "aa996ae92f4807cb0fdcc7443ffd72ea715bfdce01243874f4af7dc9682931e3",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.1.3",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "required values gate",
+          "status": "fail",
+          "summary": "1 new unset `required` value introduced by the upgrade"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "Template requirement: \".Values.nginxAgent.instanceManager.host is required when setting .Values.nginxAgent.enable to true\"",
+          "message": "Upgraded chart introduces a NEW `required` value `nginxAgent.instanceManager.host` that is unset in your values.",
+          "resource": "nginxAgent.instanceManager.host",
+          "rule_id": "helm.values.new_required_unset",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "1.2.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.nginx.com/stable --chart nginx-ingress --from 1.1.3 --to 1.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "24da115473019b9b1d388bf0fde01843a08b7a526743575a5f1c5e7e07909f4f"
+}

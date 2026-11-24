@@ -1,0 +1,103 @@
+{
+  "from_sha256": "08318bcf01229f56420cbc5987984719eb992dfee031335af81f4875842f1e03",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.65.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 54 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "2 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 45 of 51 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-signoz-frontend changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-signoz-frontend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-signoz-otel-collector changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-signoz-otel-collector",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-signoz-otel-collector-metrics changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-signoz-otel-collector-metrics",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-signoz-query-service changed at spec.template.spec.containers[name=query-service].args. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-signoz-query-service",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Job/default/stageproof-rel-signoz-schema-migrator-async-init changed at spec.template.spec.containers[name=schema-migrator].args. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Job/default/stageproof-rel-signoz-schema-migrator-async-init",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Job/default/stageproof-rel-signoz-schema-migrator-sync-init changed at spec.template.spec.containers[name=schema-migrator].args. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Job/default/stageproof-rel-signoz-schema-migrator-sync-init",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
+          "resource": "Job/default/stageproof-rel-signoz-schema-migrator-async-init",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
+          "resource": "Job/default/stageproof-rel-signoz-schema-migrator-sync-init",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.65.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.signoz.io --chart signoz --from 0.65.1 --to 0.65.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "12494ee21f7b3758c9c1ca2bbf9f3b8fbf3d20f38cab1c7e7957dee618dcce1d"
+}

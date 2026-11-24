@@ -1,0 +1,196 @@
+{
+  "from_sha256": "c2bdc32ca0fe5c08b4236484d91b0676b322f82a41419b8aa95ebc797d2fe663",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.23.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 51 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "8 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 36 of 51 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The pod template of CronJob/default/cost-analyzer-checks changed at spec.jobTemplate.spec.template.spec.containers[name=cost-analyzer-checks].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/default/cost-analyzer-checks",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-cost-analyzer changed at spec.template.spec.containers[name=cost-analyzer-frontend].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-cost-analyzer",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "4 container images changed. CronJob/default/cost-analyzer-checks.jobTemplate.spec.template.spec.containers[0] cost-analyzer-checks container moves from ajaytripathy/kubecost-checks:prod-1.23.0 to ajaytripathy/kubecost-checks:prod-1.24.0. Deployment/default/stageproof-rel-cost-analyzer.template.spec.containers[0] cost-analyzer-frontend container moves from ajaytripathy/kubecost-frontend:prod-1.23.0 to ajaytripathy/kubecost-frontend:prod-1.24.0. Deployment/default/stageproof-rel-cost-analyzer.template.spec.containers[1] cost-analyzer-server container moves from ajaytripathy/kubecost:prod-1.23.0 to ajaytripathy/kubecost:prod-1.24.0. Deployment/default/stageproof-rel-cost-analyzer.template.spec.containers[2] cost-model container moves from ajaytripathy/kubecost-cost-model:prod-1.23.0 to ajaytripathy/kubecost-cost-model:prod-1.24.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `ajaytripathy/kubecost-checks:prod-1.24.0` could not be checked. The registry refused the request.",
+          "resource": "ajaytripathy/kubecost-checks:prod-1.24.0",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `ajaytripathy/kubecost-cost-model:prod-1.24.0` could not be checked. The registry did not answer.",
+          "resource": "ajaytripathy/kubecost-cost-model:prod-1.24.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `ajaytripathy/kubecost-frontend:prod-1.24.0` could not be checked. The registry did not answer.",
+          "resource": "ajaytripathy/kubecost-frontend:prod-1.24.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `ajaytripathy/kubecost:prod-1.24.0` could not be checked. The registry did not answer.",
+          "resource": "ajaytripathy/kubecost:prod-1.24.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "PodSecurityPolicy/default/stageproof-rel-grafana was not judged. the API group is not installed on this server.",
+          "resource": "PodSecurityPolicy/default/stageproof-rel-grafana",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/stageproof-rel-prometheus-kube-state-metrics",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/stageproof-rel-prometheus-server",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-prometheus-kube-state-metrics",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-prometheus-server",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (Role) is not served by Kubernetes 1.35.0.",
+          "resource": "Role/default/stageproof-rel-grafana",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (RoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "RoleBinding/default/stageproof-rel-grafana",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "DaemonSet/default/stageproof-rel-prometheus-node-exporter was not judged. the API group is not installed on this server.",
+          "resource": "DaemonSet/default/stageproof-rel-prometheus-node-exporter",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "API `apps/v1beta2` (Deployment) is not served by Kubernetes 1.35.0.",
+          "resource": "Deployment/default/stageproof-rel-grafana",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "Deployment/default/stageproof-rel-prometheus-alertmanager was not judged. the API group is not installed on this server.",
+          "resource": "Deployment/default/stageproof-rel-prometheus-alertmanager",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Deployment/default/stageproof-rel-prometheus-kube-state-metrics was not judged. the API group is not installed on this server.",
+          "resource": "Deployment/default/stageproof-rel-prometheus-kube-state-metrics",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Deployment/default/stageproof-rel-prometheus-pushgateway was not judged. the API group is not installed on this server.",
+          "resource": "Deployment/default/stageproof-rel-prometheus-pushgateway",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Deployment/default/stageproof-rel-prometheus-server was not judged. the API group is not installed on this server.",
+          "resource": "Deployment/default/stageproof-rel-prometheus-server",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Deployment/default/stageproof-rel-cost-analyzer was not judged. the API group is not installed on this server.",
+          "resource": "Deployment/default/stageproof-rel-cost-analyzer",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "API `batch/v1beta1` (CronJob) is not served by Kubernetes 1.35.0.",
+          "resource": "CronJob/default/cost-analyzer-checks",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "1.24.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 1.23.0 --to 1.24.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "f2371762f14d5e20e5a0c1491b66ace840f6931dcee16e68c4d7267c812cdce6"
+}

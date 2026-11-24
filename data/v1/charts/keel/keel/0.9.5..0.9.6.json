@@ -1,0 +1,62 @@
+{
+  "from_sha256": "b823f75e8df9d5ff00487e02f49f88a3838f0b9d7138b56059f97c6b229ecc22",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.9.5",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 5 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 4 of 5 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "cannot change roleRef",
+          "message": "Kubernetes rejected `roleRef` on ClusterRoleBinding/default/keel.",
+          "resource": "ClusterRoleBinding/default/keel",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "0.9.6",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.keel.sh --chart keel --from 0.9.5 --to 0.9.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "1f69981931c0abe743ef439e6384d5e40b041d62a5c9801f3e16006ad0e38e86"
+}

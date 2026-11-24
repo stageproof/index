@@ -1,0 +1,185 @@
+{
+  "from_sha256": "158ae5d1a72fa01fbef8e070d2531e75c5aa321d26bb149c59b771e9380cbff0",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.48.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 27 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "5 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (3 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The CRD kafkabridges.kafka.strimzi.io under crds/ changed (spec.template.pod.volumes.items.emptyDir.medium enum, spec.template.pod.volumes.items.emptyDir.sizeLimit type, spec.template.pod.volumes.items.emptyDir.sizeLimit.amount removed, spec.template.pod.volumes.items.emptyDir.sizeLimit.amount type, spec.template.pod.volumes.items.emptyDir.sizeLimit.format removed, spec.template.pod.volumes.items.emptyDir.sizeLimit.format type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kafkabridges.kafka.strimzi.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD kafkaconnectors.kafka.strimzi.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kafkaconnectors.kafka.strimzi.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD kafkaconnects.kafka.strimzi.io under crds/ changed (spec.template.buildPod.volumes.items.emptyDir.medium enum, spec.template.buildPod.volumes.items.emptyDir.sizeLimit type, spec.template.buildPod.volumes.items.emptyDir.sizeLimit.amount removed, spec.template.buildPod.volumes.items.emptyDir.sizeLimit.amount type, spec.template.buildPod.volumes.items.emptyDir.sizeLimit.format removed, spec.template.buildPod.volumes.items.emptyDir.sizeLimit.format type, spec.template.pod.volumes.items.emptyDir.medium enum, spec.template.pod.volumes.items.emptyDir.sizeLimit type, spec.template.pod.volumes.items.emptyDir.sizeLimit.amount removed, spec.template.pod.volumes.items.emptyDir.sizeLimit.amount type, spec.template.pod.volumes.items.emptyDir.sizeLimit.format removed, spec.template.pod.volumes.items.emptyDir.sizeLimit.format type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kafkaconnects.kafka.strimzi.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD kafkamirrormaker2s.kafka.strimzi.io under crds/ changed (spec.template.buildPod.volumes.items.emptyDir.medium enum, spec.template.buildPod.volumes.items.emptyDir.sizeLimit type, spec.template.buildPod.volumes.items.emptyDir.sizeLimit.amount removed, spec.template.buildPod.volumes.items.emptyDir.sizeLimit.amount type, spec.template.buildPod.volumes.items.emptyDir.sizeLimit.format removed, spec.template.buildPod.volumes.items.emptyDir.sizeLimit.format type, spec.template.pod.volumes.items.emptyDir.medium enum, spec.template.pod.volumes.items.emptyDir.sizeLimit type, spec.template.pod.volumes.items.emptyDir.sizeLimit.amount removed, spec.template.pod.volumes.items.emptyDir.sizeLimit.amount type, spec.template.pod.volumes.items.emptyDir.sizeLimit.format removed, spec.template.pod.volumes.items.emptyDir.sizeLimit.format type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kafkamirrormaker2s.kafka.strimzi.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD kafkanodepools.kafka.strimzi.io under crds/ changed (spec.template.pod.volumes.items.emptyDir.medium enum, spec.template.pod.volumes.items.emptyDir.sizeLimit type, spec.template.pod.volumes.items.emptyDir.sizeLimit.amount removed, spec.template.pod.volumes.items.emptyDir.sizeLimit.amount type, spec.template.pod.volumes.items.emptyDir.sizeLimit.format removed, spec.template.pod.volumes.items.emptyDir.sizeLimit.format type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kafkanodepools.kafka.strimzi.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD kafkarebalances.kafka.strimzi.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kafkarebalances.kafka.strimzi.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD kafkas.kafka.strimzi.io under crds/ changed (spec.cruiseControl.template.pod.volumes.items.emptyDir.medium enum, spec.cruiseControl.template.pod.volumes.items.emptyDir.sizeLimit type, spec.cruiseControl.template.pod.volumes.items.emptyDir.sizeLimit.amount removed, spec.cruiseControl.template.pod.volumes.items.emptyDir.sizeLimit.amount type, spec.cruiseControl.template.pod.volumes.items.emptyDir.sizeLimit.format removed, spec.cruiseControl.template.pod.volumes.items.emptyDir.sizeLimit.format type, spec.entityOperator.template.pod.volumes.items.emptyDir.medium enum, spec.entityOperator.template.pod.volumes.items.emptyDir.sizeLimit type, spec.entityOperator.template.pod.volumes.items.emptyDir.sizeLimit.amount removed, spec.entityOperator.template.pod.volumes.items.emptyDir.sizeLimit.amount type, spec.entityOperator.template.pod.volumes.items.emptyDir.sizeLimit.format removed, spec.entityOperator.template.pod.volumes.items.emptyDir.sizeLimit.format type, spec.jmxTrans.template.pod.volumes.items.emptyDir.medium enum, spec.jmxTrans.template.pod.volumes.items.emptyDir.sizeLimit type, spec.jmxTrans.template.pod.volumes.items.emptyDir.sizeLimit.amount removed, spec.jmxTrans.template.pod.volumes.items.emptyDir.sizeLimit.amount type, spec.jmxTrans.template.pod.volumes.items.emptyDir.sizeLimit.format removed, spec.jmxTrans.template.pod.volumes.items.emptyDir.sizeLimit.format type, spec.kafka.template.pod.volumes.items.emptyDir.medium enum, spec.kafka.template.pod.volumes.items.emptyDir.sizeLimit type, spec.kafka.template.pod.volumes.items.emptyDir.sizeLimit.amount removed, spec.kafka.template.pod.volumes.items.emptyDir.sizeLimit.amount type, spec.kafka.template.pod.volumes.items.emptyDir.sizeLimit.format removed, spec.kafka.template.pod.volumes.items.emptyDir.sizeLimit.format type, spec.kafkaExporter.template.pod.volumes.items.emptyDir.medium enum, spec.kafkaExporter.template.pod.volumes.items.emptyDir.sizeLimit type, spec.kafkaExporter.template.pod.volumes.items.emptyDir.sizeLimit.amount removed, spec.kafkaExporter.template.pod.volumes.items.emptyDir.sizeLimit.amount type, spec.kafkaExporter.template.pod.volumes.items.emptyDir.sizeLimit.format removed, spec.kafkaExporter.template.pod.volumes.items.emptyDir.sizeLimit.format type, spec.zookeeper.template.pod.volumes.items.emptyDir.medium enum, spec.zookeeper.template.pod.volumes.items.emptyDir.sizeLimit type, spec.zookeeper.template.pod.volumes.items.emptyDir.sizeLimit.amount removed, spec.zookeeper.template.pod.volumes.items.emptyDir.sizeLimit.amount type, spec.zookeeper.template.pod.volumes.items.emptyDir.sizeLimit.format removed, spec.zookeeper.template.pod.volumes.items.emptyDir.sizeLimit.format type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kafkas.kafka.strimzi.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD kafkatopics.kafka.strimzi.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kafkatopics.kafka.strimzi.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD kafkausers.kafka.strimzi.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kafkausers.kafka.strimzi.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD strimzipodsets.core.strimzi.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/strimzipodsets.core.strimzi.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/strimzi-cluster-operator-watched adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/strimzi-cluster-operator-watched",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/strimzi-entity-operator adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/strimzi-entity-operator",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/strimzi-cluster-operator",
+          "message": "Chart default `defaultImageTag` changed from `0.48.0` to `0.49.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "defaultImageTag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/strimzi-cluster-operator changed at spec.template.spec.containers[name=strimzi-cluster-operator].env[name=STRIMZI_DEFAULT_BUILDAH_IMAGE]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/strimzi-cluster-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 0.48.0 to 0.49.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "4 container images changed. Deployment/stageproof-check/strimzi-cluster-operator.template.spec.containers[0] strimzi-cluster-operator container moves from quay.io/strimzi/operator:0.48.0 to quay.io/strimzi/operator:0.49.0. Deployment/stageproof-check/strimzi-cluster-operator quay.io/strimzi/kafka image moves from quay.io/strimzi/kafka:0.48.0-kafka-4.0.0 to quay.io/strimzi/kafka:0.49.0-kafka-4.0.0. Deployment/stageproof-check/strimzi-cluster-operator quay.io/strimzi/kafka image moves from quay.io/strimzi/kafka:0.48.0-kafka-4.1.0 to quay.io/strimzi/kafka:0.49.0-kafka-4.0.1. Deployment/stageproof-check/strimzi-cluster-operator quay.io/strimzi/kafka image moves from quay.io/strimzi/kafka:0.48.0-kafka-4.1.0 to quay.io/strimzi/kafka:0.49.0-kafka-4.1.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 1014 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/kafkas.kafka.strimzi.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 429 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/kafkaconnects.kafka.strimzi.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 488 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/kafkamirrormaker2s.kafka.strimzi.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.49.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo oci://quay.io/strimzi-helm --chart strimzi-kafka-operator --from 0.48.0 --to 0.49.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "62e5f1543d5cc715f8a80c7850974d2df1b524478271f52d6662d582ceef262d"
+}

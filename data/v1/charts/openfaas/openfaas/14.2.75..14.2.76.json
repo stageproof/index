@@ -1,0 +1,67 @@
+{
+  "from_sha256": "b3bc335e23a3513f94c6ba2d59545f975622a9dad74496b108bedf304dbb0344",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "14.2.75",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 28 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 22 of 25 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/stageproof-check/alertmanager changed at spec.template.metadata.annotations.checksum/alertmanager-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/alertmanager",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/prometheus changed at spec.template.metadata.annotations.checksum/prometheus-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/prometheus",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "14.2.76",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://openfaas.github.io/faas-netes --chart openfaas --from 14.2.75 --to 14.2.76 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "380f930d8f3e87c480fa63412dc5d38f4cfc9edd769eb7e8b02d77c81ef1d747"
+}

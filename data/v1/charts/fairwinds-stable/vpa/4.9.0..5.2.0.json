@@ -1,0 +1,115 @@
+{
+  "from_sha256": "33d5e264a2abbfd8b094981855651daad2ecf0db59413adbfcf669fac1c08258",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.9.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 44 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "4 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 18 of 35 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Deployment/default/stageproof-rel-vpa-admission-controller, Deployment/default/stageproof-rel-vpa-recommender, Deployment/default/stageproof-rel-vpa-updater, Service/default/stageproof-rel-vpa-webhook, ServiceAccount/default/stageproof-rel-vpa-admission-controller, ServiceAccount/default/stageproof-rel-vpa-recommender, ServiceAccount/default/stageproof-rel-vpa-updater.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD verticalpodautoscalercheckpoints.autoscaling.k8s.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/verticalpodautoscalercheckpoints.autoscaling.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD verticalpodautoscalers.autoscaling.k8s.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/verticalpodautoscalers.autoscaling.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/default/stageproof-rel-vpa-test-crds-available, Pod/default/stageproof-rel-vpa-test-create-vpa, Pod/default/stageproof-rel-vpa-test-metrics-api-available, Pod/default/stageproof-rel-vpa-test-webhook-configuration",
+          "message": "Chart default `tests.image.tag` changed from `1.33.3` to `1.37.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "tests.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 4.9.0 to 5.2.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.4.1 to 1.7.1. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Pod/default/stageproof-rel-vpa-test-crds-available.containers[0] test container moves from alpine/kubectl:1.33.3 to alpine/kubectl:1.37.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/default/stageproof-rel-vpa-webhook-config, MutatingWebhookConfiguration/default/stageproof-rel-vpa-webhook-config.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "5.2.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.fairwinds.com/stable --chart vpa --from 4.9.0 --to 5.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "9fc619075b6c893056d28e53b88e18bc6151d64811d8c6fe0aceb08cea1d3481"
+}

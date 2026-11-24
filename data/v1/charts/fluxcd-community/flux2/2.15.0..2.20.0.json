@@ -1,0 +1,278 @@
+{
+  "from_sha256": "c91839d38c1716c8b23d45b0066d20cb8e547052ba17d30fe525deda6a559642",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.15.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 39 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "4 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "7 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "4 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects for 23 of 38 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on buckets.source.toolkit.fluxcd.io: status.artifact (required). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/buckets.source.toolkit.fluxcd.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on gitrepositories.source.toolkit.fluxcd.io: status.artifact (required), status.includedArtifacts.items (required). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/gitrepositories.source.toolkit.fluxcd.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on helmcharts.source.toolkit.fluxcd.io: status.artifact (required). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/helmcharts.source.toolkit.fluxcd.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on helmrepositories.source.toolkit.fluxcd.io: status.artifact (required). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/helmrepositories.source.toolkit.fluxcd.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A version marked storage, or a stored version from cluster facts, was removed.",
+          "message": "CustomResourceDefinition/default/imagepolicies.image.toolkit.fluxcd.io no longer includes a storage version (stored versions removed : [v1beta2]). Objects stored as that version cannot be read.",
+          "resource": "CustomResourceDefinition/default/imagepolicies.image.toolkit.fluxcd.io",
+          "rule_id": "crd.existing_object_invalid",
+          "severity": "blocker"
+        },
+        {
+          "detail": "A version marked storage, or a stored version from cluster facts, was removed.",
+          "message": "CustomResourceDefinition/default/imagerepositories.image.toolkit.fluxcd.io no longer includes a storage version (stored versions removed : [v1beta2]). Objects stored as that version cannot be read.",
+          "resource": "CustomResourceDefinition/default/imagerepositories.image.toolkit.fluxcd.io",
+          "rule_id": "crd.existing_object_invalid",
+          "severity": "blocker"
+        },
+        {
+          "detail": "A version marked storage, or a stored version from cluster facts, was removed.",
+          "message": "CustomResourceDefinition/default/imageupdateautomations.image.toolkit.fluxcd.io no longer includes a storage version (stored versions removed : [v1beta2]). Objects stored as that version cannot be read.",
+          "resource": "CustomResourceDefinition/default/imageupdateautomations.image.toolkit.fluxcd.io",
+          "rule_id": "crd.existing_object_invalid",
+          "severity": "blocker"
+        },
+        {
+          "detail": "A version marked storage, or a stored version from cluster facts, was removed.",
+          "message": "CustomResourceDefinition/default/ocirepositories.source.toolkit.fluxcd.io no longer includes a storage version (stored versions removed : [v1beta2]). Objects stored as that version cannot be read.",
+          "resource": "CustomResourceDefinition/default/ocirepositories.source.toolkit.fluxcd.io",
+          "rule_id": "crd.existing_object_invalid",
+          "severity": "blocker"
+        },
+        {
+          "message": "ClusterRole/default/crd-controller adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/crd-controller",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/flux-edit adds rules. Flags: wildcard.",
+          "resource": "ClusterRole/default/flux-edit",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/flux-view adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/flux-view",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-flux-check",
+          "message": "Chart default `cli.tag` changed from `v2.5.1` to `v2.10.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cli.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/helm-controller",
+          "message": "Chart default `helmController.tag` changed from `v1.2.0` to `v1.7.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "helmController.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/image-automation-controller",
+          "message": "Chart default `imageAutomationController.tag` changed from `v0.40.0` to `v1.3.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "imageAutomationController.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/image-reflector-controller",
+          "message": "Chart default `imageReflectionController.tag` changed from `v0.34.0` to `v1.3.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "imageReflectionController.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/kustomize-controller",
+          "message": "Chart default `kustomizeController.tag` changed from `v1.5.1` to `v1.10.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "kustomizeController.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/notification-controller",
+          "message": "Chart default `notificationController.tag` changed from `v1.5.0` to `v1.10.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "notificationController.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/source-controller",
+          "message": "Chart default `sourceController.tag` changed from `v1.5.0` to `v1.10.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "sourceController.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/helm-controller changed at spec.template.spec.containers[name=manager].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/helm-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/image-automation-controller changed at spec.template.spec.containers[name=manager].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/image-automation-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/image-reflector-controller changed at spec.template.spec.containers[name=manager].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/image-reflector-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/kustomize-controller changed at spec.template.spec.containers[name=manager].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/kustomize-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/notification-controller changed at spec.template.spec.containers[name=manager].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/notification-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/source-controller changed at spec.template.spec.containers[name=manager].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/source-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 2.15.0 to 2.20.0, skipping 4 minor versions.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.5.1 to 2.10.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "7 container images changed. Deployment/default/helm-controller.template.spec.containers[0] manager container moves from ghcr.io/fluxcd/helm-controller:v1.2.0 to ghcr.io/fluxcd/helm-controller:v1.7.1. Deployment/default/image-automation-controller.template.spec.containers[0] manager container moves from ghcr.io/fluxcd/image-automation-controller:v0.40.0 to ghcr.io/fluxcd/image-automation-controller:v1.3.0. Deployment/default/image-reflector-controller.template.spec.containers[0] manager container moves from ghcr.io/fluxcd/image-reflector-controller:v0.34.0 to ghcr.io/fluxcd/image-reflector-controller:v1.3.0. Deployment/default/kustomize-controller.template.spec.containers[0] manager container moves from ghcr.io/fluxcd/kustomize-controller:v1.5.1 to ghcr.io/fluxcd/kustomize-controller:v1.10.1. Deployment/default/notification-controller.template.spec.containers[0] manager container moves from ghcr.io/fluxcd/notification-controller:v1.5.0 to ghcr.io/fluxcd/notification-controller:v1.10.0. Deployment/default/source-controller.template.spec.containers[0] manager container moves from ghcr.io/fluxcd/source-controller:v1.5.0 to ghcr.io/fluxcd/source-controller:v1.10.1. Job/default/stageproof-rel-flux-check.template.spec.containers[0] flux-cli container moves from ghcr.io/fluxcd/flux-cli:v2.5.1 to ghcr.io/fluxcd/flux-cli:v2.10.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "missing from spec.versions; v1beta2 was previously a storage version, and must remain in spec.versions until a storage migration ensures no data remains persisted in v1beta2 and removes v1beta2 from status.storedVersions",
+          "message": "Kubernetes rejected `status.storedVersions[0]` on CustomResourceDefinition/default/imageupdateautomations.image.toolkit.fluxcd.io.",
+          "resource": "CustomResourceDefinition/default/imageupdateautomations.image.toolkit.fluxcd.io",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        },
+        {
+          "detail": "missing from spec.versions; v1beta2 was previously a storage version, and must remain in spec.versions until a storage migration ensures no data remains persisted in v1beta2 and removes v1beta2 from status.storedVersions",
+          "message": "Kubernetes rejected `status.storedVersions[0]` on CustomResourceDefinition/default/imagepolicies.image.toolkit.fluxcd.io.",
+          "resource": "CustomResourceDefinition/default/imagepolicies.image.toolkit.fluxcd.io",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        },
+        {
+          "detail": "missing from spec.versions; v1beta2 was previously a storage version, and must remain in spec.versions until a storage migration ensures no data remains persisted in v1beta2 and removes v1beta2 from status.storedVersions",
+          "message": "Kubernetes rejected `status.storedVersions[0]` on CustomResourceDefinition/default/imagerepositories.image.toolkit.fluxcd.io.",
+          "resource": "CustomResourceDefinition/default/imagerepositories.image.toolkit.fluxcd.io",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        },
+        {
+          "detail": "missing from spec.versions; v1beta2 was previously a storage version, and must remain in spec.versions until a storage migration ensures no data remains persisted in v1beta2 and removes v1beta2 from status.storedVersions",
+          "message": "Kubernetes rejected `status.storedVersions[0]` on CustomResourceDefinition/default/ocirepositories.source.toolkit.fluxcd.io.",
+          "resource": "CustomResourceDefinition/default/ocirepositories.source.toolkit.fluxcd.io",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "2.20.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://fluxcd-community.github.io/helm-charts --chart flux2 --from 2.15.0 --to 2.20.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "61965e50b3fb5b95d6a040dca7ea8833769ce8a0d218a9aed87c432fc76d14bc"
+}

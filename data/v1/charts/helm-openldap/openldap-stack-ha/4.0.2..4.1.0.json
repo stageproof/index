@@ -1,0 +1,93 @@
+{
+  "from_sha256": "425f832d5de319e232f7ae62f786a91de1dfa738e624c42c3707218121648721",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.0.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 15 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 13 of 14 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "fail",
+          "summary": "1 removed API or immutable upgrade blocker"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/default/stageproof-rel-replication.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-env, StatefulSet/default/stageproof-rel",
+          "message": "Chart default `env.LDAP_CONFIG_ADMIN_USERNAME` changed from `config` to `admin` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "env.LDAP_CONFIG_ADMIN_USERNAME",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-ltb-passwd changed at spec.template.metadata.labels.app.kubernetes.io/name. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-ltb-passwd",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel changed at spec.template.metadata.annotations.checksum/configmap-env. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.selector` is immutable.",
+          "resource": "Deployment/default/stageproof-rel-ltb-passwd",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:stageproof-rel] to map[app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:stageproof-rel-ltb]. An in-place `helm upgrade` will fail.",
+          "resource": "Deployment/default/stageproof-rel-ltb-passwd",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "4.1.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://jp-gouin.github.io/helm-openldap/ --chart openldap-stack-ha --from 4.0.2 --to 4.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "4e9aee6dd74df9649e65e72f6bf4f56e3ed06a4c3f0ebad454786838dd2d59a2"
+}

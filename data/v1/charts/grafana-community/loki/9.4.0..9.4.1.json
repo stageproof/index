@@ -1,0 +1,90 @@
+{
+  "from_sha256": "8d18f6273dc0a8fa1b7d5d9ecb6ed7e8227cd66de1beb52f53e16a48cb34bd3f",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "9.4.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 3 these values is set: loki.storage.bucketNames.chunks, loki.storage.bucketNames.ruler, loki.useTestSchema"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 30 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "replaced: delete then create. Helm will delete PodDisruptionBudget/stageproof-check/loki-backend. PodDisruptionBudget/stageproof-check/stageproof-rel-loki-backend is created in its place.",
+          "resource": "PodDisruptionBudget/stageproof-check/loki-backend",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "replaced: delete then create. Helm will delete PodDisruptionBudget/stageproof-check/loki-read. PodDisruptionBudget/stageproof-check/stageproof-rel-loki-read is created in its place.",
+          "resource": "PodDisruptionBudget/stageproof-check/loki-read",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "replaced: delete then create. Helm will delete PodDisruptionBudget/stageproof-check/loki-write. PodDisruptionBudget/stageproof-check/stageproof-rel-loki-write is created in its place.",
+          "resource": "PodDisruptionBudget/stageproof-check/loki-write",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/loki-backend changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/loki-backend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/loki-write changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/loki-write",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "9.4.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 9.4.0 --to 9.4.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "ec3acc2481e104a2d423cf3ab4bae6778a79bb878c30c25b1d7286e5d0b09c2a"
+}

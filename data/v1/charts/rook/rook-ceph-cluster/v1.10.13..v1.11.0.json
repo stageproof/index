@@ -1,0 +1,146 @@
+{
+  "from_sha256": "110095e5108dbfb7c12b059430406e4f4a6f32155a4d03525a916edfb19b5877",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v1.10.13",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 26 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 22 of 26 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: CephCluster/default/stageproof-check",
+          "message": "Chart default `cephClusterSpec.disruptionManagement.machineDisruptionBudgetNamespace` changed from `openshift-machine-api` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.disruptionManagement.machineDisruptionBudgetNamespace",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephCluster/default/stageproof-check",
+          "message": "Chart default `cephClusterSpec.disruptionManagement.manageMachineDisruptionBudgets` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.disruptionManagement.manageMachineDisruptionBudgets",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephCluster/default/stageproof-check",
+          "message": "Chart default `cephClusterSpec.resources.mgr-sidecar.limits.cpu` changed from `500m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.resources.mgr-sidecar.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephCluster/default/stageproof-check",
+          "message": "Chart default `cephClusterSpec.resources.mgr-sidecar.limits.memory` changed from `100Mi` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.resources.mgr-sidecar.limits.memory",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephCluster/default/stageproof-check",
+          "message": "Chart default `cephClusterSpec.resources.mgr-sidecar.requests.cpu` changed from `100m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.resources.mgr-sidecar.requests.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephCluster/default/stageproof-check",
+          "message": "Chart default `cephClusterSpec.resources.mgr-sidecar.requests.memory` changed from `40Mi` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephClusterSpec.resources.mgr-sidecar.requests.memory",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephObjectStore/default/ceph-objectstore",
+          "message": "Chart default `cephObjectStores` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephObjectStores",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.10.13 to v1.11.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "CephBlockPool/default/ceph-blockpool was not judged. the API group is not installed on this server.",
+          "resource": "CephBlockPool/default/ceph-blockpool",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephCluster/default/stageproof-check was not judged. the API group is not installed on this server.",
+          "resource": "CephCluster/default/stageproof-check",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephFilesystem/default/ceph-filesystem was not judged. the API group is not installed on this server.",
+          "resource": "CephFilesystem/default/ceph-filesystem",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephObjectStore/default/ceph-objectstore was not judged. the API group is not installed on this server.",
+          "resource": "CephObjectStore/default/ceph-objectstore",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "v1.11.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.rook.io/release --chart rook-ceph-cluster --from v1.10.13 --to v1.11.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "3cee8b7ea48db0071589de6ad8776c6a19291d6c592369422e37e3dee029d80e"
+}

@@ -1,0 +1,148 @@
+{
+  "from_sha256": "55b0caa19636fbaefe61f315727f302ee3a202250c6a1d6355f46d4bffe33127",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.99.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 49 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "7 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete PersistentVolumeClaim/default/stageproof-rel-cost-analyzer. The data on that claim goes with it.",
+          "resource": "PersistentVolumeClaim/default/stageproof-rel-cost-analyzer",
+          "rule_id": "impact.delete.pvc",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete PersistentVolumeClaim/default/stageproof-rel-prometheus-server. The data on that claim goes with it.",
+          "resource": "PersistentVolumeClaim/default/stageproof-rel-prometheus-server",
+          "rule_id": "impact.delete.pvc",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/default/nginx-conf, ConfigMap/default/stageproof-rel-cost-analyzer, ConfigMap/default/stageproof-rel-grafana, ConfigMap/default/stageproof-rel-grafana-config-dashboards, ConfigMap/default/stageproof-rel-prometheus-server, DaemonSet/default/stageproof-rel-prometheus-node-exporter, Deployment/default/stageproof-rel-cost-analyzer, Deployment/default/stageproof-rel-grafana, Deployment/default/stageproof-rel-prometheus-server, Role/default/stageproof-rel-cost-analyzer-psp, Role/default/stageproof-rel-grafana, RoleBinding/default/stageproof-rel-cost-analyzer, RoleBinding/default/stageproof-rel-cost-analyzer-psp, RoleBinding/default/stageproof-rel-grafana, Secret/default/stageproof-rel-grafana, Service/default/stageproof-rel-cost-analyzer, Service/default/stageproof-rel-grafana, Service/default/stageproof-rel-prometheus-node-exporter, Service/default/stageproof-rel-prometheus-server, ServiceAccount/default/stageproof-rel-cost-analyzer, ServiceAccount/default/stageproof-rel-grafana, ServiceAccount/default/stageproof-rel-prometheus-node-exporter, ServiceAccount/default/stageproof-rel-prometheus-server.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter adds hostPath volumes proc, sys.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter",
+          "rule_id": "impact.privilege.hostpath",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/stageproof-rel-cost-analyzer-psp adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/stageproof-rel-cost-analyzer-psp",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/stageproof-rel-grafana adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/stageproof-rel-grafana",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter sets hostNetwork.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter",
+          "rule_id": "impact.exposure.host",
+          "severity": "warning"
+        },
+        {
+          "message": "DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter adds a hostPort on spec.template.spec.containers[name=prometheus-node-exporter].ports.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter",
+          "rule_id": "impact.exposure.host",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.99.0 to 1.100.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `gcr.io/kubecost1/cost-model:prod-1.100.0` could not be checked. The registry refused the request.",
+          "resource": "gcr.io/kubecost1/cost-model:prod-1.100.0",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `gcr.io/kubecost1/frontend:prod-1.100.0` could not be checked. The registry refused the request.",
+          "resource": "gcr.io/kubecost1/frontend:prod-1.100.0",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `jimmidyson/configmap-reload:v0.7.1` could not be checked. The registry did not answer.",
+          "resource": "jimmidyson/configmap-reload:v0.7.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `kiwigrid/k8s-sidecar:1.21.0` could not be checked. The registry did not answer.",
+          "resource": "kiwigrid/k8s-sidecar:1.21.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `prom/node-exporter:v1.3.0` could not be checked. The registry did not answer.",
+          "resource": "prom/node-exporter:v1.3.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.100.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 1.99.0 --to 1.100.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "c1e0c79240de3e49c3e89fa485cd11f809fb687895aafc95a5546343096a14d6"
+}

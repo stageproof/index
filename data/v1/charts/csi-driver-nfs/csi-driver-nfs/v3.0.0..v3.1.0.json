@@ -1,0 +1,146 @@
+{
+  "from_sha256": "44406231cd5cdada1c62a0541b93b4f5d5a70ccc8c50b33553a8692fe6cfae96",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v3.0.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 6 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "ClusterRole/default/nfs-external-provisioner-role adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/nfs-external-provisioner-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/csi-nfs-controller",
+          "message": "Chart default `controller.resources.csiProvisioner.limits.cpu` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.resources.csiProvisioner.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/csi-nfs-controller",
+          "message": "Chart default `controller.resources.livenessProbe.limits.cpu` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.resources.livenessProbe.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/csi-nfs-controller",
+          "message": "Chart default `controller.resources.nfs.limits.cpu` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.resources.nfs.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/csi-nfs-node, Deployment/stageproof-check/csi-nfs-controller",
+          "message": "Chart default `image.nfs.tag` changed from `v3.0.0` to `v3.1.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.nfs.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/csi-nfs-node",
+          "message": "Chart default `node.resources.livenessProbe.limits.cpu` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "node.resources.livenessProbe.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/csi-nfs-node",
+          "message": "Chart default `node.resources.nfs.limits.cpu` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "node.resources.nfs.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/csi-nfs-node",
+          "message": "Chart default `node.resources.nodeDriverRegistrar.limits.cpu` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "node.resources.nodeDriverRegistrar.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/csi-nfs-node changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/csi-nfs-node",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/csi-nfs-controller changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/csi-nfs-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v3.0.0 to v3.1.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. DaemonSet/stageproof-check/csi-nfs-node.template.spec.containers[2] nfs container moves from registry.k8s.io/sig-storage/nfsplugin:v3.0.0 to registry.k8s.io/sig-storage/nfsplugin:v3.1.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "v3.1.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts --chart csi-driver-nfs --from v3.0.0 --to v3.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "7e51bb9188b013195cafc265102fa365de9ec5513780e1dfc5363289f811a4d9"
+}

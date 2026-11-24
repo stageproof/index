@@ -1,0 +1,114 @@
+{
+  "from_sha256": "e31ddf3f6dd031c0f5407dd6b63361ea5ff655f89c781049b39f4c2a95a6f88a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.32.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 13 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 11 of 13 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-vault-agent-injector",
+          "message": "Chart default `injector.agentImage.tag` changed from `1.21.2` to `2.0.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "injector.agentImage.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-vault-agent-injector",
+          "message": "Chart default `injector.image.tag` changed from `1.7.2` to `1.7.4` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "injector.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-vault-server-test, StatefulSet/stageproof-check/stageproof-rel-vault",
+          "message": "Chart default `server.image.tag` changed from `1.21.2` to `2.0.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "server.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-vault-agent-injector changed at spec.template.spec.containers[name=sidecar-injector].env[name=AGENT_INJECT_VAULT_IMAGE].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-vault-agent-injector",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-vault changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-vault",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.21.2 to 2.0.2. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Deployment/stageproof-check/stageproof-rel-vault-agent-injector.template.spec.containers[0] sidecar-injector container moves from hashicorp/vault-k8s:1.7.2 to hashicorp/vault-k8s:1.7.4. Pod/stageproof-check/stageproof-rel-vault-server-test.containers[0] stageproof-rel-server-test container moves from hashicorp/vault:1.21.2 to hashicorp/vault:2.0.2.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/default/stageproof-rel-vault-agent-injector-cfg, MutatingWebhookConfiguration/default/stageproof-rel-vault-agent-injector-cfg.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.33.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.releases.hashicorp.com --chart vault --from 0.32.0 --to 0.33.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "fc3f32628e24e81bf035d532eda20ad38c6b4e5a833089daed81c2b4ae4595e7"
+}

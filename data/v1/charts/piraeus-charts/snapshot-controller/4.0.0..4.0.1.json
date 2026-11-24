@@ -1,0 +1,66 @@
+{
+  "from_sha256": "50725631a283645b2cd7586fa4dbaaf3b07f7bfc5912d23a14c0d23c52b2437f",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.0.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 12 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Deployment/default/stageproof-rel-snapshot-controller, Role/default/stageproof-rel-snapshot-controller, RoleBinding/default/stageproof-rel-snapshot-controller, ServiceAccount/default/stageproof-rel-snapshot-controller.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/stageproof-rel-snapshot-controller adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/stageproof-rel-snapshot-controller",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "4.0.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://piraeus.io/helm-charts/ --chart snapshot-controller --from 4.0.0 --to 4.0.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "c48788147d7bd883f82b03b35e09a4333c7e4cc3719fed771e3211fb62753759"
+}

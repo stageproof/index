@@ -1,0 +1,139 @@
+{
+  "from_sha256": "822786c74120841cf36d95d3b8a0404245ea20cc3ee3d7fcd29c1b8b4f792183",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v1.14.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 71 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "6 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 52 of 71 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (1 deprecation, EOL, or CRD warning)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/rook-ceph-operator-config",
+          "message": "Chart default `csi.attacher.tag` changed from `v4.5.0` to `v4.5.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "csi.attacher.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/rook-ceph-operator-config",
+          "message": "Chart default `csi.provisioner.tag` changed from `v4.0.0` to `v4.0.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "csi.provisioner.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/rook-ceph-operator-config",
+          "message": "Chart default `csi.registrar.tag` changed from `v2.10.0` to `v2.10.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "csi.registrar.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/rook-ceph-operator-config",
+          "message": "Chart default `csi.resizer.tag` changed from `v1.10.0` to `v1.10.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "csi.resizer.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/rook-ceph-operator-config",
+          "message": "Chart default `csi.snapshotter.tag` changed from `v7.0.1` to `v7.0.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "csi.snapshotter.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/rook-ceph-operator",
+          "message": "Chart default `image.tag` changed from `v1.14.2` to `v1.14.3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/rook-ceph-operator changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/rook-ceph-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.14.2 to v1.14.3. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "6 container images changed. ConfigMap/stageproof-check/rook-ceph-operator-config registry.k8s.io/sig-storage/csi-attacher image moves from registry.k8s.io/sig-storage/csi-attacher:v4.5.0 to registry.k8s.io/sig-storage/csi-attacher:v4.5.1. ConfigMap/stageproof-check/rook-ceph-operator-config registry.k8s.io/sig-storage/csi-node-driver-registrar image moves from registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.10.0 to registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.10.1. ConfigMap/stageproof-check/rook-ceph-operator-config registry.k8s.io/sig-storage/csi-provisioner image moves from registry.k8s.io/sig-storage/csi-provisioner:v4.0.0 to registry.k8s.io/sig-storage/csi-provisioner:v4.0.1. ConfigMap/stageproof-check/rook-ceph-operator-config registry.k8s.io/sig-storage/csi-resizer image moves from registry.k8s.io/sig-storage/csi-resizer:v1.10.0 to registry.k8s.io/sig-storage/csi-resizer:v1.10.1. ConfigMap/stageproof-check/rook-ceph-operator-config registry.k8s.io/sig-storage/csi-snapshotter image moves from registry.k8s.io/sig-storage/csi-snapshotter:v7.0.1 to registry.k8s.io/sig-storage/csi-snapshotter:v7.0.2. Deployment/stageproof-check/rook-ceph-operator.template.spec.containers[0] rook-ceph-operator container moves from rook/ceph:v1.14.2 to rook/ceph:v1.14.3.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 389 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/cephclusters.ceph.rook.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "v1.14.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.rook.io/release --chart rook-ceph --from v1.14.2 --to v1.14.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "ce1f83fb1a1352ef40be466b2edb3c4ef784d4ad4891eef4a8ad8057790bba63"
+}

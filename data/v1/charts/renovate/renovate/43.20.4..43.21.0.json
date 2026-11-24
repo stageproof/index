@@ -1,0 +1,91 @@
+{
+  "from_sha256": "554c7f3b4f9bafc1d9ae160f32f59508ff1593a82dfb158707b15b81b1e9792d",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "43.20.4",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: renovate.config"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 2 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: CronJob/stageproof-check/stageproof-rel-renovate",
+          "message": "Chart default `image.tag` changed from `41.81.6` to `41.82.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of CronJob/stageproof-check/stageproof-rel-renovate changed at spec.jobTemplate.spec.template.spec.containers[name=renovate].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/stageproof-check/stageproof-rel-renovate",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 41.81.6 to 41.82.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. CronJob/stageproof-check/stageproof-rel-renovate.jobTemplate.spec.template.spec.containers[0] renovate container moves from ghcr.io/renovatebot/renovate:41.81.6 to ghcr.io/renovatebot/renovate:41.82.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "43.21.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo oci://ghcr.io/renovatebot/charts --chart renovate --from 43.20.4 --to 43.21.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "f9d1f0f22ec935a814949d3d80bed652b7eb804dc4af0ff11225a14a45465d63"
+}

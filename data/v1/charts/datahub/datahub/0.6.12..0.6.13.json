@@ -1,0 +1,77 @@
+{
+  "from_sha256": "6a2644e2d588f8a42ddf6a1aee493c5e32ae60522ee39882299e2d8ed35d247f",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.6.12",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 17 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 12 of 17 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-system-update-nonblk",
+          "message": "Chart default `global.elasticsearch.search.custom.config.queryConfigurations` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.elasticsearch.search.custom.config.queryConfigurations",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-system-update-nonblk",
+          "message": "Chart default `global.elasticsearch.search.custom.enabled` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.elasticsearch.search.custom.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-datahub-gms changed at spec.template.spec.containers[name=datahub-gms].env[name=ELASTICSEARCH_QUERY_CUSTOM_CONFIG_ENABLED]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-datahub-gms",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.6.13",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.datahubproject.io --chart datahub --from 0.6.12 --to 0.6.13 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "32766126998ca620cf48f6c09ad7f31871eebf6f5215e5d2cb1df34aff382e34"
+}

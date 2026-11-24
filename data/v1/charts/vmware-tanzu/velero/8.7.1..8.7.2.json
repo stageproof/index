@@ -1,0 +1,75 @@
+{
+  "from_sha256": "62fa7089243bb2f01ffa877c1e479b469f5452fff29829c6bdf6c6479ba8b46c",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "8.7.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 26 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 7 of 13 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-velero changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-velero",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "spec.credential in body must be of type object: \"null\"",
+          "message": "Kubernetes rejected `spec.credential` on BackupStorageLocation/stageproof-check/default. The current chart failed the same validation; the upgrade did not introduce it.",
+          "resource": "BackupStorageLocation/stageproof-check/default",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "warning"
+        },
+        {
+          "detail": "spec.credential in body must be of type object: \"null\"",
+          "message": "Kubernetes rejected `spec.credential` on VolumeSnapshotLocation/stageproof-check/default. The current chart failed the same validation; the upgrade did not introduce it.",
+          "resource": "VolumeSnapshotLocation/stageproof-check/default",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "8.7.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://vmware-tanzu.github.io/helm-charts/ --chart velero --from 8.7.1 --to 8.7.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "df9fdbe9a1cc2055b6e13881079b6ed475b557366a10ee8e5d36ab5580bd15ec"
+}

@@ -1,0 +1,91 @@
+{
+  "from_sha256": "7f671b408ed3b634515fd0f47569650fe9c4d6eaed08d260e84462be0b4a0a0f",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.82.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: manager.collectorImage.repository; the chart schema document is invalid, so schema validation was skipped"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 22 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 11 of 22 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (1 deprecation, EOL, or CRD warning)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-opentelemetry-operator changed at spec.template.metadata.labels.app.kubernetes.io/instance. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-opentelemetry-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "Certificate/stageproof-check/stageproof-rel-opentelemetry-operator-serving-cert was not judged. the API group is not installed on this server.",
+          "resource": "Certificate/stageproof-check/stageproof-rel-opentelemetry-operator-serving-cert",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Issuer/stageproof-check/stageproof-rel-opentelemetry-operator-selfsigned-issuer was not judged. the API group is not installed on this server.",
+          "resource": "Issuer/stageproof-check/stageproof-rel-opentelemetry-operator-selfsigned-issuer",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-mutation, ValidatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-validation, MutatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-mutation, ValidatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-validation.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 641 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/opentelemetrycollectors.opentelemetry.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.82.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://open-telemetry.github.io/opentelemetry-helm-charts --chart opentelemetry-operator --from 0.82.0 --to 0.82.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "e5889ded2733c1d9a765a34e1cc3984e01ec4d6dc9de0ead9e99efd68d2e7119"
+}

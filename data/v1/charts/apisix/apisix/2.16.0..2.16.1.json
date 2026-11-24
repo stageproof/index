@@ -1,0 +1,163 @@
+{
+  "from_sha256": "9998326a7f72d41b3475aabfbcab0522b88e62698cb150ac28eea2245832c6c3",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.16.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 12 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects for 11 of 12 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The CRD apisixconsumers.apisix.apache.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/apisixconsumers.apisix.apache.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD apisixupstreams.apisix.apache.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/apisixupstreams.apisix.apache.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD backendtlspolicies.gateway.networking.k8s.io under crds/ changed (status.ancestors.items required). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/backendtlspolicies.gateway.networking.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD backendtrafficpolicies.apisix.apache.org under crds/ changed (status.ancestors.items required). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/backendtrafficpolicies.apisix.apache.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD gatewayclasses.gateway.networking.k8s.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/gatewayclasses.gateway.networking.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD gateways.gateway.networking.k8s.io under crds/ changed (spec.backendTLS removed, spec.backendTLS removed, spec.backendTLS type, spec.backendTLS type, spec.backendTLS.clientCertificateRef removed, spec.backendTLS.clientCertificateRef removed, spec.backendTLS.clientCertificateRef type, spec.backendTLS.clientCertificateRef type, spec.backendTLS.clientCertificateRef.group removed, spec.backendTLS.clientCertificateRef.group removed, spec.backendTLS.clientCertificateRef.group type, spec.backendTLS.clientCertificateRef.group type, spec.backendTLS.clientCertificateRef.kind removed, spec.backendTLS.clientCertificateRef.kind removed, spec.backendTLS.clientCertificateRef.kind type, spec.backendTLS.clientCertificateRef.kind type, spec.backendTLS.clientCertificateRef.name removed, spec.backendTLS.clientCertificateRef.name removed, spec.backendTLS.clientCertificateRef.name type, spec.backendTLS.clientCertificateRef.name type, spec.backendTLS.clientCertificateRef.namespace removed, spec.backendTLS.clientCertificateRef.namespace removed, spec.backendTLS.clientCertificateRef.namespace type, spec.backendTLS.clientCertificateRef.namespace type, spec.listeners.items.tls.frontendValidation removed, spec.listeners.items.tls.frontendValidation removed, spec.listeners.items.tls.frontendValidation type, spec.listeners.items.tls.frontendValidation type, spec.listeners.items.tls.frontendValidation.caCertificateRefs removed, spec.listeners.items.tls.frontendValidation.caCertificateRefs removed, spec.listeners.items.tls.frontendValidation.caCertificateRefs type, spec.listeners.items.tls.frontendValidation.caCertificateRefs type, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items removed, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items removed, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items type, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items type, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.group removed, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.group removed, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.group type, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.group type, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.kind removed, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.kind removed, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.kind type, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.kind type, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.name removed, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.name removed, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.name type, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.name type, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.namespace removed, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.namespace removed, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.namespace type, spec.listeners.items.tls.frontendValidation.caCertificateRefs.items.namespace type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/gateways.gateway.networking.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD grpcroutes.gateway.networking.k8s.io under crds/ changed (required, spec.rules.items.sessionPersistence removed, spec.rules.items.sessionPersistence type, spec.rules.items.sessionPersistence.absoluteTimeout removed, spec.rules.items.sessionPersistence.absoluteTimeout type, spec.rules.items.sessionPersistence.cookieConfig removed, spec.rules.items.sessionPersistence.cookieConfig type, spec.rules.items.sessionPersistence.cookieConfig.lifetimeType enum, spec.rules.items.sessionPersistence.cookieConfig.lifetimeType removed, spec.rules.items.sessionPersistence.cookieConfig.lifetimeType type, spec.rules.items.sessionPersistence.idleTimeout removed, spec.rules.items.sessionPersistence.idleTimeout type, spec.rules.items.sessionPersistence.sessionName removed, spec.rules.items.sessionPersistence.sessionName type, spec.rules.items.sessionPersistence.type enum, spec.rules.items.sessionPersistence.type removed, spec.rules.items.sessionPersistence.type type, status.parents.items required). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/grpcroutes.gateway.networking.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD httproutepolicies.apisix.apache.org under crds/ changed (status.ancestors.items required). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/httproutepolicies.apisix.apache.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD httproutes.gateway.networking.k8s.io under crds/ changed (spec.rules.items.retry removed, spec.rules.items.retry removed, spec.rules.items.retry type, spec.rules.items.retry type, spec.rules.items.retry.attempts removed, spec.rules.items.retry.attempts removed, spec.rules.items.retry.attempts type, spec.rules.items.retry.attempts type, spec.rules.items.retry.backoff removed, spec.rules.items.retry.backoff removed, spec.rules.items.retry.backoff type, spec.rules.items.retry.backoff type, spec.rules.items.retry.codes removed, spec.rules.items.retry.codes removed, spec.rules.items.retry.codes type, spec.rules.items.retry.codes type, spec.rules.items.retry.codes.items removed, spec.rules.items.retry.codes.items removed, spec.rules.items.retry.codes.items type, spec.rules.items.retry.codes.items type, spec.rules.items.sessionPersistence removed, spec.rules.items.sessionPersistence removed, spec.rules.items.sessionPersistence type, spec.rules.items.sessionPersistence type, spec.rules.items.sessionPersistence.absoluteTimeout removed, spec.rules.items.sessionPersistence.absoluteTimeout removed, spec.rules.items.sessionPersistence.absoluteTimeout type, spec.rules.items.sessionPersistence.absoluteTimeout type, spec.rules.items.sessionPersistence.cookieConfig removed, spec.rules.items.sessionPersistence.cookieConfig removed, spec.rules.items.sessionPersistence.cookieConfig type, spec.rules.items.sessionPersistence.cookieConfig type, spec.rules.items.sessionPersistence.cookieConfig.lifetimeType enum, spec.rules.items.sessionPersistence.cookieConfig.lifetimeType enum, spec.rules.items.sessionPersistence.cookieConfig.lifetimeType removed, spec.rules.items.sessionPersistence.cookieConfig.lifetimeType removed, spec.rules.items.sessionPersistence.cookieConfig.lifetimeType type, spec.rules.items.sessionPersistence.cookieConfig.lifetimeType type, spec.rules.items.sessionPersistence.idleTimeout removed, spec.rules.items.sessionPersistence.idleTimeout removed, spec.rules.items.sessionPersistence.idleTimeout type, spec.rules.items.sessionPersistence.idleTimeout type, spec.rules.items.sessionPersistence.sessionName removed, spec.rules.items.sessionPersistence.sessionName removed, spec.rules.items.sessionPersistence.sessionName type, spec.rules.items.sessionPersistence.sessionName type, spec.rules.items.sessionPersistence.type enum, spec.rules.items.sessionPersistence.type enum, spec.rules.items.sessionPersistence.type removed, spec.rules.items.sessionPersistence.type removed, spec.rules.items.sessionPersistence.type type, spec.rules.items.sessionPersistence.type type, status.parents.items required, status.parents.items required). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/httproutes.gateway.networking.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD l4routepolicies.apisix.apache.org under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/l4routepolicies.apisix.apache.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD listenersets.gateway.networking.k8s.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/listenersets.gateway.networking.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD referencegrants.gateway.networking.k8s.io under crds/ changed (required). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/referencegrants.gateway.networking.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD tcproutes.gateway.networking.k8s.io under crds/ changed (spec.rules.items required, status.parents.items required). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/tcproutes.gateway.networking.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD tlsroutes.gateway.networking.k8s.io under crds/ changed (spec.rules.items required, status.parents.items required). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/tlsroutes.gateway.networking.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD udproutes.gateway.networking.k8s.io under crds/ changed (spec.rules.items required, status.parents.items required). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/udproutes.gateway.networking.k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD xbackendtrafficpolicies.gateway.networking.x-k8s.io under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/xbackendtrafficpolicies.gateway.networking.x-k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD xlistenersets.gateway.networking.x-k8s.io under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/xlistenersets.gateway.networking.x-k8s.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-etcd changed at spec.template.metadata.annotations.checksum/token-secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-etcd",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "2.16.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.apiseven.com --chart apisix --from 2.16.0 --to 2.16.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "1f5e1c09108a8eb7c457702c1f31bfebdb5342192796126676e519d33cbcad12"
+}

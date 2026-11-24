@@ -1,0 +1,73 @@
+{
+  "from_sha256": "8e20f210375f96c2b680ef79822df76e3151db146e42113371f1dba14163857a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.21.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 4 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared rendered objects. No object is in both charts to diff as a stored form."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete PersistentVolumeClaim/default/stageproof-rel-uptime-kuma-pvc. The data on that claim goes with it.",
+          "resource": "PersistentVolumeClaim/default/stageproof-rel-uptime-kuma-pvc",
+          "rule_id": "impact.delete.pvc",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: Deployment/default/stageproof-rel-uptime-kuma, Service/default/stageproof-rel-uptime-kuma.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `louislam/uptime-kuma:1.23.13-debian` could not be checked. The registry did not answer.",
+          "resource": "louislam/uptime-kuma:1.23.13-debian",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "2.21.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://dirsigler.github.io/uptime-kuma-helm --chart uptime-kuma --from 2.21.1 --to 2.21.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "5b2fb72ccf58faa2650ba78602d88721678db1f540854dd360789803b309a2ac"
+}

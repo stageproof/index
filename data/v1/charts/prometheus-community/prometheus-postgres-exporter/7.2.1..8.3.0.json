@@ -1,0 +1,38 @@
+{
+  "from_sha256": "19d3510e3e543ca98d9efe83458142de61e641123962398ca42a28d349681fb1",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "7.2.1",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "a required value is unset"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 8.3.0 failed: exit status 1\nError: execution error at (prometheus-postgres-exporter/templates/secrets.yaml:2:9): config.datasource.password is required when not using config.datasource.passwordSecret, config.datasource.passwordFile, or config.datasourceSecret\n\nUse --debug flag to render out invalid YAML",
+          "file": "8.3.0",
+          "message": "The new chart does not render because a required value is unset.",
+          "proof": "render",
+          "rule_id": "helm.values.new_required_unset",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "8.3.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://prometheus-community.github.io/helm-charts --chart prometheus-postgres-exporter --from 7.2.1 --to 8.3.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "6c0bdc6cbb104d0da8babd89748af20762813cfb015d38890759e5446ff99807"
+}

@@ -1,0 +1,193 @@
+{
+  "from_sha256": "dcddde1f49bfa25e83c6eb5b26b95da8bfafd25b7592ca7f6aa66d794c285ffc",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.42.5",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 27 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects for 10 of 11 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The CRD vlogs.operator.victoriametrics.com under crds/ changed (status.availableReplicas removed, status.availableReplicas type, status.replicas removed, status.replicas type, status.unavailableReplicas removed, status.unavailableReplicas type, status.updatedReplicas removed, status.updatedReplicas type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vlogs.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD vmagents.operator.victoriametrics.com under crds/ changed (spec.aPIServerConfig.authorization removed, spec.aPIServerConfig.authorization type, spec.aPIServerConfig.authorization.credentials removed, spec.aPIServerConfig.authorization.credentials type, spec.aPIServerConfig.authorization.credentials.key removed, spec.aPIServerConfig.authorization.credentials.key type, spec.aPIServerConfig.authorization.credentials.name removed, spec.aPIServerConfig.authorization.credentials.name type, spec.aPIServerConfig.authorization.credentials.optional removed, spec.aPIServerConfig.authorization.credentials.optional type, spec.aPIServerConfig.authorization.credentialsFile removed, spec.aPIServerConfig.authorization.credentialsFile type, spec.aPIServerConfig.authorization.type removed, spec.aPIServerConfig.authorization.type type, spec.aPIServerConfig.basicAuth removed, spec.aPIServerConfig.basicAuth type, spec.aPIServerConfig.basicAuth.password removed, spec.aPIServerConfig.basicAuth.password type, spec.aPIServerConfig.basicAuth.password.key removed, spec.aPIServerConfig.basicAuth.password.key type, spec.aPIServerConfig.basicAuth.password.name removed, spec.aPIServerConfig.basicAuth.password.name type, spec.aPIServerConfig.basicAuth.password.optional removed, spec.aPIServerConfig.basicAuth.password.optional type, spec.aPIServerConfig.basicAuth.password_file removed, spec.aPIServerConfig.basicAuth.password_file type, spec.aPIServerConfig.basicAuth.username removed, spec.aPIServerConfig.basicAuth.username type, spec.aPIServerConfig.basicAuth.username.key removed, spec.aPIServerConfig.basicAuth.username.key type, spec.aPIServerConfig.basicAuth.username.name removed, spec.aPIServerConfig.basicAuth.username.name type, spec.aPIServerConfig.basicAuth.username.optional removed, spec.aPIServerConfig.basicAuth.username.optional type, spec.aPIServerConfig.bearerToken removed, spec.aPIServerConfig.bearerToken type, spec.aPIServerConfig.bearerTokenFile removed, spec.aPIServerConfig.bearerTokenFile type, spec.aPIServerConfig.host removed, spec.aPIServerConfig.host type, spec.aPIServerConfig.tlsConfig removed, spec.aPIServerConfig.tlsConfig type, spec.aPIServerConfig.tlsConfig.ca removed, spec.aPIServerConfig.tlsConfig.ca type, spec.aPIServerConfig.tlsConfig.ca.configMap removed, spec.aPIServerConfig.tlsConfig.ca.configMap type, spec.aPIServerConfig.tlsConfig.ca.configMap.key removed, spec.aPIServerConfig.tlsConfig.ca.configMap.key type, spec.aPIServerConfig.tlsConfig.ca.configMap.name removed, spec.aPIServerConfig.tlsConfig.ca.configMap.name type, spec.aPIServerConfig.tlsConfig.ca.configMap.optional removed, spec.aPIServerConfig.tlsConfig.ca.configMap.optional type, spec.aPIServerConfig.tlsConfig.ca.secret removed, spec.aPIServerConfig.tlsConfig.ca.secret type, spec.aPIServerConfig.tlsConfig.ca.secret.key removed, spec.aPIServerConfig.tlsConfig.ca.secret.key type, spec.aPIServerConfig.tlsConfig.ca.secret.name removed, spec.aPIServerConfig.tlsConfig.ca.secret.name type, spec.aPIServerConfig.tlsConfig.ca.secret.optional removed, spec.aPIServerConfig.tlsConfig.ca.secret.optional type, spec.aPIServerConfig.tlsConfig.caFile removed, spec.aPIServerConfig.tlsConfig.caFile type, spec.aPIServerConfig.tlsConfig.cert removed, spec.aPIServerConfig.tlsConfig.cert type, spec.aPIServerConfig.tlsConfig.cert.configMap removed, spec.aPIServerConfig.tlsConfig.cert.configMap type, spec.aPIServerConfig.tlsConfig.cert.configMap.key removed, spec.aPIServerConfig.tlsConfig.cert.configMap.key type, spec.aPIServerConfig.tlsConfig.cert.configMap.name removed, spec.aPIServerConfig.tlsConfig.cert.configMap.name type, spec.aPIServerConfig.tlsConfig.cert.configMap.optional removed, spec.aPIServerConfig.tlsConfig.cert.configMap.optional type, spec.aPIServerConfig.tlsConfig.cert.secret removed, spec.aPIServerConfig.tlsConfig.cert.secret type, spec.aPIServerConfig.tlsConfig.cert.secret.key removed, spec.aPIServerConfig.tlsConfig.cert.secret.key type, spec.aPIServerConfig.tlsConfig.cert.secret.name removed, spec.aPIServerConfig.tlsConfig.cert.secret.name type, spec.aPIServerConfig.tlsConfig.cert.secret.optional removed, spec.aPIServerConfig.tlsConfig.cert.secret.optional type, spec.aPIServerConfig.tlsConfig.certFile removed, spec.aPIServerConfig.tlsConfig.certFile type, spec.aPIServerConfig.tlsConfig.insecureSkipVerify removed, spec.aPIServerConfig.tlsConfig.insecureSkipVerify type, spec.aPIServerConfig.tlsConfig.keyFile removed, spec.aPIServerConfig.tlsConfig.keyFile type, spec.aPIServerConfig.tlsConfig.keySecret removed, spec.aPIServerConfig.tlsConfig.keySecret type, spec.aPIServerConfig.tlsConfig.keySecret.key removed, spec.aPIServerConfig.tlsConfig.keySecret.key type, spec.aPIServerConfig.tlsConfig.keySecret.name removed, spec.aPIServerConfig.tlsConfig.keySecret.name type, spec.aPIServerConfig.tlsConfig.keySecret.optional removed, spec.aPIServerConfig.tlsConfig.keySecret.optional type, spec.aPIServerConfig.tlsConfig.serverName removed, spec.aPIServerConfig.tlsConfig.serverName type, status.availableReplicas removed, status.availableReplicas type, status.unavailableReplicas removed, status.unavailableReplicas type, status.updatedReplicas removed, status.updatedReplicas type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmagents.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD vmalertmanagerconfigs.operator.victoriametrics.com under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmalertmanagerconfigs.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD vmalertmanagers.operator.victoriametrics.com under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmalertmanagers.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD vmalerts.operator.victoriametrics.com under crds/ changed (status.availableReplicas removed, status.availableReplicas type, status.replicas removed, status.replicas type, status.unavailableReplicas removed, status.unavailableReplicas type, status.updatedReplicas removed, status.updatedReplicas type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmalerts.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD vmauths.operator.victoriametrics.com under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmauths.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD vmclusters.operator.victoriametrics.com under crds/ changed (status.lastSync removed, status.lastSync type, status.updateFailCount removed, status.updateFailCount type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmclusters.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD vmnodescrapes.operator.victoriametrics.com under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmnodescrapes.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD vmpodscrapes.operator.victoriametrics.com under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmpodscrapes.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD vmprobes.operator.victoriametrics.com under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmprobes.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD vmrules.operator.victoriametrics.com under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmrules.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD vmscrapeconfigs.operator.victoriametrics.com under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmscrapeconfigs.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD vmservicescrapes.operator.victoriametrics.com under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmservicescrapes.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD vmsingles.operator.victoriametrics.com under crds/ changed (status.availableReplicas removed, status.availableReplicas type, status.replicas removed, status.replicas type, status.unavailableReplicas removed, status.unavailableReplicas type, status.updatedReplicas removed, status.updatedReplicas type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmsingles.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD vmstaticscrapes.operator.victoriametrics.com under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmstaticscrapes.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD vmusers.operator.victoriametrics.com under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/vmusers.operator.victoriametrics.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator changed at spec.template.spec.containers[name=operator].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v0.53.0 to v0.54.1. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator.template.spec.containers[0] operator container moves from victoriametrics/operator:v0.53.0 to victoriametrics/operator:v0.54.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `victoriametrics/operator:v0.54.1` could not be checked. The registry did not answer.",
+          "resource": "victoriametrics/operator:v0.54.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission, ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.43.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://victoriametrics.github.io/helm-charts/ --chart victoria-metrics-operator --from 0.42.5 --to 0.43.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "5659deaee2b2171b3a31450497f6a5fe6221781c78f4a03c7988881febbea53f"
+}

@@ -1,0 +1,104 @@
+{
+  "from_sha256": "4228080e59cf1ad1b01e9342b8b2ab2dba12d690c203544bb57190f10d445c86",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v1.8.6",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 27 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 23 of 27 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Role/stageproof-check/rook-ceph-purge-osd adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/rook-ceph-purge-osd",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: CephFilesystem/default/ceph-filesystem",
+          "message": "Chart default `cephFileSystems` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "cephFileSystems",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.8.6 to v1.8.7. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "CephBlockPool/default/ceph-blockpool was not judged. the API group is not installed on this server.",
+          "resource": "CephBlockPool/default/ceph-blockpool",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephCluster/default/stageproof-check was not judged. the API group is not installed on this server.",
+          "resource": "CephCluster/default/stageproof-check",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephFilesystem/default/ceph-filesystem was not judged. the API group is not installed on this server.",
+          "resource": "CephFilesystem/default/ceph-filesystem",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "CephObjectStore/default/ceph-objectstore was not judged. the API group is not installed on this server.",
+          "resource": "CephObjectStore/default/ceph-objectstore",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "v1.8.7",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.rook.io/release --chart rook-ceph-cluster --from v1.8.6 --to v1.8.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "e5720f1ea9f3edd96d3f0541a6ec78abdff170b7c98badd004cd75c5a66d6b33"
+}

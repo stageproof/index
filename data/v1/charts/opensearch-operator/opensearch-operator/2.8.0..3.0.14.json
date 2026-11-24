@@ -1,0 +1,295 @@
+{
+  "from_sha256": "f289e27e553c45b55e20952c78971b19a1b5defe9f89bea1f6910f3ee3da81eb",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.8.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 36 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared rendered objects. The API server did not return a stored form for both sides of any object."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (2 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: ClusterRole/default/stageproof-rel-opensearch-operator-stageproof-check-manager-role, ClusterRole/default/stageproof-rel-opensearch-operator-stageproof-check-metrics-reader, ClusterRole/default/stageproof-rel-opensearch-operator-stageproof-check-proxy-role, ClusterRoleBinding/default/stageproof-rel-opensearch-operator-stageproof-check-manager-rolebinding, ClusterRoleBinding/default/stageproof-rel-opensearch-operator-stageproof-check-proxy-rolebinding, ConfigMap/default/stageproof-rel-opensearch-operator-manager-config, Deployment/default/stageproof-rel-opensearch-operator-controller-manager, Role/default/stageproof-rel-opensearch-operator-leader-election-role, RoleBinding/default/stageproof-rel-opensearch-operator-leader-election-rolebinding, Service/default/stageproof-rel-opensearch-operator-controller-manager-metrics-service, ServiceAccount/default/stageproof-rel-opensearch-operator-controller-manager.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on opensearchclusters.opensearch.opster.io: spec.bootstrap.additionalConfig (removed), spec.bootstrap.additionalConfig (type), spec.bootstrap.additionalConfig.additionalProperties (removed), spec.bootstrap.additionalConfig.additionalProperties (type), spec.confMgmt (required), spec.nodePools.items.diskSize (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/opensearchclusters.opensearch.opster.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchactiongroup.opensearch.opster.io has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchcluster.opensearch.opster.io has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchcomponenttemplate.opensearch.opster.io has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchindextemplate.opensearch.opster.io has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchismpolicy.opensearch.opster.io has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchrole.opensearch.opster.io has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchsnapshotpolicy.opensearch.opster.io has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchtenant.opensearch.opster.io has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchuser.opensearch.opster.io has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchuserrolebinding.opensearch.opster.io has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchactiongroup.opensearch.org has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchcluster.opensearch.org has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchcomponenttemplate.opensearch.org has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchindextemplate.opensearch.org has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchismpolicy.opensearch.org has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchrole.opensearch.org has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchsnapshotpolicy.opensearch.org has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchtenant.opensearch.org has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchuser.opensearch.org has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration webhook vopensearchuserrolebinding.opensearch.org has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/opensearch-node-attributes adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/opensearch-node-attributes",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-opensearch-operator adds rules. Flags: bind, cluster-wide secrets read.",
+          "resource": "ClusterRole/default/stageproof-rel-opensearch-operator",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-opensearch-operator-metrics adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-opensearch-operator-metrics",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-opensearch-operator-proxy adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-opensearch-operator-proxy",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/stageproof-rel-opensearch-operator-leader-election adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/stageproof-rel-opensearch-operator-leader-election",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-opensearch-operator",
+          "message": "Chart default `manager.resources.limits.cpu` changed from `200m` to `1000m` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "manager.resources.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-opensearch-operator",
+          "message": "Chart default `manager.resources.requests.cpu` changed from `100m` to `200m` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "manager.resources.requests.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 2.8.0 to 3.0.14, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.8.0 to 3.0.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `opensearchproject/opensearch-operator:3.0.0` could not be checked. The registry did not answer.",
+          "resource": "opensearchproject/opensearch-operator:3.0.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "Certificate/stageproof-check/stageproof-rel-opensearch-operator-serving-cert was not judged. the API group is not installed on this server.",
+          "resource": "Certificate/stageproof-check/stageproof-rel-opensearch-operator-serving-cert",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Issuer/stageproof-check/stageproof-rel-opensearch-operator-selfsigned-issuer was not judged. the API group is not installed on this server.",
+          "resource": "Issuer/stageproof-check/stageproof-rel-opensearch-operator-selfsigned-issuer",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: ValidatingWebhookConfiguration/default/stageproof-rel-opensearch-operator-validating-webhook-configuration.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 677 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/opensearchclusters.opensearch.opster.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 818 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/opensearchclusters.opensearch.org",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "3.0.14",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://opensearch-project.github.io/opensearch-k8s-operator/ --chart opensearch-operator --from 2.8.0 --to 3.0.14 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "0327d449ab61e112e0c13d54408bef396706c500cbf9211da965aa3ae94f9a68"
+}

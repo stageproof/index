@@ -1,0 +1,114 @@
+{
+  "from_sha256": "e766a194407ccf22d526823ddc70972abc4cd023b052f0354dab473a2578dace",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.0.5",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 7 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 6 of 7 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "ClusterRole/default/stageproof-rel-nfs-subdir-external-provisioner-runner adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-nfs-subdir-external-provisioner-runner",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-nfs-subdir-external-provisioner",
+          "message": "Chart default `image.repository` changed from `gcr.io/k8s-staging-sig-storage/nfs-subdir-external-provisioner` to `registry.k8s.io/sig-storage/nfs-subdir-external-provisioner` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-nfs-subdir-external-provisioner",
+          "message": "Chart default `image.tag` changed from `v4.0.0` to `v4.0.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-nfs-subdir-external-provisioner changed at spec.template.spec.containers[name=nfs-subdir-external-provisioner].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-nfs-subdir-external-provisioner",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 4.0.0 to 4.0.2. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/default/stageproof-rel-nfs-subdir-external-provisioner.template.spec.containers[0] nfs-subdir-external-provisioner container moves from gcr.io/k8s-staging-sig-storage/nfs-subdir-external-provisioner:v4.0.0 to registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `gcr.io/k8s-staging-sig-storage/nfs-subdir-external-provisioner` to `registry.k8s.io/sig-storage/nfs-subdir-external-provisioner`.",
+          "resource": "Deployment/default/stageproof-rel-nfs-subdir-external-provisioner.template.spec.containers[0] nfs-subdir-external-provisioner",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "Not found: \"nfs-subdir-external-provisioner-root\"",
+          "message": "Kubernetes rejected `spec.template.spec.containers[0].volumeMounts[0].name` on Deployment/default/stageproof-rel-nfs-subdir-external-provisioner. The current chart failed the same validation; the upgrade did not introduce it.",
+          "resource": "Deployment/default/stageproof-rel-nfs-subdir-external-provisioner",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "4.0.18",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner --chart nfs-subdir-external-provisioner --from 4.0.5 --to 4.0.18 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "a842163c1f5eedc4893e1f685e4249b0ddd62533c3c941228ee6a096ac308f6f"
+}

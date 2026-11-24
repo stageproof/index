@@ -1,0 +1,72 @@
+{
+  "from_sha256": "78ac6d984fd229c8c94a774407d61d23321c84ead995d6fa0e4701aacd43ece2",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.0.6",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 12 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects for 7 of 8 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete PersistentVolumeClaim/default/open-webui. The data on that claim goes with it.",
+          "resource": "PersistentVolumeClaim/default/open-webui",
+          "rule_id": "impact.delete.pvc",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete StatefulSet/default/open-webui. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/default/open-webui",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: Service/default/open-webui, ServiceAccount/default/open-webui.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "4.0.7",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.openwebui.com --chart open-webui --from 4.0.6 --to 4.0.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "d033c1a9c2312592fb0006497a95941c94cdc6839de38e3b2929af91c524f681"
+}

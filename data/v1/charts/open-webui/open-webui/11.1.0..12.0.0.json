@@ -1,0 +1,144 @@
+{
+  "from_sha256": "2ee9a431dfdcee10ee9f8a15696a5cfef1a99cc6792e971acd708aae40f2cabf",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "11.1.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 14 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared rendered objects. No object is in both charts to diff as a stored form."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "replaced: delete then create. Helm will delete PersistentVolumeClaim/stageproof-check/open-webui. The data on that claim goes with it. PersistentVolumeClaim/stageproof-check/stageproof-rel-open-webui is created in its place.",
+          "resource": "PersistentVolumeClaim/stageproof-check/open-webui",
+          "rule_id": "impact.delete.pvc",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete PersistentVolumeClaim/stageproof-check/open-webui-pipelines. The data on that claim goes with it.",
+          "resource": "PersistentVolumeClaim/stageproof-check/open-webui-pipelines",
+          "rule_id": "impact.delete.pvc",
+          "severity": "blocker"
+        },
+        {
+          "message": "replaced: delete then create. Helm will delete Service/stageproof-check/open-webui. Service/stageproof-check/stageproof-rel-open-webui is created in its place.",
+          "resource": "Service/stageproof-check/open-webui",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "replaced: delete then create. Helm will delete Service/stageproof-check/open-webui-ollama. Service/stageproof-check/stageproof-rel-ollama is created in its place.",
+          "resource": "Service/stageproof-check/open-webui-ollama",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "replaced: delete then create. Helm will delete ServiceAccount/stageproof-check/existing-sa. ServiceAccount/stageproof-check/stageproof-rel-open-webui-sa is created in its place.",
+          "resource": "ServiceAccount/stageproof-check/existing-sa",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "replaced: delete then create. Helm will delete ServiceAccount/stageproof-check/open-webui-ollama. ServiceAccount/stageproof-check/stageproof-rel-ollama is created in its place.",
+          "resource": "ServiceAccount/stageproof-check/open-webui-ollama",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete StatefulSet/stageproof-check/open-webui. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/stageproof-check/open-webui",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: Deployment/stageproof-check/open-webui-ollama, Deployment/stageproof-check/open-webui-pipelines, Deployment/stageproof-check/open-webui-redis, Service/stageproof-check/open-webui-pipelines, Service/stageproof-check/open-webui-redis, ServiceAccount/stageproof-check/open-webui-pipelines.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/open-webui-ollama, Deployment/stageproof-check/stageproof-rel-ollama, Pod/stageproof-check/open-webui-ollama-test-connection, Pod/stageproof-check/stageproof-rel-ollama-test-connection, Service/stageproof-check/open-webui-ollama, Service/stageproof-check/stageproof-rel-ollama, ServiceAccount/stageproof-check/open-webui-ollama, ServiceAccount/stageproof-check/stageproof-rel-ollama, StatefulSet/stageproof-check/stageproof-rel-open-webui",
+          "message": "Chart default `ollama.fullnameOverride` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "ollama.fullnameOverride",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ServiceAccount/stageproof-check/existing-sa-sa, ServiceAccount/stageproof-check/stageproof-rel-open-webui-sa, StatefulSet/stageproof-check/stageproof-rel-open-webui",
+          "message": "Chart default `serviceAccount.name` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "serviceAccount.name",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-open-webui",
+          "message": "Chart default `websocket.url` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "websocket.url",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 11.1.0 to 12.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `redis:7.4.2-alpine3.21` could not be checked. The registry did not answer.",
+          "resource": "redis:7.4.2-alpine3.21",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "12.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.openwebui.com --chart open-webui --from 11.1.0 --to 12.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "b93876b1fa13a4ebcb87adc588f1aa4e6bf250253d5fec9b29d320f6897de2ea"
+}

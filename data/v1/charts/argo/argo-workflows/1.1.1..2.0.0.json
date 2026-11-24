@@ -1,0 +1,123 @@
+{
+  "from_sha256": "4143d106956b47652bf5015763823d403f876c4f0dcda5d22e85fecd445c4537",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.1.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 25 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 21 of 25 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-argo-workflows-crd-install",
+          "message": "Chart default `crds.upgradeJob.image.repository` changed from `registry.k8s.io/kubectl` to `argoproj/argo-workflows-crdinstaller` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "crds.upgradeJob.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-argo-workflows-crd-install",
+          "message": "Chart default `crds.upgradeJob.image.tag` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "crds.upgradeJob.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-argo-workflows-crd-install",
+          "message": "Chart default `crds.upgradeJob.securityContext.runAsGroup` changed from `65532` to `8737` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "crds.upgradeJob.securityContext.runAsGroup",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-argo-workflows-crd-install",
+          "message": "Chart default `crds.upgradeJob.securityContext.runAsUser` changed from `65532` to `8737` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "crds.upgradeJob.securityContext.runAsUser",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-argo-workflows-server changed at spec.template.metadata.annotations.checksum/cm. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-argo-workflows-server",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-argo-workflows-workflow-controller changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-argo-workflows-workflow-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 1.1.1 to 2.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Job/stageproof-check/stageproof-rel-argo-workflows-crd-install.template.spec.containers[0] apply container moves from registry.k8s.io/kubectl:v1.36.3 to quay.io/argoproj/argo-workflows-crdinstaller:v4.1.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `registry.k8s.io/kubectl` to `quay.io/argoproj/argo-workflows-crdinstaller`.",
+          "resource": "Job/stageproof-check/stageproof-rel-argo-workflows-crd-install.template.spec.containers[0] apply",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "2.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://argoproj.github.io/argo-helm --chart argo-workflows --from 1.1.1 --to 2.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "a9a65426b308bc594381d4af94844ba162b8e657aab78d96dd9e971cb2df95d4"
+}

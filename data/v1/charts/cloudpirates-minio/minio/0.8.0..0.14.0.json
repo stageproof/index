@@ -1,0 +1,28 @@
+{
+  "from_sha256": "da0b8d64a5149b3a69ee662fea93881cbd0bec46bb2bca2782a672df9db13671",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.8.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 0.8.0 failed: exit status 1\nError: YAML parse error on minio/templates/deployment.yaml: error converting YAML to JSON: yaml: line 7: mapping values are not allowed in this context\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "0.14.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo oci://registry-1.docker.io/cloudpirates --chart minio --from 0.8.0 --to 0.14.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "964f143d360499dcaa8aceaae7f1f8bbb7046d7b30fa4f1c34ecf3d439aed87f"
+}

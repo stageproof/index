@@ -1,0 +1,197 @@
+{
+  "from_sha256": "91f029d468e3272f879a676b51094fc0763062644bb68acd5563dc1faccc8eea",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.8.16",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 83 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "4 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "5 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "2 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 37 of 72 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (1 deprecation, EOL, or CRD warning)"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on httproutes.gateway.networking.k8s.io: status.parents.items (required). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/httproutes.gateway.networking.k8s.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on referencegrants.gateway.networking.k8s.io:  (required). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/referencegrants.gateway.networking.k8s.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on tcproutes.gateway.networking.k8s.io: spec.rules.items (required), status.parents.items (required). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/tcproutes.gateway.networking.k8s.io",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "message": "MutatingWebhookConfiguration/stageproof-check/stageproof-rel-consul-connect-injector webhook mutate-ratelimits.consul.hashicorp.com has failurePolicy Fail and no namespace selector.",
+          "resource": "MutatingWebhookConfiguration/stageproof-check/stageproof-rel-consul-connect-injector",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-consul-ai-cleanup adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-consul-ai-cleanup",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-consul-connect-injector adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/stageproof-rel-consul-connect-injector",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-consul-connect-injector, Pod/stageproof-check/stageproof-rel-consul-test, StatefulSet/stageproof-check/stageproof-rel-consul-server",
+          "message": "Chart default `global.image` changed from `hashicorp/consul:1.21.5` to `hashicorp/consul:2.1.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.image",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-consul-connect-injector",
+          "message": "Chart default `global.imageConsulDataplane` changed from `hashicorp/consul-dataplane:1.8.16` to `hashicorp/consul-dataplane:2.1.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.imageConsulDataplane",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-consul-connect-injector, Deployment/stageproof-check/stageproof-rel-consul-webhook-cert-manager, Job/stageproof-check/stageproof-rel-consul-ai-cleanup, Job/stageproof-check/stageproof-rel-consul-feature-gate-set, Job/stageproof-check/stageproof-rel-consul-gateway-cleanup, Job/stageproof-check/stageproof-rel-consul-gateway-cleanup-custom, Job/stageproof-check/stageproof-rel-consul-gateway-resources, StatefulSet/stageproof-check/stageproof-rel-consul-server",
+          "message": "Chart default `global.imageK8S` changed from `hashicorp/consul-k8s-control-plane:1.8.16` to `hashicorp/consul-k8s-control-plane:2.1.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.imageK8S",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-consul-connect-injector changed at spec.template.spec.containers[name=sidecar-injector].command[2]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-consul-connect-injector",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-consul-webhook-cert-manager changed at spec.template.spec.containers[name=webhook-cert-manager].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-consul-webhook-cert-manager",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-consul-server changed at spec.template.metadata.annotations.consul.hashicorp.com/config-checksum. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-consul-server",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 1.8.16 to 2.1.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.21.5 to 2.1.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. Deployment/stageproof-check/stageproof-rel-consul-connect-injector.template.spec.containers[0] sidecar-injector container moves from hashicorp/consul-k8s-control-plane:1.8.16 to hashicorp/consul-k8s-control-plane:2.1.0. Deployment/stageproof-check/stageproof-rel-consul-connect-injector hashicorp/consul image moves from hashicorp/consul:1.21.5 to hashicorp/consul:2.1.0. Deployment/stageproof-check/stageproof-rel-consul-connect-injector hashicorp/consul-dataplane image moves from hashicorp/consul-dataplane:1.8.16 to hashicorp/consul-dataplane:2.1.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `hashicorp/consul-mcp-sc:2.1.0-rc1` could not be checked. The registry refused the request.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-consul-connect-injector hashicorp/consul-mcp-sc",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-consul-connect-injector",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-consul-server",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/stageproof-check/stageproof-rel-consul-connect-injector, ValidatingWebhookConfiguration/stageproof-check/stageproof-rel-consul-connect-injector, MutatingWebhookConfiguration/stageproof-check/stageproof-rel-consul-connect-injector, ValidatingWebhookConfiguration/stageproof-check/stageproof-rel-consul-connect-injector.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 587 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/httproutes.gateway.networking.k8s.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "2.1.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.releases.hashicorp.com --chart consul --from 1.8.16 --to 2.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "e75ec2ab6580c0960173530d8aab8e4af7773fc48af565eb132b48ec70534a80"
+}

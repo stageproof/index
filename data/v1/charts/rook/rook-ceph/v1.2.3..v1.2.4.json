@@ -1,0 +1,28 @@
+{
+  "from_sha256": "4be12c9e85eddda76383e912c8ef3b32585f8a1e608b20e0449a9e86aac34ccf",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v1.2.3",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template v1.2.3 failed: exit status 1\nError: template: rook-ceph/templates/clusterrole.yaml:290:7: executing \"rook-ceph/templates/clusterrole.yaml\" at <((.Values.agent) and .Values.agent.mountSecurityMode) and ne .Values.agent.mountSecurityMode \"Any\">: can't give argument to non-function (.Values.agent) and .Values.agent.mountSecurityMode\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "v1.2.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.rook.io/release --chart rook-ceph --from v1.2.3 --to v1.2.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "6e114d4f6747bbc63376bd834c789ed624a03801538c9dded1ac5a97a0650f68"
+}

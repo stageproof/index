@@ -1,0 +1,114 @@
+{
+  "from_sha256": "d1f366dbcd13cbbed10e667a63fb416094eb9bfd5eaed3af378edb0c136eda8a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.19.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 4 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared rendered objects. No object is in both charts to diff as a stored form."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete PersistentVolumeClaim/default/stageproof-rel-uptime-kuma-pvc. The data on that claim goes with it.",
+          "resource": "PersistentVolumeClaim/default/stageproof-rel-uptime-kuma-pvc",
+          "rule_id": "impact.delete.pvc",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: Deployment/default/stageproof-rel-uptime-kuma, Service/default/stageproof-rel-uptime-kuma.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-uptime-kuma",
+          "message": "Chart default `image.tag` changed from `1.23.13-debian` to `2.5.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-uptime-kuma",
+          "message": "Chart default `podEnv` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "podEnv",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-uptime-kuma",
+          "message": "Chart default `strategy.type` changed from `Recreate` to `RollingUpdate` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "strategy.type",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 2.19.1 to 4.2.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.23.13 to 2.5.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `louislam/uptime-kuma:2.5.0` could not be checked. The registry did not answer.",
+          "resource": "louislam/uptime-kuma:2.5.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "4.2.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://dirsigler.github.io/uptime-kuma-helm --chart uptime-kuma --from 2.19.1 --to 4.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "0ded713fbe6842d6d8d993353611cbc1eb47ff6b813cd77f0e215a3d0462b885"
+}

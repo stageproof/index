@@ -1,0 +1,153 @@
+{
+  "from_sha256": "d2010482f8d3943c45723ff58a2ee53113cb6b98c127ea138bec3c9b50fca638",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.6.17",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 17 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "7 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 12 of 17 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: CronJob/default/stageproof-rel-datahub-restore-indices-job-template, Deployment/default/stageproof-rel-acryl-datahub-actions, Deployment/default/stageproof-rel-datahub-frontend, Deployment/default/stageproof-rel-datahub-gms, Job/default/stageproof-rel-elasticsearch-setup-job, Job/default/stageproof-rel-kafka-setup-job, Job/default/stageproof-rel-mysql-setup-job, Job/default/stageproof-rel-system-update, Job/default/stageproof-rel-system-update-nonblk",
+          "message": "Chart default `global.datahub.version` changed from `v1.2.0` to `v1.2.0.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.datahub.version",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-acryl-datahub-actions changed at spec.template.spec.containers[name=acryl-datahub-actions].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-acryl-datahub-actions",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-datahub-frontend changed at spec.template.spec.containers[name=datahub-frontend].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-datahub-frontend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-datahub-gms changed at spec.template.spec.containers[name=datahub-gms].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-datahub-gms",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of CronJob/default/stageproof-rel-datahub-restore-indices-job-template changed at spec.jobTemplate.spec.template.spec.containers[name=datahub-upgrade-job].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/default/stageproof-rel-datahub-restore-indices-job-template",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "helm template renders the chart that is already on disk. Run helm dependency update if the new constraint should be what this check renders.",
+          "message": "A Chart.yaml dependency constraint changed, and the packaged chart under charts/ did not: acryl-datahub-actions 0.2.152 to 0.2.153.",
+          "rule_id": "helm.dependency.not_updated",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "7 container images changed. CronJob/default/stageproof-rel-datahub-restore-indices-job-template.jobTemplate.spec.template.spec.containers[0] datahub-upgrade-job container moves from docker.io/acryldata/datahub-upgrade:v1.2.0 to docker.io/acryldata/datahub-upgrade:v1.2.0.1. Deployment/default/stageproof-rel-acryl-datahub-actions.template.spec.containers[0] acryl-datahub-actions container moves from docker.io/acryldata/datahub-actions:v1.2.0 to docker.io/acryldata/datahub-actions:v1.2.0.1. Deployment/default/stageproof-rel-datahub-frontend.template.spec.containers[0] datahub-frontend container moves from docker.io/acryldata/datahub-frontend-react:v1.2.0 to docker.io/acryldata/datahub-frontend-react:v1.2.0.1. Deployment/default/stageproof-rel-datahub-gms.template.spec.containers[0] datahub-gms container moves from docker.io/acryldata/datahub-gms:v1.2.0 to docker.io/acryldata/datahub-gms:v1.2.0.1. Job/default/stageproof-rel-elasticsearch-setup-job.template.spec.containers[0] elasticsearch-setup-job container moves from docker.io/acryldata/datahub-elasticsearch-setup:v1.2.0 to docker.io/acryldata/datahub-elasticsearch-setup:v1.2.0.1. Job/default/stageproof-rel-kafka-setup-job.template.spec.containers[0] kafka-setup-job container moves from docker.io/acryldata/datahub-kafka-setup:v1.2.0 to docker.io/acryldata/datahub-kafka-setup:v1.2.0.1. Job/default/stageproof-rel-mysql-setup-job.template.spec.containers[0] mysql-setup-job container moves from docker.io/acryldata/datahub-mysql-setup:v1.2.0 to docker.io/acryldata/datahub-mysql-setup:v1.2.0.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/acryldata/datahub-actions:v1.2.0.1` could not be checked. The registry did not answer.",
+          "resource": "docker.io/acryldata/datahub-actions:v1.2.0.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/acryldata/datahub-elasticsearch-setup:v1.2.0.1` could not be checked. The registry did not answer.",
+          "resource": "docker.io/acryldata/datahub-elasticsearch-setup:v1.2.0.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/acryldata/datahub-frontend-react:v1.2.0.1` could not be checked. The registry did not answer.",
+          "resource": "docker.io/acryldata/datahub-frontend-react:v1.2.0.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/acryldata/datahub-gms:v1.2.0.1` could not be checked. The registry did not answer.",
+          "resource": "docker.io/acryldata/datahub-gms:v1.2.0.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/acryldata/datahub-kafka-setup:v1.2.0.1` could not be checked. The registry did not answer.",
+          "resource": "docker.io/acryldata/datahub-kafka-setup:v1.2.0.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/acryldata/datahub-mysql-setup:v1.2.0.1` could not be checked. The registry did not answer.",
+          "resource": "docker.io/acryldata/datahub-mysql-setup:v1.2.0.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/acryldata/datahub-upgrade:v1.2.0.1` could not be checked. The registry did not answer.",
+          "resource": "docker.io/acryldata/datahub-upgrade:v1.2.0.1",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.6.18",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.datahubproject.io --chart datahub --from 0.6.17 --to 0.6.18 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "69c8196b2cb1bdc7a5c1d5f5c209963325013c7e0c61cc48875d7c0359505135"
+}

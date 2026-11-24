@@ -1,0 +1,168 @@
+{
+  "from_sha256": "89e95b75e658a59d688d56d8b260854f13ac9ab07512704a53e01ece885a0fce",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "8.5.12",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 111 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "23 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 106 of 111 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/stageproof-check/aggregatedapis-svc changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/aggregatedapis-svc",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/auth-svc changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/auth-svc",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/catalog-svc changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/catalog-svc",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/controllermanager-svc changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/controllermanager-svc",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/crypto-svc changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/crypto-svc",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/dashboardbff-svc changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/dashboardbff-svc",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/executor-svc changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/executor-svc",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/frontend-svc changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/frontend-svc",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/gateway changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/gateway",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/jobs-svc changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/jobs-svc",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/kanister-svc changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/kanister-svc",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/logging-svc changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/logging-svc",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/metering-svc changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/metering-svc",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/prometheus-server changed at spec.template.spec.containers[name=prometheus-server].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/prometheus-server",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/state-svc changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/state-svc",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 8.5.12 to 8.5.13. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "23 container images changed. Showing 12. ConfigMap/stageproof-check/k10-config gcr.io/kasten-images/kanister-tools image moves from gcr.io/kasten-images/kanister-tools:8.5.12 to gcr.io/kasten-images/kanister-tools:8.5.13. Deployment/stageproof-check/aggregatedapis-svc.template.spec.containers[0] aggregatedapis-svc container moves from gcr.io/kasten-images/aggregatedapis:8.5.12 to gcr.io/kasten-images/aggregatedapis:8.5.13. Deployment/stageproof-check/auth-svc.template.spec.containers[0] auth-svc container moves from gcr.io/kasten-images/auth:8.5.12 to gcr.io/kasten-images/auth:8.5.13. Deployment/stageproof-check/catalog-svc.template.spec.containers[0] catalog-svc container moves from gcr.io/kasten-images/catalog:8.5.12 to gcr.io/kasten-images/catalog:8.5.13. Deployment/stageproof-check/catalog-svc.template.spec.initContainers[0] upgrade-init container moves from gcr.io/kasten-images/upgrade:8.5.12 to gcr.io/kasten-images/upgrade:8.5.13. Deployment/stageproof-check/controllermanager-svc.template.spec.containers[0] controllermanager-svc container moves from gcr.io/kasten-images/controllermanager:8.5.12 to gcr.io/kasten-images/controllermanager:8.5.13. Deployment/stageproof-check/crypto-svc.template.spec.containers[0] crypto-svc container moves from gcr.io/kasten-images/crypto:8.5.12 to gcr.io/kasten-images/crypto:8.5.13. Deployment/stageproof-check/crypto-svc.template.spec.containers[1] bloblifecyclemanager-svc container moves from gcr.io/kasten-images/bloblifecyclemanager:8.5.12 to gcr.io/kasten-images/bloblifecyclemanager:8.5.13. Deployment/stageproof-check/crypto-svc.template.spec.containers[2] garbagecollector-svc container moves from gcr.io/kasten-images/garbagecollector:8.5.12 to gcr.io/kasten-images/garbagecollector:8.5.13. Deployment/stageproof-check/crypto-svc.template.spec.containers[3] repositories-svc container moves from gcr.io/kasten-images/repositories:8.5.12 to gcr.io/kasten-images/repositories:8.5.13. Deployment/stageproof-check/dashboardbff-svc.template.spec.containers[0] dashboardbff-svc container moves from gcr.io/kasten-images/dashboardbff:8.5.12 to gcr.io/kasten-images/dashboardbff:8.5.13. Deployment/stageproof-check/dashboardbff-svc.template.spec.containers[1] vbrintegrationapi-svc container moves from gcr.io/kasten-images/vbrintegrationapi:8.5.12 to gcr.io/kasten-images/vbrintegrationapi:8.5.13.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: APIService/default/v1alpha1.actions.kio.kasten.io, APIService/default/v1alpha1.apps.kio.kasten.io, APIService/default/v1alpha1.repositories.kio.kasten.io, APIService/default/v1alpha1.vault.kio.kasten.io, APIService/default/v1alpha1.dr.kio.kasten.io, APIService/default/v1alpha1.actions.kio.kasten.io, APIService/default/v1alpha1.apps.kio.kasten.io, APIService/default/v1alpha1.repositories.kio.kasten.io, APIService/default/v1alpha1.vault.kio.kasten.io, APIService/default/v1alpha1.dr.kio.kasten.io.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "8.5.13",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.kasten.io/ --chart k10 --from 8.5.12 --to 8.5.13 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "88e59cbfa74faeb5a7621e5134c305a1aabcc1878c2a3d8658f9b9d8e8ba3d9e"
+}

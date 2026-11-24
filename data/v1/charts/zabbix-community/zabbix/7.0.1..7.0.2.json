@@ -1,0 +1,108 @@
+{
+  "from_sha256": "048236bac3e2b4cf28fa21770c3525b596f3c830966596aec67371ea7930b1a6",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "7.0.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 15 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "6 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete StatefulSet/default/stageproof-rel-zabbix-postgresql. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/default/stageproof-rel-zabbix-postgresql",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: CronJob/default/stageproof-rel-zabbix-nodesclean, Deployment/default/stageproof-rel-zabbix-zabbix-server, Deployment/default/stageproof-rel-zabbix-zabbix-web, Deployment/default/stageproof-rel-zabbix-zabbix-webservice, Service/default/stageproof-rel-zabbix-postgresql, Service/default/stageproof-rel-zabbix-zabbix-server, Service/default/stageproof-rel-zabbix-zabbix-web, Service/default/stageproof-rel-zabbix-zabbix-webservice, ServiceAccount/default/stageproof-rel-zabbix.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `busybox:latest` could not be checked. The registry did not answer.",
+          "resource": "busybox:latest",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `postgres:16` could not be checked. The registry did not answer.",
+          "resource": "postgres:16",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `zabbix/zabbix-agent2:ubuntu-7.0.8` could not be checked. The registry did not answer.",
+          "resource": "zabbix/zabbix-agent2:ubuntu-7.0.8",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `zabbix/zabbix-server-pgsql:ubuntu-7.0.8` could not be checked. The registry did not answer.",
+          "resource": "zabbix/zabbix-server-pgsql:ubuntu-7.0.8",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `zabbix/zabbix-web-nginx-pgsql:ubuntu-7.0.8` could not be checked. The registry did not answer.",
+          "resource": "zabbix/zabbix-web-nginx-pgsql:ubuntu-7.0.8",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `zabbix/zabbix-web-service:ubuntu-7.0.8` could not be checked. The registry did not answer.",
+          "resource": "zabbix/zabbix-web-service:ubuntu-7.0.8",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "7.0.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://zabbix-community.github.io/helm-zabbix/ --chart zabbix --from 7.0.1 --to 7.0.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "3bc837603f02cc9a1ee425942c6a6629958112423c9ee2d6da1984a26834f064"
+}

@@ -1,0 +1,67 @@
+{
+  "from_sha256": "4700c4aacb0be0ca551d987fed564c8bc285e5a40ec492e0f2a294a289628409",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.174.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 3 these values is set: image.repository, mode, securityContext.stageproofPlaceholder"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 3 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 2 of 3 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "A client-side Helm upgrade drops this field and continues.",
+          "message": "Kubernetes does not know `spec.template.spec.containers[name=\"opentelemetry-collector\"].securityContext.stageproofPlaceholder`.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-opentelemetry-collector-agent",
+          "rule_id": "k8s.apply.unknown_field",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.175.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://open-telemetry.github.io/opentelemetry-helm-charts --chart opentelemetry-collector --from 0.174.2 --to 0.175.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "6b2ecf067ed5c77fb0ae879b6290731f467a0c5bea65aa5616b80c7171ee4836"
+}

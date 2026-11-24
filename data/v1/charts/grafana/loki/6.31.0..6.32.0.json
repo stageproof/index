@@ -1,0 +1,137 @@
+{
+  "from_sha256": "d59e734520bced7248d96f386e5254ffa0f1835499fe175531ff79fc165c3ef4",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.31.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 38 these values is set: enterprise.config, global.clusterDomain, loki.auth_enabled, loki.config, loki.pattern_ingester.enabled, loki.storage.bucketNames.chunks, loki.storage.use_thanos_objstore, loki.tracing.enabled, loki.ui.enabled, resultsCache.enabled, ruler.enabled, tableManager.retention_deletes_enabled, tableManager.retention_period, chunksCache.stageproofPlaceholder, loki.analytics.stageproofPlaceholder, loki.block_builder.stageproofPlaceholder, loki.bloom_build.stageproofPlaceholder, loki.bloom_gateway.stageproofPlaceholder, loki.commonConfig.stageproofPlaceholder, loki.compactor.stageproofPlaceholder, loki.distributor.stageproofPlaceholder, loki.extraMemberlistConfig.stageproofPlaceholder, loki.frontend.stageproofPlaceholder, loki.frontend_worker.stageproofPlaceholder, loki.index_gateway.stageproofPlaceholder, loki.ingester.stageproofPlaceholder, loki.limits_config.stageproofPlaceholder, loki.memberlistConfig.stageproofPlaceholder, loki.querier.stageproofPlaceholder, loki.query_range.stageproofPlaceholder, loki.query_scheduler.stageproofPlaceholder, loki.schemaConfig.stageproofPlaceholder, loki.server.stageproofPlaceholder, loki.storage_config.stageproofPlaceholder, loki.testSchemaConfig.stageproofPlaceholder, migrate.fromDistributed.stageproofPlaceholder, enterprise.enabled, loki.useTestSchema"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 42 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 33 of 42 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-enterprise-logs-admin-api, Deployment/default/stageproof-rel-enterprise-logs-gateway, Deployment/stageproof-check/enterprise-logs-read, Job/stageproof-check/enterprise-logs-tokengen, StatefulSet/stageproof-check/enterprise-logs-backend, StatefulSet/stageproof-check/enterprise-logs-write",
+          "message": "Chart default `enterprise.image.tag` changed from `3.5.1` to `3.5.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "enterprise.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ClusterRole/default/enterprise-logs-tokengen, ClusterRole/default/stageproof-rel-enterprise-logs-clusterrole, ClusterRole/stageproof-check/enterprise-logs-provisioner, ClusterRoleBinding/default/enterprise-logs-tokengen, ClusterRoleBinding/default/stageproof-rel-enterprise-logs-clusterrolebinding, ClusterRoleBinding/stageproof-check/enterprise-logs-provisioner, ConfigMap/stageproof-check/enterprise-logs, ConfigMap/stageproof-check/enterprise-logs-runtime, DaemonSet/stageproof-check/enterprise-logs-canary, Deployment/default/stageproof-rel-enterprise-logs-admin-api, Deployment/default/stageproof-rel-enterprise-logs-gateway, Deployment/stageproof-check/enterprise-logs-read, Job/stageproof-check/enterprise-logs-provisioner, Job/stageproof-check/enterprise-logs-tokengen, Pod/stageproof-check/enterprise-logs-helm-test, PodDisruptionBudget/stageproof-check/enterprise-logs-backend, PodDisruptionBudget/stageproof-check/enterprise-logs-read, PodDisruptionBudget/stageproof-check/enterprise-logs-write, Secret/stageproof-check/enterprise-logs-license, Service/default/stageproof-rel-enterprise-logs-admin-api, Service/stageproof-check/enterprise-logs-backend, Service/stageproof-check/enterprise-logs-canary, Service/stageproof-check/enterprise-logs-memberlist, Service/stageproof-check/enterprise-logs-read, Service/stageproof-check/enterprise-logs-write, Service/stageproof-check/stageproof-rel-enterprise-logs-chunks-cache, Service/stageproof-check/stageproof-rel-enterprise-logs-gateway, Service/stageproof-check/stageproof-rel-enterprise-logs-results-cache, ServiceAccount/stageproof-check/enterprise-logs, ServiceAccount/stageproof-check/enterprise-logs-canary, ServiceAccount/stageproof-check/enterprise-logs-provisioner, ServiceAccount/stageproof-check/enterprise-logs-tokengen, StatefulSet/stageproof-check/enterprise-logs-backend, StatefulSet/stageproof-check/enterprise-logs-write, StatefulSet/stageproof-check/stageproof-rel-enterprise-logs-chunks-cache, StatefulSet/stageproof-check/stageproof-rel-enterprise-logs-results-cache",
+          "message": "Chart default `loki.image.tag` changed from `3.5.1` to `3.5.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "loki.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/enterprise-logs-backend",
+          "message": "Chart default `sidecar.image.tag` changed from `1.30.6` to `1.30.7` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "sidecar.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/enterprise-logs-canary changed at spec.template.spec.containers[name=loki-canary].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/enterprise-logs-canary",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-enterprise-logs-admin-api changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-enterprise-logs-admin-api",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-enterprise-logs-gateway changed at spec.template.spec.containers[name=gateway].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-enterprise-logs-gateway",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/enterprise-logs-read changed at spec.template.spec.containers[name=loki].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/enterprise-logs-read",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/enterprise-logs-backend changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/enterprise-logs-backend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/enterprise-logs-write changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/enterprise-logs-write",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 3.5.0 to 3.5.2. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. DaemonSet/stageproof-check/enterprise-logs-canary.template.spec.containers[0] loki-canary container moves from docker.io/grafana/loki-canary:3.5.0 to docker.io/grafana/loki-canary:3.5.2. Deployment/default/stageproof-rel-enterprise-logs-admin-api.template.spec.containers[0] admin-api container moves from docker.io/grafana/enterprise-logs:3.5.1 to docker.io/grafana/enterprise-logs:3.5.2. StatefulSet/stageproof-check/enterprise-logs-backend.template.spec.containers[0] loki-sc-rules container moves from kiwigrid/k8s-sidecar:1.30.6 to kiwigrid/k8s-sidecar:1.30.7.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "6.32.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://grafana.github.io/helm-charts --chart loki --from 6.31.0 --to 6.32.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "9d05730c952929d261895dcdfcdd9f4a9610e9c6b9819e04e3cbc9d42edc7231"
+}

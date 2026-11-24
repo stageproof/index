@@ -1,0 +1,113 @@
+{
+  "from_sha256": "8d8d5afd634d48730f68c2ff9d677339cca88a4146db4e6ec0901b6fd767b781",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.37.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 11 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 10 of 11 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Role/stageproof-check/stageproof-rel-redis-ha adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/stageproof-rel-redis-ha",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-redis-ha-configmap-test",
+          "message": "Chart default `configmapTest.image.tag` changed from `v0.10.0` to `v0.11.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "configmapTest.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-redis-ha-server",
+          "message": "Chart default `image.tag` changed from `8.2.4-alpine` to `8.8.0-alpine` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-redis-ha-server changed at spec.template.spec.containers[name=redis].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-redis-ha-server",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 4.37.0 to 4.39.0, skipping 1 minor version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 8.2.4 to 8.8.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Pod/stageproof-check/stageproof-rel-redis-ha-configmap-test.containers[0] check-init container moves from koalaman/shellcheck:v0.10.0 to koalaman/shellcheck:v0.11.0. StatefulSet/stageproof-check/stageproof-rel-redis-ha-server.template.spec.containers[0] redis container moves from public.ecr.aws/docker/library/redis:8.2.4-alpine to public.ecr.aws/docker/library/redis:8.8.0-alpine.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `koalaman/shellcheck:v0.11.0` could not be checked. The registry did not answer.",
+          "resource": "koalaman/shellcheck:v0.11.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "4.39.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://dandydeveloper.github.io/charts/ --chart redis-ha --from 4.37.0 --to 4.39.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "c55181ee72f0c4aef829e8737771f22679518816999d1b2b61816a0c54360ad0"
+}

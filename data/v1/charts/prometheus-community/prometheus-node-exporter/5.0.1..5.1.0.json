@@ -1,0 +1,77 @@
+{
+  "from_sha256": "e502583a2037b50b46600ba8cb15ed4d5ac46f6d9351c4a886da1e27420d7265",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "5.0.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 3 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter",
+          "message": "Chart default `livenessProbe.timeoutSeconds` changed from `1` to `5` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "livenessProbe.timeoutSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter",
+          "message": "Chart default `readinessProbe.timeoutSeconds` changed from `1` to `5` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "readinessProbe.timeoutSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter changed at spec.template.spec.containers[name=node-exporter].livenessProbe.timeoutSeconds. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "5.1.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://prometheus-community.github.io/helm-charts --chart prometheus-node-exporter --from 5.0.1 --to 5.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "908fb55ede2c340c64cd643bc6352ce46f3cbc94663014033b0b321a5013a0b8"
+}

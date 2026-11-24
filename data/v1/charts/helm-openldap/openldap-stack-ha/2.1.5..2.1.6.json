@@ -1,0 +1,78 @@
+{
+  "from_sha256": "e4cbe35ce6186f0025d7f46f87a260620b6abe5edaca202c08789d0229e8ec17",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.1.5",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 13 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Ingress/default/stageproof-rel-ltb-passwd, Ingress/default/stageproof-rel-phpldapadmin.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "Ingress/default/stageproof-rel-ltb-passwd adds hosts ssl-ldap2.example.",
+          "resource": "Ingress/default/stageproof-rel-ltb-passwd",
+          "rule_id": "impact.exposure.route",
+          "severity": "warning"
+        },
+        {
+          "message": "Ingress/default/stageproof-rel-phpldapadmin adds hosts phpldapadmin.example.",
+          "resource": "Ingress/default/stageproof-rel-phpldapadmin",
+          "rule_id": "impact.exposure.route",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-openldap-stack-ha changed at spec.template.metadata.annotations.checksum/configmap-env. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-openldap-stack-ha",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "2.1.6",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://jp-gouin.github.io/helm-openldap/ --chart openldap-stack-ha --from 2.1.5 --to 2.1.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "967dd307a5deb0a873708997367943724d1a80a2fc1830b96c005a5c33e82637"
+}

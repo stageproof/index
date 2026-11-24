@@ -1,0 +1,77 @@
+{
+  "from_sha256": "d45a4356eb90f355300d1d05c66becb94b22b2d7aa7e8b02cc067c88d70f2af5",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "7.0.151",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 4 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared rendered objects. No object is in both charts to diff as a stored form."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: ClusterRole/default/stageproof-rel-reflector, ClusterRoleBinding/default/stageproof-rel-reflector, Deployment/default/stageproof-rel-reflector, ServiceAccount/default/stageproof-rel-reflector.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/stageproof-check/stageproof-rel-reflector adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/stageproof-check/stageproof-rel-reflector",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 7.0.151 to 7.0.173. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "7.0.173",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://emberstack.github.io/helm-charts --chart reflector --from 7.0.151 --to 7.0.173 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "18035921d1bef89641cf99089842a05043a66af840c5c93d9172dd5f67172a4e"
+}

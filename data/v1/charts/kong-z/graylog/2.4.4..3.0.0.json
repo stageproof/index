@@ -1,0 +1,129 @@
+{
+  "from_sha256": "837db3f56d017c02a18e343aee85241943fb29ba0b033b9c49444b74385bd2cf",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.4.4",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 23 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete StatefulSet/stageproof-check/stageproof-rel-mongodb. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-mongodb",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete StatefulSet/stageproof-check/stageproof-rel-mongodb-arbiter. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-mongodb-arbiter",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/stageproof-check/stageproof-rel-mongodb-common-scripts, ConfigMap/stageproof-check/stageproof-rel-mongodb-scripts, PodDisruptionBudget/stageproof-check/stageproof-rel-mongodb, PodDisruptionBudget/stageproof-check/stageproof-rel-mongodb-arbiter, Service/stageproof-check/stageproof-rel-mongodb-arbiter-headless, Service/stageproof-check/stageproof-rel-mongodb-headless, ServiceAccount/stageproof-check/stageproof-rel-mongodb.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/mongodb-database adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/mongodb-database",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/mongodb-kubernetes-operator adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/mongodb-kubernetes-operator",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "NetworkPolicy/stageproof-check/stageproof-rel-mongodb is removed. Traffic it was restricting is no longer restricted by this policy.",
+          "resource": "NetworkPolicy/stageproof-check/stageproof-rel-mongodb",
+          "rule_id": "impact.exposure.networkpolicy",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-graylog",
+          "message": "Chart default `graylog.livenessProbe.initialDelaySeconds` changed from `0` to `30` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "graylog.livenessProbe.initialDelaySeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-graylog",
+          "message": "Chart default `graylog.readinessProbe.initialDelaySeconds` changed from `0` to `30` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "graylog.readinessProbe.initialDelaySeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-graylog changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-graylog",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 2.4.4 to 3.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "message": "MongoDBCommunity/default/stageproof-rel-graylog-mongodb was not judged. the API group is not installed on this server.",
+          "resource": "MongoDBCommunity/default/stageproof-rel-graylog-mongodb",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "3.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.kong-z.com/ --chart graylog --from 2.4.4 --to 3.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "7045294382b1628a85b3b7916f4073cc56f2870d7a878a2166016505d526aff1"
+}

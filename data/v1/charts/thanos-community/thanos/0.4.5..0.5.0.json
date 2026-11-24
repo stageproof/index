@@ -1,0 +1,181 @@
+{
+  "from_sha256": "0d437f536f5dcee6a7066709013f258a6963774e001ef8062d359b9f9a14eabf",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.4.5",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 12 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 11 of 12 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-thanos-compactor",
+          "message": "Chart default `compactor.probes.liveness.port` changed from `10902` to `http` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "compactor.probes.liveness.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-thanos-compactor",
+          "message": "Chart default `compactor.probes.readiness.port` changed from `10902` to `http` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "compactor.probes.readiness.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-thanos-compactor",
+          "message": "Chart default `compactor.probes.startup.port` changed from `10902` to `http` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "compactor.probes.startup.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-thanos-query",
+          "message": "Chart default `query.probes.liveness.port` changed from `9090` to `http` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "query.probes.liveness.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-thanos-query",
+          "message": "Chart default `query.probes.readiness.port` changed from `9090` to `http` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "query.probes.readiness.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-thanos-query",
+          "message": "Chart default `query.probes.startup.port` changed from `9090` to `http` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "query.probes.startup.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-thanos-receive",
+          "message": "Chart default `receive.probes.liveness.port` changed from `10902` to `http` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "receive.probes.liveness.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-thanos-receive",
+          "message": "Chart default `receive.probes.readiness.port` changed from `10902` to `http` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "receive.probes.readiness.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-thanos-receive",
+          "message": "Chart default `receive.probes.startup.port` changed from `10902` to `http` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "receive.probes.startup.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-thanos-storegateway",
+          "message": "Chart default `storegateway.probes.liveness.port` changed from `10902` to `http` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "storegateway.probes.liveness.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-thanos-storegateway",
+          "message": "Chart default `storegateway.probes.readiness.port` changed from `10902` to `http` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "storegateway.probes.readiness.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-thanos-storegateway",
+          "message": "Chart default `storegateway.probes.startup.port` changed from `10902` to `http` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "storegateway.probes.startup.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-thanos-query changed at spec.template.spec.containers[name=query].livenessProbe.httpGet.port. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-thanos-query",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-thanos-compactor changed at spec.template.spec.containers[name=compactor].livenessProbe.httpGet.port. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-thanos-compactor",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-thanos-receive changed at spec.template.spec.containers[name=receive].livenessProbe.httpGet.port. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-thanos-receive",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-thanos-storegateway changed at spec.template.spec.containers[name=storegateway].livenessProbe.httpGet.port. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-thanos-storegateway",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "PrometheusRule/default/stageproof-rel-thanos-rules was not judged. the API group is not installed on this server.",
+          "resource": "PrometheusRule/default/stageproof-rel-thanos-rules",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.5.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://thanos-community.github.io/helm-charts --chart thanos --from 0.4.5 --to 0.5.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "1dd5dfb6df5f8c3572f206f1b33d2c42939bbc297c0d62ed2dc9ed0e913452d9"
+}

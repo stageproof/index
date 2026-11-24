@@ -1,0 +1,290 @@
+{
+  "from_sha256": "ef44f55dd93556f82a4fd4aa47dcbeca0004f779b7b105d6be3e5573b3824fa8",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "9.9.3",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "required values shim",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: global.hosts.workspaces.name"
+        },
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: certmanager-issuer.email"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 154 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "10 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "13 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 114 of 149 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (3 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "replaced: delete then create. Helm will delete Job/stageproof-check/stageproof-rel-minio-create-buckets-44d0e7a. Job/stageproof-check/stageproof-rel-minio-create-buckets-c5bd26d is created in its place.",
+          "resource": "Job/stageproof-check/stageproof-rel-minio-create-buckets-44d0e7a",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: Job/stageproof-check/stageproof-rel-issuer-c358ee9, Job/stageproof-check/stageproof-rel-migrations-42317cd.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-gitlab-chart-info, Deployment/stageproof-check/stageproof-rel-gitlab-exporter, Deployment/stageproof-check/stageproof-rel-gitlab-shell, Deployment/stageproof-check/stageproof-rel-kas, Deployment/stageproof-check/stageproof-rel-minio, Deployment/stageproof-check/stageproof-rel-registry, Deployment/stageproof-check/stageproof-rel-sidekiq-all-in-1-v2, Deployment/stageproof-check/stageproof-rel-toolbox, Deployment/stageproof-check/stageproof-rel-webservice-default, Job/stageproof-check/stageproof-rel-gitlab-upgrade-check, Job/stageproof-check/stageproof-rel-issuer-19294f1, Job/stageproof-check/stageproof-rel-issuer-c358ee9, Job/stageproof-check/stageproof-rel-migrations-2b8e711, Job/stageproof-check/stageproof-rel-migrations-a29b37e, Job/stageproof-check/stageproof-rel-minio-create-buckets-44d0e7a, Job/stageproof-check/stageproof-rel-minio-create-buckets-c5bd26d, Job/stageproof-check/stageproof-rel-shared-secrets-4123703, Job/stageproof-check/stageproof-rel-shared-secrets-6851177, Pod/stageproof-check/stageproof-rel-webservice-test-runner-cz8v1, Pod/stageproof-check/stageproof-rel-webservice-test-runner-fbrn1, StatefulSet/stageproof-check/stageproof-rel-gitaly",
+          "message": "Chart default `global.gitlabVersion` changed from `18.9.2` to `18.9.3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.gitlabVersion",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-gitlab-exporter changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-gitlab-exporter",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-gitlab-shell changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-gitlab-shell",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-kas changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-kas",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-minio changed at spec.template.spec.initContainers[name=configure].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-minio",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-registry changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-registry",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-sidekiq-all-in-1-v2 changed at spec.template.metadata.annotations.checksum/configmap. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-sidekiq-all-in-1-v2",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-toolbox changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-toolbox",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-webservice-default changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-webservice-default",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-gitaly changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-gitaly",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v18.9.2 to v18.9.3. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "8 container images changed. Deployment/stageproof-check/stageproof-rel-gitlab-exporter.template.spec.initContainers[0] certificates container moves from registry.gitlab.com/gitlab-org/build/cng/certificates:v18.9.2 to registry.gitlab.com/gitlab-org/build/cng/certificates:v18.9.3. Deployment/stageproof-check/stageproof-rel-gitlab-exporter.template.spec.initContainers[1] configure container moves from registry.gitlab.com/gitlab-org/build/cng/gitlab-base:v18.9.2 to registry.gitlab.com/gitlab-org/build/cng/gitlab-base:v18.9.3. Deployment/stageproof-check/stageproof-rel-kas.template.spec.containers[0] kas container moves from registry.gitlab.com/gitlab-org/build/cng/gitlab-kas:v18.9.2 to registry.gitlab.com/gitlab-org/build/cng/gitlab-kas:v18.9.3. Deployment/stageproof-check/stageproof-rel-sidekiq-all-in-1-v2.template.spec.containers[0] sidekiq container moves from registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee:v18.9.2 to registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee:v18.9.3. Deployment/stageproof-check/stageproof-rel-toolbox.template.spec.containers[0] toolbox container moves from registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee:v18.9.2 to registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ee:v18.9.3. Deployment/stageproof-check/stageproof-rel-webservice-default.template.spec.containers[0] webservice container moves from registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v18.9.2 to registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee:v18.9.3. Deployment/stageproof-check/stageproof-rel-webservice-default.template.spec.containers[1] gitlab-workhorse container moves from registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v18.9.2 to registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee:v18.9.3. StatefulSet/stageproof-check/stageproof-rel-gitaly.template.spec.containers[0] gitaly container moves from registry.gitlab.com/gitlab-org/build/cng/gitaly:v18.9.2 to registry.gitlab.com/gitlab-org/build/cng/gitaly:v18.9.3.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-gitaly",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-gitlab-shell",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-kas",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-sidekiq-all-in-1-v1",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-webservice-default",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-minio-v1",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-nginx-ingress-controller",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
+          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-registry-v1",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
+          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-gitlab-shell",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
+          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-kas",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
+          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-sidekiq-all-in-1-v2",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
+          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-webservice-default",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
+          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-registry",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "Ingress/stageproof-check/stageproof-rel-kas was not judged. the API group is not installed on this server.",
+          "resource": "Ingress/stageproof-check/stageproof-rel-kas",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Ingress/stageproof-check/stageproof-rel-webservice-default was not judged. the API group is not installed on this server.",
+          "resource": "Ingress/stageproof-check/stageproof-rel-webservice-default",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Ingress/stageproof-check/stageproof-rel-minio was not judged. the API group is not installed on this server.",
+          "resource": "Ingress/stageproof-check/stageproof-rel-minio",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Ingress/stageproof-check/stageproof-rel-registry was not judged. the API group is not installed on this server.",
+          "resource": "Ingress/stageproof-check/stageproof-rel-registry",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/default/stageproof-rel-certmanager-webhook, ValidatingWebhookConfiguration/default/stageproof-rel-certmanager-webhook, MutatingWebhookConfiguration/default/stageproof-rel-certmanager-webhook, ValidatingWebhookConfiguration/default/stageproof-rel-certmanager-webhook.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 386 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/challenges.acme.cert-manager.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 463 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/clusterissuers.cert-manager.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 463 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/issuers.cert-manager.io",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "9.9.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo http://charts.gitlab.io/ --chart gitlab --from 9.9.3 --to 9.9.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "f5ef6efd099cd259eb9f2b1e1c7f3249fc85c211d4bd0b35f71e980914b224f6"
+}

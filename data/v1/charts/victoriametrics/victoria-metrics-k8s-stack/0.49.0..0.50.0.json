@@ -1,0 +1,263 @@
+{
+  "from_sha256": "0892272e03f0b1c846462a8aacaebd30454167d4ee45163eb0ba5abf6430408c",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.49.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 131 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 107 of 129 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (3 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-windows.node.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-windows.pod.rules.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vlogs.operator.victoriametrics.com: spec.affinity (removed), spec.affinity (type), spec.configMaps (removed), spec.configMaps (type), spec.configMaps.items (removed), spec.configMaps.items (type), spec.containers (removed), spec.containers (type), spec.containers.items (removed), spec.containers.items (type), spec.disableAutomountServiceAccountToken (removed), spec.disableAutomountServiceAccountToken (type), spec.disableSelfServiceScrape (removed), spec.disableSelfServiceScrape (type), spec.dnsConfig (removed), spec.dnsConfig (type), spec.dnsConfig.items (removed), spec.dnsConfig.nameservers (removed), spec.dnsConfig.nameservers (type), spec.dnsConfig.nameservers.items (removed), spec.dnsConfig.nameservers.items (type), spec.dnsConfig.options (removed), spec.dnsConfig.options (type), spec.dnsConfig.options.items (removed), spec.dnsConfig.options.items (type), spec.dnsConfig.options.items.name (removed), spec.dnsConfig.options.items.name (type), spec.dnsConfig.options.items.value (removed), spec.dnsConfig.options.items.value (type), spec.dnsConfig.searches (removed), spec.dnsConfig.searches (type), spec.dnsConfig.searches.items (removed), spec.dnsConfig.searches.items (type), spec.dnsPolicy (removed), spec.dnsPolicy (type), spec.extraArgs (removed), spec.extraArgs (type), spec.extraArgs.additionalProperties (removed), spec.extraArgs.additionalProperties (type), spec.extraEnvs (removed), spec.extraEnvs (type), spec.extraEnvs.items (removed), spec.extraEnvs.items (type), spec.extraEnvs.items.name (removed), spec.extraEnvs.items.name (type), spec.extraEnvs.items.value (removed), spec.extraEnvs.items.value (type), spec.extraEnvsFrom (removed), spec.extraEnvsFrom (type), spec.extraEnvsFrom.items (removed), spec.extraEnvsFrom.items (type), spec.extraEnvsFrom.items.configMapRef (removed), spec.extraEnvsFrom.items.configMapRef (type), spec.extraEnvsFrom.items.configMapRef.name (removed), spec.extraEnvsFrom.items.configMapRef.name (type), spec.extraEnvsFrom.items.configMapRef.optional (removed), spec.extraEnvsFrom.items.configMapRef.optional (type), spec.extraEnvsFrom.items.prefix (removed), spec.extraEnvsFrom.items.prefix (type), spec.extraEnvsFrom.items.secretRef (removed), spec.extraEnvsFrom.items.secretRef (type), spec.extraEnvsFrom.items.secretRef.name (removed), spec.extraEnvsFrom.items.secretRef.name (type), spec.extraEnvsFrom.items.secretRef.optional (removed), spec.extraEnvsFrom.items.secretRef.optional (type), spec.futureRetention (removed), spec.futureRetention (type), spec.hostAliases (removed), spec.hostAliases (type), spec.hostAliases.items (removed), spec.hostAliases.items (type), spec.hostAliases.items.hostnames (removed), spec.hostAliases.items.hostnames (type), spec.hostAliases.items.hostnames.items (removed), spec.hostAliases.items.hostnames.items (type), spec.hostAliases.items.ip (removed), spec.hostAliases.items.ip (type), spec.hostNetwork (removed), spec.hostNetwork (type), spec.host_aliases (removed), spec.host_aliases (type), spec.host_aliases.items (removed), spec.host_aliases.items (type), spec.host_aliases.items.hostnames (removed), spec.host_aliases.items.hostnames (type), spec.host_aliases.items.hostnames.items (removed), spec.host_aliases.items.hostnames.items (type), spec.host_aliases.items.ip (removed), spec.host_aliases.items.ip (type), spec.image (removed), spec.image (type), spec.image.pullPolicy (removed), spec.image.pullPolicy (type), spec.image.repository (removed), spec.image.repository (type), spec.image.tag (removed), spec.image.tag (type), spec.imagePullSecrets (removed), spec.imagePullSecrets (type), spec.imagePullSecrets.items (removed), spec.imagePullSecrets.items (type), spec.imagePullSecrets.items.name (removed), spec.imagePullSecrets.items.name (type), spec.initContainers (removed), spec.initContainers (type), spec.initContainers.items (removed), spec.initContainers.items (type), spec.livenessProbe (removed), spec.livenessProbe (type), spec.logFormat (enum), spec.logFormat (removed), spec.logFormat (type), spec.logIngestedRows (removed), spec.logIngestedRows (type), spec.logLevel (enum), spec.logLevel (removed), spec.logLevel (type), spec.logNewStreams (removed), spec.logNewStreams (type), spec.managedMetadata (removed), spec.managedMetadata (type), spec.managedMetadata.annotations (removed), spec.managedMetadata.annotations (type), spec.managedMetadata.annotations.additionalProperties (removed), spec.managedMetadata.annotations.additionalProperties (type), spec.managedMetadata.labels (removed), spec.managedMetadata.labels (type), spec.managedMetadata.labels.additionalProperties (removed), spec.managedMetadata.labels.additionalProperties (type), spec.minReadySeconds (removed), spec.minReadySeconds (type), spec.nodeSelector (removed), spec.nodeSelector (type), spec.nodeSelector.additionalProperties (removed), spec.nodeSelector.additionalProperties (type), spec.paused (removed), spec.paused (type), spec.podMetadata (removed), spec.podMetadata (type), spec.podMetadata.annotations (removed), spec.podMetadata.annotations (type), spec.podMetadata.annotations.additionalProperties (removed), spec.podMetadata.annotations.additionalProperties (type), spec.podMetadata.labels (removed), spec.podMetadata.labels (type), spec.podMetadata.labels.additionalProperties (removed), spec.podMetadata.labels.additionalProperties (type), spec.podMetadata.name (removed), spec.podMetadata.name (type), spec.port (removed), spec.port (type), spec.priorityClassName (removed), spec.priorityClassName (type), spec.readinessGates (removed), spec.readinessGates (type), spec.readinessGates.items (removed), spec.readinessGates.items (type), spec.readinessGates.items.conditionType (removed), spec.readinessGates.items.conditionType (type), spec.readinessProbe (removed), spec.readinessProbe (type), spec.removePvcAfterDelete (removed), spec.removePvcAfterDelete (type), spec.replicaCount (removed), spec.replicaCount (type), spec.resources (removed), spec.resources (type), spec.resources.claims (removed), spec.resources.claims (type), spec.resources.claims.items (removed), spec.resources.claims.items (type), spec.resources.claims.items.name (removed), spec.resources.claims.items.name (type), spec.resources.claims.items.request (removed), spec.resources.claims.items.request (type), spec.resources.limits (removed), spec.resources.limits (type), spec.resources.limits.additionalProperties (removed), spec.resources.limits.additionalProperties.anyOf[0] (removed), spec.resources.limits.additionalProperties.anyOf[0] (type), spec.resources.limits.additionalProperties.anyOf[1] (removed), spec.resources.limits.additionalProperties.anyOf[1] (type), spec.resources.requests (removed), spec.resources.requests (type), spec.resources.requests.additionalProperties (removed), spec.resources.requests.additionalProperties.anyOf[0] (removed), spec.resources.requests.additionalProperties.anyOf[0] (type), spec.resources.requests.additionalProperties.anyOf[1] (removed), spec.resources.requests.additionalProperties.anyOf[1] (type), spec.retentionPeriod (removed), spec.retentionPeriod (type), spec.revisionHistoryLimitCount (removed), spec.revisionHistoryLimitCount (type), spec.runtimeClassName (removed), spec.runtimeClassName (type), spec.schedulerName (removed), spec.schedulerName (type), spec.secrets (removed), spec.secrets (type), spec.secrets.items (removed), spec.secrets.items (type), spec.securityContext (removed), spec.securityContext (type), spec.serviceAccountName (removed), spec.serviceAccountName (type), spec.serviceScrapeSpec (removed), spec.serviceScrapeSpec (type), spec.serviceSpec (removed), spec.serviceSpec (type), spec.serviceSpec.metadata (removed), spec.serviceSpec.metadata (type), spec.serviceSpec.metadata.annotations (removed), spec.serviceSpec.metadata.annotations (type), spec.serviceSpec.metadata.annotations.additionalProperties (removed), spec.serviceSpec.metadata.annotations.additionalProperties (type), spec.serviceSpec.metadata.labels (removed), spec.serviceSpec.metadata.labels (type), spec.serviceSpec.metadata.labels.additionalProperties (removed), spec.serviceSpec.metadata.labels.additionalProperties (type), spec.serviceSpec.metadata.name (removed), spec.serviceSpec.metadata.name (type), spec.serviceSpec.spec (removed), spec.serviceSpec.spec (type), spec.serviceSpec.useAsDefault (removed), spec.serviceSpec.useAsDefault (type), spec.startupProbe (removed), spec.startupProbe (type), spec.storage (removed), spec.storage (type), spec.storage.accessModes (removed), spec.storage.accessModes (type), spec.storage.accessModes.items (removed), spec.storage.accessModes.items (type), spec.storage.dataSource (removed), spec.storage.dataSource (type), spec.storage.dataSource.apiGroup (removed), spec.storage.dataSource.apiGroup (type), spec.storage.dataSource.kind (removed), spec.storage.dataSource.kind (type), spec.storage.dataSource.name (removed), spec.storage.dataSource.name (type), spec.storage.dataSourceRef (removed), spec.storage.dataSourceRef (type), spec.storage.dataSourceRef.apiGroup (removed), spec.storage.dataSourceRef.apiGroup (type), spec.storage.dataSourceRef.kind (removed), spec.storage.dataSourceRef.kind (type), spec.storage.dataSourceRef.name (removed), spec.storage.dataSourceRef.name (type), spec.storage.dataSourceRef.namespace (removed), spec.storage.dataSourceRef.namespace (type), spec.storage.resources (removed), spec.storage.resources (type), spec.storage.resources.limits (removed), spec.storage.resources.limits (type), spec.storage.resources.limits.additionalProperties (removed), spec.storage.resources.limits.additionalProperties.anyOf[0] (removed), spec.storage.resources.limits.additionalProperties.anyOf[0] (type), spec.storage.resources.limits.additionalProperties.anyOf[1] (removed), spec.storage.resources.limits.additionalProperties.anyOf[1] (type), spec.storage.resources.requests (removed), spec.storage.resources.requests (type), spec.storage.resources.requests.additionalProperties (removed), spec.storage.resources.requests.additionalProperties.anyOf[0] (removed), spec.storage.resources.requests.additionalProperties.anyOf[0] (type), spec.storage.resources.requests.additionalProperties.anyOf[1] (removed), spec.storage.resources.requests.additionalProperties.anyOf[1] (type), spec.storage.selector (removed), spec.storage.selector (type), spec.storage.selector.matchExpressions (removed), spec.storage.selector.matchExpressions (type), spec.storage.selector.matchExpressions.items (removed), spec.storage.selector.matchExpressions.items (type), spec.storage.selector.matchExpressions.items.key (removed), spec.storage.selector.matchExpressions.items.key (type), spec.storage.selector.matchExpressions.items.operator (removed), spec.storage.selector.matchExpressions.items.operator (type), spec.storage.selector.matchExpressions.items.values (removed), spec.storage.selector.matchExpressions.items.values (type), spec.storage.selector.matchExpressions.items.values.items (removed), spec.storage.selector.matchExpressions.items.values.items (type), spec.storage.selector.matchLabels (removed), spec.storage.selector.matchLabels (type), spec.storage.selector.matchLabels.additionalProperties (removed), spec.storage.selector.matchLabels.additionalProperties (type), spec.storage.storageClassName (removed), spec.storage.storageClassName (type), spec.storage.volumeAttributesClassName (removed), spec.storage.volumeAttributesClassName (type), spec.storage.volumeMode (removed), spec.storage.volumeMode (type), spec.storage.volumeName (removed), spec.storage.volumeName (type), spec.storageDataPath (removed), spec.storageDataPath (type), spec.storageMetadata (removed), spec.storageMetadata (type), spec.storageMetadata.annotations (removed), spec.storageMetadata.annotations (type), spec.storageMetadata.annotations.additionalProperties (removed), spec.storageMetadata.annotations.additionalProperties (type), spec.storageMetadata.labels (removed), spec.storageMetadata.labels (type), spec.storageMetadata.labels.additionalProperties (removed), spec.storageMetadata.labels.additionalProperties (type), spec.storageMetadata.name (removed), spec.storageMetadata.name (type), spec.terminationGracePeriodSeconds (removed), spec.terminationGracePeriodSeconds (type), spec.tolerations (removed), spec.tolerations (type), spec.tolerations.items (removed), spec.tolerations.items (type), spec.tolerations.items.effect (removed), spec.tolerations.items.effect (type), spec.tolerations.items.key (removed), spec.tolerations.items.key (type), spec.tolerations.items.operator (removed), spec.tolerations.items.operator (type), spec.tolerations.items.tolerationSeconds (removed), spec.tolerations.items.tolerationSeconds (type), spec.tolerations.items.value (removed), spec.tolerations.items.value (type), spec.topologySpreadConstraints (removed), spec.topologySpreadConstraints (type), spec.topologySpreadConstraints.items (removed), spec.topologySpreadConstraints.items (type), spec.useDefaultResources (removed), spec.useDefaultResources (type), spec.useStrictSecurity (removed), spec.useStrictSecurity (type), spec.volumeMounts (removed), spec.volumeMounts (type), spec.volumeMounts.items (removed), spec.volumeMounts.items (type), spec.volumeMounts.items.mountPath (removed), spec.volumeMounts.items.mountPath (type), spec.volumeMounts.items.mountPropagation (removed), spec.volumeMounts.items.mountPropagation (type), spec.volumeMounts.items.name (removed), spec.volumeMounts.items.name (type), spec.volumeMounts.items.readOnly (removed), spec.volumeMounts.items.readOnly (type), spec.volumeMounts.items.recursiveReadOnly (removed), spec.volumeMounts.items.recursiveReadOnly (type), spec.volumeMounts.items.subPath (removed), spec.volumeMounts.items.subPath (type), spec.volumeMounts.items.subPathExpr (removed), spec.volumeMounts.items.subPathExpr (type), spec.volumes (removed), spec.volumes (type), spec.volumes.items (removed), spec.volumes.items (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vlogs.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "detail": "A field was removed, its type changed, it became required, or its enum was narrowed. This stays a warning until a rendered object uses the field.",
+          "message": "Incompatible fields on vmclusters.operator.victoriametrics.com: spec.vmselect.claimTemplates.items.apiVersion (removed), spec.vmselect.claimTemplates.items.apiVersion (type), spec.vmselect.claimTemplates.items.kind (removed), spec.vmselect.claimTemplates.items.kind (type), spec.vmselect.claimTemplates.items.metadata (removed), spec.vmselect.claimTemplates.items.metadata (type), spec.vmselect.claimTemplates.items.spec (removed), spec.vmselect.claimTemplates.items.spec (type), spec.vmselect.claimTemplates.items.spec.accessModes (removed), spec.vmselect.claimTemplates.items.spec.accessModes (type), spec.vmselect.claimTemplates.items.spec.accessModes.items (removed), spec.vmselect.claimTemplates.items.spec.accessModes.items (type), spec.vmselect.claimTemplates.items.spec.dataSource (removed), spec.vmselect.claimTemplates.items.spec.dataSource (type), spec.vmselect.claimTemplates.items.spec.dataSource.apiGroup (removed), spec.vmselect.claimTemplates.items.spec.dataSource.apiGroup (type), spec.vmselect.claimTemplates.items.spec.dataSource.kind (removed), spec.vmselect.claimTemplates.items.spec.dataSource.kind (type), spec.vmselect.claimTemplates.items.spec.dataSource.name (removed), spec.vmselect.claimTemplates.items.spec.dataSource.name (type), spec.vmselect.claimTemplates.items.spec.dataSourceRef (removed), spec.vmselect.claimTemplates.items.spec.dataSourceRef (type), spec.vmselect.claimTemplates.items.spec.dataSourceRef.apiGroup (removed), spec.vmselect.claimTemplates.items.spec.dataSourceRef.apiGroup (type), spec.vmselect.claimTemplates.items.spec.dataSourceRef.kind (removed), spec.vmselect.claimTemplates.items.spec.dataSourceRef.kind (type), spec.vmselect.claimTemplates.items.spec.dataSourceRef.name (removed), spec.vmselect.claimTemplates.items.spec.dataSourceRef.name (type), spec.vmselect.claimTemplates.items.spec.dataSourceRef.namespace (removed), spec.vmselect.claimTemplates.items.spec.dataSourceRef.namespace (type), spec.vmselect.claimTemplates.items.spec.resources (removed), spec.vmselect.claimTemplates.items.spec.resources (type), spec.vmselect.claimTemplates.items.spec.resources.limits (removed), spec.vmselect.claimTemplates.items.spec.resources.limits (type), spec.vmselect.claimTemplates.items.spec.resources.limits.additionalProperties (removed), spec.vmselect.claimTemplates.items.spec.resources.limits.additionalProperties.anyOf[0] (removed), spec.vmselect.claimTemplates.items.spec.resources.limits.additionalProperties.anyOf[0] (type), spec.vmselect.claimTemplates.items.spec.resources.limits.additionalProperties.anyOf[1] (removed), spec.vmselect.claimTemplates.items.spec.resources.limits.additionalProperties.anyOf[1] (type), spec.vmselect.claimTemplates.items.spec.resources.requests (removed), spec.vmselect.claimTemplates.items.spec.resources.requests (type), spec.vmselect.claimTemplates.items.spec.resources.requests.additionalProperties (removed), spec.vmselect.claimTemplates.items.spec.resources.requests.additionalProperties.anyOf[0] (removed), spec.vmselect.claimTemplates.items.spec.resources.requests.additionalProperties.anyOf[0] (type), spec.vmselect.claimTemplates.items.spec.resources.requests.additionalProperties.anyOf[1] (removed), spec.vmselect.claimTemplates.items.spec.resources.requests.additionalProperties.anyOf[1] (type), spec.vmselect.claimTemplates.items.spec.selector (removed), spec.vmselect.claimTemplates.items.spec.selector (type), spec.vmselect.claimTemplates.items.spec.selector.matchExpressions (removed), spec.vmselect.claimTemplates.items.spec.selector.matchExpressions (type), spec.vmselect.claimTemplates.items.spec.selector.matchExpressions.items (removed), spec.vmselect.claimTemplates.items.spec.selector.matchExpressions.items (type), spec.vmselect.claimTemplates.items.spec.selector.matchExpressions.items.key (removed), spec.vmselect.claimTemplates.items.spec.selector.matchExpressions.items.key (type), spec.vmselect.claimTemplates.items.spec.selector.matchExpressions.items.operator (removed), spec.vmselect.claimTemplates.items.spec.selector.matchExpressions.items.operator (type), spec.vmselect.claimTemplates.items.spec.selector.matchExpressions.items.values (removed), spec.vmselect.claimTemplates.items.spec.selector.matchExpressions.items.values (type), spec.vmselect.claimTemplates.items.spec.selector.matchExpressions.items.values.items (removed), spec.vmselect.claimTemplates.items.spec.selector.matchExpressions.items.values.items (type), spec.vmselect.claimTemplates.items.spec.selector.matchLabels (removed), spec.vmselect.claimTemplates.items.spec.selector.matchLabels (type), spec.vmselect.claimTemplates.items.spec.selector.matchLabels.additionalProperties (removed), spec.vmselect.claimTemplates.items.spec.selector.matchLabels.additionalProperties (type), spec.vmselect.claimTemplates.items.spec.storageClassName (removed), spec.vmselect.claimTemplates.items.spec.storageClassName (type), spec.vmselect.claimTemplates.items.spec.volumeAttributesClassName (removed), spec.vmselect.claimTemplates.items.spec.volumeAttributesClassName (type), spec.vmselect.claimTemplates.items.spec.volumeMode (removed), spec.vmselect.claimTemplates.items.spec.volumeMode (type), spec.vmselect.claimTemplates.items.spec.volumeName (removed), spec.vmselect.claimTemplates.items.spec.volumeName (type), spec.vmselect.claimTemplates.items.status (removed), spec.vmselect.claimTemplates.items.status (type), spec.vmselect.claimTemplates.items.status.accessModes (removed), spec.vmselect.claimTemplates.items.status.accessModes (type), spec.vmselect.claimTemplates.items.status.accessModes.items (removed), spec.vmselect.claimTemplates.items.status.accessModes.items (type), spec.vmselect.claimTemplates.items.status.allocatedResourceStatuses (removed), spec.vmselect.claimTemplates.items.status.allocatedResourceStatuses (type), spec.vmselect.claimTemplates.items.status.allocatedResourceStatuses.additionalProperties (removed), spec.vmselect.claimTemplates.items.status.allocatedResourceStatuses.additionalProperties (type), spec.vmselect.claimTemplates.items.status.allocatedResources (removed), spec.vmselect.claimTemplates.items.status.allocatedResources (type), spec.vmselect.claimTemplates.items.status.allocatedResources.additionalProperties (removed), spec.vmselect.claimTemplates.items.status.allocatedResources.additionalProperties.anyOf[0] (removed), spec.vmselect.claimTemplates.items.status.allocatedResources.additionalProperties.anyOf[0] (type), spec.vmselect.claimTemplates.items.status.allocatedResources.additionalProperties.anyOf[1] (removed), spec.vmselect.claimTemplates.items.status.allocatedResources.additionalProperties.anyOf[1] (type), spec.vmselect.claimTemplates.items.status.capacity (removed), spec.vmselect.claimTemplates.items.status.capacity (type), spec.vmselect.claimTemplates.items.status.capacity.additionalProperties (removed), spec.vmselect.claimTemplates.items.status.capacity.additionalProperties.anyOf[0] (removed), spec.vmselect.claimTemplates.items.status.capacity.additionalProperties.anyOf[0] (type), spec.vmselect.claimTemplates.items.status.capacity.additionalProperties.anyOf[1] (removed), spec.vmselect.claimTemplates.items.status.capacity.additionalProperties.anyOf[1] (type), spec.vmselect.claimTemplates.items.status.conditions (removed), spec.vmselect.claimTemplates.items.status.conditions (type), spec.vmselect.claimTemplates.items.status.conditions.items (removed), spec.vmselect.claimTemplates.items.status.conditions.items (type), spec.vmselect.claimTemplates.items.status.conditions.items.lastProbeTime (removed), spec.vmselect.claimTemplates.items.status.conditions.items.lastProbeTime (type), spec.vmselect.claimTemplates.items.status.conditions.items.lastTransitionTime (removed), spec.vmselect.claimTemplates.items.status.conditions.items.lastTransitionTime (type), spec.vmselect.claimTemplates.items.status.conditions.items.message (removed), spec.vmselect.claimTemplates.items.status.conditions.items.message (type), spec.vmselect.claimTemplates.items.status.conditions.items.reason (removed), spec.vmselect.claimTemplates.items.status.conditions.items.reason (type), spec.vmselect.claimTemplates.items.status.conditions.items.status (removed), spec.vmselect.claimTemplates.items.status.conditions.items.status (type), spec.vmselect.claimTemplates.items.status.conditions.items.type (removed), spec.vmselect.claimTemplates.items.status.conditions.items.type (type), spec.vmselect.claimTemplates.items.status.currentVolumeAttributesClassName (removed), spec.vmselect.claimTemplates.items.status.currentVolumeAttributesClassName (type), spec.vmselect.claimTemplates.items.status.modifyVolumeStatus (removed), spec.vmselect.claimTemplates.items.status.modifyVolumeStatus (type), spec.vmselect.claimTemplates.items.status.modifyVolumeStatus.status (removed), spec.vmselect.claimTemplates.items.status.modifyVolumeStatus.status (type), spec.vmselect.claimTemplates.items.status.modifyVolumeStatus.targetVolumeAttributesClassName (removed), spec.vmselect.claimTemplates.items.status.modifyVolumeStatus.targetVolumeAttributesClassName (type), spec.vmselect.claimTemplates.items.status.phase (removed), spec.vmselect.claimTemplates.items.status.phase (type), spec.vmstorage.claimTemplates.items.apiVersion (removed), spec.vmstorage.claimTemplates.items.apiVersion (type), spec.vmstorage.claimTemplates.items.kind (removed), spec.vmstorage.claimTemplates.items.kind (type), spec.vmstorage.claimTemplates.items.metadata (removed), spec.vmstorage.claimTemplates.items.metadata (type), spec.vmstorage.claimTemplates.items.spec (removed), spec.vmstorage.claimTemplates.items.spec (type), spec.vmstorage.claimTemplates.items.spec.accessModes (removed), spec.vmstorage.claimTemplates.items.spec.accessModes (type), spec.vmstorage.claimTemplates.items.spec.accessModes.items (removed), spec.vmstorage.claimTemplates.items.spec.accessModes.items (type), spec.vmstorage.claimTemplates.items.spec.dataSource (removed), spec.vmstorage.claimTemplates.items.spec.dataSource (type), spec.vmstorage.claimTemplates.items.spec.dataSource.apiGroup (removed), spec.vmstorage.claimTemplates.items.spec.dataSource.apiGroup (type), spec.vmstorage.claimTemplates.items.spec.dataSource.kind (removed), spec.vmstorage.claimTemplates.items.spec.dataSource.kind (type), spec.vmstorage.claimTemplates.items.spec.dataSource.name (removed), spec.vmstorage.claimTemplates.items.spec.dataSource.name (type), spec.vmstorage.claimTemplates.items.spec.dataSourceRef (removed), spec.vmstorage.claimTemplates.items.spec.dataSourceRef (type), spec.vmstorage.claimTemplates.items.spec.dataSourceRef.apiGroup (removed), spec.vmstorage.claimTemplates.items.spec.dataSourceRef.apiGroup (type), spec.vmstorage.claimTemplates.items.spec.dataSourceRef.kind (removed), spec.vmstorage.claimTemplates.items.spec.dataSourceRef.kind (type), spec.vmstorage.claimTemplates.items.spec.dataSourceRef.name (removed), spec.vmstorage.claimTemplates.items.spec.dataSourceRef.name (type), spec.vmstorage.claimTemplates.items.spec.dataSourceRef.namespace (removed), spec.vmstorage.claimTemplates.items.spec.dataSourceRef.namespace (type), spec.vmstorage.claimTemplates.items.spec.resources (removed), spec.vmstorage.claimTemplates.items.spec.resources (type), spec.vmstorage.claimTemplates.items.spec.resources.limits (removed), spec.vmstorage.claimTemplates.items.spec.resources.limits (type), spec.vmstorage.claimTemplates.items.spec.resources.limits.additionalProperties (removed), spec.vmstorage.claimTemplates.items.spec.resources.limits.additionalProperties.anyOf[0] (removed), spec.vmstorage.claimTemplates.items.spec.resources.limits.additionalProperties.anyOf[0] (type), spec.vmstorage.claimTemplates.items.spec.resources.limits.additionalProperties.anyOf[1] (removed), spec.vmstorage.claimTemplates.items.spec.resources.limits.additionalProperties.anyOf[1] (type), spec.vmstorage.claimTemplates.items.spec.resources.requests (removed), spec.vmstorage.claimTemplates.items.spec.resources.requests (type), spec.vmstorage.claimTemplates.items.spec.resources.requests.additionalProperties (removed), spec.vmstorage.claimTemplates.items.spec.resources.requests.additionalProperties.anyOf[0] (removed), spec.vmstorage.claimTemplates.items.spec.resources.requests.additionalProperties.anyOf[0] (type), spec.vmstorage.claimTemplates.items.spec.resources.requests.additionalProperties.anyOf[1] (removed), spec.vmstorage.claimTemplates.items.spec.resources.requests.additionalProperties.anyOf[1] (type), spec.vmstorage.claimTemplates.items.spec.selector (removed), spec.vmstorage.claimTemplates.items.spec.selector (type), spec.vmstorage.claimTemplates.items.spec.selector.matchExpressions (removed), spec.vmstorage.claimTemplates.items.spec.selector.matchExpressions (type), spec.vmstorage.claimTemplates.items.spec.selector.matchExpressions.items (removed), spec.vmstorage.claimTemplates.items.spec.selector.matchExpressions.items (type), spec.vmstorage.claimTemplates.items.spec.selector.matchExpressions.items.key (removed), spec.vmstorage.claimTemplates.items.spec.selector.matchExpressions.items.key (type), spec.vmstorage.claimTemplates.items.spec.selector.matchExpressions.items.operator (removed), spec.vmstorage.claimTemplates.items.spec.selector.matchExpressions.items.operator (type), spec.vmstorage.claimTemplates.items.spec.selector.matchExpressions.items.values (removed), spec.vmstorage.claimTemplates.items.spec.selector.matchExpressions.items.values (type), spec.vmstorage.claimTemplates.items.spec.selector.matchExpressions.items.values.items (removed), spec.vmstorage.claimTemplates.items.spec.selector.matchExpressions.items.values.items (type), spec.vmstorage.claimTemplates.items.spec.selector.matchLabels (removed), spec.vmstorage.claimTemplates.items.spec.selector.matchLabels (type), spec.vmstorage.claimTemplates.items.spec.selector.matchLabels.additionalProperties (removed), spec.vmstorage.claimTemplates.items.spec.selector.matchLabels.additionalProperties (type), spec.vmstorage.claimTemplates.items.spec.storageClassName (removed), spec.vmstorage.claimTemplates.items.spec.storageClassName (type), spec.vmstorage.claimTemplates.items.spec.volumeAttributesClassName (removed), spec.vmstorage.claimTemplates.items.spec.volumeAttributesClassName (type), spec.vmstorage.claimTemplates.items.spec.volumeMode (removed), spec.vmstorage.claimTemplates.items.spec.volumeMode (type), spec.vmstorage.claimTemplates.items.spec.volumeName (removed), spec.vmstorage.claimTemplates.items.spec.volumeName (type), spec.vmstorage.claimTemplates.items.status (removed), spec.vmstorage.claimTemplates.items.status (type), spec.vmstorage.claimTemplates.items.status.accessModes (removed), spec.vmstorage.claimTemplates.items.status.accessModes (type), spec.vmstorage.claimTemplates.items.status.accessModes.items (removed), spec.vmstorage.claimTemplates.items.status.accessModes.items (type), spec.vmstorage.claimTemplates.items.status.allocatedResourceStatuses (removed), spec.vmstorage.claimTemplates.items.status.allocatedResourceStatuses (type), spec.vmstorage.claimTemplates.items.status.allocatedResourceStatuses.additionalProperties (removed), spec.vmstorage.claimTemplates.items.status.allocatedResourceStatuses.additionalProperties (type), spec.vmstorage.claimTemplates.items.status.allocatedResources (removed), spec.vmstorage.claimTemplates.items.status.allocatedResources (type), spec.vmstorage.claimTemplates.items.status.allocatedResources.additionalProperties (removed), spec.vmstorage.claimTemplates.items.status.allocatedResources.additionalProperties.anyOf[0] (removed), spec.vmstorage.claimTemplates.items.status.allocatedResources.additionalProperties.anyOf[0] (type), spec.vmstorage.claimTemplates.items.status.allocatedResources.additionalProperties.anyOf[1] (removed), spec.vmstorage.claimTemplates.items.status.allocatedResources.additionalProperties.anyOf[1] (type), spec.vmstorage.claimTemplates.items.status.capacity (removed), spec.vmstorage.claimTemplates.items.status.capacity (type), spec.vmstorage.claimTemplates.items.status.capacity.additionalProperties (removed), spec.vmstorage.claimTemplates.items.status.capacity.additionalProperties.anyOf[0] (removed), spec.vmstorage.claimTemplates.items.status.capacity.additionalProperties.anyOf[0] (type), spec.vmstorage.claimTemplates.items.status.capacity.additionalProperties.anyOf[1] (removed), spec.vmstorage.claimTemplates.items.status.capacity.additionalProperties.anyOf[1] (type), spec.vmstorage.claimTemplates.items.status.conditions (removed), spec.vmstorage.claimTemplates.items.status.conditions (type), spec.vmstorage.claimTemplates.items.status.conditions.items (removed), spec.vmstorage.claimTemplates.items.status.conditions.items (type), spec.vmstorage.claimTemplates.items.status.conditions.items.lastProbeTime (removed), spec.vmstorage.claimTemplates.items.status.conditions.items.lastProbeTime (type), spec.vmstorage.claimTemplates.items.status.conditions.items.lastTransitionTime (removed), spec.vmstorage.claimTemplates.items.status.conditions.items.lastTransitionTime (type), spec.vmstorage.claimTemplates.items.status.conditions.items.message (removed), spec.vmstorage.claimTemplates.items.status.conditions.items.message (type), spec.vmstorage.claimTemplates.items.status.conditions.items.reason (removed), spec.vmstorage.claimTemplates.items.status.conditions.items.reason (type), spec.vmstorage.claimTemplates.items.status.conditions.items.status (removed), spec.vmstorage.claimTemplates.items.status.conditions.items.status (type), spec.vmstorage.claimTemplates.items.status.conditions.items.type (removed), spec.vmstorage.claimTemplates.items.status.conditions.items.type (type), spec.vmstorage.claimTemplates.items.status.currentVolumeAttributesClassName (removed), spec.vmstorage.claimTemplates.items.status.currentVolumeAttributesClassName (type), spec.vmstorage.claimTemplates.items.status.modifyVolumeStatus (removed), spec.vmstorage.claimTemplates.items.status.modifyVolumeStatus (type), spec.vmstorage.claimTemplates.items.status.modifyVolumeStatus.status (removed), spec.vmstorage.claimTemplates.items.status.modifyVolumeStatus.status (type), spec.vmstorage.claimTemplates.items.status.modifyVolumeStatus.targetVolumeAttributesClassName (removed), spec.vmstorage.claimTemplates.items.status.modifyVolumeStatus.targetVolumeAttributesClassName (type), spec.vmstorage.claimTemplates.items.status.phase (removed), spec.vmstorage.claimTemplates.items.status.phase (type). No object rendered from the current chart uses them.",
+          "resource": "CustomResourceDefinition/default/vmclusters.operator.victoriametrics.com",
+          "rule_id": "crd.schema.incompatible",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vlclusters.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vlogs.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vlsingles.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmagents.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmalertmanagerconfigs.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmalertmanagers.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmalerts.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmauths.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmclusters.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmnodescrapes.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmpodscrapes.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmprobes.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmrules.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmservicescrapes.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmsingles.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmstaticscrapes.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission webhook vmusers.operator.victoriametrics.com has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-victoria-metrics-operator adds rules. Flags: wildcard.",
+          "resource": "ClusterRole/default/stageproof-rel-victoria-metrics-operator",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-victoria-metrics-operator-victoriametrics-admin adds rules. Flags: wildcard.",
+          "resource": "ClusterRole/default/stageproof-rel-victoria-metrics-operator-victoriametrics-admin",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-victoria-metrics-operator-victoriametrics-view adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-victoria-metrics-operator-victoriametrics-view",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/stageproof-check/stageproof-rel-victoria-metrics-operator-cleanup-hook adds rules. Flags: wildcard.",
+          "resource": "ClusterRole/stageproof-check/stageproof-rel-victoria-metrics-operator-cleanup-hook",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-grafana changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-grafana",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator changed at spec.template.spec.containers[name=operator].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Deployment/stageproof-check/stageproof-rel-grafana.template.spec.containers[1] grafana container moves from docker.io/grafana/grafana:11.6.0 to docker.io/grafana/grafana:12.0.0-security-01. Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator.template.spec.containers[0] operator container moves from victoriametrics/operator:v0.58.0 to victoriametrics/operator:v0.59.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "must be no more than 63 characters",
+          "message": "Kubernetes rejected `metadata.name` on Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager. The current chart failed the same validation; the upgrade did not introduce it.",
+          "resource": "Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission, ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 364 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmagents.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 369 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmalertmanagerconfigs.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 279 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmclusters.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.50.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://victoriametrics.github.io/helm-charts/ --chart victoria-metrics-k8s-stack --from 0.49.0 --to 0.50.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "e7513d0815db5b2c17ac9774d91349d301ff9d42010d7bbf7fa6329511eb6e3d"
+}

@@ -1,0 +1,222 @@
+{
+  "from_sha256": "8e87c78d2937a2faf2d1a7696b06dbf536c3433558fa020ae3fcd701a0e314b1",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "7.14.7",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 30 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete StatefulSet/stageproof-check/stageproof-rel-redis-master. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-redis-master",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/stageproof-check/stageproof-rel-redis-configuration, ConfigMap/stageproof-check/stageproof-rel-redis-health, ConfigMap/stageproof-check/stageproof-rel-redis-scripts, Service/stageproof-check/stageproof-rel-redis-headless, Service/stageproof-check/stageproof-rel-redis-master, ServiceAccount/stageproof-check/stageproof-rel-redis.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD clustermongodbroles.mongodb.com under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/clustermongodbroles.mongodb.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD mongodb.mongodb.com under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/mongodb.mongodb.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD mongodbcommunity.mongodbcommunity.mongodb.com under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/mongodbcommunity.mongodbcommunity.mongodb.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD mongodbmulticluster.mongodb.com under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/mongodbmulticluster.mongodb.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD mongodbsearch.mongodb.com under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/mongodbsearch.mongodb.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD mongodbusers.mongodb.com under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/mongodbusers.mongodb.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD opsmanagers.mongodb.com under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/opsmanagers.mongodb.com",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/default/stageproof-rel-rshgg-test, Pod/default/stageproof-rel-yhsfv-test",
+          "message": "Chart default `externalServices.redisHost` changed from `redis_hostname` to `dragonfly_hostname` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "externalServices.redisHost",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/default/stageproof-rel-shmhn-test, Pod/default/stageproof-rel-yhsfv-test",
+          "message": "Chart default `redis.architecture` changed from `standalone` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.architecture",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/default/stageproof-rel-lvhjc-test, Pod/default/stageproof-rel-yhsfv-test",
+          "message": "Chart default `redis.auth.enabled` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.auth.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/default/stageproof-rel-dzxli-test, Pod/default/stageproof-rel-yhsfv-test",
+          "message": "Chart default `redis.databaseNumber` changed from `0` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.databaseNumber",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/default/stageproof-rel-iunin-test, Pod/default/stageproof-rel-yhsfv-test",
+          "message": "Chart default `redis.enabled` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/default/stageproof-rel-vlthv-test, Pod/default/stageproof-rel-yhsfv-test",
+          "message": "Chart default `redis.image.repository` changed from `bitnamilegacy/redis` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/default/stageproof-rel-rsfqo-test, Pod/default/stageproof-rel-yhsfv-test",
+          "message": "Chart default `redis.master.name` changed from `{{ .Release.Name }}-redis-master` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.master.name",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/default/stageproof-rel-ahccl-test, Pod/default/stageproof-rel-yhsfv-test",
+          "message": "Chart default `redis.master.persistence.accessModes` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.master.persistence.accessModes",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/default/stageproof-rel-unado-test, Pod/default/stageproof-rel-yhsfv-test",
+          "message": "Chart default `redis.master.persistence.enabled` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.master.persistence.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/default/stageproof-rel-ritst-test, Pod/default/stageproof-rel-yhsfv-test",
+          "message": "Chart default `redis.master.persistence.size` changed from `5Gi` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.master.persistence.size",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/default/stageproof-rel-psdrw-test, Pod/default/stageproof-rel-yhsfv-test",
+          "message": "Chart default `redis.master.persistence.storageClass` changed from `null` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.master.persistence.storageClass",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/default/stageproof-rel-anzru-test, Pod/default/stageproof-rel-yhsfv-test",
+          "message": "Chart default `redis.master.port` changed from `6379` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.master.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-clearml-apiserver changed at spec.template.spec.containers[name=clearml-apiserver].env[name=CLEARML_REDIS_SERVICE_HOST].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-clearml-apiserver",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-clearml-apiserver-asyncdelete changed at spec.template.spec.containers[name=clearml-apiserver].env[name=CLEARML_REDIS_SERVICE_HOST].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-clearml-apiserver-asyncdelete",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-clearml-fileserver changed at spec.template.spec.containers[name=clearml-fileserver].env[name=CLEARML_REDIS_SERVICE_HOST].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-clearml-fileserver",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "7.15.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://clearml.github.io/clearml-helm-charts --chart clearml --from 7.14.7 --to 7.15.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "5781f05a6f98c465d282cd2494658ff9894e965d655cdbe800849387d512f893"
+}

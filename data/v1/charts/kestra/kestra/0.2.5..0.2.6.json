@@ -1,0 +1,28 @@
+{
+  "from_sha256": "7499f8cca26028893bdc0c32cf4f29a6857644942e062ca5293ae18c6655903f",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.2.5",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 0.2.5 failed: exit status 1\nError: YAML parse error on kestra/templates/deployment.yaml: error converting YAML to JSON: yaml: line 82: did not find expected key\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "0.2.6",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.kestra.io/ --chart kestra --from 0.2.5 --to 0.2.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "cb3315856a8574d682d276f60862e84d98c98e39d270e5c3c806929e913d9ff9"
+}

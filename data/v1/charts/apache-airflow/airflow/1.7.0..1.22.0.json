@@ -1,0 +1,394 @@
+{
+  "from_sha256": "0ad505c7f621aeb7dcb5f8333d9e7c5a5381ee1e9abc8602c07d1e6b501c02e3",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.7.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 39 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 21 of 27 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "fail",
+          "summary": "1 removed API or immutable upgrade blocker"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/default/stageproof-rel-airflow-config, Deployment/default/stageproof-rel-triggerer, Deployment/default/stageproof-rel-webserver, Secret/default/stageproof-rel-airflow-metadata, Secret/default/stageproof-rel-webserver-secret-key, Service/default/stageproof-rel-webserver, Service/stageproof-check/stageproof-rel-postgresql-headless, ServiceAccount/default/stageproof-rel-airflow-webserver.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/stageproof-check/stageproof-rel-pod-launcher-role adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/stageproof-rel-pod-launcher-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `airflowLocalSettings` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "airflowLocalSettings",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.celery.flower_url_prefix` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.celery.flower_url_prefix",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.core.colored_console_log` changed from `False` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.core.colored_console_log",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.core.remote_logging` changed from `{{- ternary \"True\" \"False\" .Values.elasticsearch.enabled }}` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.core.remote_logging",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.elasticsearch.log_id_template` changed from `{dag_id}_{task_id}_{execution_date}_{try_number}` to `{dag_id}-{task_id}-{run_id}-{map_index}-{try_number}` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.elasticsearch.log_id_template",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.kubernetes.airflow_configmap` changed from `{{ include \"airflow_config\" . }}` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.kubernetes.airflow_configmap",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.kubernetes.airflow_local_settings_configmap` changed from `{{ include \"airflow_config\" . }}` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.kubernetes.airflow_local_settings_configmap",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.kubernetes.multi_namespace_mode` changed from `{{ ternary \"True\" \"False\" .Values.multiNamespaceMode }}` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.kubernetes.multi_namespace_mode",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.kubernetes.namespace` changed from `{{ .Release.Namespace }}` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.kubernetes.namespace",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.kubernetes.pod_template_file` changed from `{{ include \"airflow_pod_template_file\" . }}/pod_template_file.yaml` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.kubernetes.pod_template_file",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.kubernetes.worker_container_repository` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.kubernetes.worker_container_repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.kubernetes.worker_container_tag` changed from `{{ .Values.images.airflow.tag | default .Values.defaultAirflowTag }}` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.kubernetes.worker_container_tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.scheduler.run_duration` changed from `41460` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.scheduler.run_duration",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.scheduler.statsd_host` changed from `{{ printf \"%s-statsd\" .Release.Name }}` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.scheduler.statsd_host",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.scheduler.statsd_on` changed from `{{ ternary \"True\" \"False\" .Values.statsd.enabled }}` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.scheduler.statsd_on",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.scheduler.statsd_port` changed from `9125` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.scheduler.statsd_port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.scheduler.statsd_prefix` changed from `airflow` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.scheduler.statsd_prefix",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `config.webserver.rbac` changed from `True` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "config.webserver.rbac",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-dag-processor, ServiceAccount/default/stageproof-rel-airflow-dag-processor",
+          "message": "Chart default `dagProcessor.enabled` changed from `false` to `~` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "dagProcessor.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-config, Deployment/default/stageproof-rel-api-server, Deployment/default/stageproof-rel-dag-processor, Deployment/default/stageproof-rel-scheduler, Job/default/stageproof-rel-create-user, Job/default/stageproof-rel-run-airflow-migrations, StatefulSet/default/stageproof-rel-triggerer, StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `defaultAirflowTag` changed from `2.4.1` to `3.2.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "defaultAirflowTag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-redis",
+          "message": "Chart default `images.redis.tag` changed from `6-bullseye` to `7.2-bookworm` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "images.redis.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-statsd",
+          "message": "Chart default `images.statsd.tag` changed from `v0.22.8` to `v0.30.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "images.statsd.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-run-airflow-migrations",
+          "message": "Chart default `migrateDatabaseJob.args` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "migrateDatabaseJob.args",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-create-user",
+          "message": "Chart default `webserver.defaultUser.email` changed from `admin@example.com` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "webserver.defaultUser.email",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-create-user",
+          "message": "Chart default `webserver.defaultUser.enabled` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "webserver.defaultUser.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-create-user",
+          "message": "Chart default `webserver.defaultUser.firstName` changed from `admin` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "webserver.defaultUser.firstName",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-create-user",
+          "message": "Chart default `webserver.defaultUser.lastName` changed from `user` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "webserver.defaultUser.lastName",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-create-user",
+          "message": "Chart default `webserver.defaultUser.password` changed from `admin` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "webserver.defaultUser.password",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-create-user",
+          "message": "Chart default `webserver.defaultUser.role` changed from `Admin` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "webserver.defaultUser.role",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/stageproof-rel-create-user",
+          "message": "Chart default `webserver.defaultUser.username` changed from `admin` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "webserver.defaultUser.username",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-worker",
+          "message": "Chart default `workers.safeToEvict` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "workers.safeToEvict",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-scheduler changed at spec.template.metadata.annotations.checksum/airflow-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-scheduler",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-statsd changed at spec.template.spec.containers[name=statsd].args. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-statsd",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-redis changed at spec.template.spec.containers[name=redis].args[0]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-redis",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-worker changed at spec.template.metadata.annotations.checksum/airflow-config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-worker",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-postgresql changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 1.7.0 to 1.22.0, skipping 14 minor versions.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.4.1 to 3.2.2. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. Deployment/default/stageproof-rel-scheduler.template.spec.containers[0] scheduler container moves from apache/airflow:2.4.1 to apache/airflow:3.2.2. Deployment/default/stageproof-rel-statsd.template.spec.containers[0] statsd container moves from quay.io/prometheus/statsd-exporter:v0.22.8 to quay.io/prometheus/statsd-exporter:v0.30.0. StatefulSet/default/stageproof-rel-redis.template.spec.containers[0] redis container moves from redis:6-bullseye to redis:7.2-bookworm.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnamilegacy/postgresql:16.1.0-debian-11-r15` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bitnamilegacy/postgresql:16.1.0-debian-11-r15",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `redis:7.2-bookworm` could not be checked. The registry did not answer.",
+          "resource": "redis:7.2-bookworm",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec` is immutable.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Kubernetes forbids mutating Deployment/StatefulSet/DaemonSet label selectors in-place without recreating the workload.",
+          "message": "Immutable `spec.selector.matchLabels` changed from map[app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:postgresql role:primary] to map[app.kubernetes.io/component:primary app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:postgresql]. An in-place `helm upgrade` will fail.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql",
+          "rule_id": "k8s.upgrade.immutable_selector_changed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "1.22.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://airflow.apache.org/ --chart airflow --from 1.7.0 --to 1.22.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "1f7d1dfe3d58e2c54899950aba907a43625a18c8b6fb3c54760c21592129a5b6"
+}

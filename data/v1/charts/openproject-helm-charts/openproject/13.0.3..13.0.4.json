@@ -1,0 +1,124 @@
+{
+  "from_sha256": "cb4af023082afd54afc551dea1ce001c2f904f1512d8af753e93534aa914af3b",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "13.0.3",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 22 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 19 of 22 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-openproject-hocuspocus",
+          "message": "Chart default `hocuspocus.image.tag` changed from `release-38128805` to `release-338001b2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "hocuspocus.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-openproject-cron changed at spec.template.metadata.annotations.checksum/env-core. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-openproject-cron",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-openproject-hocuspocus changed at spec.template.metadata.annotations.checksum/env-core. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-openproject-hocuspocus",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-openproject-web changed at spec.template.metadata.annotations.checksum/env-core. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-openproject-web",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-openproject-worker-default changed at spec.template.metadata.annotations.checksum/env-core. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-openproject-worker-default",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Job/stageproof-check/stageproof-rel-openproject-seeder-1 changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Job/stageproof-check/stageproof-rel-openproject-seeder-1",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-openproject-hocuspocus.template.spec.containers[0] hocuspocus container moves from docker.io/openproject/hocuspocus:release-38128805 to docker.io/openproject/hocuspocus:release-338001b2.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/openproject/hocuspocus:release-338001b2` could not be checked. The registry did not answer.",
+          "resource": "docker.io/openproject/hocuspocus:release-338001b2",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "A client-side Helm upgrade drops this field and continues.",
+          "message": "Kubernetes does not know `spec.template.spec.containers[name=\"hocuspocus\"].ports[containerPort=1234,protocol=\"TCP\"].port`.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-openproject-hocuspocus",
+          "rule_id": "k8s.apply.unknown_field",
+          "severity": "warning"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
+          "resource": "Job/stageproof-check/stageproof-rel-openproject-seeder-1",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "13.0.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.openproject.org --chart openproject --from 13.0.3 --to 13.0.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "5b3a8cbae083fbd91725fd5964a3f4fa019f6a0e2f616faa3446488d3f7bc9ef"
+}

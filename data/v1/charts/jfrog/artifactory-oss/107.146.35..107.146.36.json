@@ -1,0 +1,89 @@
+{
+  "from_sha256": "3acc500e01e182edb8d40d1a596d1a6de1dcabf6c84204c9f813177e3361efa9",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "107.146.35",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: artifactory.nginx.generateSelfSignedCert"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 20 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-artifactory-nginx changed at spec.template.metadata.annotations.checksum/nginx-artifactory-conf. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-artifactory-nginx",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-artifactory changed at spec.template.metadata.annotations.checksum/artifactory-unified-secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-artifactory",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 7.146.35 to 7.146.36. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "4 container images changed. Deployment/default/stageproof-rel-artifactory-nginx.template.spec.containers[0] nginx container moves from releases-docker.jfrog.io/jfrog/nginx-artifactory-pro:7.146.35 to releases-docker.jfrog.io/jfrog/nginx-artifactory-pro:7.146.36. Deployment/default/stageproof-rel-artifactory-nginx.template.spec.initContainers[0] setup container moves from releases-docker.jfrog.io/ubi9/ubi-minimal:9.8.1779809423 to releases-docker.jfrog.io/ubi9/ubi-minimal:9.8.1786987521. StatefulSet/default/stageproof-rel-artifactory.template.spec.containers[0] router container moves from releases-docker.jfrog.io/jfrog/router:7.320.46 to releases-docker.jfrog.io/jfrog/router:7.320.49. StatefulSet/default/stageproof-rel-artifactory.template.spec.containers[1] frontend container moves from releases-docker.jfrog.io/jfrog/artifactory-oss:7.146.35 to releases-docker.jfrog.io/jfrog/artifactory-oss:7.146.36.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "107.146.36",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.jfrog.io --chart artifactory-oss --from 107.146.35 --to 107.146.36 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "ef74b52a1911ea9c11a176795c7e29c9e557465ffe8db3124d2f4ef8d899ca44"
+}

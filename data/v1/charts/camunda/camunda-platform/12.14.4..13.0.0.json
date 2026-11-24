@@ -1,0 +1,1009 @@
+{
+  "from_sha256": "a3347a209f86deca022cd8c163ae4ee59ee743966e1a99af7f7f46504a1ae1cf",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "12.14.4",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 19 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete StatefulSet/stageproof-check/stageproof-rel-keycloak. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-keycloak",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete StatefulSet/stageproof-check/stageproof-rel-postgresql. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql",
+          "rule_id": "impact.delete.statefulset",
+          "severity": "warning"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/default/stageproof-rel-camunda-platform-identity-env-vars, ConfigMap/default/stageproof-rel-camunda-platform-warnings, ConfigMap/default/stageproof-rel-identity-configuration, ConfigMap/default/stageproof-rel-operate-configuration, ConfigMap/default/stageproof-rel-optimize-configuration, ConfigMap/default/stageproof-rel-tasklist-configuration, ConfigMap/default/stageproof-rel-zeebe-configuration, ConfigMap/default/stageproof-rel-zeebe-gateway-configuration, ConfigMap/stageproof-check/stageproof-rel-elasticsearch-jvm-options, ConfigMap/stageproof-check/stageproof-rel-keycloak-env-vars, Deployment/default/stageproof-rel-identity, Deployment/default/stageproof-rel-operate, Deployment/default/stageproof-rel-optimize, Deployment/default/stageproof-rel-tasklist, Deployment/default/stageproof-rel-zeebe-gateway, PodDisruptionBudget/stageproof-check/stageproof-rel-keycloak, PodDisruptionBudget/stageproof-check/stageproof-rel-postgresql, Secret/default/stageproof-rel-camunda-platform-license, Secret/default/stageproof-rel-connectors-identity-secret, Secret/default/stageproof-rel-operate-identity-secret, Secret/default/stageproof-rel-optimize-identity-secret, Secret/default/stageproof-rel-tasklist-identity-secret, Secret/default/stageproof-rel-zeebe-identity-secret, Secret/stageproof-check/stageproof-rel-keycloak, Secret/stageproof-check/stageproof-rel-postgresql, Service/default/stageproof-rel-identity, Service/default/stageproof-rel-operate, Service/default/stageproof-rel-optimize, Service/default/stageproof-rel-tasklist, Service/stageproof-check/stageproof-rel-keycloak, Service/stageproof-check/stageproof-rel-keycloak-headless, Service/stageproof-check/stageproof-rel-postgresql, Service/stageproof-check/stageproof-rel-postgresql-hl, ServiceAccount/default/stageproof-rel-identity, ServiceAccount/default/stageproof-rel-operate, ServiceAccount/default/stageproof-rel-optimize, ServiceAccount/default/stageproof-rel-tasklist, ServiceAccount/default/stageproof-rel-zeebe-gateway, ServiceAccount/stageproof-check/stageproof-rel-keycloak, ServiceAccount/stageproof-check/stageproof-rel-postgresql.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "NetworkPolicy/stageproof-check/stageproof-rel-keycloak is removed. Traffic it was restricting is no longer restricted by this policy.",
+          "resource": "NetworkPolicy/stageproof-check/stageproof-rel-keycloak",
+          "rule_id": "impact.exposure.networkpolicy",
+          "severity": "warning"
+        },
+        {
+          "message": "NetworkPolicy/stageproof-check/stageproof-rel-postgresql is removed. Traffic it was restricting is no longer restricted by this policy.",
+          "resource": "NetworkPolicy/stageproof-check/stageproof-rel-postgresql",
+          "rule_id": "impact.exposure.networkpolicy",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-release, ConfigMap/default/stageproof-rel-connectors-configuration, Deployment/default/stageproof-rel-connectors, Service/default/stageproof-rel-connectors, Service/default/stageproof-rel-connectors-headless, ServiceAccount/default/stageproof-rel-connectors",
+          "message": "Chart default `connectors.image.tag` changed from `8.7.33` to `8.8.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "connectors.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-connectors-configuration, Deployment/default/stageproof-rel-connectors",
+          "message": "Chart default `connectors.logging.level[\"io.camunda.connector\"]` changed from `ERROR` to `INFO` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "connectors.logging.level[\"io.camunda.connector\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-elasticsearch-master",
+          "message": "Chart default `elasticsearch.image.tag` changed from `8.17.4` to `8.18.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "elasticsearch.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-identity-env-vars, Deployment/default/stageproof-rel-connectors",
+          "message": "Chart default `global.identity.auth.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.identity.auth.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-connectors, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `global.image.pullPolicy` changed from `IfNotPresent` to `Always` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.image.pullPolicy",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-release, ConfigMap/default/stageproof-rel-identity-configuration, Deployment/default/stageproof-rel-identity, Service/default/stageproof-rel-identity, ServiceAccount/default/stageproof-rel-identity",
+          "message": "Chart default `identity.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "identity.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.clusterSize` changed from `3` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.clusterSize",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.command` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.command",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.configMap.defaultMode` changed from `0754` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.configMap.defaultMode",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.configuration` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.configuration",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.containerSecurityContext.allowPrivilegeEscalation` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.containerSecurityContext.allowPrivilegeEscalation",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.containerSecurityContext.privileged` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.containerSecurityContext.privileged",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.containerSecurityContext.readOnlyRootFilesystem` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.containerSecurityContext.readOnlyRootFilesystem",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.containerSecurityContext.runAsNonRoot` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.containerSecurityContext.runAsNonRoot",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.containerSecurityContext.runAsUser` changed from `1001` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.containerSecurityContext.runAsUser",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.containerSecurityContext.seccompProfile.type` changed from `RuntimeDefault` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.containerSecurityContext.seccompProfile.type",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.cpuThreadCount` changed from `3` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.cpuThreadCount",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.data.disk.freeSpace.processing` changed from `2GB` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.data.disk.freeSpace.processing",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.data.disk.freeSpace.replication` changed from `1GB` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.data.disk.freeSpace.replication",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.data.snapshotPeriod` changed from `5m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.data.snapshotPeriod",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.debug` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.debug",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.dnsConfig` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.dnsConfig",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.dnsPolicy` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.dnsPolicy",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.env` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.env",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.envFrom` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.envFrom",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.extraConfiguration` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.extraConfiguration",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.extraInitContainers` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.extraInitContainers",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.extraVolumeClaimTemplates` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.extraVolumeClaimTemplates",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.extraVolumeMounts` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.extraVolumeMounts",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.extraVolumes` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.extraVolumes",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.image.digest` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.image.digest",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.image.pullSecrets` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.image.pullSecrets",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.image.registry` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.image.registry",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.image.repository` changed from `camunda/zeebe` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.image.tag` changed from `8.7.46` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.initContainers` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.initContainers",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.ioThreadCount` changed from `3` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.ioThreadCount",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.javaOpts` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.javaOpts",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.livenessProbe.enabled` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.livenessProbe.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.livenessProbe.failureThreshold` changed from `5` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.livenessProbe.failureThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.livenessProbe.initialDelaySeconds` changed from `30` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.livenessProbe.initialDelaySeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.livenessProbe.periodSeconds` changed from `30` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.livenessProbe.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.livenessProbe.probePath` changed from `/actuator/health/readiness` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.livenessProbe.probePath",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.livenessProbe.scheme` changed from `HTTP` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.livenessProbe.scheme",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.livenessProbe.successThreshold` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.livenessProbe.successThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.livenessProbe.timeoutSeconds` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.livenessProbe.timeoutSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.log4j2` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.log4j2",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.logLevel` changed from `info` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.logLevel",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.metrics.prometheus` changed from `/actuator/prometheus` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.metrics.prometheus",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.nodeSelector` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.nodeSelector",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.partitionCount` changed from `3` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.partitionCount",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.persistenceType` changed from `disk` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.persistenceType",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.podAnnotations` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.podAnnotations",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.podDisruptionBudget.enabled` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.podDisruptionBudget.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.podDisruptionBudget.maxUnavailable` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.podDisruptionBudget.maxUnavailable",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.podDisruptionBudget.minAvailable` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.podDisruptionBudget.minAvailable",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.podLabels` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.podLabels",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.podSecurityContext.fsGroup` changed from `1001` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.podSecurityContext.fsGroup",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.podSecurityContext.runAsNonRoot` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.podSecurityContext.runAsNonRoot",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.podSecurityContext.seccompProfile.type` changed from `RuntimeDefault` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.podSecurityContext.seccompProfile.type",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.priorityClassName` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.priorityClassName",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.pvcAccessModes` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.pvcAccessModes",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.pvcAnnotations` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.pvcAnnotations",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.pvcSelector` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.pvcSelector",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.pvcSize` changed from `32Gi` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.pvcSize",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.pvcStorageClassName` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.pvcStorageClassName",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.readinessProbe.enabled` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.readinessProbe.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.readinessProbe.failureThreshold` changed from `5` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.readinessProbe.failureThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.readinessProbe.initialDelaySeconds` changed from `30` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.readinessProbe.initialDelaySeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.readinessProbe.periodSeconds` changed from `30` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.readinessProbe.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.readinessProbe.probePath` changed from `/actuator/health/readiness` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.readinessProbe.probePath",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.readinessProbe.scheme` changed from `HTTP` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.readinessProbe.scheme",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.readinessProbe.successThreshold` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.readinessProbe.successThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.readinessProbe.timeoutSeconds` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.readinessProbe.timeoutSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.replicationFactor` changed from `3` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.replicationFactor",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.resources.limits.cpu` changed from `960m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.resources.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.resources.limits.memory` changed from `1920Mi` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.resources.limits.memory",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.resources.requests.cpu` changed from `800m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.resources.requests.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.resources.requests.memory` changed from `1200Mi` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.resources.requests.memory",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.retention.enabled` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.retention.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.retention.minimumAge` changed from `30d` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.retention.minimumAge",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.retention.policyName` changed from `zeebe-record-retention-policy` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.retention.policyName",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.service.annotations` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.service.annotations",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.service.commandName` changed from `command` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.service.commandName",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.service.commandPort` changed from `26501` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.service.commandPort",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.service.extraPorts` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.service.extraPorts",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.service.httpName` changed from `http` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.service.httpName",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.service.httpPort` changed from `9600` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.service.httpPort",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.service.internalName` changed from `internal` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.service.internalName",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.service.internalPort` changed from `26502` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.service.internalPort",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.service.type` changed from `ClusterIP` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.service.type",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.serviceAccount.annotations` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.serviceAccount.annotations",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.serviceAccount.automountServiceAccountToken` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.serviceAccount.automountServiceAccountToken",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.serviceAccount.enabled` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.serviceAccount.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.serviceAccount.labels` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.serviceAccount.labels",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.serviceAccount.name` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.serviceAccount.name",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.sidecars` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.sidecars",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.startupProbe.enabled` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.startupProbe.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.startupProbe.failureThreshold` changed from `5` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.startupProbe.failureThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.startupProbe.initialDelaySeconds` changed from `30` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.startupProbe.initialDelaySeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.startupProbe.periodSeconds` changed from `30` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.startupProbe.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.startupProbe.probePath` changed from `/actuator/health/startup` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.startupProbe.probePath",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.startupProbe.scheme` changed from `HTTP` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.startupProbe.scheme",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.startupProbe.successThreshold` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.startupProbe.successThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.startupProbe.timeoutSeconds` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.startupProbe.timeoutSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-zeebe-configuration-unified, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `zeebe.tolerations` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "zeebe.tolerations",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-connectors changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-connectors",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-zeebe changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-zeebe",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-elasticsearch-master changed at spec.template.spec.containers[name=elasticsearch].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-elasticsearch-master",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 12.14.4 to 13.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 8.7.x to 8.8.x. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Deployment/default/stageproof-rel-connectors.template.spec.containers[0] connectors container moves from camunda/connectors-bundle:8.7.33 to camunda/connectors-bundle:8.8.0. StatefulSet/stageproof-check/stageproof-rel-elasticsearch-master.template.spec.containers[0] elasticsearch container moves from docker.io/bitnamilegacy/elasticsearch:8.17.4 to docker.io/bitnamilegacy/elasticsearch:8.18.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnamilegacy/os-shell:12-debian-12-r43` could not be checked. The registry did not answer.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-elasticsearch-master.template.spec.initContainers[0] sysctl",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `camunda/camunda:8.8.0` could not be checked. The registry did not answer.",
+          "resource": "camunda/camunda:8.8.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `camunda/connectors-bundle:8.8.0` could not be checked. The registry did not answer.",
+          "resource": "camunda/connectors-bundle:8.8.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnamilegacy/elasticsearch:8.18.0` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bitnamilegacy/elasticsearch:8.18.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "13.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.camunda.io --chart camunda-platform --from 12.14.4 --to 13.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "ca336d5d56bb23c9ca276e40aa536b844b4c89251b55fa769344107a101bbe3a"
+}

@@ -1,0 +1,103 @@
+{
+  "from_sha256": "33996399f5d831193603f8a56ed46b7cd3f012eeb6df4d5046c5b560a554e21d",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.175.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 3 these values is set: image.repository, mode, securityContext.stageproofPlaceholder"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 3 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 2 of 3 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-opentelemetry-collector-agent changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-opentelemetry-collector-agent",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 0.175.1 to 0.183.0, skipping 7 minor versions.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 0.161.0 to 0.165.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. DaemonSet/stageproof-check/stageproof-rel-opentelemetry-collector-agent.template.spec.containers[0] opentelemetry-collector container moves from stageproof-placeholder:0.161.0 to stageproof-placeholder:0.165.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `stageproof-placeholder:0.165.0` could not be checked. The registry refused the request.",
+          "resource": "stageproof-placeholder:0.165.0",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "A client-side Helm upgrade drops this field and continues.",
+          "message": "Kubernetes does not know `spec.template.spec.containers[name=\"opentelemetry-collector\"].securityContext.stageproofPlaceholder`.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-opentelemetry-collector-agent",
+          "rule_id": "k8s.apply.unknown_field",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.183.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://open-telemetry.github.io/opentelemetry-helm-charts --chart opentelemetry-collector --from 0.175.1 --to 0.183.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "b98610987bd4e88052665064f0834fa6bbec955389f80612792949ba32485a31"
+}

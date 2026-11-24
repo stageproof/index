@@ -1,0 +1,300 @@
+{
+  "from_sha256": "b16abab214d3fabb5264bd5b93df53e9ef66900753c72e0a140871f87de7a6c5",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.38.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 87 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "11 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 76 of 87 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-okteto, CronJob/default/stageproof-rel-okteto-destroy-all-checker, CronJob/default/stageproof-rel-okteto-gc, CronJob/default/stageproof-rel-okteto-installer-checker, CronJob/default/stageproof-rel-okteto-periodic-metrics, CronJob/default/stageproof-rel-okteto-resourcemanager, CronJob/default/stageproof-rel-okteto-telemetry, DaemonSet/default/stageproof-rel-okteto-prepullimages, Deployment/default/stageproof-rel-ingress-nginx-defaultbackend, Deployment/default/stageproof-rel-okteto-api, Deployment/default/stageproof-rel-okteto-mutation-webhook, Deployment/default/stageproof-rel-okteto-regcreds, Deployment/default/stageproof-rel-okteto-ssh-agent, Job/default/stageproof-rel-okteto-clustermetrics, Job/default/stageproof-rel-okteto-migration, Job/default/stageproof-rel-okteto-telemetry-post-install",
+          "message": "Chart default `backend.image.tag` changed from `1.38.0` to `1.38.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "backend.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-okteto-buildkit-8c96f331e1",
+          "message": "Chart default `buildkit.image.tag` changed from `1.38.0` to `1.38.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "buildkit.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/default/stageproof-rel-okteto-daemon",
+          "message": "Chart default `daemonset.image.tag` changed from `1.38.0` to `1.38.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "daemonset.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-ingress-nginx-defaultbackend",
+          "message": "Chart default `defaultBackend.image.tag` changed from `1.38.0` to `1.38.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "defaultBackend.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-okteto-frontend",
+          "message": "Chart default `frontend.image.tag` changed from `1.38.0` to `1.38.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "frontend.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-ingress-nginx-controller",
+          "message": "Chart default `ingress-nginx.controller.image.tag` changed from `1.38.0` to `1.38.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "ingress-nginx.controller.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-okteto, DaemonSet/default/stageproof-rel-okteto-prepullimages, Deployment/default/stageproof-rel-ingress-nginx-defaultbackend, Deployment/default/stageproof-rel-okteto-api, Deployment/default/stageproof-rel-okteto-mutation-webhook, Deployment/default/stageproof-rel-okteto-regcreds, Deployment/default/stageproof-rel-okteto-ssh-agent",
+          "message": "Chart default `installer.runner.tag` changed from `1.38.0` to `1.38.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "installer.runner.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-okteto-nginx-controller",
+          "message": "Chart default `okteto-nginx.controller.image.tag` changed from `1.38.0` to `1.38.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "okteto-nginx.controller.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-okteto, DaemonSet/default/stageproof-rel-okteto-prepullimages, Deployment/default/stageproof-rel-ingress-nginx-defaultbackend, Deployment/default/stageproof-rel-okteto-api, Deployment/default/stageproof-rel-okteto-mutation-webhook, Deployment/default/stageproof-rel-okteto-regcreds, Deployment/default/stageproof-rel-okteto-ssh-agent",
+          "message": "Chart default `oktetoAI.image.tag` changed from `1.38.0` to `1.38.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "oktetoAI.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-okteto-redis",
+          "message": "Chart default `redis.image.tag` changed from `1.38.0` to `1.38.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-okteto-registry",
+          "message": "Chart default `registry.image.tag` changed from `1.38.0` to `1.38.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "registry.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-reloader",
+          "message": "Chart default `reloader.image.tag` changed from `1.38.0` to `1.38.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "reloader.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/default/stageproof-rel-okteto-daemon changed at spec.template.metadata.annotations.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/default/stageproof-rel-okteto-daemon",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of DaemonSet/default/stageproof-rel-okteto-prepullimages changed at spec.template.metadata.annotations.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/default/stageproof-rel-okteto-prepullimages",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-ingress-nginx-defaultbackend changed at spec.template.metadata.annotations.checksum/configmap. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-ingress-nginx-defaultbackend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-okteto-api changed at spec.template.metadata.annotations.checksum/configmap. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-okteto-api",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-okteto-frontend changed at spec.template.spec.containers[name=frontend].env[name=OKTETO_CHART_VERSION].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-okteto-frontend",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-okteto-mutation-webhook changed at spec.template.metadata.annotations.checksum/configmap. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-okteto-mutation-webhook",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-okteto-redis changed at spec.template.spec.containers[name=redis].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-okteto-redis",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-okteto-regcreds changed at spec.template.metadata.annotations.checksum/configmap. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-okteto-regcreds",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-okteto-registry changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-okteto-registry",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-okteto-ssh-agent changed at spec.template.metadata.annotations.checksum/configmap. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-okteto-ssh-agent",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-ingress-nginx-controller changed at spec.template.spec.containers[name=controller].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-ingress-nginx-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-okteto-nginx-controller changed at spec.template.spec.containers[name=controller].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-okteto-nginx-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-reloader changed at spec.template.spec.containers[name=stageproof-rel-reloader].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-reloader",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-okteto-buildkit-8c96f331e1 changed at spec.template.spec.containers[name=buildkitd].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-okteto-buildkit-8c96f331e1",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of CronJob/default/stageproof-rel-okteto-destroy-all-checker changed at spec.jobTemplate.spec.template.spec.containers[name=checker].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/default/stageproof-rel-okteto-destroy-all-checker",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of CronJob/default/stageproof-rel-okteto-gc changed at spec.jobTemplate.spec.template.spec.containers[name=gc].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/default/stageproof-rel-okteto-gc",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of CronJob/default/stageproof-rel-okteto-installer-checker changed at spec.jobTemplate.spec.template.spec.containers[name=installer-checker].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/default/stageproof-rel-okteto-installer-checker",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of CronJob/default/stageproof-rel-okteto-periodic-metrics changed at spec.jobTemplate.spec.template.spec.containers[name=gather].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/default/stageproof-rel-okteto-periodic-metrics",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of CronJob/default/stageproof-rel-okteto-resourcemanager changed at spec.jobTemplate.spec.template.spec.containers[name=compute].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/default/stageproof-rel-okteto-resourcemanager",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of CronJob/default/stageproof-rel-okteto-telemetry changed at spec.jobTemplate.spec.template.spec.containers[name=telemetry].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "CronJob/default/stageproof-rel-okteto-telemetry",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from f7e8b8599 to 7a2014f38. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "11 container images changed. ConfigMap/stageproof-check/okteto-support-bundle okteto/okteto image moves from okteto/okteto:3.13.0 to okteto/okteto:3.13.3. CronJob/default/stageproof-rel-okteto-destroy-all-checker.jobTemplate.spec.template.spec.containers[0] checker container moves from okteto/backend:1.38.0 to okteto/backend:1.38.1. DaemonSet/default/stageproof-rel-okteto-daemon.template.spec.containers[0] daemon container moves from okteto/daemon:1.38.0 to okteto/daemon:1.38.1. DaemonSet/default/stageproof-rel-okteto-prepullimages.template.spec.containers[0] agent container moves from okteto/agent:1.38.0 to okteto/agent:1.38.1. DaemonSet/default/stageproof-rel-okteto-prepullimages.template.spec.containers[3] installer container moves from okteto/pipeline-runner:1.38.0 to okteto/pipeline-runner:1.38.1. Deployment/default/stageproof-rel-okteto-frontend.template.spec.containers[0] frontend container moves from okteto/frontend:1.38.0 to okteto/frontend:1.38.1. Deployment/default/stageproof-rel-okteto-redis.template.spec.containers[0] redis container moves from okteto/redis:1.38.0 to okteto/redis:1.38.1. Deployment/default/stageproof-rel-okteto-registry.template.spec.containers[0] registry container moves from okteto/registry:1.38.0 to okteto/registry:1.38.1. Deployment/stageproof-check/stageproof-rel-ingress-nginx-controller.template.spec.containers[0] controller container moves from docker.io/okteto/ingress-nginx-chroot:1.38.0 to docker.io/okteto/ingress-nginx-chroot:1.38.1. Deployment/stageproof-check/stageproof-rel-reloader.template.spec.containers[0] stageproof-rel-reloader container moves from okteto/reloader:1.38.0 to okteto/reloader:1.38.1. StatefulSet/default/stageproof-rel-okteto-buildkit-8c96f331e1.template.spec.containers[0] buildkitd container moves from okteto/buildkit:1.38.0 to okteto/buildkit:1.38.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/default/stageproof-rel-okteto-mutation-webhook, ValidatingWebhookConfiguration/stageproof-check/stageproof-rel-okteto-regcreds, MutatingWebhookConfiguration/default/stageproof-rel-okteto-mutation-webhook, ValidatingWebhookConfiguration/stageproof-check/stageproof-rel-okteto-regcreds.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.38.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.okteto.com --chart okteto --from 1.38.0 --to 1.38.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "2e8eb056a1f5f05bd429163491738abdca1dbcba024a55efe4a16f626bdbde65"
+}

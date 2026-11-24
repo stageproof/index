@@ -1,0 +1,246 @@
+{
+  "from_sha256": "fd393c5b194053d55d445296934a43a492086f2387ba32e8fd6c5173292ceeba",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.4.9",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 22 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "17 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 4 of 9 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The CRD authservices.getambassador.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/authservices.getambassador.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD consulresolvers.getambassador.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/consulresolvers.getambassador.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD filterpolicies.getambassador.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/filterpolicies.getambassador.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD filters.getambassador.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/filters.getambassador.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD kubernetesendpointresolvers.getambassador.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kubernetesendpointresolvers.getambassador.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD kubernetesserviceresolvers.getambassador.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kubernetesserviceresolvers.getambassador.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD mappings.getambassador.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/mappings.getambassador.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD modules.getambassador.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/modules.getambassador.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD ratelimits.getambassador.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/ratelimits.getambassador.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD ratelimitservices.getambassador.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/ratelimitservices.getambassador.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD tcpmappings.getambassador.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/tcpmappings.getambassador.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD tlscontexts.getambassador.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/tlscontexts.getambassador.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD tracingservices.getambassador.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/tracingservices.getambassador.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 4.4.9 to 5.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/authservices.getambassador.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/consulresolvers.getambassador.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/filters.getambassador.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/filterpolicies.getambassador.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/kubernetesendpointresolvers.getambassador.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/kubernetesserviceresolvers.getambassador.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/mappings.getambassador.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/modules.getambassador.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/ratelimits.getambassador.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/ratelimitservices.getambassador.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/tcpmappings.getambassador.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/tlscontexts.getambassador.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/tracingservices.getambassador.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/stageproof-rel-ambassador-crds",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/stageproof-rel-ambassador",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-ambassador-crds",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/stageproof-rel-ambassador",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "5.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://getambassador.io/ --chart ambassador --from 4.4.9 --to 5.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "35dcad17ea171e4541a2b2c07e0525e5f6b817229760e9f3f7360ed0bee95bb1"
+}

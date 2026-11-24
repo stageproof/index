@@ -1,0 +1,86 @@
+{
+  "from_sha256": "ebde6cb8d5d40b633bc8a23e44cf0bb8d4a24c06897b9bb4b677efb5a9c43f39",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "6.0.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 6 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-falco-falcoctl",
+          "message": "Chart default `collectors.containerEngine.pluginRef` changed from `ghcr.io/falcosecurity/plugins/plugin/container:0.3.0` to `ghcr.io/falcosecurity/plugins/plugin/container:0.3.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "collectors.containerEngine.pluginRef",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-falco changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-falco",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 0.41.2 to 0.41.3. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. DaemonSet/stageproof-check/stageproof-rel-falco.template.spec.containers[0] falco container moves from docker.io/falcosecurity/falco:0.41.2 to docker.io/falcosecurity/falco:0.41.3. DaemonSet/stageproof-check/stageproof-rel-falco.template.spec.initContainers[0] falco-driver-loader container moves from docker.io/falcosecurity/falco-driver-loader:0.41.2 to docker.io/falcosecurity/falco-driver-loader:0.41.3.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "6.0.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://falcosecurity.github.io/charts --chart falco --from 6.0.1 --to 6.0.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "1a6d2a8f4e9e0eef6cb49985f4c09823a68067a174659c0a8159c67af31f28bf"
+}

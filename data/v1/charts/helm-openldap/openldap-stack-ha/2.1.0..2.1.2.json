@@ -1,0 +1,135 @@
+{
+  "from_sha256": "a1e9285cf927f65a20a3e570616cb346e48163e78d376a9978bd621441317d96",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.1.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 13 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 10 of 13 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-openldap-stack-ha",
+          "message": "Chart default `image.pullSecret` changed from `harbor` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.pullSecret",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-openldap-stack-ha",
+          "message": "Chart default `image.tag` changed from `1.4.0` to `1.5.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-ltb-passwd",
+          "message": "Chart default `ltb-passwd.ldap.server` changed from `ldap://openldap-stack-ha` to `ldap://openldap-openldap-stack-ha` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "ltb-passwd.ldap.server",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-phpldapadmin",
+          "message": "Chart default `phpldapadmin.env.PHPLDAPADMIN_LDAP_HOSTS` changed from `openldap-stack-ha` to `openldap-openldap-stack-ha` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "phpldapadmin.env.PHPLDAPADMIN_LDAP_HOSTS",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-ltb-passwd changed at spec.template.spec.containers[name=ltb-passwd].env[name=LDAP_SERVER].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-ltb-passwd",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-openldap-stack-ha changed at spec.template.metadata.annotations.checksum/configmap-env. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-openldap-stack-ha",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.4.47 to 2.4.57. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. StatefulSet/default/stageproof-rel-openldap-stack-ha.template.spec.containers[0] openldap-stack-ha container moves from osixia/openldap:1.4.0 to osixia/openldap:1.5.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `osixia/openldap:1.5.0` could not be checked. The registry did not answer.",
+          "resource": "osixia/openldap:1.5.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "Ingress/default/stageproof-rel-ltb-passwd was not judged. the API group is not installed on this server.",
+          "resource": "Ingress/default/stageproof-rel-ltb-passwd",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Ingress/default/stageproof-rel-phpldapadmin was not judged. the API group is not installed on this server.",
+          "resource": "Ingress/default/stageproof-rel-phpldapadmin",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "2.1.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://jp-gouin.github.io/helm-openldap/ --chart openldap-stack-ha --from 2.1.0 --to 2.1.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "727631d92137829a153e067ed81ce64226604ede6a9baf4b1ec7e75df76fc3fe"
+}

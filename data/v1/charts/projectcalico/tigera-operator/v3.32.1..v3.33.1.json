@@ -1,0 +1,116 @@
+{
+  "from_sha256": "563f75f29bdbb13dde13a1d51244b96f42b4fe0eef5be763fb55fa9756f31c93",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v3.32.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 11 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 6 of 11 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "ClusterRole/default/tigera-operator adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/tigera-operator",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/tigera-operator, Job/stageproof-check/tigera-operator-uninstall",
+          "message": "Chart default `tigeraOperator.version` changed from `v1.42.3` to `v1.44.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "tigeraOperator.version",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/tigera-operator changed at spec.template.spec.containers[name=tigera-operator].args. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/tigera-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v3.32.1 to v3.33.1. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/stageproof-check/tigera-operator.template.spec.containers[0] tigera-operator container moves from quay.io/tigera/operator:v1.42.3 to quay.io/tigera/operator:v1.44.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "message": "APIServer/default/default was not judged. the API group is not installed on this server.",
+          "resource": "APIServer/default/default",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Goldmane/default/default was not judged. the API group is not installed on this server.",
+          "resource": "Goldmane/default/default",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Installation/default/default was not judged. the API group is not installed on this server.",
+          "resource": "Installation/default/default",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "message": "Whisker/default/default was not judged. the API group is not installed on this server.",
+          "resource": "Whisker/default/default",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "v3.33.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://docs.projectcalico.org/charts/ --chart tigera-operator --from v3.32.1 --to v3.33.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "cf1f816efc484fbe0a21a54718e92f0375dd8593ae97567a51730ac759f90828"
+}

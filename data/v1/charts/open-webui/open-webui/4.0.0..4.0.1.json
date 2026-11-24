@@ -1,0 +1,37 @@
+{
+  "from_sha256": "7f8647a4c59606727dd229cef51ca278526cf68b032f1d5c705f3c14a3876890",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "4.0.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 4.0.1 failed: exit status 1\nError: parse error at (open-webui/templates/workload-manager.yaml:44): bad character U+002D '-'\n\nUse --debug flag to render out invalid YAML",
+          "file": "4.0.1",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "4.0.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.openwebui.com --chart open-webui --from 4.0.0 --to 4.0.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "aa21115abe9c631a6dd84ced2c9cccc90ac5419b012038945d48f20022274267"
+}

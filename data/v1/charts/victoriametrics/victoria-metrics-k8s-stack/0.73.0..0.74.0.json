@@ -1,0 +1,137 @@
+{
+  "from_sha256": "de46d8cfcd32007b43074bafc58a1b0c27d1ff7aab513c212049fe1edffafa16",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.73.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 136 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "no new or changed image"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 107 of 136 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (1 deprecation, EOL, or CRD warning)"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: VMServiceScrape/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-core-dns",
+          "message": "Chart default `coreDns.vmScrape.spec.jobLabel` changed from `jobLabel` to `app.kubernetes.io/component` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "coreDns.vmScrape.spec.jobLabel",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: VMServiceScrape/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager",
+          "message": "Chart default `kubeControllerManager.vmScrape.spec.jobLabel` changed from `jobLabel` to `app.kubernetes.io/component` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "kubeControllerManager.vmScrape.spec.jobLabel",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: VMServiceScrape/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kube-etcd",
+          "message": "Chart default `kubeEtcd.vmScrape.spec.jobLabel` changed from `jobLabel` to `app.kubernetes.io/component` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "kubeEtcd.vmScrape.spec.jobLabel",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: VMServiceScrape/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kube-scheduler",
+          "message": "Chart default `kubeScheduler.vmScrape.spec.jobLabel` changed from `jobLabel` to `app.kubernetes.io/component` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "kubeScheduler.vmScrape.spec.jobLabel",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Service/stageproof-check/stageproof-rel-prometheus-node-exporter",
+          "message": "Chart default `prometheus-node-exporter.service.labels.jobLabel` changed from `node-exporter` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "prometheus-node-exporter.service.labels.jobLabel",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: VMServiceScrape/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-prometheus-node-exporter",
+          "message": "Chart default `prometheus-node-exporter.vmScrape.spec.jobLabel` changed from `jobLabel` to `app.kubernetes.io/name` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "prometheus-node-exporter.vmScrape.spec.jobLabel",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: VMAgent/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack",
+          "message": "Chart default `vmagent.spec.extraArgs[\"promscrape.dropOriginalLabels\"]` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "vmagent.spec.extraArgs[\"promscrape.dropOriginalLabels\"]",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-grafana changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-grafana",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "must be no more than 63 characters",
+          "message": "Kubernetes rejected `metadata.name` on Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager. The current chart failed the same validation; the upgrade did not introduce it.",
+          "resource": "Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "warning"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission, ValidatingWebhookConfiguration/default/stageproof-rel-victoria-metrics-operator-admission.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 1155 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/vmdistributed.operator.victoriametrics.com",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.74.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://victoriametrics.github.io/helm-charts/ --chart victoria-metrics-k8s-stack --from 0.73.0 --to 0.74.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "4ab71aebc8f833481cc326599752e949930a4a27713270031a8e1c13b358d452"
+}

@@ -1,0 +1,28 @@
+{
+  "from_sha256": "ffca670e1f5deb1b9ef419e2ddcde7610f4934f4a4bad45b1460c42912d10426",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.26.2",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 1.26.2 failed: exit status 1\nError: values don't meet the specifications of the schema(s) in the following chart(s):\ngateway:\n- at '': additional properties '_internal_defaults_do_not_set' not allowed"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "1.26.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://istio-release.storage.googleapis.com/charts --chart gateway --from 1.26.2 --to 1.26.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "2afa5f170b2d5a3a36dfea62d9128d329471fb09dbefa7e95f9424bf782c4988"
+}

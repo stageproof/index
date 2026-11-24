@@ -1,0 +1,249 @@
+{
+  "from_sha256": "c0d834fbda87fdbe61205dba4f1146dd379ee9ebc3e994c261efa615a372e5dc",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.18.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 31 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "8 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-core",
+          "message": "Chart default `core.image.repository` changed from `goharbor/harbor-core` to `docker.io/goharbor/harbor-core` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "core.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-core",
+          "message": "Chart default `core.image.tag` changed from `v2.14.0` to `v2.15.4` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "core.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-harbor-database",
+          "message": "Chart default `database.internal.image.repository` changed from `goharbor/harbor-db` to `docker.io/goharbor/harbor-db` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "database.internal.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-harbor-database",
+          "message": "Chart default `database.internal.image.tag` changed from `v2.14.0` to `v2.15.4` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "database.internal.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-jobservice",
+          "message": "Chart default `jobservice.image.repository` changed from `goharbor/harbor-jobservice` to `docker.io/goharbor/harbor-jobservice` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "jobservice.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-jobservice",
+          "message": "Chart default `jobservice.image.tag` changed from `v2.14.0` to `v2.15.4` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "jobservice.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-portal",
+          "message": "Chart default `portal.image.repository` changed from `goharbor/harbor-portal` to `docker.io/goharbor/harbor-portal` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "portal.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-portal",
+          "message": "Chart default `portal.image.tag` changed from `v2.14.0` to `v2.15.4` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "portal.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-harbor-redis",
+          "message": "Chart default `redis.internal.image.repository` changed from `goharbor/redis-photon` to `docker.io/goharbor/valkey-photon` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.internal.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-harbor-redis",
+          "message": "Chart default `redis.internal.image.tag` changed from `v2.14.0` to `v2.15.4` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "redis.internal.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-registry",
+          "message": "Chart default `registry.controller.image.repository` changed from `goharbor/harbor-registryctl` to `docker.io/goharbor/harbor-registryctl` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "registry.controller.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-registry",
+          "message": "Chart default `registry.controller.image.tag` changed from `v2.14.0` to `v2.15.4` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "registry.controller.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-registry",
+          "message": "Chart default `registry.registry.image.repository` changed from `goharbor/registry-photon` to `docker.io/goharbor/registry-photon` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "registry.registry.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-harbor-registry",
+          "message": "Chart default `registry.registry.image.tag` changed from `v2.14.0` to `v2.15.4` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "registry.registry.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-harbor-trivy",
+          "message": "Chart default `trivy.image.repository` changed from `goharbor/trivy-adapter-photon` to `docker.io/goharbor/trivy-adapter-photon` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "trivy.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-harbor-trivy",
+          "message": "Chart default `trivy.image.tag` changed from `v2.14.0` to `v2.15.4` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "trivy.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-harbor-core changed at spec.template.metadata.annotations.checksum/configmap. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-harbor-core",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-harbor-jobservice changed at spec.template.metadata.annotations.checksum/configmap. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-harbor-jobservice",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-harbor-portal changed at spec.template.metadata.annotations.checksum/configmap. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-harbor-portal",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-harbor-registry changed at spec.template.metadata.annotations.checksum/configmap. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-harbor-registry",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-harbor-database changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-harbor-database",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-harbor-redis changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-harbor-redis",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-harbor-trivy changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-harbor-trivy",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.14.0 to 2.15.4. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "8 container images changed. Deployment/stageproof-check/stageproof-rel-harbor-core.template.spec.containers[0] core container moves from goharbor/harbor-core:v2.14.0 to docker.io/goharbor/harbor-core:v2.15.4. Deployment/stageproof-check/stageproof-rel-harbor-jobservice.template.spec.containers[0] jobservice container moves from goharbor/harbor-jobservice:v2.14.0 to docker.io/goharbor/harbor-jobservice:v2.15.4. Deployment/stageproof-check/stageproof-rel-harbor-portal.template.spec.containers[0] portal container moves from goharbor/harbor-portal:v2.14.0 to docker.io/goharbor/harbor-portal:v2.15.4. Deployment/stageproof-check/stageproof-rel-harbor-registry.template.spec.containers[0] registry container moves from goharbor/registry-photon:v2.14.0 to docker.io/goharbor/registry-photon:v2.15.4. Deployment/stageproof-check/stageproof-rel-harbor-registry.template.spec.containers[1] registryctl container moves from goharbor/harbor-registryctl:v2.14.0 to docker.io/goharbor/harbor-registryctl:v2.15.4. StatefulSet/stageproof-check/stageproof-rel-harbor-database.template.spec.containers[0] database container moves from goharbor/harbor-db:v2.14.0 to docker.io/goharbor/harbor-db:v2.15.4. StatefulSet/stageproof-check/stageproof-rel-harbor-redis.template.spec.containers[0] redis container moves from goharbor/redis-photon:v2.14.0 to docker.io/goharbor/valkey-photon:v2.15.4. StatefulSet/stageproof-check/stageproof-rel-harbor-trivy.template.spec.containers[0] trivy container moves from goharbor/trivy-adapter-photon:v2.14.0 to docker.io/goharbor/trivy-adapter-photon:v2.15.4.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/goharbor/redis-photon` to `index.docker.io/goharbor/valkey-photon`.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-harbor-redis.template.spec.containers[0] redis",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.19.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.goharbor.io --chart harbor --from 1.18.0 --to 1.19.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "759872bbabaf05524268096b9d551a480d3f6814d13ed08723036e2673859182"
+}

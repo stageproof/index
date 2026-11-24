@@ -1,0 +1,33 @@
+{
+  "from_sha256": "da83a654f48bc0ee8da4342a5aab5a3c86a2011a8a7f33ac6f79fe9539a58fd2",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "10.3.3",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "required values shim",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: global.hosts.workspaces.name"
+        },
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 10.3.3 failed: exit status 1\nError: execution error at (gitlab/templates/NOTES.txt:222:3): \nCONFIGURATION CHECKS:\n\nRegistry Object Storage:\n  The chart provides no longer bundled object storage solution. Please\n  prepare an external object storage solution for the Registry by following \n  https://docs.gitlab.com/charts/advanced/external-object-storage/#registry-configuration\n\nObject Storage:\n  When type-specific object storage is enabled the `connection` property can not be empty. Check the following object storage configuration(s): artifacts,lfs,uploads,packages\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "10.3.4",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo http://charts.gitlab.io/ --chart gitlab --from 10.3.3 --to 10.3.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "fe436efa446dc2ecc5794f68b08337d2b4abca1a4d50e45dbe8f726babd913c5"
+}

@@ -1,0 +1,176 @@
+{
+  "from_sha256": "b54fb528e8463158c5d50ffaadc954dbeabcc3a6a370691404260079193fd9ac",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.1.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 17 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 15 of 17 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Ingress/stageproof-check/stageproof-rel-nacos.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-nacos",
+          "message": "Chart default `extraEnvVars` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "extraEnvVars",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-nacos",
+          "message": "Chart default `healthCheck.livenessProbe.httpPath` changed from `/nacos/v1/console/health/liveness` to `/` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "healthCheck.livenessProbe.httpPath",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-nacos",
+          "message": "Chart default `healthCheck.readinessProbe.httpPath` changed from `/nacos/v1/console/health/readiness` to `/` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "healthCheck.readinessProbe.httpPath",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-nacos",
+          "message": "Chart default `image.tag` changed from `v2.1.0` to `v3.0.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Ingress/stageproof-check/stageproof-rel-nacos",
+          "message": "Chart default `ingress.enabled` changed from `true` to `false` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "ingress.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Service/stageproof-check/stageproof-rel-nacos, Service/stageproof-check/stageproof-rel-nacos-headless, StatefulSet/stageproof-check/stageproof-rel-nacos",
+          "message": "Chart default `service.ports.http.port` changed from `8848` to `8080` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "service.ports.http.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-mysql-primary changed at spec.template.metadata.annotations.checksum/configuration. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-mysql-primary",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-mysql-secondary changed at spec.template.metadata.annotations.checksum/configuration. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-mysql-secondary",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-nacos changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-nacos",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Job/default/stageproof-rel-nacos-init-db changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Job/default/stageproof-rel-nacos-init-db",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.1.0 to 3.0.2. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. StatefulSet/stageproof-check/stageproof-rel-mysql-primary.template.spec.containers[0] mysql container moves from docker.io/bitnami/mysql:8.0.29-debian-10-r2 to docker.io/bitnami/mysql:8.0.32-debian-11-r8. StatefulSet/stageproof-check/stageproof-rel-nacos.template.spec.containers[0] nacos container moves from docker.io/nacos/nacos-server:v2.1.0 to docker.io/nacos/nacos-server:v3.0.2. StatefulSet/stageproof-check/stageproof-rel-nacos.template.spec.initContainers[0] peer-finder-plugin-install container moves from nacos/nacos-peer-finder-plugin:latest to docker.io/nacos/nacos-peer-finder-plugin:latest.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnami/mysql:8.0.32-debian-11-r8` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bitnami/mysql:8.0.32-debian-11-r8",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/nacos/nacos-peer-finder-plugin:latest` could not be checked. The registry did not answer.",
+          "resource": "docker.io/nacos/nacos-peer-finder-plugin:latest",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/nacos/nacos-server:v3.0.2` could not be checked. The registry did not answer.",
+          "resource": "docker.io/nacos/nacos-server:v3.0.2",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
+          "resource": "Job/default/stageproof-rel-nacos-init-db",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "2.1.10",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://ygqygq2.github.io/charts/ --chart nacos --from 2.1.1 --to 2.1.10 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "9d694ea2b8c91fad7456035bb40a2930fc3bdbf012afc326fef64ba1971a20cf"
+}

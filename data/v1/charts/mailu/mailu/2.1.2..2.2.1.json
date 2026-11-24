@@ -1,0 +1,160 @@
+{
+  "from_sha256": "644dd454710792774dc06e6bbaa37c6d7be2cd594d6b470d3aa5190808b17f6e",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.1.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: domain"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 32 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "8 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 30 of 32 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-mailu-clamav",
+          "message": "Chart default `clamav.image.tag` changed from `1.2.0-6` to `1.4` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "clamav.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-mailu-clamav",
+          "message": "Chart default `clamav.livenessProbe.failureThreshold` changed from `3` to `5` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "clamav.livenessProbe.failureThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-admin changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-admin",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-dovecot changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-dovecot",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-front changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-front",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-oletools changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-oletools",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-postfix changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-postfix",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-rspamd changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-rspamd",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-tika changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-tika",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-mailu-webmail changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-mailu-webmail",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-mailu-clamav changed at spec.template.metadata.labels.helm.sh/chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-mailu-clamav",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2024.06.10 to 2024.06.36. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "8 container images changed. Deployment/stageproof-check/stageproof-rel-mailu-admin.template.spec.containers[0] admin container moves from ghcr.io/mailu/admin:2024.06.10 to ghcr.io/mailu/admin:2024.06.36. Deployment/stageproof-check/stageproof-rel-mailu-dovecot.template.spec.containers[0] dovecot container moves from ghcr.io/mailu/dovecot:2024.06.10 to ghcr.io/mailu/dovecot:2024.06.36. Deployment/stageproof-check/stageproof-rel-mailu-front.template.spec.containers[0] front container moves from ghcr.io/mailu/nginx:2024.06.10 to ghcr.io/mailu/nginx:2024.06.36. Deployment/stageproof-check/stageproof-rel-mailu-oletools.template.spec.containers[0] oletools container moves from ghcr.io/mailu/oletools:2024.06.10 to ghcr.io/mailu/oletools:2024.06.36. Deployment/stageproof-check/stageproof-rel-mailu-postfix.template.spec.containers[0] postfix container moves from ghcr.io/mailu/postfix:2024.06.10 to ghcr.io/mailu/postfix:2024.06.36. Deployment/stageproof-check/stageproof-rel-mailu-rspamd.template.spec.containers[0] rspamd container moves from ghcr.io/mailu/rspamd:2024.06.10 to ghcr.io/mailu/rspamd:2024.06.36. Deployment/stageproof-check/stageproof-rel-mailu-webmail.template.spec.containers[0] webmail container moves from ghcr.io/mailu/webmail:2024.06.10 to ghcr.io/mailu/webmail:2024.06.36. StatefulSet/stageproof-check/stageproof-rel-mailu-clamav.template.spec.containers[0] clamav container moves from docker.io/clamav/clamav-debian:1.2.0-6 to docker.io/clamav/clamav-debian:1.4.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "message": "Kubernetes rejected the update. `spec` is immutable.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-mailu-clamav",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
+        },
+        {
+          "detail": "either `defaultBackend` or `rules` must be specified",
+          "message": "Kubernetes rejected `spec` on Ingress/stageproof-check/stageproof-rel-mailu. The current chart failed the same validation; the upgrade did not introduce it.",
+          "resource": "Ingress/stageproof-check/stageproof-rel-mailu",
+          "rule_id": "k8s.apply.invalid",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "2.2.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://mailu.github.io/helm-charts/ --chart mailu --from 2.1.2 --to 2.2.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "bc69cb631467e5c337efedfbec292aa4d9511453ce8488f7b06f5b509f90d4aa"
+}

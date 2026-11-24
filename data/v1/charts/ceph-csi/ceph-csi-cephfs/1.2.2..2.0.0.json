@@ -1,0 +1,168 @@
+{
+  "from_sha256": "b0447a8b2ecd5b7a175f742b9b8e53e887d0c66a0f16748f38a7f2972d788f53",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.2.2",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 17 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "fail",
+          "summary": "a new or changed image tag was not found, or it lacks the required platform"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin container driver-registrar securityContext is weaker at privileged.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin container liveness-prometheus securityContext is weaker at privileged.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-ceph-csi-cephfs-provisioner-rules adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-ceph-csi-cephfs-provisioner-rules",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin, Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner",
+          "message": "Chart default `nodeplugin.plugin.image.tag` changed from `v1.2.2` to `v2.0.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "nodeplugin.plugin.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin",
+          "message": "Chart default `nodeplugin.registrar.image.tag` changed from `v1.1.0` to `v1.2.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "nodeplugin.registrar.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner",
+          "message": "Chart default `provisioner.attacher.image.tag` changed from `v1.2.1` to `v2.1.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "provisioner.attacher.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner",
+          "message": "Chart default `provisioner.provisioner.image.tag` changed from `v1.3.0` to `v1.4.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "provisioner.provisioner.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin changed at spec.template.metadata.labels.chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner changed at spec.template.metadata.labels.chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 1.2.2 to 2.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.2.2 to v2.0.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "4 container images changed. DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin.template.spec.containers[0] driver-registrar container moves from quay.io/k8scsi/csi-node-driver-registrar:v1.1.0 to quay.io/k8scsi/csi-node-driver-registrar:v1.2.0. DaemonSet/stageproof-check/stageproof-rel-ceph-csi-cephfs-nodeplugin.template.spec.containers[1] csi-cephfsplugin container moves from quay.io/cephcsi/cephcsi:v1.2.2 to quay.io/cephcsi/cephcsi:v2.0.0. Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner.template.spec.containers[0] csi-provisioner container moves from quay.io/k8scsi/csi-provisioner:v1.3.0 to quay.io/k8scsi/csi-provisioner:v1.4.0. Deployment/stageproof-check/stageproof-rel-ceph-csi-cephfs-provisioner.template.spec.containers[1] csi-attacher container moves from quay.io/k8scsi/csi-attacher:v1.2.1 to quay.io/k8scsi/csi-attacher:v2.1.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `quay.io/k8scsi/csi-attacher:v2.1.0` could not be checked. The registry refused the request.",
+          "resource": "quay.io/k8scsi/csi-attacher:v2.1.0",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `quay.io/k8scsi/csi-node-driver-registrar:v1.2.0` was not found.",
+          "resource": "quay.io/k8scsi/csi-node-driver-registrar:v1.2.0",
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `quay.io/k8scsi/csi-provisioner:v1.4.0` could not be checked. The registry refused the request.",
+          "resource": "quay.io/k8scsi/csi-provisioner:v1.4.0",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `quay.io/k8scsi/csi-resizer:v0.4.0` could not be checked. The registry refused the request.",
+          "resource": "quay.io/k8scsi/csi-resizer:v0.4.0",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "2.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://ceph.github.io/csi-charts --chart ceph-csi-cephfs --from 1.2.2 --to 2.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "9b0acc9caf8318bf1cdee55eab37c178dcd9bd74e7e296f9d7940616a57fa56b"
+}

@@ -1,0 +1,104 @@
+{
+  "from_sha256": "5c84ff6c330d9d6eef162dca2bd09ebf4d4fe0656fb8e63813ced2a8745505a9",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.1.13",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 5 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 2 of 3 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: DaemonSet/default/aws-node, ServiceAccount/default/aws-node.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "DaemonSet/stageproof-check/aws-node container aws-node securityContext is weaker at capabilities.add.",
+          "resource": "DaemonSet/stageproof-check/aws-node",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "DaemonSet/stageproof-check/aws-node container aws-vpc-cni-init securityContext is weaker at privileged.",
+          "resource": "DaemonSet/stageproof-check/aws-node",
+          "rule_id": "impact.privilege.securitycontext",
+          "severity": "warning"
+        },
+        {
+          "message": "DaemonSet/stageproof-check/aws-node adds hostPath volumes cni-bin-dir, cni-net-dir, dockershim, log-dir, run-dir, xtables-lock.",
+          "resource": "DaemonSet/stageproof-check/aws-node",
+          "rule_id": "impact.privilege.hostpath",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/aws-node adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/aws-node",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "DaemonSet/stageproof-check/aws-node sets hostNetwork.",
+          "resource": "DaemonSet/stageproof-check/aws-node",
+          "rule_id": "impact.exposure.host",
+          "severity": "warning"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni-init:v1.10.2` could not be checked. The registry refused the request.",
+          "resource": "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni-init:v1.10.2",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni:v1.10.2` could not be checked. The registry refused the request.",
+          "resource": "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni:v1.10.2",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.1.14",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://aws.github.io/eks-charts --chart aws-vpc-cni --from 1.1.13 --to 1.1.14 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "829fcf21cad9e630ee030d719f103d9f8802b796acd110991e9b5ed5b7e10ed7"
+}

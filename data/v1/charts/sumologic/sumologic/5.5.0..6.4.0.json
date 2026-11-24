@@ -1,0 +1,42 @@
+{
+  "from_sha256": "c97414590598ed7633bbfba772a722f755956b789e002f5cc8ee5ccdaaf7c6ff",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "5.5.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 2 these values is set: sumologic.accessId, sumologic.accessKey"
+        },
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "render failed"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 6.4.0 failed: exit status 1\nError: execution error at (sumologic/templates/checks.txt:15:4): \nsumologic.sourcelessModeAck and sumologic.metrics.collector.otelcol.singleLayerPipeline.migrationDocAcknowledged are not set.\nPlease review the migration guide, then set both values to true to confirm. \nIf you're onboarding to sumologic kubernetes collection for the first time, you can skip reading migration doc and just set sumologic.sourcelessModeAck and sumologic.metrics.collector.otelcol.singleLayerPipeline.migrationDocAcknowledged to true in your values.yaml\nSee: https://www.sumologic.com/help/docs/send-data/kubernetes/v6/how-to-upgrade/\n\nUse --debug flag to render out invalid YAML",
+          "file": "6.4.0",
+          "message": "Candidate chart (`--to`) failed `helm template` rendering.",
+          "rule_id": "helm.template.render_failed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "6.4.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://sumologic.github.io/sumologic-kubernetes-collection --chart sumologic --from 5.5.0 --to 6.4.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "27d0022792254a3a8a1929593de398470f54cde6a2c58fdc3c9ffc74078e9ccb"
+}

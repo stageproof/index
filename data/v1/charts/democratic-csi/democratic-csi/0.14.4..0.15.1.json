@@ -1,0 +1,125 @@
+{
+  "from_sha256": "69ad3585c4aa729b11ddf2956d77552cae0be0fb7fd49d5b6265c5b31d7b70b5",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.14.4",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "required values shim",
+          "status": "warn",
+          "summary": "the chart does not render unless 2 these values is set: csiDriver.name, driver.config"
+        },
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: driver.config.driver"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 11 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "1 named change"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "8 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-democratic-csi-controller",
+          "message": "Chart default `controller.priorityClassName` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.priorityClassName",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/stageproof-rel-democratic-csi-node",
+          "message": "Chart default `node.priorityClassName` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "node.priorityClassName",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/stageproof-rel-democratic-csi-node changed at spec.template.metadata.annotations.checksum/configmap. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-democratic-csi-node",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-democratic-csi-controller changed at spec.template.metadata.annotations.checksum/configmap. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-democratic-csi-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "8 container images changed. DaemonSet/stageproof-check/stageproof-rel-democratic-csi-node.template.spec.containers[0] csi-driver container moves from docker.io/democraticcsi/democratic-csi:latest to ghcr.io/democratic-csi/democratic-csi:latest. DaemonSet/stageproof-check/stageproof-rel-democratic-csi-node.template.spec.containers[1] csi-proxy container moves from docker.io/democraticcsi/csi-grpc-proxy:v0.5.3 to ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.7. DaemonSet/stageproof-check/stageproof-rel-democratic-csi-node.template.spec.containers[2] driver-registrar container moves from registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.8.0 to registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.9.0. DaemonSet/stageproof-check/stageproof-rel-democratic-csi-node.template.spec.containers[3] cleanup container moves from docker.io/busybox:1.32.0 to docker.io/busybox:1.37.0. Deployment/stageproof-check/stageproof-rel-democratic-csi-controller.template.spec.containers[0] external-attacher container moves from registry.k8s.io/sig-storage/csi-attacher:v4.3.0 to registry.k8s.io/sig-storage/csi-attacher:v4.4.0. Deployment/stageproof-check/stageproof-rel-democratic-csi-controller.template.spec.containers[1] external-provisioner container moves from registry.k8s.io/sig-storage/csi-provisioner:v3.5.0 to registry.k8s.io/sig-storage/csi-provisioner:v3.6.0. Deployment/stageproof-check/stageproof-rel-democratic-csi-controller.template.spec.containers[2] external-resizer container moves from registry.k8s.io/sig-storage/csi-resizer:v1.8.0 to registry.k8s.io/sig-storage/csi-resizer:v1.9.0. Deployment/stageproof-check/stageproof-rel-democratic-csi-controller.template.spec.containers[3] external-snapshotter container moves from registry.k8s.io/sig-storage/csi-snapshotter:v6.2.2 to registry.k8s.io/sig-storage/csi-snapshotter:v8.2.1.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/democraticcsi/democratic-csi` to `ghcr.io/democratic-csi/democratic-csi`.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-democratic-csi-node.template.spec.containers[0] csi-driver",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/democraticcsi/csi-grpc-proxy` to `ghcr.io/democratic-csi/csi-grpc-proxy`.",
+          "resource": "DaemonSet/stageproof-check/stageproof-rel-democratic-csi-node.template.spec.containers[1] csi-proxy",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/busybox:1.37.0` could not be checked. The registry did not answer.",
+          "resource": "docker.io/busybox:1.37.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.15.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://democratic-csi.github.io/charts/ --chart democratic-csi --from 0.14.4 --to 0.15.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "3d87e129cea46d49d810e9e5085b61d06c01a313bcf92160e3d106adc30426ed"
+}

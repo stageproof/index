@@ -1,0 +1,111 @@
+{
+  "from_sha256": "57b5d8a2cbdad4812a21b4b803076e57ab2d4d82b63efd488bc69c7af28aaf36",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.28.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 7 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "3 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vminsert changed at spec.template.spec.containers[name=vminsert].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vminsert",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmselect changed at spec.template.spec.containers[name=vmselect].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmselect",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmstorage changed at spec.template.spec.containers[name=vmstorage].image. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmstorage",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from v1.124.0 to v1.125.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vminsert.template.spec.containers[0] vminsert container moves from victoriametrics/vminsert:v1.124.0-cluster to victoriametrics/vminsert:v1.125.0-cluster. Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmselect.template.spec.containers[0] vmselect container moves from victoriametrics/vmselect:v1.124.0-cluster to victoriametrics/vmselect:v1.125.0-cluster. StatefulSet/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmstorage.template.spec.containers[0] vmstorage container moves from victoriametrics/vmstorage:v1.124.0-cluster to victoriametrics/vmstorage:v1.125.0-cluster.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `victoriametrics/vminsert:v1.125.0-cluster` could not be checked. The registry did not answer.",
+          "resource": "victoriametrics/vminsert:v1.125.0-cluster",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `victoriametrics/vmselect:v1.125.0-cluster` could not be checked. The registry did not answer.",
+          "resource": "victoriametrics/vmselect:v1.125.0-cluster",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `victoriametrics/vmstorage:v1.125.0-cluster` could not be checked. The registry did not answer.",
+          "resource": "victoriametrics/vmstorage:v1.125.0-cluster",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "0.28.2",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://victoriametrics.github.io/helm-charts/ --chart victoria-metrics-cluster --from 0.28.1 --to 0.28.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "b70a27ea9354e78ef150fa862d3a63e09ddaf8d2eaf1d8676bbace2daa8fdb97"
+}

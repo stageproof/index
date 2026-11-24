@@ -1,0 +1,28 @@
+{
+  "from_sha256": "20903a2f0acff2e88f227a7f1fc128649ca2832f5d0746248b6d7e3714d5d14d",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "1.16.2",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 1.16.2 failed: exit status 1\nError: chart requires kubeVersion: 1.18.0-0 - 1.32.x-O which is incompatible with Kubernetes v1.35.0\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "1.16.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://stackgres.io/downloads/stackgres-k8s/stackgres/helm/ --chart stackgres-operator --from 1.16.2 --to 1.16.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "ddb9447c8c2297ad4e7d996e4fa98917ac118e9bb6ba21b5e48fa4fc3e8efe2e"
+}

@@ -1,0 +1,28 @@
+{
+  "from_sha256": "4e7d54c4c2e543d2a17f210099fdacb0c6f5958fdb4d78cff7750b1e159d2d34",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.13.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 2.13.0 failed: exit status 1\nError: chart requires kubeVersion: < 1.35.0-0 which is incompatible with Kubernetes v1.35.0\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "2.13.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://releases.rancher.com/server-charts/stable --chart rancher --from 2.13.0 --to 2.13.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "48c845e8381d6bdf7eceea5c9cfdd8bd55fda068c807734b997706ba51a0198d"
+}

@@ -1,0 +1,28 @@
+{
+  "from_sha256": "935ce4f09366231b11d414d626f887fa6fa6024dd30a42e81e810ca1438d5904",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "5.0.2",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 5.0.2 failed: exit status 1\nError: parse error at (minio/templates/post-job.yaml:65): undefined variable \"$global\"\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "5.0.3",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.min.io --chart minio --from 5.0.2 --to 5.0.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.0",
+  "to_sha256": "bac89157c53b324aece263c294aa49f5c9b64f426b4b06c9bca3d72e77e244f2"
+}
