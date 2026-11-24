@@ -85,13 +85,6 @@
           "message": "1 container image changed. CronJob/default/stageproof-rel-netbox-housekeeping.jobTemplate.spec.template.spec.containers[0] netbox-housekeeping container moves from netboxcommunity/netbox:v3.2.6 to netboxcommunity/netbox:v3.2.8.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `busybox:1.32.1` could not be checked. The registry did not answer.",
-          "resource": "busybox:1.32.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "4.1.1",
@@ -104,6 +97,6 @@
   "reproduce_command": "stageproof check --repo https://charts.boo.tc --chart netbox --from 4.1.0 --to 4.1.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.3.1",
   "to_sha256": "b0993bdda911cf003a50877258307ce8c9aa480970722bf1f7256a740cf16903"
 }

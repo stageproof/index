@@ -97,20 +97,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/signoz/signoz-otel-collector:v0.144.16` could not be checked. The registry did not answer.",
-          "resource": "docker.io/signoz/signoz-otel-collector:v0.144.16",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/signoz/signoz:v0.151.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/signoz/signoz:v0.151.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Kubernetes rejected the update. `spec.template` is immutable.",
           "resource": "Job/default/signoz-telemetrystore-migrator",
           "rule_id": "k8s.apply.immutable_field",
@@ -127,6 +113,6 @@
   "reproduce_command": "stageproof check --repo https://charts.signoz.io --chart signoz --from 0.150.0 --to 0.151.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.3.1",
   "to_sha256": "c09021f5c095eba3d273b3484a154ebc8ddf668f07a775ba4f357ba93ea87004"
 }

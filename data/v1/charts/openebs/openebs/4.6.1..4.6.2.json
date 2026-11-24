@@ -153,6 +153,13 @@
           "resource": "StatefulSet/default/stageproof-rel-minio.template.spec.containers[0] minio",
           "rule_id": "supply.image.moved",
           "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/openebs/mc:RELEASE.2024-11-21T17-21-54Z` could not be checked. The registry did not answer.",
+          "resource": "docker.io/openebs/mc:RELEASE.2024-11-21T17-21-54Z",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
         }
       ],
       "head_ref": "4.6.2",
@@ -165,6 +172,6 @@
   "reproduce_command": "stageproof check --repo https://openebs.github.io/openebs --chart openebs --from 4.6.1 --to 4.6.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.3.1",
   "to_sha256": "87c759684e23832115466813d6f16aa0920bed7b9c1b4b63e1cff64ca6023629"
 }

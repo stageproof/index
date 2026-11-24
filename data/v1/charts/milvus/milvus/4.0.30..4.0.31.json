@@ -48,6 +48,6 @@
   "reproduce_command": "stageproof check --repo https://raw.githubusercontent.com/milvus-io/milvus-helm/gh-pages --chart milvus --from 4.0.30 --to 4.0.31 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.3.1",
   "to_sha256": "355d48bcd1b64dbaaf66a455a9b04f986116f7be9cb055d0f72bc36701de9bbb"
 }

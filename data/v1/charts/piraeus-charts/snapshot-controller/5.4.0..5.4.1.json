@@ -79,6 +79,6 @@
   "reproduce_command": "stageproof check --repo https://piraeus.io/helm-charts/ --chart snapshot-controller --from 5.4.0 --to 5.4.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.3.1",
   "to_sha256": "d9cb4e63a1ebe8d87776d0f06a53471d0ee78f1d473a559545d08d7475bbecbd"
 }

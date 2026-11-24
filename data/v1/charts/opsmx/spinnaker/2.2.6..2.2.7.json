@@ -67,6 +67,6 @@
   "reproduce_command": "stageproof check --repo https://helmcharts.opsmx.com/ --chart spinnaker --from 2.2.6 --to 2.2.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.3.1",
   "to_sha256": "edac82c6b31a6f613dfce18d8bac4aa5591ac3e9ade6f6ff53c75d758ab1f448"
 }

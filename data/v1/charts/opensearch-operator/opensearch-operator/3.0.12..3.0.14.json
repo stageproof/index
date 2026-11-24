@@ -69,13 +69,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `opensearchproject/opensearch-operator:3.0.0` could not be checked. The registry did not answer.",
-          "resource": "opensearchproject/opensearch-operator:3.0.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Certificate/stageproof-check/stageproof-rel-opensearch-operator-serving-cert was not judged. the API group is not installed on this server.",
           "resource": "Certificate/stageproof-check/stageproof-rel-opensearch-operator-serving-cert",
           "rule_id": "k8s.apply.not_exercised",
@@ -118,6 +111,6 @@
   "reproduce_command": "stageproof check --repo https://opensearch-project.github.io/opensearch-k8s-operator/ --chart opensearch-operator --from 3.0.12 --to 3.0.14 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.3.1",
   "to_sha256": "0327d449ab61e112e0c13d54408bef396706c500cbf9211da965aa3ae94f9a68"
 }
