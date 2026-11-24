@@ -35,10 +35,10 @@ go run ./cmd/site -data data -o site
 
 Pages, relative to the site root:
 
-- `/` links to the catalog and the API.
-- `/charts/` lists every chart in the HTML. A script on that page filters the list. There is no search server and no analytics.
-- `/chart/<repo>/<chart>/` shows the versions and the upgrades. Upgrades are listed newest first. The upstream repository, homepage, and release notes are links when the URL starts with `http://` or `https://`.
-- `/upgrade/<repo>/<chart>/<from>/<to>/` leads with the result for each Kubernetes minor, then blocking findings, warnings, defaults, CRD changes, and image changes. It then prints: "Checked with chart defaults only. Run the command below with your `-f values.yaml` to check your cluster." The `reproduce_command` follows, then the release notes, then a link that opens a Stageproof bug report with the repository, chart, versions, and Stageproof version filled in.
+- `/` shows the catalog totals and links to charts whose newest step is blocked. It also links to the catalog and the API.
+- `/charts/` lists every chart in the HTML. Columns are the newest version, the newest step (`blocked`, `not checked`, `no blocking finding`, or `none`), the pair count, and the historical blocked count. A script on that page filters the list. There is no search server and no analytics.
+- `/chart/<repo>/<chart>/` shows the versions, the newest adjacent upgrade, the step-by-step upgrades, and jumps to latest in a collapsed list. A version filter appears when there are more than 20 steps. `not checked` is not shown as a pass. The upstream repository, homepage, and release notes are links when the URL starts with `http://` or `https://`.
+- `/upgrade/<repo>/<chart>/<from>/<to>/` leads with the result for each Kubernetes minor. When a check failed, or the result is `NOT CHECKED`, the page lists those checks. A pair that was not checked says "This pair could not be checked with chart defaults." It does not say there was no blocking finding. Blocking findings, warnings, defaults, CRD changes, and image changes follow. It then prints: "Checked with chart defaults only. Run the command below with your `-f values.yaml` to check your cluster." The `reproduce_command` follows, then the release notes, then a link that opens a Stageproof bug report with the repository, chart, versions, and Stageproof version filled in.
 - `/api/` documents the files. `/api/v1/index.json` is a byte copy of the catalog. `/api/v1/upgrade/<repo>/<chart>/<from>/<to>.json` is a byte copy of that pair.
 - `/sitemap.xml` lists `/charts/`, chart pages that have an upgrade report, and adjacent upgrades. A page that skips a version, and a chart page with no report, are marked `noindex` and left out of the sitemap.
 

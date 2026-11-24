@@ -108,23 +108,54 @@ type view struct {
 	APIHref        string
 	IndexPath      string
 	UpgradePattern string
+	ChartCount     int
+	PairCount      int
+	BlockedCount   int
+	Version        string
+	Notable        []notableView
+	HasLatest      bool
+	LatestUpgrade  upgradeLink
+	Steps          []upgradeLink
+	Jumps          []upgradeLink
+	ShowStepFilter bool
+	NotChecked     bool
+	Checks         []checkView
 	route          string
 }
 
 type chartRow struct {
-	ID      string
-	Latest  string
-	Blocked int
-	Search  string
-	Href    string
+	ID           string
+	Latest       string
+	Pairs        int
+	Blocked      int
+	LatestStatus string
+	LatestClass  string
+	Search       string
+	Href         string
 }
 
 type upgradeLink struct {
 	From     string
 	To       string
 	Href     string
-	Blocked  bool
+	Status   string
+	Class    string
 	Adjacent bool
+}
+
+type notableView struct {
+	ID    string
+	From  string
+	To    string
+	Href  string
+	Stars int
+}
+
+type checkView struct {
+	Minor   string
+	Name    string
+	Status  string
+	Summary string
 }
 
 type minorView struct {
@@ -143,11 +174,9 @@ type line struct {
 func collect(root string, cat catalog) (built, error) {
 	var pages built
 	nav := view{Root: Root, ChartsPath: Charts, APIPath: API}
-	pages.html = append(pages.html, view{
-		Kind: "home", Title: "Stageproof index", route: Root,
-		Root: Root, ChartsPath: Charts, APIPath: API,
-	})
 	chartRows := make([]chartRow, 0, len(cat.Charts))
+	var notable []notableView
+	var pairTotal, blockedTotal int
 	var locs []string
 	locs = append(locs, Charts)
 	for _, item := range cat.Charts {
@@ -169,6 +198,8 @@ func collect(root string, cat catalog) (built, error) {
 		if err != nil {
 			return built{}, fmt.Errorf("%s: %w", item.ID, err)
 		}
+		pairTotal += item.Pairs
+		blockedTotal += item.Blocked
 		links := make([]upgradeLink, 0, len(pairs))
 		for _, one := range pairs {
 			up, err := Upgrade(item.RepoName, item.Chart, one.From, one.To)
@@ -179,8 +210,10 @@ func collect(root string, cat catalog) (built, error) {
 			if err != nil {
 				return built{}, err
 			}
+			status, class := linkStatus(one.Blocked, one.NotChecked)
 			links = append(links, upgradeLink{
-				From: one.From, To: one.To, Href: Href(up), Blocked: one.Blocked, Adjacent: one.Adjacent,
+				From: one.From, To: one.To, Href: Href(up),
+				Status: status, Class: class, Adjacent: one.Adjacent,
 			})
 			page := upgradeView(nav, item, one, up, api)
 			pages.html = append(pages.html, page)
@@ -194,12 +227,38 @@ func collect(root string, cat catalog) (built, error) {
 		if len(pairs) > 0 {
 			locs = append(locs, route)
 		}
+		latestStatus, latestClass := "none", ""
+		if page.HasLatest {
+			latestStatus, latestClass = page.LatestUpgrade.Status, page.LatestUpgrade.Class
+			if page.LatestUpgrade.Class == "blocked" {
+				notable = append(notable, notableView{
+					ID: item.ID, From: page.LatestUpgrade.From, To: page.LatestUpgrade.To,
+					Href: page.LatestUpgrade.Href, Stars: item.Stars,
+				})
+			}
+		}
 		chartRows = append(chartRows, chartRow{
-			ID: item.ID, Latest: item.Latest, Blocked: item.Blocked,
+			ID: item.ID, Latest: item.Latest, Pairs: item.Pairs, Blocked: item.Blocked,
+			LatestStatus: latestStatus, LatestClass: latestClass,
 			Search: strings.ToLower(item.ID + " " + item.RepoName + " " + item.Chart + " " + item.Repo),
 			Href:   Href(route),
 		})
 	}
+	sort.Slice(notable, func(i, j int) bool {
+		if notable[i].Stars != notable[j].Stars {
+			return notable[i].Stars > notable[j].Stars
+		}
+		return notable[i].ID < notable[j].ID
+	})
+	if len(notable) > 5 {
+		notable = notable[:5]
+	}
+	pages.html = append(pages.html, view{
+		Kind: "home", Title: "Stageproof index", route: Root,
+		Root: Root, ChartsPath: Charts, APIPath: API,
+		ChartCount: len(cat.Charts), PairCount: pairTotal, BlockedCount: blockedTotal,
+		Version: cat.StageproofVersion, Notable: notable,
+	})
 	pages.html = append(pages.html, view{
 		Kind: "charts", Title: "Charts", Notice: cat.Notice, Rows: chartRows, route: Charts,
 		Root: Root, ChartsPath: Charts, APIPath: API,
@@ -223,12 +282,41 @@ func collect(root string, cat catalog) (built, error) {
 }
 
 func chartView(nav view, item chart, route string, versions []string, links []upgradeLink) view {
+	latest, steps, jumps, ok := splitUpgrades(links)
 	return view{
 		Kind: "chart", Title: item.ID, route: route, NoIndex: len(links) == 0,
 		Root: nav.Root, ChartsPath: nav.ChartsPath, APIPath: nav.APIPath,
 		ID: item.ID, Latest: item.Latest, RepoText: item.Repo, RepoURL: httpLink(item.Repo),
 		Homepage: httpLink(item.Homepage), ReleaseNotes: httpLink(item.ReleaseNotesURL),
-		Error: item.Error, VersionLine: strings.Join(versions, ", "), Upgrades: links,
+		Error: item.Error, VersionLine: strings.Join(versions, ", "),
+		HasLatest: ok, LatestUpgrade: latest, Steps: steps, Jumps: jumps,
+		ShowStepFilter: len(steps) > 20,
+	}
+}
+
+func splitUpgrades(links []upgradeLink) (upgradeLink, []upgradeLink, []upgradeLink, bool) {
+	var steps, jumps []upgradeLink
+	for _, link := range links {
+		if link.Adjacent {
+			steps = append(steps, link)
+		} else {
+			jumps = append(jumps, link)
+		}
+	}
+	if len(steps) == 0 {
+		return upgradeLink{}, steps, jumps, false
+	}
+	return steps[0], steps, jumps, true
+}
+
+func linkStatus(blocked, notChecked bool) (string, string) {
+	switch {
+	case blocked:
+		return "blocked", "blocked"
+	case notChecked:
+		return "not checked", "unchecked"
+	default:
+		return "no blocking finding", "ok"
 	}
 }
 
@@ -273,8 +361,44 @@ func upgradeView(nav view, item chart, one pairFile, route, api string) view {
 		Blockers: blockers, Warnings: warnings, Info: info, Defaults: defaults, CRDs: crds, Images: images,
 		Command: one.Doc.ReproduceCommand, ReleaseNotes: httpLink(item.ReleaseNotesURL),
 		Bug:     BugURL(item.Repo, item.Chart, one.From, one.To, one.Doc.StageproofVersion),
-		APIHref: Href(api),
+		APIHref: Href(api), NotChecked: one.NotChecked, Checks: checksToShow(one.Doc, one.NotChecked),
 	}
+}
+
+func checksToShow(doc envelope, notChecked bool) []checkView {
+	var failed, all []checkView
+	for _, minor := range minorKeys(doc.Results) {
+		for _, item := range doc.Results[minor].Checks {
+			row := checkView{
+				Minor: minor, Name: item.Name, Status: item.Status,
+				Summary: oneLine(item.Summary),
+			}
+			all = append(all, row)
+			if checkFailed(item.Status) {
+				failed = append(failed, row)
+			}
+		}
+	}
+	if len(failed) > 0 {
+		return failed
+	}
+	if notChecked {
+		return all
+	}
+	return nil
+}
+
+func checkFailed(status string) bool {
+	switch strings.ToLower(strings.TrimSpace(status)) {
+	case "fail", "error":
+		return true
+	default:
+		return false
+	}
+}
+
+func oneLine(s string) string {
+	return strings.Join(strings.Fields(s), " ")
 }
 
 func rank(severity string) int {

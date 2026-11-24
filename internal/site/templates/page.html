@@ -19,6 +19,8 @@ code, pre { font-family: ui-monospace, monospace; font-size: 0.9rem; }
 pre { background: #fff; padding: 0.75rem; overflow: auto; border: 1px solid #e7e5e4; }
 .blocked { color: #9f1239; font-weight: 650; }
 .ok { color: #166534; }
+.unchecked { color: #57534e; font-weight: 650; }
+.latest { background: #fff; border: 1px solid #e7e5e4; padding: 0.6rem 0.75rem; }
 input { width: 100%; max-width: 24rem; padding: 0.4rem 0.5rem; font: inherit; }
 footer { color: #57534e; font-size: 0.9rem; }
 </style>
@@ -33,18 +35,30 @@ footer { color: #57534e; font-size: 0.9rem; }
 {{if eq .Kind "home"}}
 <h1>Helm upgrade index</h1>
 <p class="notice">These reports use each chart's default values. They are not a verdict on a cluster this index has not seen.</p>
+<p>{{.ChartCount}} charts. {{.PairCount}} upgrade pairs. {{.BlockedCount}} blocked.{{if .Version}} Stageproof {{.Version}}.{{end}}</p>
+{{if .Notable}}
+<h2>Notable blocked upgrades</h2>
+<p>The newest step for these charts is blocked.</p>
+<ul>
+{{range .Notable}}
+<li><a href="{{.Href}}">{{.ID}} {{.From}} to {{.To}}</a> <span class="blocked">blocked</span></li>
+{{end}}
+</ul>
+{{end}}
 <p><a href="{{href .ChartsPath}}">Browse charts</a> or read the <a href="{{href .APIPath}}">JSON API</a>.</p>
 {{else if eq .Kind "charts"}}
 <h1>Charts</h1>
 <p class="notice">{{.Notice}}</p>
 <p><label>Search <input id="q" type="search" autocomplete="off"></label></p>
 <table>
-<thead><tr><th>Chart</th><th>Latest</th><th>Blocked pairs</th></tr></thead>
+<thead><tr><th>Chart</th><th>Latest</th><th>Latest upgrade</th><th>Pairs</th><th>Blocked pairs</th></tr></thead>
 <tbody>
 {{range .Rows}}
 <tr data-chart="{{.Search}}">
 <td><a href="{{.Href}}">{{.ID}}</a></td>
 <td>{{.Latest}}</td>
+<td>{{if .LatestClass}}<span class="{{.LatestClass}}">{{.LatestStatus}}</span>{{else}}{{.LatestStatus}}{{end}}</td>
+<td>{{.Pairs}}</td>
 <td>{{if gt .Blocked 0}}<span class="blocked">{{.Blocked}}</span>{{else}}0{{end}}</td>
 </tr>
 {{end}}
@@ -69,13 +83,48 @@ q.addEventListener('input', function () {
 {{if .Error}}<p>{{.Error}}</p>{{end}}
 <h2>Versions</h2>
 <p>{{.VersionLine}}</p>
-<h2>Upgrades</h2>
-{{if .Upgrades}}
+{{if or .HasLatest .Steps .Jumps}}
+<h2>Latest upgrade</h2>
+{{if .HasLatest}}
+<p class="latest"><a href="{{.LatestUpgrade.Href}}">{{.LatestUpgrade.From}} to {{.LatestUpgrade.To}}</a> <span class="{{.LatestUpgrade.Class}}">{{.LatestUpgrade.Status}}</span></p>
+{{else}}
+<p>No adjacent upgrade in this catalog.</p>
+{{end}}
+<h2>Step-by-step upgrades</h2>
+{{if .ShowStepFilter}}
+<p><label>Filter versions <input id="steps" type="search" autocomplete="off"></label></p>
+{{end}}
+{{if .Steps}}
 <ul>
-{{range .Upgrades}}
-<li><a href="{{.Href}}">{{.From}} to {{.To}}</a> {{if .Blocked}}<span class="blocked">blocked</span>{{else}}<span class="ok">no blocking finding</span>{{end}}{{if not .Adjacent}} (not an adjacent pair){{end}}</li>
+{{range .Steps}}
+<li data-step="{{.From}} {{.To}}"><a href="{{.Href}}">{{.From}} to {{.To}}</a> <span class="{{.Class}}">{{.Status}}</span></li>
 {{end}}
 </ul>
+{{else}}
+<p>No step-by-step upgrade in this catalog.</p>
+{{end}}
+{{if .ShowStepFilter}}
+<script>
+const steps = document.querySelector('#steps');
+const stepRows = document.querySelectorAll('[data-step]');
+steps.addEventListener('input', function () {
+  const s = steps.value.toLowerCase();
+  stepRows.forEach(function (row) {
+    row.hidden = s !== '' && row.dataset.step.indexOf(s) === -1;
+  });
+});
+</script>
+{{end}}
+{{if .Jumps}}
+<details>
+<summary>Jumps to latest</summary>
+<ul>
+{{range .Jumps}}
+<li><a href="{{.Href}}">{{.From}} to {{.To}}</a> <span class="{{.Class}}">{{.Status}}</span> (not an adjacent pair)</li>
+{{end}}
+</ul>
+</details>
+{{end}}
 {{else}}
 <p>This chart has no upgrade report.</p>
 {{end}}
@@ -90,8 +139,21 @@ q.addEventListener('input', function () {
 {{end}}
 </tbody>
 </table>
+{{if .Checks}}
+<h2>Checks</h2>
+<table>
+<thead><tr><th>Kubernetes</th><th>Check</th><th>Status</th><th>Summary</th></tr></thead>
+<tbody>
+{{range .Checks}}
+<tr><td>{{.Minor}}</td><td>{{.Name}}</td><td>{{.Status}}</td><td>{{.Summary}}</td></tr>
+{{end}}
+</tbody>
+</table>
+{{end}}
 <h2>Blocking findings</h2>
-{{if .Blockers}}
+{{if .NotChecked}}
+<p>This pair could not be checked with chart defaults.</p>
+{{else if .Blockers}}
 <ul>{{range .Blockers}}<li><span class="blocked">{{.Severity}}</span> <code>{{.RuleID}}</code> {{.Category}} {{.Message}}</li>{{end}}</ul>
 {{else}}<p>No blocking finding in these chart defaults.</p>{{end}}
 <h2>Warnings</h2>

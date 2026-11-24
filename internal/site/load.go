@@ -50,6 +50,13 @@ type k8sReport struct {
 	Verdict  string    `json:"verdict"`
 	ExitCode int       `json:"exit_code"`
 	Findings []finding `json:"findings"`
+	Checks   []check   `json:"checks"`
+}
+
+type check struct {
+	Name    string `json:"name"`
+	Status  string `json:"status"`
+	Summary string `json:"summary"`
 }
 
 type finding struct {
@@ -60,12 +67,13 @@ type finding struct {
 }
 
 type pairFile struct {
-	From     string
-	To       string
-	Raw      []byte
-	Doc      envelope
-	Adjacent bool
-	Blocked  bool
+	From       string
+	To         string
+	Raw        []byte
+	Doc        envelope
+	Adjacent   bool
+	Blocked    bool
+	NotChecked bool
 }
 
 func loadCatalog(path string) (catalog, error) {
@@ -116,10 +124,12 @@ func loadPairs(dir string, versions []string) ([]pairFile, error) {
 		if err := json.Unmarshal(raw, &doc); err != nil {
 			return nil, fmt.Errorf("%s: %w", name, err)
 		}
+		blocked, notChecked := pairVerdict(doc)
 		item := pairFile{
 			From: from, To: to, Raw: raw, Doc: doc,
-			Adjacent: adjacent(versions, from, to),
-			Blocked:  blocked(doc),
+			Adjacent:   adjacent(versions, from, to),
+			Blocked:    blocked,
+			NotChecked: notChecked,
 		}
 		out = append(out, item)
 	}
@@ -163,13 +173,19 @@ func adjacent(versions []string, from, to string) bool {
 	return false
 }
 
-func blocked(doc envelope) bool {
+// pairVerdict reads the Kubernetes results. Any BLOCKED result is blocked.
+// Otherwise any NOT CHECKED result is not checked. Anything else passed.
+func pairVerdict(doc envelope) (blocked, notChecked bool) {
+	sawNotChecked := false
 	for _, minor := range minorKeys(doc.Results) {
-		if doc.Results[minor].Verdict == "BLOCKED" {
-			return true
+		switch doc.Results[minor].Verdict {
+		case "BLOCKED":
+			return true, false
+		case "NOT CHECKED":
+			sawNotChecked = true
 		}
 	}
-	return false
+	return false, sawNotChecked
 }
 
 func minorKeys(results map[string]k8sReport) []string {
