@@ -9,11 +9,13 @@ import (
 // Paths are relative to the site root. GitHub Pages serves this repo at
 // BaseURL, so HTML links use Href, which adds that path prefix.
 const (
-	Root     = "/"
-	Charts   = "/charts/"
-	API      = "/api/"
-	APIIndex = "/api/v1/index.json"
-	Sitemap  = "/sitemap.xml"
+	Root          = "/"
+	Charts        = "/charts/"
+	API           = "/api/"
+	APIIndex      = "/api/v1/index.json"
+	Sitemap       = "/sitemap.xml"
+	BadgeRegistry = "/badge/registries.json"
+	BadgeUnknown  = "/badge/not-indexed.svg"
 )
 
 // Chart is the overview page for one chart.

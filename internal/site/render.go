@@ -218,6 +218,12 @@ func collect(root string, cat catalog) (built, error) {
 			page := upgradeView(nav, item, one, up, api)
 			pages.html = append(pages.html, page)
 			pages.raw = append(pages.raw, rawFile{route: api, body: one.Raw})
+			badgeRoute, err := BadgeFile(item.RepoName, item.Chart, one.From, one.To)
+			if err != nil {
+				return built{}, err
+			}
+			text, kind := BadgeOf(one.Doc)
+			pages.raw = append(pages.raw, rawFile{route: badgeRoute, body: RenderBadge(text, kind)})
 			if one.Adjacent {
 				locs = append(locs, up)
 			}
@@ -274,6 +280,12 @@ func collect(root string, cat catalog) (built, error) {
 		return built{}, err
 	}
 	pages.raw = append(pages.raw, rawFile{route: APIIndex, body: buf})
+	registry, err := RegistryJSON(cat.Charts)
+	if err != nil {
+		return built{}, err
+	}
+	pages.raw = append(pages.raw, rawFile{route: BadgeRegistry, body: registry})
+	pages.raw = append(pages.raw, rawFile{route: BadgeUnknown, body: UnknownSVG()})
 	pages.sitemap, err = sitemap(locs)
 	if err != nil {
 		return built{}, err
@@ -463,7 +475,7 @@ func writeRaw(root, route string, body []byte) error {
 	rel := strings.TrimPrefix(route, "/")
 	var path string
 	switch {
-	case strings.HasSuffix(route, ".json") || strings.HasSuffix(route, ".xml"):
+	case strings.HasSuffix(route, ".json") || strings.HasSuffix(route, ".xml") || strings.HasSuffix(route, ".svg"):
 		path = filepath.Join(root, filepath.FromSlash(rel))
 	case route == "/":
 		path = filepath.Join(root, "index.html")
