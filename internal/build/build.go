@@ -128,6 +128,15 @@ func buildChart(ctx context.Context, chart charts.Chart, opt Options, minors []s
 	if err != nil {
 		row.Failed = 1
 		row.Error = err.Error()
+		// A repository that cannot be listed still has its older reports.
+		// Leave those files in the catalog instead of publishing a zero.
+		dir := filepath.Join(opt.OutDir, "v1", "charts", chart.RepoName, chart.Chart)
+		pairs, blocked, countErr := countPairFiles(dir)
+		if countErr != nil {
+			return catalogChart{}, countErr
+		}
+		row.Pairs = pairs
+		row.Blocked = blocked
 		return row, nil
 	}
 	chosen := pairs.Enumerate(versions, now)

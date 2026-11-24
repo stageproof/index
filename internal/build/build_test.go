@@ -126,6 +126,34 @@ func (e errSource) Versions(ctx context.Context, chart charts.Chart) ([]pairs.Ve
 	return e.Local.Versions(ctx, chart)
 }
 
+func TestVersionListErrorKeepsReportsOnDisk(t *testing.T) {
+	root := t.TempDir()
+	chart := charts.Chart{ID: "fixtures/held", Repo: "https://charts.example/held", RepoName: "fixtures", Chart: "held"}
+	dir := filepath.Join(root, "v1", "charts", chart.RepoName, chart.Chart)
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	body := []byte(`{"k8s_results":{"1.35":{"verdict":"BLOCKED","exit_code":1}}}`)
+	if err := os.WriteFile(filepath.Join(dir, "1.0.0..1.0.1.json"), body, 0o644); err != nil {
+		t.Fatal(err)
+	}
+	now := time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC)
+	row, err := buildChart(context.Background(), chart, Options{
+		OutDir: root,
+		Source: errSource{badID: chart.ID},
+		Now:    now,
+	}, []string{"1.35"}, now)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if row.Failed != 1 || row.Pairs != 1 || row.Blocked != 1 || row.Error == "" {
+		t.Fatalf("row %#v", row)
+	}
+	if _, err := os.Stat(filepath.Join(dir, "1.0.0..1.0.1.json")); err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestChartErrorDoesNotStopTheCatalog(t *testing.T) {
 	bin := os.Getenv("STAGEPROOF_BIN")
 	if bin == "" {
