@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+
+	"golang.org/x/mod/semver"
 )
 
 type catalog struct {
@@ -122,15 +124,34 @@ func loadPairs(dir string, versions []string) ([]pairFile, error) {
 		out = append(out, item)
 	}
 	sort.Slice(out, func(i, j int) bool {
-		if out[i].Blocked != out[j].Blocked {
-			return out[i].Blocked
+		if out[i].To != out[j].To {
+			return newer(out[i].To, out[j].To)
 		}
-		if out[i].From != out[j].From {
-			return out[i].From < out[j].From
-		}
-		return out[i].To < out[j].To
+		return newer(out[i].From, out[j].From)
 	})
 	return out, nil
+}
+
+func newer(a, b string) bool {
+	ca, cb := semverKey(a), semverKey(b)
+	if ca != "" && cb != "" && ca != cb {
+		return semver.Compare(ca, cb) > 0
+	}
+	return a > b
+}
+
+func semverKey(v string) string {
+	v = strings.TrimSpace(v)
+	if v == "" {
+		return ""
+	}
+	if !strings.HasPrefix(v, "v") {
+		v = "v" + v
+	}
+	if !semver.IsValid(v) {
+		return ""
+	}
+	return semver.Canonical(v)
 }
 
 func adjacent(versions []string, from, to string) bool {
