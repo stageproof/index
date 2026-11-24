@@ -92,10 +92,11 @@ func TestGenerateLinksVersionsAndSitemap(t *testing.T) {
 	if strings.Contains(chart, `content="noindex"`) || !strings.Contains(chart, "https://charts.example/fixtures") {
 		t.Fatal("chart page should be indexed and link the repository")
 	}
-	blockedAt := strings.Index(chart, "0.2.0 to 0.3.0")
-	cleanAt := strings.Index(chart, "0.1.0 to 0.2.0")
-	if blockedAt < 0 || cleanAt < 0 || blockedAt > cleanAt {
-		t.Fatal("blocking upgrade should be listed first")
+	newest := strings.Index(chart, "0.2.0 to 0.3.0")
+	jumpAt := strings.Index(chart, "0.1.0 to 0.3.0")
+	older := strings.Index(chart, "0.1.0 to 0.2.0")
+	if newest < 0 || jumpAt < 0 || older < 0 || !(newest < jumpAt && jumpAt < older) {
+		t.Fatal("newest upgrade should be listed first")
 	}
 	for _, page := range []string{clean, broken, jump, empty, charts, chart, readPage(t, out, "index.html")} {
 		if !strings.Contains(page, "<!DOCTYPE html>") || !strings.Contains(page, "</html>") {
