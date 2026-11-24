@@ -85,18 +85,30 @@ func TestGenerateLinksVersionsAndSitemap(t *testing.T) {
 		t.Fatalf("broken links %v", bad)
 	}
 	charts := readPage(t, out, "charts/index.html")
-	if !strings.Contains(charts, "fixtures/web") || !strings.Contains(charts, `id="q"`) {
+	if !strings.Contains(charts, "fixtures/web") || !strings.Contains(charts, `id="q"`) || !strings.Contains(charts, "Latest upgrade") {
 		t.Fatal("catalog search missing")
+	}
+	if !strings.Contains(charts, ">none<") || !strings.Contains(charts, ">blocked<") {
+		t.Fatal("latest upgrade column missing")
+	}
+	home := readPage(t, out, "index.html")
+	for _, want := range []string{"2 charts.", "3 upgrade pairs.", "1 blocked.", "Stageproof v0.3.0.", "fixtures/web 0.2.0 to 0.3.0"} {
+		if !strings.Contains(home, want) {
+			t.Fatalf("home missing %s\n%s", want, home)
+		}
 	}
 	chart := readPage(t, out, "chart/fixtures/web/index.html")
 	if strings.Contains(chart, `content="noindex"`) || !strings.Contains(chart, "https://charts.example/fixtures") {
 		t.Fatal("chart page should be indexed and link the repository")
 	}
+	latestH := strings.Index(chart, "Latest upgrade")
+	stepH := strings.Index(chart, "Step-by-step upgrades")
+	jumpH := strings.Index(chart, "Jumps to latest")
 	newest := strings.Index(chart, "0.2.0 to 0.3.0")
-	jumpAt := strings.Index(chart, "0.1.0 to 0.3.0")
 	older := strings.Index(chart, "0.1.0 to 0.2.0")
-	if newest < 0 || jumpAt < 0 || older < 0 || newest >= jumpAt || jumpAt >= older {
-		t.Fatal("newest upgrade should be listed first")
+	jumpAt := strings.Index(chart, "0.1.0 to 0.3.0")
+	if latestH < 0 || stepH < latestH || jumpH < stepH || newest < latestH || newest > stepH || older < stepH || older > jumpH || jumpAt < jumpH {
+		t.Fatal("newest adjacent upgrade should lead, then steps, then jumps")
 	}
 	for _, page := range []string{clean, broken, jump, empty, charts, chart, readPage(t, out, "index.html")} {
 		if !strings.Contains(page, "<!DOCTYPE html>") || !strings.Contains(page, "</html>") {
@@ -105,6 +117,92 @@ func TestGenerateLinksVersionsAndSitemap(t *testing.T) {
 	}
 	if strings.Contains(siteMap, "<loc>https://stageproof.github.io/index/</loc>") {
 		t.Fatal("sitemap includes the home page")
+	}
+}
+
+func TestNotCheckedPairIsNotDescribedAsClean(t *testing.T) {
+	data := t.TempDir()
+	writeFile(t, filepath.Join(data, "v1", "index.json"), `{
+	  "schema_version": 1,
+	  "stageproof_version": "v0.3.0",
+	  "notice": "chart defaults only; run with your values files",
+	  "charts": [
+	    {"id": "fixtures/held", "repo": "https://charts.example/fixtures", "repo_name": "fixtures", "chart": "held", "latest": "1.0.1", "pairs": 1, "blocked": 0}
+	  ]
+	}`)
+	dir := filepath.Join(data, "v1", "charts", "fixtures", "held")
+	writeFile(t, filepath.Join(dir, "meta.json"), `{"versions":["1.0.0","1.0.1"]}`)
+	writeFile(t, filepath.Join(dir, "1.0.0..1.0.1.json"), `{
+	  "stageproof_version": "v0.3.0",
+	  "scope": "chart-defaults-only",
+	  "reproduce_command": "stageproof check --repo https://charts.example/fixtures --chart held --from 1.0.0 --to 1.0.1",
+	  "k8s_results": {"1.35": {"verdict": "NOT CHECKED", "exit_code": 2, "checks": [
+	    {"name": "baseline helm template", "status": "fail", "summary": "chart requires kubeVersion >= 1.21.0-0 < 1.31.0-0\nsecond line"}
+	  ], "findings": []}}
+	}`)
+	out := filepath.Join(t.TempDir(), "site")
+	if err := Generate(data, out); err != nil {
+		t.Fatal(err)
+	}
+	chart := readPage(t, out, "chart/fixtures/held/index.html")
+	if !strings.Contains(chart, `class="unchecked">not checked`) || strings.Contains(chart, "no blocking finding") || strings.Contains(chart, `class="ok"`) {
+		t.Fatalf("chart page treated an unchecked pair as a pass\n%s", chart)
+	}
+	upgrade := readPage(t, out, "upgrade/fixtures/held/1.0.0/1.0.1/index.html")
+	for _, want := range []string{
+		"This pair could not be checked with chart defaults.",
+		"baseline helm template",
+		"chart requires kubeVersion &gt;= 1.21.0-0 &lt; 1.31.0-0 second line",
+	} {
+		if !strings.Contains(upgrade, want) {
+			t.Fatalf("upgrade page missing %s\n%s", want, upgrade)
+		}
+	}
+	if strings.Contains(upgrade, "No blocking finding") {
+		t.Fatal("unchecked upgrade claimed there was no blocking finding")
+	}
+}
+
+func TestLongChartGroupsStepsAndFilters(t *testing.T) {
+	data := t.TempDir()
+	writeFile(t, filepath.Join(data, "v1", "index.json"), `{
+	  "schema_version": 1,
+	  "stageproof_version": "v0.3.0",
+	  "charts": [
+	    {"id": "fixtures/long", "repo": "https://charts.example/fixtures", "repo_name": "fixtures", "chart": "long", "latest": "0.22.0", "pairs": 22, "blocked": 0}
+	  ]
+	}`)
+	var versions []string
+	for i := 1; i <= 22; i++ {
+		versions = append(versions, fmt.Sprintf("0.%d.0", i))
+	}
+	dir := filepath.Join(data, "v1", "charts", "fixtures", "long")
+	writeFile(t, filepath.Join(dir, "meta.json"), `{"versions":["`+strings.Join(versions, `","`)+`"]}`)
+	body := `{"stageproof_version":"v0.3.0","scope":"chart-defaults-only","reproduce_command":"stageproof check","k8s_results":{"1.35":{"verdict":"PASSED","exit_code":0,"findings":[]}}}`
+	for i := 0; i+1 < len(versions); i++ {
+		writeFile(t, filepath.Join(dir, versions[i]+".."+versions[i+1]+".json"), body)
+	}
+	writeFile(t, filepath.Join(dir, "0.1.0..0.22.0.json"), body)
+	out := filepath.Join(t.TempDir(), "site")
+	if err := Generate(data, out); err != nil {
+		t.Fatal(err)
+	}
+	chart := readPage(t, out, "chart/fixtures/long/index.html")
+	if !strings.Contains(chart, `id="steps"`) || !strings.Contains(chart, "<details>") || !strings.Contains(chart, "0.1.0 to 0.22.0") {
+		t.Fatal("long chart is missing the filter or the jump list")
+	}
+	latest := strings.Index(chart, "0.21.0 to 0.22.0")
+	jumpAt := strings.Index(chart, "0.1.0 to 0.22.0")
+	older := strings.Index(chart, "0.1.0 to 0.2.0")
+	if latest < 0 || older < 0 || jumpAt < 0 || latest > older || older > jumpAt {
+		t.Fatal("long chart should list the newest step before older steps and jumps")
+	}
+	bad, err := BrokenLinks(out)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(bad) != 0 {
+		t.Fatalf("broken links %v", bad)
 	}
 }
 
