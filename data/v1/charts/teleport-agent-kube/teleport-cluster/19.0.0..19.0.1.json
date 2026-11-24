@@ -1,0 +1,28 @@
+{
+  "from_sha256": "db65b0272fe9252223b93f8c0a710bbd246c8d2ed38bb98baa10a743cea7e0e5",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "19.0.0",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 19.0.0 failed: exit status 1\nError: execution error at (teleport-cluster/templates/auth/predeploy_config.yaml:34:28): clusterName is required in chart values\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "19.0.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.releases.teleport.dev --chart teleport-cluster --from 19.0.0 --to 19.0.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.3.1",
+  "to_sha256": "2c496af54911983627c1e3debf60c04b68d784008ff94ebc546d566577313133"
+}
