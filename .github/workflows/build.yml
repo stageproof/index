@@ -44,12 +44,14 @@ jobs:
 
       # The checkout is the history. New pair files exist only in this job
       # unless they are committed. Older files stay. Chart archives are not
-      # committed. A run with no JSON change does not commit.
+      # committed. A run with no JSON change does not commit. REPORT.md is
+      # regenerated from those files and committed with them.
       - name: Keep new reports
         if: github.ref == 'refs/heads/main'
         run: |
           set -euo pipefail
-          git add -- data/v1
+          go run ./cmd/report -data data -o REPORT.md
+          git add -- data/v1 REPORT.md
           staged=$(git diff --cached --name-only)
           if [ -z "$staged" ]; then
             echo "no report changes"
@@ -61,9 +63,9 @@ jobs:
             printf '%s\n' "$bad"
             exit 1
           fi
-          other=$(printf '%s\n' "$staged" | grep -v '^data/v1/.*\.json$' || true)
+          other=$(printf '%s\n' "$staged" | grep -v -E '^(data/v1/.*\.json|REPORT\.md)$' || true)
           if [ -n "$other" ]; then
-            echo "refusing files outside data/v1 json"
+            echo "refusing files outside data/v1 json and REPORT.md"
             printf '%s\n' "$other"
             exit 1
           fi
