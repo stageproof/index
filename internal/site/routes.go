@@ -38,6 +38,17 @@ func Upgrade(repo, name, from, to string) (string, error) {
 	return "/upgrade/" + repo + "/" + name + "/" + from + "/" + to + "/", nil
 }
 
+// APIChart is the static JSON list of stored upgrade pairs for one chart.
+func APIChart(repo, name string) (string, error) {
+	if err := segment(repo); err != nil {
+		return "", err
+	}
+	if err := segment(name); err != nil {
+		return "", err
+	}
+	return "/api/v1/chart/" + repo + "/" + name + ".json", nil
+}
+
 // APIUpgrade is the static JSON document for one pair.
 func APIUpgrade(repo, name, from, to string) (string, error) {
 	if err := pair(repo, name, from, to); err != nil {

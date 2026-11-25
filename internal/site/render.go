@@ -238,6 +238,15 @@ func collect(root string, cat catalog) (built, error) {
 		pages.html = append(pages.html, page)
 		if len(pairs) > 0 {
 			locs = append(locs, route)
+			chartAPI, err := APIChart(item.RepoName, item.Chart)
+			if err != nil {
+				return built{}, err
+			}
+			chartJSON, err := chartPairsJSON(item, pairs)
+			if err != nil {
+				return built{}, err
+			}
+			pages.raw = append(pages.raw, rawFile{route: chartAPI, body: chartJSON})
 		}
 		latestStatus, latestClass := "none", ""
 		if page.HasLatest {

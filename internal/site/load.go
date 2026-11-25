@@ -62,6 +62,7 @@ type check struct {
 type finding struct {
 	RuleID   string `json:"rule_id"`
 	Severity string `json:"severity"`
+	Resource string `json:"resource"`
 	Message  string `json:"message"`
 	Ignored  bool   `json:"ignored"`
 }

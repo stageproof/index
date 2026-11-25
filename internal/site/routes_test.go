@@ -17,6 +17,10 @@ func TestRoutesStayFrozen(t *testing.T) {
 	if err != nil || up != "/upgrade/fixtures/web/0.1.0/0.2.0/" {
 		t.Fatalf("upgrade %s %v", up, err)
 	}
+	apiChart, err := APIChart("fixtures", "web")
+	if err != nil || apiChart != "/api/v1/chart/fixtures/web.json" {
+		t.Fatalf("api chart %s %v", apiChart, err)
+	}
 	api, err := APIUpgrade("fixtures", "web", "0.1.0", "0.2.0")
 	if err != nil || api != "/api/v1/upgrade/fixtures/web/0.1.0/0.2.0.json" {
 		t.Fatalf("api %s %v", api, err)
