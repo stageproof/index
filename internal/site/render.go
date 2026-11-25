@@ -108,6 +108,7 @@ type view struct {
 	APIHref        string
 	IndexPath      string
 	UpgradePattern string
+	BadgeURL       string
 	ChartCount     int
 	ReportedCount  int
 	PairCount      int
@@ -277,6 +278,7 @@ func collect(root string, cat catalog) (built, error) {
 		Kind: "api", Title: "JSON API", route: API,
 		Root: Root, ChartsPath: Charts, APIPath: API,
 		IndexPath: Href(APIIndex), UpgradePattern: Href("/api/v1/upgrade/<repo>/<chart>/<from>/<to>.json"),
+		BadgeURL: BadgeWorkerURL,
 	})
 	indexPath := filepath.Join(root, "index.json")
 	buf, err := os.ReadFile(indexPath)

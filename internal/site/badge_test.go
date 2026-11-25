@@ -1,6 +1,8 @@
 package site
 
 import (
+	"bytes"
+	"html/template"
 	"os"
 	"path/filepath"
 	"strings"
@@ -179,6 +181,33 @@ func TestBadgeURLSchemeFrozen(t *testing.T) {
 		{Repo: "https://charts.example/fixtures/", RepoName: "other", Chart: "web"},
 	}); err == nil {
 		t.Fatal("accepted two repo names for one registry and chart")
+	}
+}
+
+func TestBadgeWorkerURL(t *testing.T) {
+	const want = "https://stageproof-index-badges.stageproof.workers.dev/badge.svg"
+	if BadgeWorkerURL != want {
+		t.Fatal(BadgeWorkerURL)
+	}
+	tpl, err := template.New("page.html").Funcs(template.FuncMap{"href": Href}).ParseFS(templateFS, "templates/page.html")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var buf bytes.Buffer
+	if err := tpl.ExecuteTemplate(&buf, "page", view{
+		Kind: "api", Title: "JSON API",
+		IndexPath:      "/index/api/v1/index.json",
+		UpgradePattern: "/index/api/v1/upgrade/<repo>/<chart>/<from>/<to>.json",
+		BadgeURL:       BadgeWorkerURL,
+	}); err != nil {
+		t.Fatal(err)
+	}
+	page := buf.String()
+	if !strings.Contains(page, want+"?chart=&amp;from=&amp;registry=&amp;to=") {
+		t.Fatalf("API page does not print the worker URL\n%s", page)
+	}
+	if strings.Contains(page, "github.io/index/badge.svg") {
+		t.Fatal("API page points the query at GitHub Pages")
 	}
 }
 
