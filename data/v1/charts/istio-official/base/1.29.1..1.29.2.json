@@ -33,7 +33,7 @@
         },
         {
           "name": "impact",
-          "status": "pass",
+          "status": "warn",
           "summary": "Compared stored objects for 1 of 16 objects, and rendered objects for the rest."
         },
         {
@@ -44,6 +44,12 @@
       ],
       "exit_code": 0,
       "findings": [
+        {
+          "message": "ValidatingWebhookConfiguration/default/istiod-default-validator webhook validation.istio.io has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/istiod-default-validator",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
         {
           "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
           "message": "appVersion moves from 1.29.1 to 1.29.2. The image that the chart runs may change with it.",
@@ -80,6 +86,6 @@
   "reproduce_command": "stageproof check --repo https://istio-release.storage.googleapis.com/charts --chart base --from 1.29.1 --to 1.29.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d91cb59b82612dd35949233613b015e7eb7bd787871368d7db9a85c45b82237b"
 }

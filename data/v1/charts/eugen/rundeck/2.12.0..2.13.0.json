@@ -72,13 +72,6 @@
           "message": "1 container image changed. Deployment/default/stageproof-rel-rundeck-rundeck-backend.template.spec.containers[0] rundeck container moves from rundeck/rundeck:5.12.0 to rundeck/rundeck:5.13.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `rundeck/rundeck:5.13.0` could not be checked. The registry did not answer.",
-          "resource": "rundeck/rundeck:5.13.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "2.13.0",
@@ -91,6 +84,6 @@
   "reproduce_command": "stageproof check --repo https://eugenmayer.github.io/helm-charts/ --chart rundeck --from 2.12.0 --to 2.13.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8b8cbb547b462f6ab5f9743d52dc24dbd528a63de452add04e78b60b9739c0cc"
 }

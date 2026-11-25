@@ -62,6 +62,6 @@
   "reproduce_command": "stageproof check --repo https://raw.githubusercontent.com/deliveryhero/helm-charts/refs/heads/master/ --chart locust --from 0.32.10 --to 0.32.11 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8e798b6db281d81d70246662f56fdeda5b9cc9b49d7ea8bc262971d305341372"
 }

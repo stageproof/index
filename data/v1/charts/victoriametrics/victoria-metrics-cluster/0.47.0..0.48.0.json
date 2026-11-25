@@ -73,27 +73,6 @@
           "message": "3 container images changed. Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vminsert.template.spec.containers[0] vminsert container moves from victoriametrics/vminsert:v1.148.0-cluster to victoriametrics/vminsert:v1.149.0-cluster. Deployment/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmselect.template.spec.containers[0] vmselect container moves from victoriametrics/vmselect:v1.148.0-cluster to victoriametrics/vmselect:v1.149.0-cluster. StatefulSet/stageproof-check/stageproof-rel-victoria-metrics-cluster-vmstorage.template.spec.containers[0] vmstorage container moves from victoriametrics/vmstorage:v1.148.0-cluster to victoriametrics/vmstorage:v1.149.0-cluster.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `victoriametrics/vminsert:v1.149.0-cluster` could not be checked. The registry did not answer.",
-          "resource": "victoriametrics/vminsert:v1.149.0-cluster",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `victoriametrics/vmselect:v1.149.0-cluster` could not be checked. The registry did not answer.",
-          "resource": "victoriametrics/vmselect:v1.149.0-cluster",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `victoriametrics/vmstorage:v1.149.0-cluster` could not be checked. The registry did not answer.",
-          "resource": "victoriametrics/vmstorage:v1.149.0-cluster",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.48.0",
@@ -106,6 +85,6 @@
   "reproduce_command": "stageproof check --repo https://victoriametrics.github.io/helm-charts/ --chart victoria-metrics-cluster --from 0.47.0 --to 0.48.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "18cee4416e7cce0427124586eda1dbb93b50a03717504471cb36d284bced4558"
 }

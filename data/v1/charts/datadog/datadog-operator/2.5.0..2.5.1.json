@@ -57,6 +57,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datadoghq.com --chart datadog-operator --from 2.5.0 --to 2.5.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c1af5a147cdac1efbd2cfd2304b0724b5d52f99227bd91bf683db36ccd791f86"
 }

@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://kubereboot.github.io/charts --chart kured --from 5.11.0 --to 5.12.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "52805cbbe06d4da4cb360629f7df61a326ec37c8df6ebb38f72cd6ad2ba0a1db"
 }

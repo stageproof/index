@@ -1,0 +1,91 @@
+{
+  "from_sha256": "89380f3287cb7a91e1248770804065036c37a932267a28398211af22125593c5",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "8.9.7",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 11 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "message": "The pod template of Deployment/stageproof-check/stageproof-rel-yourls changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/stageproof-rel-yourls",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-mariadb changed at spec.template.metadata.annotations.checksum/configuration. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-mariadb",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "helm template 8.10.13 failed: exit status 1\nError: execution error at (yourls/charts/mariadb/templates/secrets.yaml:6:21): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'auth.rootPassword' must not be empty, please add '--set auth.rootPassword=$MARIADB_ROOT_PASSWORD' to the command. To get the current value:\n\n        export MARIADB_ROOT_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-mariadb -o jsonpath=\"{.data.mariadb-root-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "8.10.13",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 1.10.5 to 1.10.6. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-yourls.template.spec.containers[0] yourls container moves from ghcr.io/yourls/yourls:1.10.5 to ghcr.io/yourls/yourls:1.10.6.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "8.10.13",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.yourls.org/ --chart yourls --from 8.9.7 --to 8.10.13 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.4.0",
+  "to_sha256": "300bb06e5a36a09201bfefed7e42e45eb4938d9caac0512a3d640073b56b73d3"
+}

@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart grafana --from 9.3.5 --to 9.3.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "9467db0270530f9262075205db8fd5dbe8163e04ce66a6445e9acb8b64b5502e"
 }

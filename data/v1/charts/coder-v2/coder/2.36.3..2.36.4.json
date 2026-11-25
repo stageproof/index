@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://helm.coder.com/v2 --chart coder --from 2.36.3 --to 2.36.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a2b55bfbbe2051b4abb8e2b3300dd39acb1f90e01e37b14e5a80c34790843483"
 }

@@ -84,6 +84,6 @@
   "reproduce_command": "stageproof check --repo https://charts.releases.teleport.dev --chart teleport-cluster --from 17.7.8 --to 17.7.9 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "627781b799641a8088b8500281304c868655b1cc46c66859a7e6e2d891359cd7"
 }

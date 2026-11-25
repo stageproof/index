@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo http://charts.gitlab.io/ --chart gitlab-runner --from 0.89.2 --to 0.89.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8109fd6f07f115977d29dc377c4e668f6424a3f7203e90e524a75604d6cf153f"
 }

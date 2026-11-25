@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-podinfo, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-dgbl5, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-h6mmv, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-ot82u, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-tgg6b, Pod/stageproof-check/stageproof-rel-podinfo-service-test-phu3a, Pod/stageproof-check/stageproof-rel-podinfo-service-test-wlrfr",
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-podinfo, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-vlawk, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-xyyrr, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-akiuc, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-n4q5n, Pod/stageproof-check/stageproof-rel-podinfo-service-test-9yppf, Pod/stageproof-check/stageproof-rel-podinfo-service-test-qw85w",
           "message": "Chart default `image.tag` changed from `6.9.2` to `6.9.3` and the rendered objects differ.",
           "proof": "render",
           "resource": "image.tag",
@@ -53,7 +53,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-dgbl5, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-gho8v, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-fqzv0, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-ot82u, Pod/stageproof-check/stageproof-rel-podinfo-service-test-moyuk, Pod/stageproof-check/stageproof-rel-podinfo-service-test-phu3a",
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-cvayw, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-xyyrr, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-n4q5n, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-whqqn, Pod/stageproof-check/stageproof-rel-podinfo-service-test-3vi21, Pod/stageproof-check/stageproof-rel-podinfo-service-test-9yppf",
           "message": "Chart default `redis.repository` changed from `redis` to `docker.io/redis` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.repository",
@@ -61,7 +61,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-dgbl5, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-uilpg, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-ot82u, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-u933z, Pod/stageproof-check/stageproof-rel-podinfo-service-test-jekrm, Pod/stageproof-check/stageproof-rel-podinfo-service-test-phu3a",
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-xyyrr, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-y7mcv, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-k4yik, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-n4q5n, Pod/stageproof-check/stageproof-rel-podinfo-service-test-9yppf, Pod/stageproof-check/stageproof-rel-podinfo-service-test-kewtr",
           "message": "Chart default `redis.tag` changed from `7.0.7` to `8.4.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.tag",
@@ -85,27 +85,6 @@
           "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-podinfo.template.spec.containers[0] podinfo container moves from ghcr.io/stefanprodan/podinfo:6.9.2 to ghcr.io/stefanprodan/podinfo:6.9.3.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `curlimages/curl:7.69.0` could not be checked. The registry did not answer.",
-          "resource": "curlimages/curl:7.69.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `giantswarm/tiny-tools` could not be checked. The registry did not answer.",
-          "resource": "giantswarm/tiny-tools",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `stefanprodan/grpc_health_probe:v0.3.0` could not be checked. The registry did not answer.",
-          "resource": "stefanprodan/grpc_health_probe:v0.3.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "6.9.3",
@@ -118,6 +97,6 @@
   "reproduce_command": "stageproof check --repo https://stefanprodan.github.io/podinfo --chart podinfo --from 6.9.2 --to 6.9.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a605dab0262b0b17ac88a70c9ec48e907e28509125b00e08dbfe9f0c5810b44e"
 }

@@ -75,13 +75,6 @@
           "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-mongodb.template.spec.containers[0] mongodb container moves from docker.io/mongo:8.3.8@sha256:4e81cd5857d7a087db95c6c1c2d8fd9feddfef58d1bf5b754356d20f583744d1 to docker.io/mongo:9.0.8@sha256:1444adda2e4b8d6a0d7f242a625d834a78d6e3aa6e4ed1b0b4c2dab2318c5e3d.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/mongo:9.0.8@sha256:1444adda2e4b8d6a0d7f242a625d834a78d6e3aa6e4ed1b0b4c2dab2318c5e3d` could not be checked. The registry did not answer.",
-          "resource": "docker.io/mongo:9.0.8@sha256:1444adda2e4b8d6a0d7f242a625d834a78d6e3aa6e4ed1b0b4c2dab2318c5e3d",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.20.6",
@@ -94,6 +87,6 @@
   "reproduce_command": "stageproof check --repo oci://registry-1.docker.io/cloudpirates --chart mongodb --from 0.18.8 --to 0.20.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5273144a399d1f15558402cdfa4c0d0698eeb1fd42383f1f04d70e0a8227d248"
 }

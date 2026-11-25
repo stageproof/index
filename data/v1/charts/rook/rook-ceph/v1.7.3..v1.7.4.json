@@ -94,6 +94,6 @@
   "reproduce_command": "stageproof check --repo https://charts.rook.io/release --chart rook-ceph --from v1.7.3 --to v1.7.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d5aea14e5f9d6227a909cd25911b61c17d4454083e5a868a6b00e637211175a0"
 }

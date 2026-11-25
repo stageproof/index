@@ -71,20 +71,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.redpanda.com/redpandadata/redpanda-operator:v26.2.5` could not be checked. The registry did not answer.",
-          "resource": "docker.redpanda.com/redpandadata/redpanda-operator:v26.2.5",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.redpanda.com/redpandadata/redpanda:v26.2.6` could not be checked. The registry did not answer.",
-          "resource": "docker.redpanda.com/redpandadata/redpanda:v26.2.6",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Certificate/stageproof-check/stageproof-rel-default-root-certificate was not judged. the API group is not installed on this server.",
           "resource": "Certificate/stageproof-check/stageproof-rel-default-root-certificate",
           "rule_id": "k8s.apply.not_exercised",
@@ -143,6 +129,6 @@
   "reproduce_command": "stageproof check --repo https://charts.redpanda.com --chart redpanda --from 26.2.4 --to 26.2.5 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c3e3940972b7fb62a0fc6aeac6e25aa4923672c4d6cd38d764eabc8284d1200f"
 }

@@ -1,0 +1,349 @@
+{
+  "from_sha256": "44f4eeeb2883b31e5aaabd08e462019529e54efe9e9a52f07e8e34175d3b8940",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "v1.3.9",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 69 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "30 rejections"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects for 30 of 62 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/cephfilesystems.ceph.rook.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/cephfilesystems.ceph.rook.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete CustomResourceDefinition/default/cephobjectstores.ceph.rook.io. A templated custom resource definition that the new chart does not render is removed, and Kubernetes then deletes every object of that kind.",
+          "resource": "CustomResourceDefinition/default/cephobjectstores.ceph.rook.io",
+          "rule_id": "impact.delete.crd",
+          "severity": "blocker"
+        },
+        {
+          "message": "Helm will delete objects the new chart does not render: ClusterRole/default/cephfs-csi-nodeplugin-rules, ClusterRole/default/cephfs-external-provisioner-runner-rules, ClusterRole/default/psp:rook, ClusterRole/default/rbd-csi-nodeplugin-rules, ClusterRole/default/rbd-external-provisioner-runner-rules, ClusterRole/default/rook-ceph-agent-mount-rules, ClusterRole/default/rook-ceph-cluster-mgmt-rules, ClusterRole/default/rook-ceph-global-rules, ClusterRole/default/rook-ceph-mgr-cluster-rules, ClusterRole/default/rook-ceph-mgr-system-rules.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/cephfs-csi-nodeplugin adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/cephfs-csi-nodeplugin",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/cephfs-external-provisioner-runner adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/cephfs-external-provisioner-runner",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/rbd-csi-nodeplugin adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/rbd-csi-nodeplugin",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/rbd-external-provisioner-runner adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/rbd-external-provisioner-runner",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/rook-ceph-admission-controller-role adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/rook-ceph-admission-controller-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/rook-ceph-agent-mount adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/rook-ceph-agent-mount",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/rook-ceph-cluster-mgmt adds rules. Flags: cluster-wide secrets read.",
+          "resource": "ClusterRole/default/rook-ceph-cluster-mgmt",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/rook-ceph-global adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/rook-ceph-global",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/rook-ceph-mgr-cluster adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/rook-ceph-mgr-cluster",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/rook-ceph-mgr-system adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/rook-ceph-mgr-system",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/rook-ceph-system-psp-user adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/rook-ceph-system-psp-user",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/rook-ceph-operator",
+          "message": "Chart default `image.tag` changed from `v1.3.9` to `v1.4.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/rook-ceph-operator changed at spec.template.metadata.labels.chart. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/rook-ceph-operator",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/default/rook-ceph-operator.template.spec.containers[0] rook-ceph-operator container moves from rook/ceph:v1.3.9 to rook/ceph:v1.4.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/cephclusters.ceph.rook.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/cephobjectrealms.ceph.rook.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/cephobjectzonegroups.ceph.rook.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/cephobjectzones.ceph.rook.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/cephblockpools.ceph.rook.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/cephrbdmirrors.ceph.rook.io",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `policy/v1beta1` (PodSecurityPolicy) is not served by Kubernetes 1.35.0.",
+          "resource": "PodSecurityPolicy/default/00-rook-ceph-operator",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/rook-ceph-cluster-mgmt",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/rook-ceph-global",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/rook-ceph-mgr-cluster",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/rook-ceph-mgr-system",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/rook-ceph-object-bucket",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/rook-ceph-osd",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/rook-ceph-agent-mount",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRole/default/rook-ceph-system-psp-user",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/rook-ceph-global",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/rook-ceph-mgr-cluster",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/rook-ceph-osd",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/rook-ceph-object-bucket",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "ClusterRoleBinding/default/rook-ceph-system-psp-users",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (Role) is not served by Kubernetes 1.35.0.",
+          "resource": "Role/stageproof-check/rook-ceph-system",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (Role) is not served by Kubernetes 1.35.0.",
+          "resource": "Role/stageproof-check/rook-ceph-osd",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (Role) is not served by Kubernetes 1.35.0.",
+          "resource": "Role/stageproof-check/rook-ceph-mgr",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (Role) is not served by Kubernetes 1.35.0.",
+          "resource": "Role/stageproof-check/rook-ceph-cmd-reporter",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (RoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "RoleBinding/stageproof-check/rook-ceph-system",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (RoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "RoleBinding/stageproof-check/rook-ceph-cluster-mgmt",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (RoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "RoleBinding/stageproof-check/rook-ceph-osd",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (RoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "RoleBinding/stageproof-check/rook-ceph-mgr",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (RoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "RoleBinding/stageproof-check/rook-ceph-mgr-system",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "message": "API `rbac.authorization.k8s.io/v1beta1` (RoleBinding) is not served by Kubernetes 1.35.0.",
+          "resource": "RoleBinding/stageproof-check/rook-ceph-cmd-reporter",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "v1.4.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.rook.io/release --chart rook-ceph --from v1.3.9 --to v1.4.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.4.0",
+  "to_sha256": "25e93dbd0006a16155443c13ff2036058ee18f8ad8d86d6171435bef609e9452"
+}

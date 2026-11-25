@@ -9,7 +9,7 @@
         {
           "name": "helm template",
           "status": "pass",
-          "summary": "rendered 13 Kubernetes objects cleanly"
+          "summary": "rendered 9 Kubernetes objects cleanly"
         },
         {
           "name": "values.yaml AST",
@@ -24,17 +24,17 @@
         {
           "name": "image tags",
           "status": "pass",
-          "summary": "3 new or changed image tags checked"
+          "summary": "2 new or changed image tags checked"
         },
         {
           "name": "API server 1.35.0",
-          "status": "fail",
-          "summary": "1 rejection"
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
         },
         {
           "name": "impact",
           "status": "warn",
-          "summary": "Compared stored objects for 11 of 13 objects, and rendered objects for the rest."
+          "summary": "Compared stored objects for 8 of 9 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -42,20 +42,17 @@
           "summary": "current Kubernetes was checked by API server 1.35.0"
         }
       ],
-      "exit_code": 1,
+      "exit_code": 0,
       "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Job/stageproof-check/stageproof-rel, Role/stageproof-check/stageproof-rel-step-certificates-config, RoleBinding/stageproof-check/stageproof-rel-step-certificates-config, ServiceAccount/stageproof-check/stageproof-rel-step-certificates-config.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
         {
           "message": "StatefulSet/stageproof-check/stageproof-rel-step-certificates container step-certificates securityContext is weaker at capabilities.add.",
           "resource": "StatefulSet/stageproof-check/stageproof-rel-step-certificates",
           "rule_id": "impact.privilege.securitycontext",
-          "severity": "warning"
-        },
-        {
-          "detail": "Affected objects: Job/stageproof-check/stageproof-rel",
-          "message": "Chart default `bootstrap.image.repository` changed from `cr.step.sm/smallstep/step-ca-bootstrap` to `cr.smallstep.com/smallstep/step-ca-bootstrap` and the rendered objects differ.",
-          "proof": "render",
-          "resource": "bootstrap.image.repository",
-          "rule_id": "helm.values.default_changed",
           "severity": "warning"
         },
         {
@@ -73,12 +70,6 @@
           "severity": "info"
         },
         {
-          "message": "The pod template of Job/stageproof-check/stageproof-rel changed at spec.template.spec.containers[name=config].image. The pods will restart. A restart is normal for an upgrade.",
-          "resource": "Job/stageproof-check/stageproof-rel",
-          "rule_id": "impact.restart",
-          "severity": "info"
-        },
-        {
           "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
           "message": "Chart version moves from 1.23.1 to 1.30.1, skipping 6 minor versions.",
           "rule_id": "helm.release.version_span",
@@ -92,16 +83,9 @@
         },
         {
           "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
-          "message": "2 container images changed. Job/stageproof-check/stageproof-rel.template.spec.containers[0] config container moves from cr.step.sm/smallstep/step-ca-bootstrap:latest to cr.smallstep.com/smallstep/step-ca-bootstrap:latest. StatefulSet/stageproof-check/stageproof-rel-step-certificates.template.spec.containers[0] step-certificates container moves from cr.step.sm/smallstep/step-ca:0.23.1 to cr.smallstep.com/smallstep/step-ca:0.30.2.",
+          "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-step-certificates.template.spec.containers[0] step-certificates container moves from cr.step.sm/smallstep/step-ca:0.23.1 to cr.smallstep.com/smallstep/step-ca:0.30.2.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
-          "message": "Image repository changed from `cr.step.sm/smallstep/step-ca-bootstrap` to `cr.smallstep.com/smallstep/step-ca-bootstrap`.",
-          "resource": "Job/stageproof-check/stageproof-rel.template.spec.containers[0] config",
-          "rule_id": "supply.image.moved",
-          "severity": "info"
         },
         {
           "detail": "The registry or the repository is different. The tag check still asks the new repository.",
@@ -112,35 +96,22 @@
         },
         {
           "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `cr.smallstep.com/smallstep/step-ca-bootstrap:latest` could not be checked. The registry did not answer.",
-          "resource": "cr.smallstep.com/smallstep/step-ca-bootstrap:latest",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
           "message": "Image `cr.smallstep.com/smallstep/step-ca:0.30.2` could not be checked. The registry did not answer.",
           "resource": "cr.smallstep.com/smallstep/step-ca:0.30.2",
           "rule_id": "supply.registry_unreachable",
           "severity": "info"
-        },
-        {
-          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
-          "resource": "Job/stageproof-check/stageproof-rel",
-          "rule_id": "k8s.apply.immutable_field",
-          "severity": "blocker"
         }
       ],
       "head_ref": "1.30.1",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "BLOCKED"
+      "verdict": "PASSED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo https://smallstep.github.io/helm-charts/ --chart step-certificates --from 1.23.1 --to 1.30.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1a211cfa59eab3bea4712a7b344e8c8e8714ee784655b6ba36d9689870044c03"
 }

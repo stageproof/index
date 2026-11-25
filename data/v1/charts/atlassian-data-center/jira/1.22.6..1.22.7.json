@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://atlassian.github.io/data-center-helm-charts --chart jira --from 1.22.6 --to 1.22.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "858998a7b8185ba515947d38f6dc164541ff4265bbd3828fc78b2a493162e16c"
 }

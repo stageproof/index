@@ -69,13 +69,6 @@
           "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-rabbitmq.template.spec.containers[0] rabbitmq container moves from docker.io/rabbitmq:4.3.4-management@sha256:eb5295d083325da5929a5ade766684d4019ffd2bce8bc7e43d6f9a05cafc8646 to docker.io/rabbitmq:4.3.5-management@sha256:b6a1a446c10038cbe65cfe0a1015141411da3a2731282a21cf1583d235da2ca8.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/rabbitmq:4.3.5-management@sha256:b6a1a446c10038cbe65cfe0a1015141411da3a2731282a21cf1583d235da2ca8` could not be checked. The registry did not answer.",
-          "resource": "docker.io/rabbitmq:4.3.5-management@sha256:b6a1a446c10038cbe65cfe0a1015141411da3a2731282a21cf1583d235da2ca8",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.21.16",
@@ -88,6 +81,6 @@
   "reproduce_command": "stageproof check --repo oci://registry-1.docker.io/cloudpirates --chart rabbitmq --from 0.21.15 --to 0.21.16 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "72ded0dcc93fae77b8f8b41693f16ec68aa1b418653696c291ba6ab2e397d2e5"
 }

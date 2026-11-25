@@ -9,7 +9,7 @@
         {
           "name": "helm template",
           "status": "pass",
-          "summary": "rendered 13 Kubernetes objects cleanly"
+          "summary": "rendered 9 Kubernetes objects cleanly"
         },
         {
           "name": "values.yaml AST",
@@ -33,8 +33,8 @@
         },
         {
           "name": "impact",
-          "status": "pass",
-          "summary": "Compared stored objects for 12 of 13 objects, and rendered objects for the rest."
+          "status": "warn",
+          "summary": "Compared stored objects for 8 of 9 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -44,6 +44,11 @@
       ],
       "exit_code": 0,
       "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Job/stageproof-check/stageproof-rel, Role/stageproof-check/stageproof-rel-step-certificates-config, RoleBinding/stageproof-check/stageproof-rel-step-certificates-config, ServiceAccount/stageproof-check/stageproof-rel-step-certificates-config.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
         {
           "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-step-certificates changed at spec.template.spec.containers[name=step-certificates].image. The pods will restart. A restart is normal for an upgrade.",
           "resource": "StatefulSet/stageproof-check/stageproof-rel-step-certificates",
@@ -86,6 +91,6 @@
   "reproduce_command": "stageproof check --repo https://smallstep.github.io/helm-charts/ --chart step-certificates --from 1.28.2 --to 1.30.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1a211cfa59eab3bea4712a7b344e8c8e8714ee784655b6ba36d9689870044c03"
 }

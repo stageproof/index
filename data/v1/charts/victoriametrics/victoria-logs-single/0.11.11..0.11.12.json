@@ -79,6 +79,6 @@
   "reproduce_command": "stageproof check --repo https://victoriametrics.github.io/helm-charts/ --chart victoria-logs-single --from 0.11.11 --to 0.11.12 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "13713022e60dc77106a0a447d4be65295c943b9cc590f60c38b9e582fca628dd"
 }

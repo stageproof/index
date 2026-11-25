@@ -28,13 +28,13 @@
         },
         {
           "name": "API server 1.35.0",
-          "status": "fail",
-          "summary": "2 rejections"
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
         },
         {
           "name": "impact",
           "status": "pass",
-          "summary": "Compared stored objects for 30 of 67 objects, and rendered objects for the rest."
+          "summary": "Compared stored objects for 32 of 67 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -42,7 +42,7 @@
           "summary": "current Kubernetes was checked by API server 1.35.0"
         }
       ],
-      "exit_code": 1,
+      "exit_code": 0,
       "findings": [
         {
           "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-consul-connect-injector, Pod/stageproof-check/stageproof-rel-consul-test, StatefulSet/stageproof-check/stageproof-rel-consul-server",
@@ -105,18 +105,6 @@
           "severity": "warning"
         },
         {
-          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
-          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-consul-connect-injector",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
-          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-consul-server",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
           "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
           "message": "Not sent to the API server: MutatingWebhookConfiguration/stageproof-check/stageproof-rel-consul-connect-injector, ValidatingWebhookConfiguration/stageproof-check/stageproof-rel-consul-connect-injector, MutatingWebhookConfiguration/stageproof-check/stageproof-rel-consul-connect-injector, ValidatingWebhookConfiguration/stageproof-check/stageproof-rel-consul-connect-injector.",
           "rule_id": "k8s.apply.not_exercised",
@@ -126,13 +114,13 @@
       "head_ref": "1.7.2",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "BLOCKED"
+      "verdict": "PASSED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo https://helm.releases.hashicorp.com --chart consul --from 1.7.1 --to 1.7.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1b72e8a4e9df0e0120005ac8fdc69a837924c9c2735ba5242481e01f0d47ed26"
 }

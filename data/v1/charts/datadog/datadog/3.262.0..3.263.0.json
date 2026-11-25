@@ -40,7 +40,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap, ConfigMap/stageproof-check/stageproof-rel-datadog-system-probe-config",
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-system-probe-config",
           "message": "Chart default `datadog.traceroute.enabled` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "datadog.traceroute.enabled",
@@ -78,6 +78,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datadoghq.com --chart datadog --from 3.262.0 --to 3.263.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5c1d527af32cc9f4d381aa3c2267b1bee9fe492708c250357f3eff2d76ff5e67"
 }

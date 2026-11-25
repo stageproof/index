@@ -81,6 +81,6 @@
   "reproduce_command": "stageproof check --repo oci://codeberg.org/wrenix/helm-charts --chart forgejo-runner --from 0.7.0 --to 0.7.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5ad97773b87262365430c30e55c32b5551d0f45a548823f8a3891bee074031fd"
 }

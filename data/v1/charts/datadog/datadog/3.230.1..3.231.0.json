@@ -70,6 +70,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datadoghq.com --chart datadog --from 3.230.1 --to 3.231.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "afced88fd4aebe383d988a95f2c8b9df6bdd36c589af8e0c3fabb3711eac2573"
 }

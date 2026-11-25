@@ -68,6 +68,6 @@
   "reproduce_command": "stageproof check --repo https://open-telemetry.github.io/opentelemetry-helm-charts --chart opentelemetry-collector --from 0.156.1 --to 0.156.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5abcd6fb67142f6d6b3155cc7e641f6c24dac2391465e317490afb218cd528a2"
 }

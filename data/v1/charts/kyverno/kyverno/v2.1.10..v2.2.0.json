@@ -180,6 +180,6 @@
   "reproduce_command": "stageproof check --repo https://kyverno.github.io/kyverno/ --chart kyverno --from v2.1.10 --to v2.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8fdf8d0d1ef55a5c16b4e386ffe97a86ce5cd713a27e2092677b7b5c500f3fcf"
 }

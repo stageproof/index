@@ -109,6 +109,6 @@
   "reproduce_command": "stageproof check --repo https://prometheus-community.github.io/helm-charts --chart prometheus-operator-crds --from 17.0.1 --to 17.0.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "87a62bb83f6cb0a4fcd5ee03440870572aeff4c5129b23ec00411b1ad3501d34"
 }

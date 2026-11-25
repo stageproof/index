@@ -41,6 +41,22 @@
       "findings": [
         {
           "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap",
+          "message": "Chart default `agents.containers.otelAgent.securityContext.readOnlyRootFilesystem` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "agents.containers.otelAgent.securityContext.readOnlyRootFilesystem",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap",
+          "message": "Chart default `agents.containers.processAgent.securityContext.readOnlyRootFilesystem` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "agents.containers.processAgent.securityContext.readOnlyRootFilesystem",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap",
           "message": "Chart default `agents.containers.securityAgent.securityContext.readOnlyRootFilesystem` changed from `true` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "agents.containers.securityAgent.securityContext.readOnlyRootFilesystem",
@@ -88,6 +104,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datadoghq.com --chart datadog --from 3.149.1 --to 3.149.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5497d9d8e872bd700f7ad4ce59779a5654d397384528d8d7636be6edfb9c5f3c"
 }

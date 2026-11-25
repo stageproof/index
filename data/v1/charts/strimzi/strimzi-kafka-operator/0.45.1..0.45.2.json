@@ -94,6 +94,6 @@
   "reproduce_command": "stageproof check --repo https://strimzi.io/charts --chart strimzi-kafka-operator --from 0.45.1 --to 0.45.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8845e9d8b6ec4e7b064cfd384c3d2099350714f3ffc7c02c595f52a1f86d6fa0"
 }

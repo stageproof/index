@@ -69,13 +69,6 @@
           "message": "2 container images changed. Deployment/default/stageproof-rel-forgejo-runner.template.spec.containers[0] runner container moves from code.forgejo.org/forgejo/runner:12.0.1 to code.forgejo.org/forgejo/runner:12.1.2. Deployment/default/stageproof-rel-forgejo-runner.template.spec.containers[1] dind container moves from docker.io/library/docker:29.0.4-dind to docker.io/library/docker:29.1.2-dind.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/library/docker:29.1.2-dind` could not be checked. The registry did not answer.",
-          "resource": "docker.io/library/docker:29.1.2-dind",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.6.16",
@@ -88,6 +81,6 @@
   "reproduce_command": "stageproof check --repo oci://codeberg.org/wrenix/helm-charts --chart forgejo-runner --from 0.6.15 --to 0.6.16 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "903de6fa010aa4403c523e89017f4868d72ca1ce5a8939385c47578bbd96b54c"
 }

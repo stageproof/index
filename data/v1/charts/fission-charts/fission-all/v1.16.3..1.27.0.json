@@ -236,7 +236,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-148, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-958",
           "message": "Chart default `authentication.jwtSigningKey` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "authentication.jwtSigningKey",
@@ -244,7 +244,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Deployment/default/kubewatcher, Deployment/default/mqtrigger-keda, Deployment/default/router, Deployment/default/storagesvc, Deployment/default/timer, Job/default/stageproof-rel-fission-a-1.27.0-653, Job/default/stageproof-rel-fission-a-1.27.0-895, Namespace/default/fission-builder, Role/fission-builder/stageproof-rel-buildermgr, Role/fission-builder/stageproof-rel-buildermgr-fission-cr, Role/fission-builder/stageproof-rel-executor, Role/fission-builder/stageproof-rel-executor-fission-cr, RoleBinding/default/stageproof-rel-fission-builder, RoleBinding/fission-builder/stageproof-rel-buildermgr, RoleBinding/fission-builder/stageproof-rel-buildermgr-fission-cr, RoleBinding/fission-builder/stageproof-rel-executor, RoleBinding/fission-builder/stageproof-rel-executor-fission-cr, ServiceAccount/default/fission-builder, ServiceAccount/fission-builder/fission-builder",
+          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Deployment/default/kubewatcher, Deployment/default/mqtrigger-keda, Deployment/default/router, Deployment/default/storagesvc, Deployment/default/timer, Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-808, Namespace/default/fission-builder, Role/fission-builder/stageproof-rel-buildermgr, Role/fission-builder/stageproof-rel-buildermgr-fission-cr, Role/fission-builder/stageproof-rel-executor, Role/fission-builder/stageproof-rel-executor-fission-cr, RoleBinding/default/stageproof-rel-fission-builder, RoleBinding/fission-builder/stageproof-rel-buildermgr, RoleBinding/fission-builder/stageproof-rel-buildermgr-fission-cr, RoleBinding/fission-builder/stageproof-rel-executor, RoleBinding/fission-builder/stageproof-rel-executor-fission-cr, ServiceAccount/default/fission-builder, ServiceAccount/fission-builder/fission-builder",
           "message": "Chart default `builderNamespace` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "builderNamespace",
@@ -252,7 +252,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-623, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-198, Job/default/stageproof-rel-fission-a-1.27.0-503",
           "message": "Chart default `controller.resources` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "controller.resources",
@@ -260,7 +260,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-398, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-468, Job/default/stageproof-rel-fission-a-1.27.0-503",
           "message": "Chart default `controllerPort` changed from `31313` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "controllerPort",
@@ -268,7 +268,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Job/default/stageproof-rel-fission-a-1.27.0-742, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-585",
           "message": "Chart default `fetcher.imageTag` changed from `v1.16.3` to `v1.27.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "fetcher.imageTag",
@@ -276,7 +276,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Deployment/default/kubewatcher, Deployment/default/mqtrigger-keda, Deployment/default/router, Deployment/default/storagesvc, Deployment/default/timer, Job/default/stageproof-rel-fission-a-1.27.0-025, Job/default/stageproof-rel-fission-a-1.27.0-895, Namespace/default/fission-function, Role/default/stageproof-rel-router-dataplane, Role/fission-function/stageproof-rel-buildermgr, Role/fission-function/stageproof-rel-buildermgr-fission-cr, Role/fission-function/stageproof-rel-executor, Role/fission-function/stageproof-rel-executor-fission-cr, Role/fission-function/stageproof-rel-router-dataplane, RoleBinding/default/stageproof-rel-fission-fetcher, RoleBinding/default/stageproof-rel-fission-fetcher-websocket, RoleBinding/default/stageproof-rel-router-dataplane, RoleBinding/fission-function/stageproof-rel-buildermgr, RoleBinding/fission-function/stageproof-rel-buildermgr-fission-cr, RoleBinding/fission-function/stageproof-rel-executor, RoleBinding/fission-function/stageproof-rel-executor-fission-cr, RoleBinding/fission-function/stageproof-rel-router-dataplane, ServiceAccount/default/fission-fetcher, ServiceAccount/fission-function/fission-fetcher",
+          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Deployment/default/kubewatcher, Deployment/default/mqtrigger-keda, Deployment/default/router, Deployment/default/storagesvc, Deployment/default/timer, Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-943, Namespace/default/fission-function, Role/default/stageproof-rel-router-dataplane, Role/fission-function/stageproof-rel-buildermgr, Role/fission-function/stageproof-rel-buildermgr-fission-cr, Role/fission-function/stageproof-rel-executor, Role/fission-function/stageproof-rel-executor-fission-cr, Role/fission-function/stageproof-rel-router-dataplane, RoleBinding/default/stageproof-rel-fission-fetcher, RoleBinding/default/stageproof-rel-fission-fetcher-websocket, RoleBinding/default/stageproof-rel-router-dataplane, RoleBinding/fission-function/stageproof-rel-buildermgr, RoleBinding/fission-function/stageproof-rel-buildermgr-fission-cr, RoleBinding/fission-function/stageproof-rel-executor, RoleBinding/fission-function/stageproof-rel-executor-fission-cr, RoleBinding/fission-function/stageproof-rel-router-dataplane, ServiceAccount/default/fission-fetcher, ServiceAccount/fission-function/fission-fetcher",
           "message": "Chart default `functionNamespace` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "functionNamespace",
@@ -284,7 +284,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Deployment/default/kubewatcher, Deployment/default/mqtrigger-keda, Deployment/default/router, Deployment/default/storagesvc, Deployment/default/timer, Deployment/default/webhook, Job/default/stageproof-rel-fission-a-1.27.0-105, Job/default/stageproof-rel-fission-a-1.27.0-895, Job/default/stageproof-rel-fission-a-1.27.0-post-install, Job/default/stageproof-rel-fission-a-1.27.0-post-upgrade",
+          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Deployment/default/kubewatcher, Deployment/default/mqtrigger-keda, Deployment/default/router, Deployment/default/storagesvc, Deployment/default/timer, Deployment/default/webhook, Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-988, Job/default/stageproof-rel-fission-a-1.27.0-post-install, Job/default/stageproof-rel-fission-a-1.27.0-post-upgrade",
           "message": "Chart default `imageTag` changed from `v1.16.3` to `v1.27.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "imageTag",
@@ -292,7 +292,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-055, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-660",
           "message": "Chart default `logger.enableSecurityContext` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "logger.enableSecurityContext",
@@ -300,7 +300,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-895, Job/default/stageproof-rel-fission-a-1.27.0-955",
+          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-650",
           "message": "Chart default `logger.podSecurityPolicy.additionalCapabilities` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "logger.podSecurityPolicy.additionalCapabilities",
@@ -308,7 +308,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-210, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-794",
           "message": "Chart default `logger.podSecurityPolicy.enabled` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "logger.podSecurityPolicy.enabled",
@@ -316,7 +316,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-895, Job/default/stageproof-rel-fission-a-1.27.0-908",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-026, Job/default/stageproof-rel-fission-a-1.27.0-503",
           "message": "Chart default `mqt_keda.connector_images.aws_sqs.image` changed from `fission/keda-aws-sqs-http-connector` to `ghcr.io/fission/keda-aws-sqs-http-connector` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.aws_sqs.image",
@@ -324,7 +324,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-857, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-900",
           "message": "Chart default `mqt_keda.connector_images.aws_sqs.tag` changed from `v0.9` to `v0.20` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.aws_sqs.tag",
@@ -332,7 +332,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-056, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-073, Job/default/stageproof-rel-fission-a-1.27.0-503",
           "message": "Chart default `mqt_keda.connector_images.awskinesis.image` changed from `fission/keda-aws-kinesis-http-connector` to `ghcr.io/fission/keda-aws-kinesis-http-connector` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.awskinesis.image",
@@ -340,7 +340,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-849, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-326, Job/default/stageproof-rel-fission-a-1.27.0-503",
           "message": "Chart default `mqt_keda.connector_images.awskinesis.tag` changed from `v0.9` to `v0.19` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.awskinesis.tag",
@@ -348,7 +348,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-895, Job/default/stageproof-rel-fission-a-1.27.0-925",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-527",
           "message": "Chart default `mqt_keda.connector_images.gcp_pubsub.image` changed from `fission/keda-gcp-pubsub-http-connector` to `ghcr.io/fission/keda-gcp-pubsub-http-connector` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.gcp_pubsub.image",
@@ -356,7 +356,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-875, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-981",
           "message": "Chart default `mqt_keda.connector_images.gcp_pubsub.tag` changed from `v0.4` to `v0.14` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.gcp_pubsub.tag",
@@ -364,7 +364,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-566, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-321, Job/default/stageproof-rel-fission-a-1.27.0-503",
           "message": "Chart default `mqt_keda.connector_images.kafka.image` changed from `fission/keda-kafka-http-connector` to `ghcr.io/fission/keda-kafka-http-connector` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.kafka.image",
@@ -372,7 +372,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-386, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-183, Job/default/stageproof-rel-fission-a-1.27.0-503",
           "message": "Chart default `mqt_keda.connector_images.kafka.tag` changed from `v0.10` to `v0.20` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.kafka.tag",
@@ -380,7 +380,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-692, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-976",
           "message": "Chart default `mqt_keda.connector_images.nats_steaming.image` changed from `fission/keda-nats-streaming-http-connector` to `ghcr.io/fission/keda-nats-streaming-http-connector` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.nats_steaming.image",
@@ -388,7 +388,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-738, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-262, Job/default/stageproof-rel-fission-a-1.27.0-503",
           "message": "Chart default `mqt_keda.connector_images.nats_steaming.tag` changed from `v0.11` to `v0.20` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.nats_steaming.tag",
@@ -396,7 +396,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-649, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-517",
           "message": "Chart default `mqt_keda.connector_images.rabbitmq.image` changed from `fission/keda-rabbitmq-http-connector` to `ghcr.io/fission/keda-rabbitmq-http-connector` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.rabbitmq.image",
@@ -404,7 +404,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-174, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-268, Job/default/stageproof-rel-fission-a-1.27.0-503",
           "message": "Chart default `mqt_keda.connector_images.rabbitmq.tag` changed from `v0.9` to `v0.17` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.rabbitmq.tag",
@@ -412,7 +412,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-668, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-180, Job/default/stageproof-rel-fission-a-1.27.0-503",
           "message": "Chart default `mqt_keda.connector_images.redis.image` changed from `fission/keda-redis-http-connector` to `ghcr.io/fission/keda-redis-http-connector` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.redis.image",
@@ -420,7 +420,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-652, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.27.0-240, Job/default/stageproof-rel-fission-a-1.27.0-503",
           "message": "Chart default `mqt_keda.connector_images.redis.tag` changed from `v0.2` to `v0.10` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.redis.tag",
@@ -428,7 +428,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-752, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-060, Job/default/stageproof-rel-fission-a-1.27.0-503",
           "message": "Chart default `openTracing.enabled` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "openTracing.enabled",
@@ -436,7 +436,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-251, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-606",
           "message": "Chart default `preUpgradeChecks.imageTag` changed from `v1.16.3` to `v1.27.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "preUpgradeChecks.imageTag",
@@ -444,7 +444,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-120, Job/default/stageproof-rel-fission-a-1.27.0-895",
+          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.27.0-342, Job/default/stageproof-rel-fission-a-1.27.0-503",
           "message": "Chart default `pruneInterval` changed from `60` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "pruneInterval",
@@ -452,7 +452,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Deployment/default/kubewatcher, Deployment/default/mqtrigger-keda, Deployment/default/router, Deployment/default/storagesvc, Deployment/default/timer, Deployment/default/webhook, Job/default/stageproof-rel-fission-a-1.27.0-712, Job/default/stageproof-rel-fission-a-1.27.0-895, Job/default/stageproof-rel-fission-a-1.27.0-post-install, Job/default/stageproof-rel-fission-a-1.27.0-post-upgrade",
+          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Deployment/default/kubewatcher, Deployment/default/mqtrigger-keda, Deployment/default/router, Deployment/default/storagesvc, Deployment/default/timer, Deployment/default/webhook, Job/default/stageproof-rel-fission-a-1.27.0-369, Job/default/stageproof-rel-fission-a-1.27.0-503, Job/default/stageproof-rel-fission-a-1.27.0-post-install, Job/default/stageproof-rel-fission-a-1.27.0-post-upgrade",
           "message": "Chart default `repository` changed from `index.docker.io` to `ghcr.io` and the rendered objects differ.",
           "proof": "render",
           "resource": "repository",
@@ -527,27 +527,6 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ghcr.io/fission/fission-bundle:v1.27.0` could not be checked. The registry did not answer.",
-          "resource": "ghcr.io/fission/fission-bundle:v1.27.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ghcr.io/fission/pre-upgrade-checks:v1.27.0` could not be checked. The registry did not answer.",
-          "resource": "ghcr.io/fission/pre-upgrade-checks:v1.27.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ghcr.io/fission/reporter:v1.27.0` could not be checked. The registry did not answer.",
-          "resource": "ghcr.io/fission/reporter:v1.27.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
           "message": "Not sent to the API server: MutatingWebhookConfiguration/default/fission-mutating-webhooks, ValidatingWebhookConfiguration/default/fission-validating-webhooks.",
           "rule_id": "k8s.apply.not_exercised",
@@ -564,6 +543,6 @@
   "reproduce_command": "stageproof check --repo https://fission.github.io/fission-charts/ --chart fission-all --from v1.16.3 --to 1.27.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "92fbbd36b90660417984293ffcc5eb412926a61ea09d1d8bc42bf87b4e15ae97"
 }

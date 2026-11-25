@@ -191,6 +191,6 @@
   "reproduce_command": "stageproof check --repo oci://quay.io/codefresh --chart gitops-runtime --from 0.29.14 --to 0.29.15 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a23005a4a00f76b0b17628dcbc58d8c51a8132dd624ccd1ba1333a3f30b42c45"
 }

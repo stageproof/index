@@ -90,6 +90,6 @@
   "reproduce_command": "stageproof check --repo https://dependencytrack.github.io/helm-charts --chart dependency-track --from 2.8.0 --to 2.10.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "7e1de2eef9256866bb0291860745b6264d812b611d96f72e22516792053b3a90"
 }

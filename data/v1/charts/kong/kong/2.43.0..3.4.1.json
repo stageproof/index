@@ -9,7 +9,7 @@
         {
           "name": "helm template",
           "status": "pass",
-          "summary": "rendered 25 Kubernetes objects cleanly"
+          "summary": "rendered 26 Kubernetes objects cleanly"
         },
         {
           "name": "values.yaml AST",
@@ -128,7 +128,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: ClusterRole/default/stageproof-rel-kong, ClusterRoleBinding/default/stageproof-rel-kong, Deployment/stageproof-check/stageproof-rel-kong, Role/stageproof-check/stageproof-rel-kong, RoleBinding/stageproof-check/stageproof-rel-kong, Secret/stageproof-check/stageproof-rel-kong-validation-webhook-ca-keypair, Secret/stageproof-check/stageproof-rel-kong-validation-webhook-keypair, Service/stageproof-check/stageproof-rel-kong-manager, Service/stageproof-check/stageproof-rel-kong-metrics, Service/stageproof-check/stageproof-rel-kong-proxy, Service/stageproof-check/stageproof-rel-kong-validation-webhook, ServiceAccount/stageproof-check/stageproof-rel-kong, ValidatingWebhookConfiguration/default/stageproof-rel-kong-stageproof-check-validations",
+          "detail": "Affected objects: ClusterRole/default/stageproof-rel-kong, ClusterRoleBinding/default/stageproof-rel-kong, Deployment/stageproof-check/stageproof-rel-kong, IngressClass/default/kong, Role/stageproof-check/stageproof-rel-kong, RoleBinding/stageproof-check/stageproof-rel-kong, Secret/stageproof-check/stageproof-rel-kong-validation-webhook-ca-keypair, Secret/stageproof-check/stageproof-rel-kong-validation-webhook-keypair, Service/stageproof-check/stageproof-rel-kong-manager, Service/stageproof-check/stageproof-rel-kong-metrics, Service/stageproof-check/stageproof-rel-kong-proxy, Service/stageproof-check/stageproof-rel-kong-validation-webhook, ServiceAccount/stageproof-check/stageproof-rel-kong, ValidatingWebhookConfiguration/default/stageproof-rel-kong-stageproof-check-validations",
           "message": "Chart default `image.tag` changed from `3.7` to `3.9` and the rendered objects differ.",
           "proof": "render",
           "resource": "image.tag",
@@ -174,13 +174,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `kong:3.9` could not be checked. The registry did not answer.",
-          "resource": "kong:3.9",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
           "message": "Not sent to the API server: ValidatingWebhookConfiguration/stageproof-check/stageproof-rel-kong-validations, ValidatingWebhookConfiguration/default/stageproof-rel-kong-stageproof-check-validations.",
           "rule_id": "k8s.apply.not_exercised",
@@ -197,6 +190,6 @@
   "reproduce_command": "stageproof check --repo https://charts.konghq.com --chart kong --from 2.43.0 --to 3.4.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "2c7dbf6bc59846d0c779e2509f45d041cc0dba5af85d6728294b9f37cd02e1d7"
 }

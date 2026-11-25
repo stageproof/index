@@ -28,8 +28,8 @@
         },
         {
           "name": "API server 1.35.0",
-          "status": "fail",
-          "summary": "1 rejection"
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
         },
         {
           "name": "impact",
@@ -42,7 +42,7 @@
           "summary": "current Kubernetes was checked by API server 1.35.0"
         }
       ],
-      "exit_code": 1,
+      "exit_code": 0,
       "findings": [
         {
           "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-openproject-hocuspocus",
@@ -83,17 +83,17 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 13.0.4 failed: exit status 1\ncoalesce.go:319: warning: destination for memcached.service.sessionAffinity is a table. Ignoring non-table value ()\nError: execution error at (openproject/charts/postgresql/templates/secrets.yaml:23:16): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.postgresql.auth.password' must not be empty, please add '--set global.postgresql.auth.password=$PASSWORD' to the command. To get the current value:\n\n        export PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-postgresql -o jsonpath=\"{.data.password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "13.0.4",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
           "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-openproject-hocuspocus.template.spec.containers[0] hocuspocus container moves from docker.io/openproject/hocuspocus:release-38128805 to docker.io/openproject/hocuspocus:release-338001b2.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/openproject/hocuspocus:release-338001b2` could not be checked. The registry did not answer.",
-          "resource": "docker.io/openproject/hocuspocus:release-338001b2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         },
         {
           "detail": "A client-side Helm upgrade drops this field and continues.",
@@ -103,22 +103,23 @@
           "severity": "warning"
         },
         {
+          "detail": "The template uses .Release.Revision in a dynamic object name. `helm template` renders revision 1 for both charts, so a real upgrade creates a new object name instead of updating in place.",
           "message": "Kubernetes rejected the update. `spec.template` is immutable.",
           "resource": "Job/stageproof-check/stageproof-rel-openproject-seeder-1",
           "rule_id": "k8s.apply.immutable_field",
-          "severity": "blocker"
+          "severity": "warning"
         }
       ],
       "head_ref": "13.0.4",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "BLOCKED"
+      "verdict": "PASSED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo https://charts.openproject.org --chart openproject --from 13.0.3 --to 13.0.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5b3a8cbae083fbd91725fd5964a3f4fa019f6a0e2f616faa3446488d3f7bc9ef"
 }

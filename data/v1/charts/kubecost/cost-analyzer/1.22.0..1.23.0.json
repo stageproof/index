@@ -123,69 +123,6 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ajaytripathy/kubecost-cost-model:prod-1.23.0` could not be checked. The registry did not answer.",
-          "resource": "ajaytripathy/kubecost-cost-model:prod-1.23.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ajaytripathy/kubecost-frontend:prod-1.23.0` could not be checked. The registry did not answer.",
-          "resource": "ajaytripathy/kubecost-frontend:prod-1.23.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ajaytripathy/kubecost:prod-1.23.0` could not be checked. The registry did not answer.",
-          "resource": "ajaytripathy/kubecost:prod-1.23.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `jimmidyson/configmap-reload:v0.2.2` could not be checked. The registry did not answer.",
-          "resource": "jimmidyson/configmap-reload:v0.2.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `kiwigrid/k8s-sidecar:0.0.3` could not be checked. The registry did not answer.",
-          "resource": "kiwigrid/k8s-sidecar:0.0.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/alertmanager:v0.15.3` could not be checked. The registry did not answer.",
-          "resource": "prom/alertmanager:v0.15.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/node-exporter:v0.17.0` could not be checked. The registry did not answer.",
-          "resource": "prom/node-exporter:v0.17.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/prometheus:v2.9.2` could not be checked. The registry did not answer.",
-          "resource": "prom/prometheus:v2.9.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/pushgateway:v0.6.0` could not be checked. The registry did not answer.",
-          "resource": "prom/pushgateway:v0.6.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
           "message": "Image `quay.io/coreos/kube-state-metrics:v1.6.0` could not be checked. The registry refused the request.",
           "resource": "quay.io/coreos/kube-state-metrics:v1.6.0",
@@ -293,6 +230,6 @@
   "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 1.22.0 --to 1.23.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c2bdc32ca0fe5c08b4236484d91b0676b322f82a41419b8aa95ebc797d2fe663"
 }

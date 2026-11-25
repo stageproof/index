@@ -51,7 +51,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap, Deployment/stageproof-check/stageproof-rel-operator",
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-operator",
           "message": "Chart default `operator.image.tag` changed from `1.25.0` to `1.26.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "operator.image.tag",
@@ -100,6 +100,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datadoghq.com --chart datadog --from 3.205.0 --to 3.206.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "178feceaadc8797b887d0f56c262d40bf0e85e13e2eb6223b85296d74d69a7b1"
 }

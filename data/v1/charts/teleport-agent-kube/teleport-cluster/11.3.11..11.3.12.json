@@ -33,8 +33,8 @@
         },
         {
           "name": "API server 1.35.0",
-          "status": "fail",
-          "summary": "1 rejection"
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
         },
         {
           "name": "impact",
@@ -47,7 +47,7 @@
           "summary": "current Kubernetes was checked by API server 1.35.0"
         }
       ],
-      "exit_code": 1,
+      "exit_code": 0,
       "findings": [
         {
           "message": "The pod template of Deployment/stageproof-check/stageproof-rel changed at spec.template.spec.containers[name=teleport].image. The pods will restart. A restart is normal for an upgrade.",
@@ -68,22 +68,23 @@
           "severity": "warning"
         },
         {
+          "detail": "The template checks .Capabilities.APIVersions for `policy/v1beta1`. `helm template` includes legacy API versions in its default capability list and cannot remove them, so this removal is not proven.",
           "message": "API `policy/v1beta1` (PodSecurityPolicy) is not served by Kubernetes 1.35.0.",
           "resource": "PodSecurityPolicy/default/stageproof-rel",
           "rule_id": "k8s.api.removed",
-          "severity": "blocker"
+          "severity": "warning"
         }
       ],
       "head_ref": "11.3.12",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "BLOCKED"
+      "verdict": "PASSED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo https://charts.releases.teleport.dev --chart teleport-cluster --from 11.3.11 --to 11.3.12 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a9ec3cefcdea4514b0e4b82e760334eba00b3733b93de05506f1adaf9628fbc5"
 }

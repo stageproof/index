@@ -74,6 +74,6 @@
   "reproduce_command": "stageproof check --repo https://zabbix-community.github.io/helm-zabbix/ --chart zabbix --from 7.0.4 --to 7.0.5 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a4027c3a41b8758488888a0d90935317490226988cd625f57e1203a008ab4e23"
 }

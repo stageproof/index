@@ -48,6 +48,6 @@
   "reproduce_command": "stageproof check --repo https://dandydeveloper.github.io/charts/ --chart redis-ha --from 4.36.1 --to 4.36.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "2556a6955a1668ed4a46cbccdc4db778e080cc936e005d360bee9e365c3915cd"
 }

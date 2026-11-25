@@ -69,13 +69,6 @@
           "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-minio.template.spec.containers[0] minio container moves from docker.io/cloudpirates/image-minio:RELEASE.2025-10-15T17-29-55Z@sha256:49f5294492e7b2b9a308519457b8a257f2fc5766ffcbdd20536443602e45b1e3 to docker.io/cloudpirates/image-minio:RELEASE.2025-10-15T17-29-55Z-hardened@sha256:8dc02a7e509336c8bbb67962086d691bdcde20a2c9327ed68e5081a681f6dbfc.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/cloudpirates/image-minio:RELEASE.2025-10-15T17-29-55Z-hardened@sha256:8dc02a7e509336c8bbb67962086d691bdcde20a2c9327ed68e5081a681f6dbfc` could not be checked. The registry did not answer.",
-          "resource": "docker.io/cloudpirates/image-minio:RELEASE.2025-10-15T17-29-55Z-hardened@sha256:8dc02a7e509336c8bbb67962086d691bdcde20a2c9327ed68e5081a681f6dbfc",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.14.0",
@@ -88,6 +81,6 @@
   "reproduce_command": "stageproof check --repo oci://registry-1.docker.io/cloudpirates --chart minio --from 0.8.2 --to 0.14.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "964f143d360499dcaa8aceaae7f1f8bbb7046d7b30fa4f1c34ecf3d439aed87f"
 }

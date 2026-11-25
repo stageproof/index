@@ -100,6 +100,6 @@
   "reproduce_command": "stageproof check --repo oci://public.ecr.aws/karpenter --chart karpenter --from 1.9.2 --to 1.9.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "0ef1bcf09c120789a13ed86ac16d577ce62edbc4971a900e9c8ff78e3a38990f"
 }

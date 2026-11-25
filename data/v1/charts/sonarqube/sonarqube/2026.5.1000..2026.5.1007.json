@@ -72,6 +72,6 @@
   "reproduce_command": "stageproof check --repo https://SonarSource.github.io/helm-chart-sonarqube --chart sonarqube --from 2026.5.1000 --to 2026.5.1007 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "bb40a13d8e66e1d673cec43ab2a06132adab6bc17310e37078d82d45c7dd13eb"
 }

@@ -153,41 +153,6 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `jimmidyson/configmap-reload:v0.3.0` could not be checked. The registry did not answer.",
-          "resource": "jimmidyson/configmap-reload:v0.3.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/alertmanager:v0.20.0` could not be checked. The registry did not answer.",
-          "resource": "prom/alertmanager:v0.20.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/node-exporter:v0.18.1` could not be checked. The registry did not answer.",
-          "resource": "prom/node-exporter:v0.18.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/prometheus:v2.16.0` could not be checked. The registry did not answer.",
-          "resource": "prom/prometheus:v2.16.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/pushgateway:v1.0.1` could not be checked. The registry did not answer.",
-          "resource": "prom/pushgateway:v1.0.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
           "message": "Image `quay.io/coreos/kube-state-metrics:v1.9.5` could not be checked. The registry refused the request.",
           "resource": "quay.io/coreos/kube-state-metrics:v1.9.5",
@@ -295,6 +260,6 @@
   "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 1.54.1 --to 1.55.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d18e4d9f4f5262f6ff8efbd3687e10cd72de1b356bab73f985010d5252fda809"
 }

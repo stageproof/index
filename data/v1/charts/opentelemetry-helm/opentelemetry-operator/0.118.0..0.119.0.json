@@ -83,13 +83,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `busybox:latest` could not be checked. The registry did not answer.",
-          "resource": "busybox:latest",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Certificate/stageproof-check/stageproof-rel-opentelemetry-operator-serving-cert was not judged. the API group is not installed on this server.",
           "resource": "Certificate/stageproof-check/stageproof-rel-opentelemetry-operator-serving-cert",
           "rule_id": "k8s.apply.not_exercised",
@@ -132,6 +125,6 @@
   "reproduce_command": "stageproof check --repo https://open-telemetry.github.io/opentelemetry-helm-charts --chart opentelemetry-operator --from 0.118.0 --to 0.119.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "f28e54311e8573d6c880c3977d506ad80bd059b867660a3fbbd4787318fb7fe6"
 }

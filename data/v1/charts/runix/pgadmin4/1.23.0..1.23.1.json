@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo https://helm.runix.net/ --chart pgadmin4 --from 1.23.0 --to 1.23.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "2c754caa0213a2f20cade7df7760f5cdee615044cfbd92bda8dfd1bc7f459e6e"
 }

@@ -51,6 +51,13 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 17.0.1 failed: exit status 1\nError: execution error at (forgejo/templates/gitea/admin-secret.yaml:12:15): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'gitea.admin.password' must not be empty, please add '--set gitea.admin.password=$PASSWORD' to the command. To get the current value:\n\n        export PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-forgejo-admin -o jsonpath=\"{.data.password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "17.0.1",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
           "message": "appVersion moves from 15.0.0 to 15.0.1. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
@@ -73,6 +80,6 @@
   "reproduce_command": "stageproof check --repo oci://code.forgejo.org/forgejo-helm --chart forgejo --from 17.0.0 --to 17.0.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3a9c05c760abf62ccf6a2c02f25f383a98ba2e321efeb9dac4d13eedfcae1691"
 }

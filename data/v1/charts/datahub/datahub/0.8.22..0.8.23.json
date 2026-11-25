@@ -48,6 +48,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datahubproject.io --chart datahub --from 0.8.22 --to 0.8.23 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "6da28aa5606db1f41adb7f9e93aa146050f6d1080e8a2ce8f94cad38569f4891"
 }

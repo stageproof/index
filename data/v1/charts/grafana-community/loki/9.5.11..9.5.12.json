@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 9.5.11 --to 9.5.12 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "81c9f790c4ee54597845d5a9c3cd8df772e98f71542752d9455ab4b3a2434ee3"
 }

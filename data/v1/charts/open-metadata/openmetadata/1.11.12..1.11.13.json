@@ -92,6 +92,6 @@
   "reproduce_command": "stageproof check --repo https://helm.open-metadata.org --chart openmetadata --from 1.11.12 --to 1.11.13 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "877fa32035891f44e83301fa9dc7d0dbf94f032885a8e859dc61676d46334afc"
 }

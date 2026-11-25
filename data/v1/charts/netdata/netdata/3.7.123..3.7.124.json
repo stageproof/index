@@ -73,13 +73,6 @@
           "message": "1 container image changed. DaemonSet/stageproof-check/netdata-child.template.spec.containers[0] netdata container moves from netdata/netdata:v2.2.4 to netdata/netdata:v2.2.5.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `netdata/netdata:v2.2.5` could not be checked. The registry did not answer.",
-          "resource": "netdata/netdata:v2.2.5",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "3.7.124",
@@ -92,6 +85,6 @@
   "reproduce_command": "stageproof check --repo https://netdata.github.io/helmchart --chart netdata --from 3.7.123 --to 3.7.124 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "2adfc7bec992ba2718d6dfec4e13046f41eae6cf5542b8d4ac466f050ca3cc3b"
 }

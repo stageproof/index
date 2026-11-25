@@ -19,7 +19,7 @@
         {
           "name": "image tags",
           "status": "pass",
-          "summary": "no new or changed image"
+          "summary": "4 new or changed image tags checked"
         },
         {
           "name": "API server 1.35.0",
@@ -28,8 +28,8 @@
         },
         {
           "name": "impact",
-          "status": "pass",
-          "summary": "Compared stored objects for 46 of 50 objects, and rendered objects for the rest."
+          "status": "warn",
+          "summary": "Compared stored objects for 44 of 48 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -39,6 +39,11 @@
       ],
       "exit_code": 0,
       "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Job/default/stageproof-rel-signoz-schema-migrator-async-init, Job/default/stageproof-rel-signoz-schema-migrator-sync-init.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
         {
           "detail": "Affected objects: ClickHouseInstallation/stageproof-check/stageproof-rel-clickhouse",
           "message": "Chart default `clickhouse.initContainers.udf.command` changed and the rendered objects differ.",
@@ -76,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://charts.signoz.io --chart signoz --from 0.62.0 --to 0.62.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "73925967f08e928e2d04a37c019dd3e902e9e30a84060a464431c7d691366a17"
 }

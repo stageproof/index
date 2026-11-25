@@ -119,6 +119,6 @@
   "reproduce_command": "stageproof check --repo https://grafana.github.io/helm-charts --chart k8s-monitoring --from 1.6.36 --to 1.6.37 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "e5a93d68c14fe955b8ff4c29407d7571838b3c27afb429a13d201c65335d1c39"
 }

@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo https://community-charts.github.io/helm-charts --chart mlflow --from 1.3.2 --to 1.4.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3e79c97eb3442424a0e5406d8455b3ce08a921ed7f4c6e17fb74ab543726d359"
 }

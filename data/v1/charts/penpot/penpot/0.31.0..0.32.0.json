@@ -97,27 +97,6 @@
           "message": "3 container images changed. Deployment/stageproof-check/stageproof-rel-penpot-backend.template.spec.containers[0] penpot-backend container moves from penpotapp/backend:2.12.0 to penpotapp/backend:2.12.1. Deployment/stageproof-check/stageproof-rel-penpot-exporter.template.spec.containers[0] penpot-exporter container moves from penpotapp/exporter:2.12.0 to penpotapp/exporter:2.12.1. Deployment/stageproof-check/stageproof-rel-penpot-frontend.template.spec.containers[0] penpot-frontend container moves from penpotapp/frontend:2.12.0 to penpotapp/frontend:2.12.1.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `penpotapp/backend:2.12.1` could not be checked. The registry did not answer.",
-          "resource": "penpotapp/backend:2.12.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `penpotapp/exporter:2.12.1` could not be checked. The registry did not answer.",
-          "resource": "penpotapp/exporter:2.12.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `penpotapp/frontend:2.12.1` could not be checked. The registry did not answer.",
-          "resource": "penpotapp/frontend:2.12.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.32.0",
@@ -130,6 +109,6 @@
   "reproduce_command": "stageproof check --repo https://helm.penpot.app --chart penpot --from 0.31.0 --to 0.32.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "6cf92cd8fd6c51d3c45491c3e20cda4762c6250332f94e29a18744111a1f62c5"
 }

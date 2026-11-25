@@ -163,13 +163,6 @@
           "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
           "rule_id": "helm.operator.existing_custom_resources",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/traefik:v3.7.19` could not be checked. The registry did not answer.",
-          "resource": "docker.io/traefik:v3.7.19",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "42.4.2",
@@ -182,6 +175,6 @@
   "reproduce_command": "stageproof check --repo https://traefik.github.io/charts --chart traefik --from 42.3.0 --to 42.4.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "ae9b01171c1a9eb7f1738dc4bfc7fc293c5f98034728a678d6e3943c29d9ce5e"
 }

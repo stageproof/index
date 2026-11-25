@@ -103,27 +103,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `langgenius/dify-api:1.10.1-fix.1` could not be checked. The registry did not answer.",
-          "resource": "langgenius/dify-api:1.10.1-fix.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `langgenius/dify-plugin-daemon:0.5.1-local` could not be checked. The registry did not answer.",
-          "resource": "langgenius/dify-plugin-daemon:0.5.1-local",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `langgenius/dify-web:1.10.1-fix.1` could not be checked. The registry did not answer.",
-          "resource": "langgenius/dify-web:1.10.1-fix.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Deployment/default/stageproof-rel-dify-plugin-daemon was not judged. the API server did not return a field error.",
           "resource": "Deployment/default/stageproof-rel-dify-plugin-daemon",
           "rule_id": "k8s.apply.not_exercised",
@@ -140,6 +119,6 @@
   "reproduce_command": "stageproof check --repo https://douban.github.io/charts/ --chart dify --from 0.7.0 --to 0.10.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "163a951cf158c95270b9d1ff000bb4f020e14b704d3e5fe730182b1eb0fea3ac"
 }

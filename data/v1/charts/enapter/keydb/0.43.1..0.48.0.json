@@ -75,13 +75,6 @@
           "message": "1 container image changed. StatefulSet/default/stageproof-rel-keydb.template.spec.containers[0] keydb container moves from eqalpha/keydb:x86_64_v6.3.1 to eqalpha/keydb:x86_64_v6.3.2.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `eqalpha/keydb:x86_64_v6.3.2` could not be checked. The registry did not answer.",
-          "resource": "eqalpha/keydb:x86_64_v6.3.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.48.0",
@@ -94,6 +87,6 @@
   "reproduce_command": "stageproof check --repo https://enapter.github.io/charts/ --chart keydb --from 0.43.1 --to 0.48.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a6d0e39d567621f34f5c30d251a18299a8cbb51222b27438c829af3c0739ddc4"
 }

@@ -71,13 +71,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `keelhq/keel:0.14.2` could not be checked. The registry did not answer.",
-          "resource": "keelhq/keel:0.14.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "API `apps/v1beta2` (Deployment) is not served by Kubernetes 1.35.0.",
           "resource": "Deployment/stageproof-check/stageproof-rel-keel",
           "rule_id": "k8s.api.removed",
@@ -94,6 +87,6 @@
   "reproduce_command": "stageproof check --repo https://charts.keel.sh --chart keel --from 0.7.10 --to 0.8.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5a0d2791f6baf3aac4401a460e9f4364f554e2190c7c89cb2dc5cdb0e9fa6994"
 }

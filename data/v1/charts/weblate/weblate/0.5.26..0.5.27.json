@@ -82,13 +82,6 @@
           "resource": "StatefulSet/stageproof-check/stageproof-rel-redis-master.template.spec.containers[0] redis",
           "rule_id": "supply.image.moved",
           "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `weblate/weblate:5.16.0.0@sha256:b041909ebef735de4385c9b98f7e41248f5759ddf3fb66f1b08199d551433247` could not be checked. The registry did not answer.",
-          "resource": "weblate/weblate:5.16.0.0@sha256:b041909ebef735de4385c9b98f7e41248f5759ddf3fb66f1b08199d551433247",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.5.27",
@@ -101,6 +94,6 @@
   "reproduce_command": "stageproof check --repo https://helm.weblate.org --chart weblate --from 0.5.26 --to 0.5.27 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "551414a3239902ea23ff00b86d5262d6e1ee1a85d95fe7a44ec2fea8ddea040e"
 }

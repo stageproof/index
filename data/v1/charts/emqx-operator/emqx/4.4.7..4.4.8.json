@@ -61,13 +61,6 @@
           "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-emqx.template.spec.containers[0] emqx container moves from emqx/emqx:4.4.7 to emqx/emqx:4.4.8.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `emqx/emqx:4.4.8` could not be checked. The registry did not answer.",
-          "resource": "emqx/emqx:4.4.8",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "4.4.8",
@@ -80,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://repos.emqx.io/charts --chart emqx --from 4.4.7 --to 4.4.8 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "bf9b41c634cc11cab336754ab2206b4f43071842bf1fe1119923c4b476af0813"
 }

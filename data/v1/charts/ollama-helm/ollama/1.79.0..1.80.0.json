@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://otwld.github.io/ollama-helm/ --chart ollama --from 1.79.0 --to 1.80.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "144827484cb55465fd64e99ca9c32aec27c7d8bff1e242091e9ff339c677e610"
 }

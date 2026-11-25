@@ -1,0 +1,194 @@
+{
+  "from_sha256": "c00a8c04b92d01b5d31ba07bfe293fd1ef9bd0581f49db6e2b39c09a61573577",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.13.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 26 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The CRD compositeresourcedefinitions.apiextensions.crossplane.io under crds/ changed (spec required, spec.crdSpecTemplate removed, spec.crdSpecTemplate type, spec.crdSpecTemplate.additionalPrinterColumns removed, spec.crdSpecTemplate.additionalPrinterColumns type, spec.crdSpecTemplate.additionalPrinterColumns.items removed, spec.crdSpecTemplate.additionalPrinterColumns.items type, spec.crdSpecTemplate.additionalPrinterColumns.items.JSONPath removed, spec.crdSpecTemplate.additionalPrinterColumns.items.JSONPath type, spec.crdSpecTemplate.additionalPrinterColumns.items.description removed, spec.crdSpecTemplate.additionalPrinterColumns.items.description type, spec.crdSpecTemplate.additionalPrinterColumns.items.format removed, spec.crdSpecTemplate.additionalPrinterColumns.items.format type, spec.crdSpecTemplate.additionalPrinterColumns.items.name removed, spec.crdSpecTemplate.additionalPrinterColumns.items.name type, spec.crdSpecTemplate.additionalPrinterColumns.items.priority removed, spec.crdSpecTemplate.additionalPrinterColumns.items.priority type, spec.crdSpecTemplate.additionalPrinterColumns.items.type removed, spec.crdSpecTemplate.additionalPrinterColumns.items.type type, spec.crdSpecTemplate.group removed, spec.crdSpecTemplate.group type, spec.crdSpecTemplate.names removed, spec.crdSpecTemplate.names type, spec.crdSpecTemplate.names.categories removed, spec.crdSpecTemplate.names.categories type, spec.crdSpecTemplate.names.categories.items removed, spec.crdSpecTemplate.names.categories.items type, spec.crdSpecTemplate.names.kind removed, spec.crdSpecTemplate.names.kind type, spec.crdSpecTemplate.names.listKind removed, spec.crdSpecTemplate.names.listKind type, spec.crdSpecTemplate.names.plural removed, spec.crdSpecTemplate.names.plural type, spec.crdSpecTemplate.names.shortNames removed, spec.crdSpecTemplate.names.shortNames type, spec.crdSpecTemplate.names.shortNames.items removed, spec.crdSpecTemplate.names.shortNames.items type, spec.crdSpecTemplate.names.singular removed, spec.crdSpecTemplate.names.singular type, spec.crdSpecTemplate.validation removed, spec.crdSpecTemplate.validation type, spec.crdSpecTemplate.validation.openAPIV3Schema removed, spec.crdSpecTemplate.validation.openAPIV3Schema type, spec.crdSpecTemplate.version removed, spec.crdSpecTemplate.version type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/compositeresourcedefinitions.apiextensions.crossplane.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD compositions.apiextensions.crossplane.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/compositions.apiextensions.crossplane.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD configurationrevisions.pkg.crossplane.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/configurationrevisions.pkg.crossplane.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD configurations.pkg.crossplane.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/configurations.pkg.crossplane.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD controllerconfigs.pkg.crossplane.io under crds/ changed (the file is new). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/controllerconfigs.pkg.crossplane.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD kubernetesapplicationresources.workload.crossplane.io under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kubernetesapplicationresources.workload.crossplane.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD kubernetesapplications.workload.crossplane.io under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kubernetesapplications.workload.crossplane.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD kubernetestargets.workload.crossplane.io under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kubernetestargets.workload.crossplane.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD providerrevisions.pkg.crossplane.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/providerrevisions.pkg.crossplane.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD providers.kubernetes.crossplane.io under crds/ changed (the file was removed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/providers.kubernetes.crossplane.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD providers.pkg.crossplane.io under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/providers.pkg.crossplane.io",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/crossplane-rbac-manager adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/crossplane-rbac-manager",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/crossplane:aggregate-to-admin adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/crossplane:aggregate-to-admin",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/crossplane:aggregate-to-edit adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/crossplane:aggregate-to-edit",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/crossplane:aggregate-to-view adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/crossplane:aggregate-to-view",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/crossplane:system:aggregate-to-crossplane adds rules. Flags: cluster-wide secrets read, wildcard.",
+          "resource": "ClusterRole/default/crossplane:system:aggregate-to-crossplane",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/crossplane, Deployment/default/crossplane-rbac-manager",
+          "message": "Chart default `image.tag` changed from `v0.13.0` to `v0.14.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/crossplane changed at spec.template.spec.containers[name=crossplane].env[name=LEADER_ELECTION]. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/crossplane",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/default/crossplane-rbac-manager changed at spec.template.spec.containers[name=crossplane].env. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/crossplane-rbac-manager",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 0.13.0 to 0.14.0. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/default/crossplane-rbac-manager.template.spec.containers[0] crossplane container moves from crossplane/crossplane:v0.13.0 to crossplane/crossplane:v0.14.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "0.14.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.crossplane.io/master/ --chart crossplane --from 0.13.0 --to 0.14.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.4.0",
+  "to_sha256": "7c4ed9f8129b8b424404ab31d2d0f3a97b81f67821750499213659a38b893d70"
+}

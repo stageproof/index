@@ -81,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://istio-release.storage.googleapis.com/charts --chart ztunnel --from 1.27.6 --to 1.27.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "b9ed11361a778c2a912b2f3225ce8b2cea8e15f954d3bea9af9b651dfe5b9fb5"
 }

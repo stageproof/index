@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://qdrant.github.io/qdrant-helm --chart qdrant --from 1.12.6 --to 1.13.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d99d6ad212a1b5c1fa5badc2c6a10a0f0fe3b57cbf4c3d7073a08b5366a7b8c9"
 }

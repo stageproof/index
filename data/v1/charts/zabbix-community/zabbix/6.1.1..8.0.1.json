@@ -112,48 +112,6 @@
           "message": "appVersion moves from 7.0.6 to 8.0.0. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `busybox:latest` could not be checked. The registry did not answer.",
-          "resource": "busybox:latest",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `postgres:18` could not be checked. The registry did not answer.",
-          "resource": "postgres:18",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `zabbix/zabbix-agent2:ubuntu-8.0.0` could not be checked. The registry did not answer.",
-          "resource": "zabbix/zabbix-agent2:ubuntu-8.0.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `zabbix/zabbix-server-pgsql:ubuntu-8.0.0` could not be checked. The registry did not answer.",
-          "resource": "zabbix/zabbix-server-pgsql:ubuntu-8.0.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `zabbix/zabbix-web-nginx-pgsql:ubuntu-8.0.0` could not be checked. The registry did not answer.",
-          "resource": "zabbix/zabbix-web-nginx-pgsql:ubuntu-8.0.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `zabbix/zabbix-web-service:ubuntu-8.0.0` could not be checked. The registry did not answer.",
-          "resource": "zabbix/zabbix-web-service:ubuntu-8.0.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "8.0.1",
@@ -166,6 +124,6 @@
   "reproduce_command": "stageproof check --repo https://zabbix-community.github.io/helm-zabbix/ --chart zabbix --from 6.1.1 --to 8.0.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5ebca4a3046db3aac07bb631f9bd0c596770a18b5f9f8d3c2f406f70e8474011"
 }

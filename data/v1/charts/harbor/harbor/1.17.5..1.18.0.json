@@ -173,6 +173,6 @@
   "reproduce_command": "stageproof check --repo https://helm.goharbor.io --chart harbor --from 1.17.5 --to 1.18.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c0d834fbda87fdbe61205dba4f1146dd379ee9ebc3e994c261efa615a372e5dc"
 }

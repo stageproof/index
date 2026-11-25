@@ -78,6 +78,6 @@
   "reproduce_command": "stageproof check --repo https://prometheus-community.github.io/helm-charts --chart prometheus-postgres-exporter --from 8.0.0 --to 8.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "fd34c8269345630c516c059ce5d17acd55137ec6d00bdf5431b8d53b0e238ed8"
 }

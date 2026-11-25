@@ -24,17 +24,17 @@
         {
           "name": "image tags",
           "status": "pass",
-          "summary": "7 new or changed image tags checked"
+          "summary": "6 new or changed image tags checked"
         },
         {
           "name": "API server 1.35.0",
-          "status": "fail",
-          "summary": "3 rejections"
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
         },
         {
           "name": "impact",
           "status": "warn",
-          "summary": "Compared stored objects for 12 of 15 objects, and rendered objects for the rest."
+          "summary": "Compared stored objects for 14 of 15 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -42,7 +42,7 @@
           "summary": "current Kubernetes was checked by API server 1.35.0"
         }
       ],
-      "exit_code": 1,
+      "exit_code": 0,
       "findings": [
         {
           "message": "Helm will delete StatefulSet/default/stageproof-rel-postgresql. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
@@ -51,7 +51,7 @@
           "severity": "warning"
         },
         {
-          "message": "Helm will delete objects the new chart does not render: Secret/default/stageproof-rel-postgresql, Service/default/stageproof-rel-postgresql, Service/default/stageproof-rel-postgresql-headless.",
+          "message": "Helm will delete objects the new chart does not render: Job/default/db-migrator-install, Secret/default/stageproof-rel-postgresql, Service/default/stageproof-rel-postgresql, Service/default/stageproof-rel-postgresql-headless.",
           "rule_id": "impact.delete",
           "severity": "warning"
         },
@@ -64,18 +64,10 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: CronJob/default/scanner, CronJob/default/tracker, Deployment/default/hub, Job/default/db-migrator-install, Secret/default/db-migrator-config, Secret/default/hub-config, Secret/default/scanner-config, Secret/default/tracker-config",
+          "detail": "Affected objects: CronJob/default/scanner, CronJob/default/tracker, Deployment/default/hub, Job/default/db-migrator-upgrade, Secret/default/db-migrator-config, Secret/default/hub-config, Secret/default/scanner-config, Secret/default/tracker-config",
           "message": "Chart default `db.user` changed from `postgres` to `hub` and the rendered objects differ.",
           "proof": "render",
           "resource": "db.user",
-          "rule_id": "helm.values.default_changed",
-          "severity": "warning"
-        },
-        {
-          "detail": "Affected objects: Deployment/default/hub",
-          "message": "Chart default `hub.deploy.initContainers.checkDbMigrator.image.repository` changed from `bitnami/kubectl` to `rancher/kubectl` and the rendered objects differ.",
-          "proof": "render",
-          "resource": "hub.deploy.initContainers.checkDbMigrator.image.repository",
           "rule_id": "helm.values.default_changed",
           "severity": "warning"
         },
@@ -116,20 +108,14 @@
           "severity": "info"
         },
         {
-          "message": "The pod template of CronJob/default/scanner changed at spec.jobTemplate.spec.template.metadata. The pods will restart. A restart is normal for an upgrade.",
+          "message": "The pod template of CronJob/default/scanner changed at spec.jobTemplate.spec.template.metadata.labels. The pods will restart. A restart is normal for an upgrade.",
           "resource": "CronJob/default/scanner",
           "rule_id": "impact.restart",
           "severity": "info"
         },
         {
-          "message": "The pod template of CronJob/default/tracker changed at spec.jobTemplate.spec.template.metadata. The pods will restart. A restart is normal for an upgrade.",
+          "message": "The pod template of CronJob/default/tracker changed at spec.jobTemplate.spec.template.metadata.labels. The pods will restart. A restart is normal for an upgrade.",
           "resource": "CronJob/default/tracker",
-          "rule_id": "impact.restart",
-          "severity": "info"
-        },
-        {
-          "message": "The pod template of Job/default/db-migrator-install changed at spec.template.metadata. The pods will restart. A restart is normal for an upgrade.",
-          "resource": "Job/default/db-migrator-install",
           "rule_id": "impact.restart",
           "severity": "info"
         },
@@ -147,7 +133,7 @@
         },
         {
           "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
-          "message": "7 container images changed. CronJob/default/scanner.jobTemplate.spec.template.spec.containers[0] scanner container moves from artifacthub/scanner:v1.10.0 to artifacthub/scanner:v1.24.0. CronJob/default/scanner.jobTemplate.spec.template.spec.initContainers[0] check-db-ready container moves from artifacthub/postgres:latest to registry-1.docker.io/artifacthub/postgres:latest. CronJob/default/tracker.jobTemplate.spec.template.spec.containers[0] tracker container moves from artifacthub/tracker:v1.10.0 to artifacthub/tracker:v1.24.0. Deployment/default/hub.template.spec.containers[0] hub container moves from artifacthub/hub:v1.10.0 to artifacthub/hub:v1.24.0. Deployment/default/hub.template.spec.initContainers[1] check-db-migrator-run container moves from bitnami/kubectl:1.35 to rancher/kubectl:v1.35.0. Deployment/default/trivy.template.spec.containers[0] trivy container moves from aquasec/trivy:0.31.3 to aquasec/trivy:0.76.2. Job/default/db-migrator-install.template.spec.containers[0] db-migrator container moves from artifacthub/db-migrator:v1.10.0 to artifacthub/db-migrator:v1.24.0.",
+          "message": "6 container images changed. CronJob/default/scanner.jobTemplate.spec.template.spec.containers[0] scanner container moves from artifacthub/scanner:v1.10.0 to artifacthub/scanner:v1.24.0. CronJob/default/scanner.jobTemplate.spec.template.spec.initContainers[0] check-db-ready container moves from artifacthub/postgres:latest to registry-1.docker.io/artifacthub/postgres:latest. CronJob/default/tracker.jobTemplate.spec.template.spec.containers[0] tracker container moves from artifacthub/tracker:v1.10.0 to artifacthub/tracker:v1.24.0. Deployment/default/hub.template.spec.containers[0] hub container moves from artifacthub/hub:v1.10.0 to artifacthub/hub:v1.24.0. Deployment/default/trivy.template.spec.containers[0] trivy container moves from aquasec/trivy:0.31.3 to aquasec/trivy:0.76.2. Job/default/db-migrator-upgrade.template.spec.containers[0] db-migrator container moves from artifacthub/db-migrator:v1.10.0 to artifacthub/db-migrator:v1.24.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
         },
@@ -157,50 +143,18 @@
           "resource": "CronJob/default/scanner.jobTemplate.spec.template.spec.initContainers[0] check-db-ready",
           "rule_id": "supply.image.moved",
           "severity": "info"
-        },
-        {
-          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
-          "message": "Image repository changed from `index.docker.io/bitnami/kubectl` to `index.docker.io/rancher/kubectl`.",
-          "resource": "Deployment/default/hub.template.spec.initContainers[1] check-db-migrator-run",
-          "rule_id": "supply.image.moved",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `aquasec/trivy:0.76.2` could not be checked. The registry did not answer.",
-          "resource": "aquasec/trivy:0.76.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
-          "resource": "Job/default/db-migrator-install",
-          "rule_id": "k8s.apply.immutable_field",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `batch/v1beta1` (CronJob) is not served by Kubernetes 1.35.0.",
-          "resource": "CronJob/default/scanner",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `batch/v1beta1` (CronJob) is not served by Kubernetes 1.35.0.",
-          "resource": "CronJob/default/tracker",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
         }
       ],
       "head_ref": "1.24.0",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "BLOCKED"
+      "verdict": "PASSED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo https://artifacthub.github.io/helm-charts/ --chart artifact-hub --from 1.10.0 --to 1.24.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d82515cfd610093381b57eaa11cdfbd4892fd5a8f0a34e51bda23c169ae51ce3"
 }

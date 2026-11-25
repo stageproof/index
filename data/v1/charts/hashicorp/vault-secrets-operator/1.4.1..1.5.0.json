@@ -99,6 +99,6 @@
   "reproduce_command": "stageproof check --repo https://helm.releases.hashicorp.com --chart vault-secrets-operator --from 1.4.1 --to 1.5.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "4f822615d9346fd4f8b96b8852cc44c83042a2f1511515e2631ec2fd1da03d80"
 }

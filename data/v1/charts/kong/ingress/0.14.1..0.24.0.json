@@ -9,7 +9,7 @@
         {
           "name": "helm template",
           "status": "pass",
-          "summary": "rendered 40 Kubernetes objects cleanly"
+          "summary": "rendered 41 Kubernetes objects cleanly"
         },
         {
           "name": "values.yaml AST",
@@ -164,13 +164,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `kong:3.9` could not be checked. The registry did not answer.",
-          "resource": "kong:3.9",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
           "message": "Not sent to the API server: ValidatingWebhookConfiguration/stageproof-check/stageproof-rel-controller-validations, ValidatingWebhookConfiguration/default/stageproof-rel-controller-stageproof-check-validations.",
           "rule_id": "k8s.apply.not_exercised",
@@ -187,6 +180,6 @@
   "reproduce_command": "stageproof check --repo https://charts.konghq.com --chart ingress --from 0.14.1 --to 0.24.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "670053e7ae58f0b09951f9edc3ab4dea6cab59c970efb6080b3082f63b4fc1f2"
 }

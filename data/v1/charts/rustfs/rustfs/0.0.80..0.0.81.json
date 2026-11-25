@@ -109,13 +109,6 @@
           "message": "1 container image changed. StatefulSet/default/stageproof-rel-rustfs.template.spec.containers[0] rustfs container moves from rustfs/rustfs:1.0.0-alpha.80 to rustfs/rustfs:1.0.0-alpha.81.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `busybox:latest` could not be checked. The registry did not answer.",
-          "resource": "busybox:latest",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.0.81",
@@ -128,6 +121,6 @@
   "reproduce_command": "stageproof check --repo https://charts.rustfs.com --chart rustfs --from 0.0.80 --to 0.0.81 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "e50e3b9cbf3bcb443115eb4093d7f1dd784b31dfb7887cadcd459811f5585d98"
 }

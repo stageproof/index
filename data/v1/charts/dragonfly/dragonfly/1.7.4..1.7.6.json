@@ -174,13 +174,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/busybox:latest` could not be checked. The registry did not answer.",
-          "resource": "StatefulSet/stageproof-check/stageproof-rel-dragonfly-seed-client.template.spec.initContainers[0] wait-for-scheduler",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "may not change once set",
           "message": "Kubernetes rejected `spec.clusterIPs[0]` on Service/stageproof-check/stageproof-rel-dragonfly-scheduler.",
           "resource": "Service/stageproof-check/stageproof-rel-dragonfly-scheduler",
@@ -198,6 +191,6 @@
   "reproduce_command": "stageproof check --repo https://dragonflyoss.github.io/helm-charts/ --chart dragonfly --from 1.7.4 --to 1.7.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8658ee98e6eceaac4cedc569b1192a83a2643844ab7cc5fb55e242bbdbb0a157"
 }

@@ -95,6 +95,6 @@
   "reproduce_command": "stageproof check --repo https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts --chart secrets-store-csi-driver --from 1.5.2 --to 1.5.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1c1ef51233af6d9c89d95319e45afa4f7835c38bb2f34ffdaec919e125094876"
 }

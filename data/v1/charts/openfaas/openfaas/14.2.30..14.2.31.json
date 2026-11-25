@@ -96,13 +96,6 @@
           "resource": "ghcr.io/openfaas/faas-netes:0.18.3",
           "rule_id": "supply.image.not_found",
           "severity": "blocker"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/prometheus:v2.51.0` could not be checked. The registry did not answer.",
-          "resource": "prom/prometheus:v2.51.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "14.2.31",
@@ -115,6 +108,6 @@
   "reproduce_command": "stageproof check --repo https://openfaas.github.io/faas-netes --chart openfaas --from 14.2.30 --to 14.2.31 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "2da166dcc952e584942a7461a0169d4facce7baca18a6658135f1a38fd37210f"
 }

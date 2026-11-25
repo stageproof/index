@@ -95,6 +95,6 @@
   "reproduce_command": "stageproof check --repo https://code.benco.io/kubeview/deploy/helm --chart kubeview --from 2.0.0 --to 2.2.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "f6215bd7b9ed3129a5a0b262d920fe777027922caa8ff3a5b5baa6e4d72efdde"
 }

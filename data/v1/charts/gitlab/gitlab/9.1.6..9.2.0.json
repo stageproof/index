@@ -28,18 +28,18 @@
         },
         {
           "name": "image tags",
-          "status": "pass",
-          "summary": "17 new or changed image tags checked"
+          "status": "fail",
+          "summary": "a new or changed image tag was not found, or it lacks the required platform"
         },
         {
           "name": "API server 1.35.0",
-          "status": "fail",
-          "summary": "13 rejections"
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
         },
         {
           "name": "impact",
           "status": "warn",
-          "summary": "Compared stored objects for 111 of 146 objects, and rendered objects for the rest."
+          "summary": "Compared stored objects for 128 of 146 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -67,7 +67,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza, Pod/stageproof-check/stageproof-rel-webservice-test-runner-mcoqt",
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-webservice-test-runner-51oja, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7",
           "message": "Chart default `global.appConfig.cell.topologyServiceClient` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "global.appConfig.cell.topologyServiceClient",
@@ -75,7 +75,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-issuer-817da8b, Job/stageproof-check/stageproof-rel-issuer-8a523dc, Job/stageproof-check/stageproof-rel-migrations-1d1b1e5, Job/stageproof-check/stageproof-rel-migrations-e54b654, Job/stageproof-check/stageproof-rel-minio-create-buckets-5b564bb, Job/stageproof-check/stageproof-rel-minio-create-buckets-e0ef53e, Job/stageproof-check/stageproof-rel-shared-secrets-17ab4cc, Job/stageproof-check/stageproof-rel-shared-secrets-1b095cf, Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza, Pod/stageproof-check/stageproof-rel-webservice-test-runner-pvejf",
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-issuer-817da8b, Job/stageproof-check/stageproof-rel-issuer-8a523dc, Job/stageproof-check/stageproof-rel-migrations-1d1b1e5, Job/stageproof-check/stageproof-rel-migrations-e54b654, Job/stageproof-check/stageproof-rel-minio-create-buckets-5b564bb, Job/stageproof-check/stageproof-rel-minio-create-buckets-e0ef53e, Job/stageproof-check/stageproof-rel-shared-secrets-260b895, Job/stageproof-check/stageproof-rel-shared-secrets-947748c, Pod/stageproof-check/stageproof-rel-webservice-test-runner-nl8ok, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7",
           "message": "Chart default `global.appConfig.ciIdTokens.issuerUrl` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "global.appConfig.ciIdTokens.issuerUrl",
@@ -83,7 +83,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-gitlab-chart-info, Deployment/stageproof-check/stageproof-rel-gitlab-exporter, Deployment/stageproof-check/stageproof-rel-gitlab-shell, Deployment/stageproof-check/stageproof-rel-kas, Deployment/stageproof-check/stageproof-rel-minio, Deployment/stageproof-check/stageproof-rel-registry, Deployment/stageproof-check/stageproof-rel-sidekiq-all-in-1-v2, Deployment/stageproof-check/stageproof-rel-toolbox, Deployment/stageproof-check/stageproof-rel-webservice-default, Job/stageproof-check/stageproof-rel-gitlab-upgrade-check, Job/stageproof-check/stageproof-rel-issuer-04ad4fe, Job/stageproof-check/stageproof-rel-issuer-817da8b, Job/stageproof-check/stageproof-rel-migrations-8a9cbbc, Job/stageproof-check/stageproof-rel-migrations-e54b654, Job/stageproof-check/stageproof-rel-minio-create-buckets-4d11482, Job/stageproof-check/stageproof-rel-minio-create-buckets-e0ef53e, Job/stageproof-check/stageproof-rel-shared-secrets-17ab4cc, Job/stageproof-check/stageproof-rel-shared-secrets-4afe5fe, Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza, Pod/stageproof-check/stageproof-rel-webservice-test-runner-owjyi, StatefulSet/stageproof-check/stageproof-rel-gitaly",
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-gitlab-chart-info, Deployment/stageproof-check/stageproof-rel-gitlab-exporter, Deployment/stageproof-check/stageproof-rel-gitlab-shell, Deployment/stageproof-check/stageproof-rel-kas, Deployment/stageproof-check/stageproof-rel-minio, Deployment/stageproof-check/stageproof-rel-registry, Deployment/stageproof-check/stageproof-rel-sidekiq-all-in-1-v2, Deployment/stageproof-check/stageproof-rel-toolbox, Deployment/stageproof-check/stageproof-rel-webservice-default, Job/stageproof-check/stageproof-rel-gitlab-upgrade-check, Job/stageproof-check/stageproof-rel-issuer-04ad4fe, Job/stageproof-check/stageproof-rel-issuer-817da8b, Job/stageproof-check/stageproof-rel-migrations-8a9cbbc, Job/stageproof-check/stageproof-rel-migrations-e54b654, Job/stageproof-check/stageproof-rel-minio-create-buckets-4d11482, Job/stageproof-check/stageproof-rel-minio-create-buckets-e0ef53e, Job/stageproof-check/stageproof-rel-shared-secrets-02c525a, Job/stageproof-check/stageproof-rel-shared-secrets-947748c, Pod/stageproof-check/stageproof-rel-webservice-test-runner-j6mgu, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7, StatefulSet/stageproof-check/stageproof-rel-gitaly",
           "message": "Chart default `global.gitlabVersion` changed from `18.1.6` to `18.2.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "global.gitlabVersion",
@@ -91,7 +91,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-17ab4cc, Job/stageproof-check/stageproof-rel-shared-secrets-2b7f1cf, Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qcbhz, StatefulSet/stageproof-check/stageproof-rel-postgresql",
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-947748c, Job/stageproof-check/stageproof-rel-shared-secrets-c390bc5, Pod/stageproof-check/stageproof-rel-webservice-test-runner-4xl1k, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7, StatefulSet/stageproof-check/stageproof-rel-postgresql",
           "message": "Chart default `postgresql.image.repository` changed from `bitnamilegacy/postgresql` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "postgresql.image.repository",
@@ -99,7 +99,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-17ab4cc, Job/stageproof-check/stageproof-rel-shared-secrets-2e650ce, Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza, Pod/stageproof-check/stageproof-rel-webservice-test-runner-oa2gx, StatefulSet/stageproof-check/stageproof-rel-postgresql",
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-029d2d5, Job/stageproof-check/stageproof-rel-shared-secrets-947748c, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7, Pod/stageproof-check/stageproof-rel-webservice-test-runner-ueb6h, StatefulSet/stageproof-check/stageproof-rel-postgresql",
           "message": "Chart default `postgresql.metrics.image.repository` changed from `bitnamilegacy/postgres-exporter` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "postgresql.metrics.image.repository",
@@ -107,7 +107,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza, Pod/stageproof-check/stageproof-rel-webservice-test-runner-p6sys",
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-webservice-test-runner-akck1, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7",
           "message": "Chart default `postgresql.volumePermissions.enabled` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "postgresql.volumePermissions.enabled",
@@ -115,7 +115,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-17ab4cc, Job/stageproof-check/stageproof-rel-shared-secrets-ebd3737, Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza, Pod/stageproof-check/stageproof-rel-webservice-test-runner-mmtbd",
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-947748c, Job/stageproof-check/stageproof-rel-shared-secrets-c1d2392, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7, Pod/stageproof-check/stageproof-rel-webservice-test-runner-r3m3m",
           "message": "Chart default `postgresql.volumePermissions.image.repository` changed from `bitnamilegacy/os-shell` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "postgresql.volumePermissions.image.repository",
@@ -123,7 +123,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-17ab4cc, Job/stageproof-check/stageproof-rel-shared-secrets-31a1faa, Pod/stageproof-check/stageproof-rel-webservice-test-runner-5cd5d, Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza, StatefulSet/stageproof-check/stageproof-rel-redis-master",
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-947748c, Job/stageproof-check/stageproof-rel-shared-secrets-e241e20, Pod/stageproof-check/stageproof-rel-webservice-test-runner-kcokv, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7, StatefulSet/stageproof-check/stageproof-rel-redis-master",
           "message": "Chart default `redis.image.repository` changed from `bitnamilegacy/redis` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.image.repository",
@@ -131,7 +131,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-17ab4cc, Job/stageproof-check/stageproof-rel-shared-secrets-23e2785, Pod/stageproof-check/stageproof-rel-webservice-test-runner-2ljvz, Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza",
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-947748c, Job/stageproof-check/stageproof-rel-shared-secrets-ad14bef, Pod/stageproof-check/stageproof-rel-webservice-test-runner-7uxq2, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7",
           "message": "Chart default `redis.kubectl.enabled` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.kubectl.enabled",
@@ -139,7 +139,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-17ab4cc, Job/stageproof-check/stageproof-rel-shared-secrets-9e954d5, Pod/stageproof-check/stageproof-rel-webservice-test-runner-1vflb, Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza",
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-947748c, Job/stageproof-check/stageproof-rel-shared-secrets-94d9ab3, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7, Pod/stageproof-check/stageproof-rel-webservice-test-runner-vd2fd",
           "message": "Chart default `redis.kubectl.image.repository` changed from `bitnamilegacy/kubectl` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.kubectl.image.repository",
@@ -147,7 +147,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-17ab4cc, Job/stageproof-check/stageproof-rel-shared-secrets-2cf7ebb, Pod/stageproof-check/stageproof-rel-webservice-test-runner-8rjc4, Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza, StatefulSet/stageproof-check/stageproof-rel-redis-master",
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-947748c, Job/stageproof-check/stageproof-rel-shared-secrets-ec547f5, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7, Pod/stageproof-check/stageproof-rel-webservice-test-runner-xmahd, StatefulSet/stageproof-check/stageproof-rel-redis-master",
           "message": "Chart default `redis.metrics.image.repository` changed from `bitnamilegacy/redis-exporter` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.metrics.image.repository",
@@ -155,7 +155,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza, Pod/stageproof-check/stageproof-rel-webservice-test-runner-jaepv",
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-webservice-test-runner-kpdpo, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7",
           "message": "Chart default `redis.sentinel.enabled` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.sentinel.enabled",
@@ -163,7 +163,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-17ab4cc, Job/stageproof-check/stageproof-rel-shared-secrets-5f9bead, Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza, Pod/stageproof-check/stageproof-rel-webservice-test-runner-tec9n",
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-553babe, Job/stageproof-check/stageproof-rel-shared-secrets-947748c, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7, Pod/stageproof-check/stageproof-rel-webservice-test-runner-yqvyb",
           "message": "Chart default `redis.sentinel.image.repository` changed from `bitnamilegacy/redis-sentinel` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.sentinel.image.repository",
@@ -171,7 +171,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza, Pod/stageproof-check/stageproof-rel-webservice-test-runner-zhg0k",
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-webservice-test-runner-jam28, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7",
           "message": "Chart default `redis.sysctl.enabled` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.sysctl.enabled",
@@ -179,7 +179,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-17ab4cc, Job/stageproof-check/stageproof-rel-shared-secrets-49eaa2c, Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza, Pod/stageproof-check/stageproof-rel-webservice-test-runner-pl2tw",
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-947748c, Job/stageproof-check/stageproof-rel-shared-secrets-f77878b, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7, Pod/stageproof-check/stageproof-rel-webservice-test-runner-xbv5m",
           "message": "Chart default `redis.sysctl.image.repository` changed from `bitnamilegacy/os-shell` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.sysctl.image.repository",
@@ -187,7 +187,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza, Pod/stageproof-check/stageproof-rel-webservice-test-runner-rzxqs",
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-webservice-test-runner-pyhei, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7",
           "message": "Chart default `redis.volumePermissions.enabled` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.volumePermissions.enabled",
@@ -195,7 +195,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-17ab4cc, Job/stageproof-check/stageproof-rel-shared-secrets-ebe8cde, Pod/stageproof-check/stageproof-rel-webservice-test-runner-0j0ij, Pod/stageproof-check/stageproof-rel-webservice-test-runner-hsdza",
+          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-shared-secrets-947748c, Job/stageproof-check/stageproof-rel-shared-secrets-9da770c, Pod/stageproof-check/stageproof-rel-webservice-test-runner-eja9j, Pod/stageproof-check/stageproof-rel-webservice-test-runner-qx7i7",
           "message": "Chart default `redis.volumePermissions.image.repository` changed from `bitnamilegacy/os-shell` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.volumePermissions.image.repository",
@@ -327,140 +327,38 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnami/postgres-exporter:0.15.0-debian-11-r7` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `docker.io/bitnami/postgres-exporter:0.15.0-debian-11-r7` was not found.",
           "resource": "docker.io/bitnami/postgres-exporter:0.15.0-debian-11-r7",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnami/postgresql:16.6.0` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `docker.io/bitnami/postgresql:16.6.0` was not found.",
           "resource": "docker.io/bitnami/postgresql:16.6.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnami/redis-exporter:1.58.0-debian-12-r4` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `docker.io/bitnami/redis-exporter:1.58.0-debian-12-r4` was not found.",
           "resource": "docker.io/bitnami/redis-exporter:1.58.0-debian-12-r4",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnami/redis:7.2.4-debian-12-r9` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `docker.io/bitnami/redis:7.2.4-debian-12-r9` was not found.",
           "resource": "docker.io/bitnami/redis:7.2.4-debian-12-r9",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
           "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
           "message": "Image `minio/mc:RELEASE.2018-07-13T00-53-22Z` could not be checked. The registry refused the request.",
           "resource": "minio/mc:RELEASE.2018-07-13T00-53-22Z",
           "rule_id": "supply.image.unverifiable",
-          "severity": "info"
-        },
-        {
-          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
-          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-gitaly",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
-          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-gitlab-shell",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
-          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-kas",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
-          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-sidekiq-all-in-1-v1",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
-          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-webservice-default",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
-          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-minio-v1",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
-          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-nginx-ingress-controller",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
-          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-registry-v1",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
-          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-gitlab-shell",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
-          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-kas",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
-          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-sidekiq-all-in-1-v2",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
-          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-webservice-default",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `autoscaling/v2beta1` (HorizontalPodAutoscaler) is not served by Kubernetes 1.35.0.",
-          "resource": "HorizontalPodAutoscaler/stageproof-check/stageproof-rel-registry",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "Ingress/stageproof-check/stageproof-rel-kas was not judged. the API group is not installed on this server.",
-          "resource": "Ingress/stageproof-check/stageproof-rel-kas",
-          "rule_id": "k8s.apply.not_exercised",
-          "severity": "info"
-        },
-        {
-          "message": "Ingress/stageproof-check/stageproof-rel-webservice-default was not judged. the API group is not installed on this server.",
-          "resource": "Ingress/stageproof-check/stageproof-rel-webservice-default",
-          "rule_id": "k8s.apply.not_exercised",
-          "severity": "info"
-        },
-        {
-          "message": "Ingress/stageproof-check/stageproof-rel-minio was not judged. the API group is not installed on this server.",
-          "resource": "Ingress/stageproof-check/stageproof-rel-minio",
-          "rule_id": "k8s.apply.not_exercised",
-          "severity": "info"
-        },
-        {
-          "message": "Ingress/stageproof-check/stageproof-rel-registry was not judged. the API group is not installed on this server.",
-          "resource": "Ingress/stageproof-check/stageproof-rel-registry",
-          "rule_id": "k8s.apply.not_exercised",
           "severity": "info"
         },
         {
@@ -480,6 +378,6 @@
   "reproduce_command": "stageproof check --repo http://charts.gitlab.io/ --chart gitlab --from 9.1.6 --to 9.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "72ca787b862c61d13c3de1519a3d6803b1da6d07b8fc7eb17a5e56b07d55063f"
 }

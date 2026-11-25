@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo https://codecentric.github.io/helm-charts --chart keycloak --from 18.8.0 --to 18.9.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "01e17234583ae66cf754d01139adfe69d2b08d1b1c078575e73129abe5af145e"
 }

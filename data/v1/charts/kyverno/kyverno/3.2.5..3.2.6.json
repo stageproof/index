@@ -23,8 +23,8 @@
         },
         {
           "name": "image tags",
-          "status": "pass",
-          "summary": "7 new or changed image tags checked"
+          "status": "fail",
+          "summary": "a new or changed image tag was not found, or it lacks the required platform"
         },
         {
           "name": "API server 1.35.0",
@@ -42,7 +42,7 @@
           "summary": "0 blockers (4 deprecation, EOL, or CRD warnings)"
         }
       ],
-      "exit_code": 0,
+      "exit_code": 1,
       "findings": [
         {
           "message": "Role/stageproof-check/stageproof-rel-kyverno:remove-configmap adds rules that the current chart did not have.",
@@ -93,11 +93,11 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `bitnami/kubectl:1.28.5` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `bitnami/kubectl:1.28.5` was not found.",
           "resource": "bitnami/kubectl:1.28.5",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
           "detail": "A client-side Helm upgrade drops this field and continues.",
@@ -138,13 +138,13 @@
       "head_ref": "3.2.6",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "PASSED"
+      "verdict": "BLOCKED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo https://kyverno.github.io/kyverno/ --chart kyverno --from 3.2.5 --to 3.2.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "f2ca140e20a6637b78bec57ae9005fef7801eda33882013cdf05a7fb72966adc"
 }

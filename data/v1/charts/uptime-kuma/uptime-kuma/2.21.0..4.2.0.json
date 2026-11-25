@@ -82,13 +82,6 @@
           "message": "appVersion moves from 1.23.13 to 2.5.0. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `louislam/uptime-kuma:2.5.0` could not be checked. The registry did not answer.",
-          "resource": "louislam/uptime-kuma:2.5.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "4.2.0",
@@ -101,6 +94,6 @@
   "reproduce_command": "stageproof check --repo https://dirsigler.github.io/uptime-kuma-helm --chart uptime-kuma --from 2.21.0 --to 4.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "0ded713fbe6842d6d8d993353611cbc1eb47ff6b813cd77f0e215a3d0462b885"
 }

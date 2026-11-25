@@ -127,6 +127,6 @@
   "reproduce_command": "stageproof check --repo https://kyverno.github.io/kyverno/ --chart kyverno-policies --from 3.6.4 --to 3.7.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "6c7170e627c020db8b90fd0dccbe73e3b88a2a9151d62abe96df2ab698ea7475"
 }

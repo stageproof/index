@@ -81,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://kyverno.github.io/policy-reporter --chart policy-reporter --from 3.1.4 --to 3.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "2f6a8821c223a2dbae7ff3904b1383be15ff217d03343814bf669207eb7529ff"
 }

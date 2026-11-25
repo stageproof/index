@@ -48,6 +48,6 @@
   "reproduce_command": "stageproof check --repo https://grafana.github.io/helm-charts --chart alloy --from 1.14.4 --to 1.15.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "2ecc96c05004cc01a45ab23cb390194ad5259ec9d02b42bf148d4468d013aaa3"
 }

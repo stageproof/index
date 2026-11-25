@@ -94,6 +94,6 @@
   "reproduce_command": "stageproof check --repo https://helm.influxdata.com/ --chart influxdb2 --from 1.0.13 --to 2.1.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1da8b1e8a2b93e9acbb0bc9a9c0a3e526581ccde4bf271785d09699ed219ca08"
 }

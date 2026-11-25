@@ -67,6 +67,6 @@
   "reproduce_command": "stageproof check --repo https://atlassian.github.io/data-center-helm-charts --chart confluence --from 1.22.9 --to 2.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "28ecec9f63a2e0bbbf4c980227d3edccd5ea7a2c90866c2dd71d35000af8b594"
 }

@@ -131,6 +131,6 @@
   "reproduce_command": "stageproof check --repo https://ceph.github.io/csi-charts --chart ceph-csi-cephfs --from 3.10.2 --to 3.11.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "56c5d5fc9574746eb25d37861d752bdd8ce7a6b77b3362c3b77d15146c4c255e"
 }

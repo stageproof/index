@@ -23,6 +23,6 @@
   "reproduce_command": "stageproof check --repo https://langfuse.github.io/langfuse-k8s/ --chart langfuse --from 1.4.0 --to 1.4.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "42d08309993da4c35ad68e5c6f267bb607504c00bb83490bdeb1178ae0b979bd"
 }

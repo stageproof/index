@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://oauth2-proxy.github.io/manifests --chart oauth2-proxy --from 7.14.0 --to 7.14.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "b4ee0189e5cb57e943cdaa229db5c1e03bb52dd02a38206723697e2cbeaa321f"
 }

@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo https://prometheus-community.github.io/helm-charts --chart prometheus-blackbox-exporter --from 11.20.1 --to 11.20.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "b5116657063fe1776a04dd6ec0922066cee3a2c6860cd575811400f146f706b1"
 }

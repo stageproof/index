@@ -93,20 +93,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `graylog/graylog:7.2.2` could not be checked. The registry did not answer.",
-          "resource": "graylog/graylog:7.2.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `opensearchproject/opensearch:3.7.0` could not be checked. The registry did not answer.",
-          "resource": "opensearchproject/opensearch:3.7.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "MongoDBCommunity/default/stageproof-rel-graylog-mongodb was not judged. the API group is not installed on this server.",
           "resource": "MongoDBCommunity/default/stageproof-rel-graylog-mongodb",
           "rule_id": "k8s.apply.not_exercised",
@@ -123,6 +109,6 @@
   "reproduce_command": "stageproof check --repo https://charts.kong-z.com/ --chart graylog --from 3.0.24 --to 3.1.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "22490b6570725fb7e34ccbd5dbeceaf25b639cf330b11c0821c245bf7625b6a1"
 }

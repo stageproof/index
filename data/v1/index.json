@@ -22,7 +22,7 @@
       "release_notes_url": "",
       "latest": "3.4.3",
       "pairs": 19,
-      "blocked": 12
+      "blocked": 13
     },
     {
       "id": "airflow-helm/airflow",
@@ -34,7 +34,7 @@
       "release_notes_url": "",
       "latest": "8.9.0",
       "pairs": 19,
-      "blocked": 1
+      "blocked": 19
     },
     {
       "id": "akhq/akhq",
@@ -118,7 +118,7 @@
       "release_notes_url": "",
       "latest": "4.8.0",
       "pairs": 30,
-      "blocked": 29
+      "blocked": 18
     },
     {
       "id": "apisix/apisix",
@@ -165,7 +165,7 @@
       "homepage": "https://github.com/argoproj/argo-helm",
       "release_notes_url": "",
       "latest": "10.20.0",
-      "pairs": 268,
+      "pairs": 288,
       "blocked": 0
     },
     {
@@ -213,7 +213,7 @@
       "homepage": "https://github.com/argoproj/argo-helm",
       "release_notes_url": "",
       "latest": "2.0.10",
-      "pairs": 25,
+      "pairs": 43,
       "blocked": 0
     },
     {
@@ -238,7 +238,7 @@
       "release_notes_url": "",
       "latest": "1.24.0",
       "pairs": 21,
-      "blocked": 20
+      "blocked": 0
     },
     {
       "id": "atlantis/atlantis",
@@ -249,7 +249,7 @@
       "homepage": "https://www.runatlantis.io",
       "release_notes_url": "",
       "latest": "7.6.0",
-      "pairs": 79,
+      "pairs": 98,
       "blocked": 0
     },
     {
@@ -309,8 +309,8 @@
       "homepage": "https://github.com/aws/eks-charts",
       "release_notes_url": "",
       "latest": "3.7.0",
-      "pairs": 100,
-      "blocked": 3
+      "pairs": 120,
+      "blocked": 4
     },
     {
       "id": "aws/aws-node-termination-handler",
@@ -333,7 +333,7 @@
       "homepage": "https://github.com/aws/amazon-vpc-cni-k8s",
       "release_notes_url": "",
       "latest": "1.23.3",
-      "pairs": 79,
+      "pairs": 96,
       "blocked": 1
     },
     {
@@ -358,7 +358,7 @@
       "release_notes_url": "",
       "latest": "1.4.2",
       "pairs": 8,
-      "blocked": 0
+      "blocked": 6
     },
     {
       "id": "bitnami-labs/sealed-secrets",
@@ -370,9 +370,7 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0,
-      "failed": 1,
-      "error": "https://bitnami-labs.github.io/sealed-secrets/index.yaml: 404 Not Found"
+      "blocked": 0
     },
     {
       "id": "bootc/netbox",
@@ -384,7 +382,7 @@
       "release_notes_url": "",
       "latest": "4.1.1",
       "pairs": 17,
-      "blocked": 14
+      "blocked": 16
     },
     {
       "id": "camunda/camunda-platform",
@@ -394,9 +392,9 @@
       "stars": 22,
       "homepage": "https://docs.camunda.io/docs/self-managed/about-self-managed/",
       "release_notes_url": "",
-      "latest": "15.4.4",
-      "pairs": 196,
-      "blocked": 1
+      "latest": "15.4.5",
+      "pairs": 222,
+      "blocked": 6
     },
     {
       "id": "ceph-csi/ceph-csi-cephfs",
@@ -456,7 +454,7 @@
       "release_notes_url": "",
       "latest": "1.2.1",
       "pairs": 19,
-      "blocked": 0
+      "blocked": 11
     },
     {
       "id": "chaos-mesh/chaos-mesh",
@@ -539,7 +537,7 @@
       "homepage": "https://www.keycloak.org",
       "release_notes_url": "",
       "latest": "0.22.4",
-      "pairs": 16,
+      "pairs": 37,
       "blocked": 0
     },
     {
@@ -551,7 +549,7 @@
       "homepage": "https://mariadb.org",
       "release_notes_url": "",
       "latest": "0.17.1",
-      "pairs": 16,
+      "pairs": 37,
       "blocked": 0
     },
     {
@@ -563,7 +561,7 @@
       "homepage": "https://min.io",
       "release_notes_url": "",
       "latest": "0.14.0",
-      "pairs": 19,
+      "pairs": 37,
       "blocked": 1
     },
     {
@@ -575,7 +573,7 @@
       "homepage": "https://www.mongodb.com",
       "release_notes_url": "",
       "latest": "0.20.6",
-      "pairs": 13,
+      "pairs": 37,
       "blocked": 0
     },
     {
@@ -587,7 +585,7 @@
       "homepage": "https://www.postgresql.org",
       "release_notes_url": "",
       "latest": "0.22.1",
-      "pairs": 13,
+      "pairs": 37,
       "blocked": 0
     },
     {
@@ -599,7 +597,7 @@
       "homepage": "https://www.rabbitmq.com",
       "release_notes_url": "",
       "latest": "0.21.34",
-      "pairs": 10,
+      "pairs": 37,
       "blocked": 0
     },
     {
@@ -611,7 +609,7 @@
       "homepage": "https://www.redis.io",
       "release_notes_url": "",
       "latest": "0.42.0",
-      "pairs": 12,
+      "pairs": 45,
       "blocked": 0
     },
     {
@@ -623,7 +621,7 @@
       "homepage": "https://www.valkey.io",
       "release_notes_url": "",
       "latest": "0.26.1",
-      "pairs": 10,
+      "pairs": 37,
       "blocked": 0
     },
     {
@@ -648,7 +646,7 @@
       "release_notes_url": "",
       "latest": "23.0.2",
       "pairs": 77,
-      "blocked": 76
+      "blocked": 0
     },
     {
       "id": "codecentric/keycloak",
@@ -707,7 +705,7 @@
       "homepage": "https://github.com/coder/coder",
       "release_notes_url": "",
       "latest": "2.39.5",
-      "pairs": 232,
+      "pairs": 252,
       "blocked": 0
     },
     {
@@ -756,7 +754,7 @@
       "release_notes_url": "",
       "latest": "0.9.5",
       "pairs": 53,
-      "blocked": 0
+      "blocked": 1
     },
     {
       "id": "containeroo/local-path-provisioner",
@@ -816,7 +814,7 @@
       "release_notes_url": "",
       "latest": "11.1.1",
       "pairs": 27,
-      "blocked": 0
+      "blocked": 1
     },
     {
       "id": "crossplane/crossplane",
@@ -827,8 +825,8 @@
       "homepage": "https://crossplane.io",
       "release_notes_url": "",
       "latest": "1.2.1",
-      "pairs": 11,
-      "blocked": 8
+      "pairs": 17,
+      "blocked": 13
     },
     {
       "id": "crowdsec/crowdsec",
@@ -887,7 +885,7 @@
       "homepage": "https://www.datadoghq.com",
       "release_notes_url": "",
       "latest": "3.277.0",
-      "pairs": 449,
+      "pairs": 466,
       "blocked": 0
     },
     {
@@ -923,8 +921,8 @@
       "homepage": "https://www.getambassador.io/",
       "release_notes_url": "",
       "latest": "6.9.5",
-      "pairs": 117,
-      "blocked": 117
+      "pairs": 174,
+      "blocked": 174
     },
     {
       "id": "deliveryhero/locust",
@@ -1020,7 +1018,7 @@
       "release_notes_url": "",
       "latest": "0.40.0",
       "pairs": 39,
-      "blocked": 12
+      "blocked": 13
     },
     {
       "id": "docker-postfix/mail",
@@ -1440,7 +1438,7 @@
       "release_notes_url": "",
       "latest": "12.7.0",
       "pairs": 33,
-      "blocked": 2
+      "blocked": 6
     },
     {
       "id": "gitlab/gitlab",
@@ -1450,9 +1448,9 @@
       "stars": 282,
       "homepage": "https://about.gitlab.com/",
       "release_notes_url": "",
-      "latest": "10.6.1",
-      "pairs": 235,
-      "blocked": 155
+      "latest": "10.6.2",
+      "pairs": 268,
+      "blocked": 13
     },
     {
       "id": "gitlab/gitlab-agent",
@@ -1475,7 +1473,7 @@
       "homepage": "",
       "release_notes_url": "",
       "latest": "0.95.1",
-      "pairs": 96,
+      "pairs": 118,
       "blocked": 0
     },
     {
@@ -1499,7 +1497,7 @@
       "homepage": "https://grafana.com",
       "release_notes_url": "",
       "latest": "14.6.0",
-      "pairs": 206,
+      "pairs": 225,
       "blocked": 1
     },
     {
@@ -1511,7 +1509,7 @@
       "homepage": "https://grafana-community.github.io/helm-charts",
       "release_notes_url": "",
       "latest": "21.6.0",
-      "pairs": 312,
+      "pairs": 330,
       "blocked": 2
     },
     {
@@ -1535,7 +1533,7 @@
       "homepage": "https://grafana.com/docs/tempo/latest/",
       "release_notes_url": "",
       "latest": "3.30.1",
-      "pairs": 254,
+      "pairs": 272,
       "blocked": 1
     },
     {
@@ -1571,7 +1569,7 @@
       "homepage": "",
       "release_notes_url": "",
       "latest": "4.6.2",
-      "pairs": 193,
+      "pairs": 211,
       "blocked": 1
     },
     {
@@ -1619,7 +1617,7 @@
       "homepage": "",
       "release_notes_url": "",
       "latest": "1.6.10",
-      "pairs": 72,
+      "pairs": 76,
       "blocked": 0
     },
     {
@@ -1644,7 +1642,7 @@
       "release_notes_url": "",
       "latest": "2.1.0",
       "pairs": 76,
-      "blocked": 75
+      "blocked": 16
     },
     {
       "id": "hashicorp/terraform",
@@ -1655,7 +1653,7 @@
       "homepage": "https://www.terraform.io",
       "release_notes_url": "",
       "latest": "1.1.2",
-      "pairs": 1,
+      "pairs": 3,
       "blocked": 0
     },
     {
@@ -1716,7 +1714,7 @@
       "release_notes_url": "",
       "latest": "4.3.3",
       "pairs": 42,
-      "blocked": 10
+      "blocked": 12
     },
     {
       "id": "hirosystems/bitcoin-core",
@@ -1895,7 +1893,7 @@
       "homepage": "https://www.jfrog.com/artifactory/",
       "release_notes_url": "",
       "latest": "107.161.26",
-      "pairs": 137,
+      "pairs": 139,
       "blocked": 16
     },
     {
@@ -1907,7 +1905,7 @@
       "homepage": "https://www.jfrog.com/artifactory/",
       "release_notes_url": "",
       "latest": "107.161.26",
-      "pairs": 137,
+      "pairs": 139,
       "blocked": 16
     },
     {
@@ -1956,9 +1954,7 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0,
-      "failed": 1,
-      "error": "https://kubernetes.github.io/dashboard/index.yaml: 404 Not Found"
+      "blocked": 0
     },
     {
       "id": "kafka-ui/kafka-ui",
@@ -2006,7 +2002,7 @@
       "release_notes_url": "",
       "latest": "1.2.3",
       "pairs": 68,
-      "blocked": 17
+      "blocked": 18
     },
     {
       "id": "kestra/kestra",
@@ -2017,8 +2013,8 @@
       "homepage": "https://kestra.io",
       "release_notes_url": "",
       "latest": "2.0.13",
-      "pairs": 172,
-      "blocked": 4
+      "pairs": 192,
+      "blocked": 11
     },
     {
       "id": "kong-z/graylog",
@@ -2030,7 +2026,7 @@
       "release_notes_url": "",
       "latest": "3.1.2",
       "pairs": 72,
-      "blocked": 0
+      "blocked": 2
     },
     {
       "id": "kong/ingress",
@@ -2078,7 +2074,7 @@
       "release_notes_url": "",
       "latest": "53.6.0",
       "pairs": 44,
-      "blocked": 12
+      "blocked": 13
     },
     {
       "id": "kubeview/kubeview",
@@ -2125,8 +2121,8 @@
       "homepage": "https://kyverno.io/",
       "release_notes_url": "",
       "latest": "3.10.0",
-      "pairs": 133,
-      "blocked": 11
+      "pairs": 139,
+      "blocked": 25
     },
     {
       "id": "kyverno/kyverno-policies",
@@ -2150,7 +2146,7 @@
       "release_notes_url": "",
       "latest": "2.2.6",
       "pairs": 114,
-      "blocked": 1
+      "blocked": 7
     },
     {
       "id": "linkerd2/linkerd-control-plane",
@@ -2354,9 +2350,7 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0,
-      "failed": 1,
-      "error": "chart minio is not in https://helm.min.io/"
+      "blocked": 0
     },
     {
       "id": "mojo2600/pihole",
@@ -2415,8 +2409,8 @@
       "homepage": "https://netbox.dev/",
       "release_notes_url": "",
       "latest": "8.3.115",
-      "pairs": 451,
-      "blocked": 1
+      "pairs": 469,
+      "blocked": 67
     },
     {
       "id": "netdata/netdata",
@@ -2475,8 +2469,8 @@
       "homepage": "https://github.com/nginx/kubernetes-ingress",
       "release_notes_url": "",
       "latest": "2.9.1",
-      "pairs": 110,
-      "blocked": 41
+      "pairs": 119,
+      "blocked": 50
     },
     {
       "id": "nicholaswilde/code-server",
@@ -2523,7 +2517,7 @@
       "homepage": "https://okteto.com",
       "release_notes_url": "",
       "latest": "1.50.3",
-      "pairs": 65,
+      "pairs": 83,
       "blocked": 0
     },
     {
@@ -2535,7 +2529,7 @@
       "homepage": "https://ollama.ai/",
       "release_notes_url": "",
       "latest": "1.96.0",
-      "pairs": 115,
+      "pairs": 133,
       "blocked": 1
     },
     {
@@ -2560,7 +2554,7 @@
       "release_notes_url": "",
       "latest": "2.1.1",
       "pairs": 37,
-      "blocked": 0
+      "blocked": 1
     },
     {
       "id": "open-metadata/openmetadata",
@@ -2571,7 +2565,7 @@
       "homepage": "https://open-metadata.org/",
       "release_notes_url": "",
       "latest": "2.1.1",
-      "pairs": 126,
+      "pairs": 146,
       "blocked": 0
     },
     {
@@ -2656,7 +2650,7 @@
       "release_notes_url": "",
       "latest": "14.0.0",
       "pairs": 115,
-      "blocked": 114
+      "blocked": 3
     },
     {
       "id": "opensearch-operator/opensearch-operator",
@@ -2679,7 +2673,7 @@
       "homepage": "https://opensearch.org",
       "release_notes_url": "",
       "latest": "3.10.0",
-      "pairs": 51,
+      "pairs": 52,
       "blocked": 0
     },
     {
@@ -2692,9 +2686,7 @@
       "release_notes_url": "",
       "latest": "3.10.0",
       "pairs": 41,
-      "blocked": 1,
-      "failed": 1,
-      "error": "digest mismatch for opensearch-dashboards@3.9.0"
+      "blocked": 1
     },
     {
       "id": "opentelemetry-helm/opentelemetry-collector",
@@ -2705,7 +2697,7 @@
       "homepage": "https://opentelemetry.io/",
       "release_notes_url": "",
       "latest": "0.183.2",
-      "pairs": 156,
+      "pairs": 174,
       "blocked": 1
     },
     {
@@ -2717,7 +2709,7 @@
       "homepage": "https://opentelemetry.io/",
       "release_notes_url": "",
       "latest": "0.129.2",
-      "pairs": 133,
+      "pairs": 151,
       "blocked": 0
     },
     {
@@ -2741,7 +2733,7 @@
       "homepage": "https://penpot.app",
       "release_notes_url": "",
       "latest": "1.16.0",
-      "pairs": 80,
+      "pairs": 98,
       "blocked": 1
     },
     {
@@ -2837,7 +2829,7 @@
       "homepage": "https://prometheus.io/",
       "release_notes_url": "",
       "latest": "2.5.2",
-      "pairs": 88,
+      "pairs": 106,
       "blocked": 0
     },
     {
@@ -2849,7 +2841,7 @@
       "homepage": "https://github.com/prometheus-operator/kube-prometheus",
       "release_notes_url": "",
       "latest": "93.11.0",
-      "pairs": 527,
+      "pairs": 546,
       "blocked": 11
     },
     {
@@ -2873,7 +2865,7 @@
       "homepage": "https://prometheus.io/",
       "release_notes_url": "",
       "latest": "30.0.1",
-      "pairs": 188,
+      "pairs": 206,
       "blocked": 0
     },
     {
@@ -2897,7 +2889,7 @@
       "homepage": "https://github.com/prometheus/blackbox_exporter",
       "release_notes_url": "",
       "latest": "12.0.0",
-      "pairs": 69,
+      "pairs": 93,
       "blocked": 0
     },
     {
@@ -3005,7 +2997,7 @@
       "homepage": "https://github.com/oliver006/redis_exporter",
       "release_notes_url": "",
       "latest": "6.39.0",
-      "pairs": 56,
+      "pairs": 74,
       "blocked": 0
     },
     {
@@ -3089,8 +3081,8 @@
       "homepage": "",
       "release_notes_url": "",
       "latest": "1.21.3",
-      "pairs": 241,
-      "blocked": 58
+      "pairs": 270,
+      "blocked": 69
     },
     {
       "id": "rook/rook-ceph-cluster",
@@ -3101,8 +3093,8 @@
       "homepage": "",
       "release_notes_url": "",
       "latest": "1.21.3",
-      "pairs": 185,
-      "blocked": 23
+      "pairs": 203,
+      "blocked": 38
     },
     {
       "id": "runix/pgadmin4",
@@ -3138,7 +3130,7 @@
       "release_notes_url": "",
       "latest": "4.55.0",
       "pairs": 87,
-      "blocked": 0
+      "blocked": 2
     },
     {
       "id": "secret-store-csi-driver/secrets-store-csi-driver",
@@ -3174,7 +3166,7 @@
       "release_notes_url": "",
       "latest": "0.151.0",
       "pairs": 166,
-      "blocked": 67
+      "blocked": 0
     },
     {
       "id": "smallstep/step-certificates",
@@ -3186,7 +3178,7 @@
       "release_notes_url": "",
       "latest": "1.30.1",
       "pairs": 23,
-      "blocked": 10
+      "blocked": 0
     },
     {
       "id": "sonarqube/sonarqube",
@@ -3196,9 +3188,9 @@
       "stars": 136,
       "homepage": "https://www.sonarqube.org/",
       "release_notes_url": "",
-      "latest": "2026.5.1007",
-      "pairs": 69,
-      "blocked": 2
+      "latest": "2026.5.1008",
+      "pairs": 92,
+      "blocked": 3
     },
     {
       "id": "sonatype/nxrm-ha",
@@ -3305,8 +3297,8 @@
       "homepage": "",
       "release_notes_url": "",
       "latest": "19.0.1",
-      "pairs": 577,
-      "blocked": 162
+      "pairs": 595,
+      "blocked": 108
     },
     {
       "id": "thanos-community/thanos",
@@ -3329,7 +3321,7 @@
       "homepage": "https://traefik.io/",
       "release_notes_url": "",
       "latest": "43.0.0",
-      "pairs": 89,
+      "pairs": 107,
       "blocked": 5
     },
     {
@@ -3366,9 +3358,7 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0,
-      "failed": 1,
-      "error": "Get \"https://helm.twun.io/index.yaml\": dial tcp: lookup helm.twun.io on 127.0.0.53:53: read udp 127.0.0.1:33690->127.0.0.53:53: i/o timeout"
+      "blocked": 0
     },
     {
       "id": "unleash/unleash",
@@ -3512,7 +3502,7 @@
       "release_notes_url": "",
       "latest": "12.2.5",
       "pairs": 72,
-      "blocked": 0
+      "blocked": 1
     },
     {
       "id": "weblate/weblate",
@@ -3524,7 +3514,7 @@
       "release_notes_url": "",
       "latest": "0.5.50",
       "pairs": 48,
-      "blocked": 0
+      "blocked": 2
     },
     {
       "id": "wiremind/clamav",
@@ -3560,7 +3550,7 @@
       "release_notes_url": "",
       "latest": "2.1.10",
       "pairs": 18,
-      "blocked": 11
+      "blocked": 17
     },
     {
       "id": "yourls/yourls",
@@ -3571,8 +3561,8 @@
       "homepage": "https://yourls.org",
       "release_notes_url": "",
       "latest": "8.10.13",
-      "pairs": 190,
-      "blocked": 1
+      "pairs": 208,
+      "blocked": 17
     },
     {
       "id": "zabbix-community/zabbix",
@@ -3584,7 +3574,7 @@
       "release_notes_url": "",
       "latest": "8.0.1",
       "pairs": 36,
-      "blocked": 16
+      "blocked": 14
     },
     {
       "id": "zammad/zammad",
@@ -3596,7 +3586,7 @@
       "release_notes_url": "",
       "latest": "12.0.2",
       "pairs": 37,
-      "blocked": 6
+      "blocked": 22
     },
     {
       "id": "zitadel/zitadel",
@@ -3608,7 +3598,7 @@
       "release_notes_url": "",
       "latest": "10.5.0",
       "pairs": 105,
-      "blocked": 3
+      "blocked": 4
     }
   ],
   "notice": "chart defaults only; run with your values files",

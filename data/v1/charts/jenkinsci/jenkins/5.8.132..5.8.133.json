@@ -40,7 +40,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins, Pod/stageproof-check/stageproof-rel-ui-test-k6oai, Pod/stageproof-check/stageproof-rel-ui-test-ltpvy, StatefulSet/stageproof-check/stageproof-rel-jenkins",
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins, Pod/stageproof-check/stageproof-rel-ui-test-9qqem, Pod/stageproof-check/stageproof-rel-ui-test-fuwud, StatefulSet/stageproof-check/stageproof-rel-jenkins",
           "message": "Chart default `controller.installPlugins` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "controller.installPlugins",
@@ -64,6 +64,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.8.132 --to 5.8.133 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5e34774df66da59afa840e4777974eda968deb337fed3e6a992622d9d80d3d34"
 }

@@ -95,6 +95,6 @@
   "reproduce_command": "stageproof check --repo https://kubernetes.github.io/ingress-nginx --chart ingress-nginx --from 4.10.6 --to 4.11.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "6e60bc2201446901573daa1ebc69a1e769a784c56a5d6f68a5c289511e65a6b6"
 }

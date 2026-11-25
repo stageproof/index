@@ -23,8 +23,8 @@
         },
         {
           "name": "image tags",
-          "status": "pass",
-          "summary": "7 new or changed image tags checked"
+          "status": "fail",
+          "summary": "a new or changed image tag was not found, or it lacks the required platform"
         },
         {
           "name": "API server 1.35.0",
@@ -42,7 +42,7 @@
           "summary": "0 blockers (4 deprecation, EOL, or CRD warnings)"
         }
       ],
-      "exit_code": 0,
+      "exit_code": 1,
       "findings": [
         {
           "message": "ClusterRole/default/kyverno:cleanup-jobs adds rules that the current chart did not have.",
@@ -93,11 +93,11 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `bitnami/kubectl:1.28.5` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `bitnami/kubectl:1.28.5` was not found.",
           "resource": "bitnami/kubectl:1.28.5",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
           "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
@@ -131,13 +131,13 @@
       "head_ref": "3.2.4",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "PASSED"
+      "verdict": "BLOCKED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo https://kyverno.github.io/kyverno/ --chart kyverno --from 3.2.3 --to 3.2.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "81791fc525d6327af511c3ca182af11a1b6947168bfa9fb84cffbe43c86a361f"
 }

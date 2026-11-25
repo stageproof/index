@@ -182,13 +182,6 @@
           "message": "appVersion moves from 1.1.2 to 1.5.0. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnamilegacy/kubectl:1.29.3` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bitnamilegacy/kubectl:1.29.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "11.1.1",
@@ -201,6 +194,6 @@
   "reproduce_command": "stageproof check --repo https://cowboysysop.github.io/charts/ --chart vertical-pod-autoscaler --from 9.8.2 --to 11.1.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "fbef3ad036f59dc3cf9fc361cb92fae0564aa11f335f59b8b9e878dc490a4970"
 }

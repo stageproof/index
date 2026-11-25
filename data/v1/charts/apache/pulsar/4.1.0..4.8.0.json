@@ -9,7 +9,7 @@
         {
           "name": "helm template",
           "status": "pass",
-          "summary": "rendered 181 Kubernetes objects cleanly"
+          "summary": "rendered 179 Kubernetes objects cleanly"
         },
         {
           "name": "values.yaml AST",
@@ -29,12 +29,12 @@
         {
           "name": "API server 1.35.0",
           "status": "fail",
-          "summary": "4 rejections"
+          "summary": "2 rejections"
         },
         {
           "name": "impact",
           "status": "warn",
-          "summary": "Compared stored objects for 133 of 159 objects, and rendered objects for the rest."
+          "summary": "Compared stored objects for 133 of 157 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -45,7 +45,7 @@
       "exit_code": 1,
       "findings": [
         {
-          "message": "Helm will delete objects the new chart does not render: ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-controller-manager, ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kubelet, ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-scheduler, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kube-prometheus-general.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-windows.node.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-windows.pod.rules.",
+          "message": "Helm will delete objects the new chart does not render: ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-controller-manager, ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kubelet, ConfigMap/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-scheduler, Job/stageproof-check/stageproof-rel-pulsar-bookie-init, Job/stageproof-check/stageproof-rel-pulsar-pulsar-init, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-kube-prometheus-general.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-windows.node.rules, VMRule/stageproof-check/stageproof-rel-victoria-metrics-k8s-stack-windows.pod.rules.",
           "rule_id": "impact.delete",
           "severity": "warning"
         },
@@ -377,7 +377,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/stageproof-check/stageproof-rel-pulsar-bookie-init, Job/stageproof-check/stageproof-rel-pulsar-pulsar-init, StatefulSet/stageproof-check/stageproof-rel-pulsar-bookie, StatefulSet/stageproof-check/stageproof-rel-pulsar-broker, StatefulSet/stageproof-check/stageproof-rel-pulsar-proxy, StatefulSet/stageproof-check/stageproof-rel-pulsar-recovery, StatefulSet/stageproof-check/stageproof-rel-pulsar-toolset, StatefulSet/stageproof-check/stageproof-rel-pulsar-zookeeper",
+          "detail": "Affected objects: StatefulSet/stageproof-check/stageproof-rel-pulsar-bookie, StatefulSet/stageproof-check/stageproof-rel-pulsar-broker, StatefulSet/stageproof-check/stageproof-rel-pulsar-proxy, StatefulSet/stageproof-check/stageproof-rel-pulsar-recovery, StatefulSet/stageproof-check/stageproof-rel-pulsar-toolset, StatefulSet/stageproof-check/stageproof-rel-pulsar-zookeeper",
           "message": "Chart default `defaultPulsarImageRepository` changed from `apachepulsar/pulsar-all` to `apachepulsar/pulsar` and the rendered objects differ.",
           "proof": "render",
           "resource": "defaultPulsarImageRepository",
@@ -477,18 +477,6 @@
           "severity": "info"
         },
         {
-          "message": "The pod template of Job/stageproof-check/stageproof-rel-pulsar-bookie-init changed at spec.template.metadata. The pods will restart. A restart is normal for an upgrade.",
-          "resource": "Job/stageproof-check/stageproof-rel-pulsar-bookie-init",
-          "rule_id": "impact.restart",
-          "severity": "info"
-        },
-        {
-          "message": "The pod template of Job/stageproof-check/stageproof-rel-pulsar-pulsar-init changed at spec.template.metadata. The pods will restart. A restart is normal for an upgrade.",
-          "resource": "Job/stageproof-check/stageproof-rel-pulsar-pulsar-init",
-          "rule_id": "impact.restart",
-          "severity": "info"
-        },
-        {
           "message": "memory request increased on container stageproof-rel-pulsar-recovery of StatefulSet/stageproof-check/stageproof-rel-pulsar-recovery.",
           "resource": "StatefulSet/stageproof-check/stageproof-rel-pulsar-recovery",
           "rule_id": "impact.capacity.requests",
@@ -508,7 +496,7 @@
         },
         {
           "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
-          "message": "9 container images changed. DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter.template.spec.containers[0] node-exporter container moves from quay.io/prometheus/node-exporter:v1.9.0 to quay.io/prometheus/node-exporter:v1.10.2. Deployment/stageproof-check/stageproof-rel-grafana.template.spec.initContainers[0] init-chown-data container moves from docker.io/library/busybox:1.31.1 to docker.io/library/busybox:1.37.0. Deployment/stageproof-check/stageproof-rel-grafana.template.spec.initContainers[1] download-dashboards container moves from docker.io/curlimages/curl:8.9.1 to docker.io/curlimages/curl:8.18.0. Deployment/stageproof-check/stageproof-rel-grafana docker.io/grafana/grafana image moves from docker.io/grafana/grafana:11.5.1 to docker.io/grafana/grafana:12.4.1. Deployment/stageproof-check/stageproof-rel-grafana quay.io/kiwigrid/k8s-sidecar image moves from quay.io/kiwigrid/k8s-sidecar:1.30.0 to quay.io/kiwigrid/k8s-sidecar:2.5.0. Deployment/stageproof-check/stageproof-rel-kube-state-metrics.template.spec.containers[0] kube-state-metrics container moves from registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.14.0 to registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.18.0. Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator.template.spec.containers[0] operator container moves from victoriametrics/operator:v0.53.0 to victoriametrics/operator:v0.68.3. Job/stageproof-check/stageproof-rel-pulsar-bookie-init.template.spec.containers[0] stageproof-rel-pulsar-bookie-init container moves from apachepulsar/pulsar-all:4.0.5 to apachepulsar/pulsar:5.0.0. Job/stageproof-check/stageproof-rel-victoria-metrics-operator-cleanup-hook.template.spec.containers[0] kubectl container moves from bitnami/kubectl:1.35 to rancher/kubectl:v1.35.0.",
+          "message": "9 container images changed. DaemonSet/stageproof-check/stageproof-rel-prometheus-node-exporter.template.spec.containers[0] node-exporter container moves from quay.io/prometheus/node-exporter:v1.9.0 to quay.io/prometheus/node-exporter:v1.10.2. Deployment/stageproof-check/stageproof-rel-grafana.template.spec.initContainers[0] init-chown-data container moves from docker.io/library/busybox:1.31.1 to docker.io/library/busybox:1.37.0. Deployment/stageproof-check/stageproof-rel-grafana.template.spec.initContainers[1] download-dashboards container moves from docker.io/curlimages/curl:8.9.1 to docker.io/curlimages/curl:8.18.0. Deployment/stageproof-check/stageproof-rel-grafana docker.io/grafana/grafana image moves from docker.io/grafana/grafana:11.5.1 to docker.io/grafana/grafana:12.4.1. Deployment/stageproof-check/stageproof-rel-grafana quay.io/kiwigrid/k8s-sidecar image moves from quay.io/kiwigrid/k8s-sidecar:1.30.0 to quay.io/kiwigrid/k8s-sidecar:2.5.0. Deployment/stageproof-check/stageproof-rel-kube-state-metrics.template.spec.containers[0] kube-state-metrics container moves from registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.14.0 to registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.18.0. Deployment/stageproof-check/stageproof-rel-victoria-metrics-operator.template.spec.containers[0] operator container moves from victoriametrics/operator:v0.53.0 to victoriametrics/operator:v0.68.3. Job/stageproof-check/stageproof-rel-victoria-metrics-operator-cleanup-hook.template.spec.containers[0] kubectl container moves from bitnami/kubectl:1.35 to rancher/kubectl:v1.35.0. StatefulSet/stageproof-check/stageproof-rel-pulsar-bookie.template.spec.containers[0] stageproof-rel-pulsar-bookie container moves from apachepulsar/pulsar-all:4.0.5 to apachepulsar/pulsar:5.0.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
         },
@@ -520,15 +508,15 @@
         },
         {
           "detail": "The registry or the repository is different. The tag check still asks the new repository.",
-          "message": "Image repository changed from `index.docker.io/apachepulsar/pulsar-all` to `index.docker.io/apachepulsar/pulsar`.",
-          "resource": "Job/stageproof-check/stageproof-rel-pulsar-bookie-init.template.spec.containers[0] stageproof-rel-pulsar-bookie-init",
+          "message": "Image repository changed from `index.docker.io/bitnami/kubectl` to `index.docker.io/rancher/kubectl`.",
+          "resource": "Job/stageproof-check/stageproof-rel-victoria-metrics-operator-cleanup-hook.template.spec.containers[0] kubectl",
           "rule_id": "supply.image.moved",
           "severity": "info"
         },
         {
           "detail": "The registry or the repository is different. The tag check still asks the new repository.",
-          "message": "Image repository changed from `index.docker.io/bitnami/kubectl` to `index.docker.io/rancher/kubectl`.",
-          "resource": "Job/stageproof-check/stageproof-rel-victoria-metrics-operator-cleanup-hook.template.spec.containers[0] kubectl",
+          "message": "Image repository changed from `index.docker.io/apachepulsar/pulsar-all` to `index.docker.io/apachepulsar/pulsar`.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-pulsar-bookie.template.spec.containers[0] stageproof-rel-pulsar-bookie",
           "rule_id": "supply.image.moved",
           "severity": "info"
         },
@@ -548,18 +536,6 @@
         {
           "message": "Kubernetes rejected the update. `spec` is immutable.",
           "resource": "StatefulSet/stageproof-check/stageproof-rel-pulsar-zookeeper",
-          "rule_id": "k8s.apply.immutable_field",
-          "severity": "blocker"
-        },
-        {
-          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
-          "resource": "Job/stageproof-check/stageproof-rel-pulsar-bookie-init",
-          "rule_id": "k8s.apply.immutable_field",
-          "severity": "blocker"
-        },
-        {
-          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
-          "resource": "Job/stageproof-check/stageproof-rel-pulsar-pulsar-init",
           "rule_id": "k8s.apply.immutable_field",
           "severity": "blocker"
         },
@@ -587,6 +563,6 @@
   "reproduce_command": "stageproof check --repo https://pulsar.apache.org/charts --chart pulsar --from 4.1.0 --to 4.8.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "464f4a268463d187c9bc83b365b31de0b4a460533d948a04f846ba9b026068f5"
 }

@@ -56,13 +56,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `alpine:3.17` could not be checked. The registry did not answer.",
-          "resource": "alpine:3.17",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Cluster/stageproof-check/stageproof-rel-cluster was not judged. the API group is not installed on this server.",
           "resource": "Cluster/stageproof-check/stageproof-rel-cluster",
           "rule_id": "k8s.apply.not_exercised",
@@ -79,6 +72,6 @@
   "reproduce_command": "stageproof check --repo https://cloudnative-pg.io/charts/ --chart cluster --from 0.0.8 --to 0.9.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "95b23ee4b7e2b24d7aec03a9b6a7b751ce42c7447f1299a34460764a43a8f030"
 }

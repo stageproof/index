@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo https://falcosecurity.github.io/charts --chart falco --from 4.16.1 --to 4.16.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "12abd849a846a8f878eda9a550894c36a363063e051a78f073000dfb4924adc8"
 }

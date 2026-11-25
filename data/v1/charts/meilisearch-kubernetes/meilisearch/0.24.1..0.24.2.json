@@ -69,13 +69,6 @@
           "message": "1 container image changed. StatefulSet/default/stageproof-rel-meilisearch.template.spec.containers[0] meilisearch container moves from getmeili/meilisearch:v1.34.1 to getmeili/meilisearch:v1.34.2.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `getmeili/meilisearch:v1.34.2` could not be checked. The registry did not answer.",
-          "resource": "getmeili/meilisearch:v1.34.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.24.2",
@@ -88,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://meilisearch.github.io/meilisearch-kubernetes --chart meilisearch --from 0.24.1 --to 0.24.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "b1dca28f09ab9daf815d2f8020eac391f0d389e198cfe75e1b5c599ee9c9a7d9"
 }

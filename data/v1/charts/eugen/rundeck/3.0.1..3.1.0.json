@@ -84,6 +84,6 @@
   "reproduce_command": "stageproof check --repo https://eugenmayer.github.io/helm-charts/ --chart rundeck --from 3.0.1 --to 3.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "0e09dfb3dd050710a45dcef04e380471672fa51e6ec85a7be810a39997277bb5"
 }

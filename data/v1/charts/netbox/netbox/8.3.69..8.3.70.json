@@ -63,6 +63,13 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 8.3.70 failed: exit status 1\nError: execution error at (netbox/charts/valkey/templates/secret.yaml:25:22): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.valkey.password' must not be empty, please add '--set global.valkey.password=$VALKEY_PASSWORD' to the command. To get the current value:\n\n        export VALKEY_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-valkey -o jsonpath=\"{.data.valkey-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "8.3.70",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "helm template renders the chart that is already on disk. Run helm dependency update if the new constraint should be what this check renders.",
           "message": "A Chart.yaml dependency constraint changed, and the packaged chart under charts/ did not: postgresql ^18.8.13 to ^18.8.17.",
           "rule_id": "helm.dependency.not_updated",
@@ -79,6 +86,6 @@
   "reproduce_command": "stageproof check --repo https://charts.netbox.oss.netboxlabs.com/ --chart netbox --from 8.3.69 --to 8.3.70 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3461f5e9a56eb001731c58c1cd3b36e1fb193eb397b114611cca120cefdc97d8"
 }

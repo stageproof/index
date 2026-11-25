@@ -62,6 +62,6 @@
   "reproduce_command": "stageproof check --repo https://openbao.github.io/openbao-helm --chart openbao --from 0.29.4 --to 0.29.5 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "e67f5ee9603bfe85cf9923d01fbbaaed5dc57d1800f95e154af7f2154f05daae"
 }

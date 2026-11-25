@@ -85,6 +85,6 @@
   "reproduce_command": "stageproof check --repo https://argoproj.github.io/argo-helm --chart argo-workflows --from 0.46.1 --to 0.46.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3312f958a4b7cbeb9d51fbd1da94b8d9cf2c8d878dd62d024a870b30506201e1"
 }

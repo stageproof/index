@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://prometheus-community.github.io/helm-charts --chart prometheus-redis-exporter --from 6.33.0 --to 6.34.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "61bb2790da800b32ace67052aed802b2d66cdd8817b7abaccf03043227855786"
 }

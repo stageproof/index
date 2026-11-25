@@ -74,13 +74,6 @@
           "message": "1 container image changed. Pod/default/stageproof-rel-ui-test.containers[0] stageproof-rel-ui-test container moves from sonarqube:26.3.0.120487-community to sonarqube:26.5.0.122743-community.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `sonarqube:26.5.0.122743-community` could not be checked. The registry did not answer.",
-          "resource": "sonarqube:26.5.0.122743-community",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "2026.3.0",
@@ -93,6 +86,6 @@
   "reproduce_command": "stageproof check --repo https://SonarSource.github.io/helm-chart-sonarqube --chart sonarqube --from 2026.2.1 --to 2026.3.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "cf3c727c932149d83ad25f9088818bd891708ea444e330d07e687df3049830c0"
 }

@@ -62,13 +62,6 @@
           "message": "Chart version moves from 6.4.1 to 7.0.0, a new major version.",
           "rule_id": "helm.release.version_span",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/mongo-express:1.0.2` could not be checked. The registry did not answer.",
-          "resource": "docker.io/mongo-express:1.0.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "7.0.0",
@@ -81,6 +74,6 @@
   "reproduce_command": "stageproof check --repo https://cowboysysop.github.io/charts/ --chart mongo-express --from 6.4.1 --to 7.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c787ef4bd9383f200ceb3c4ba29f918447e3b3e78a758ed7a5bd74f8c4a63215"
 }

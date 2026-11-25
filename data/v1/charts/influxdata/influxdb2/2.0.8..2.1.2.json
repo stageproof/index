@@ -69,13 +69,6 @@
           "message": "1 container image changed. StatefulSet/default/stageproof-rel-influxdb2.template.spec.containers[0] influxdb2 container moves from influxdb:2.1.1-alpine to influxdb:2.7.4-alpine.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `influxdb:2.7.4-alpine` could not be checked. The registry did not answer.",
-          "resource": "influxdb:2.7.4-alpine",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "2.1.2",
@@ -88,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://helm.influxdata.com/ --chart influxdb2 --from 2.0.8 --to 2.1.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1da8b1e8a2b93e9acbb0bc9a9c0a3e526581ccde4bf271785d09699ed219ca08"
 }

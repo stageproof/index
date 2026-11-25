@@ -106,20 +106,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `alpine:latest` could not be checked. The registry did not answer.",
-          "resource": "alpine:latest",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `osixia/openldap:1.5.0` could not be checked. The registry did not answer.",
-          "resource": "osixia/openldap:1.5.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "Not found: \"secret-certs\"",
           "message": "Kubernetes rejected `spec.template.spec.initContainers[0].volumeMounts[1].name` on StatefulSet/default/stageproof-rel.",
           "resource": "StatefulSet/default/stageproof-rel",
@@ -137,6 +123,6 @@
   "reproduce_command": "stageproof check --repo https://jp-gouin.github.io/helm-openldap/ --chart openldap-stack-ha --from 2.1.6 --to 3.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c8758fbf1de6bfc581bf3e74fa89bc855eac5d38ab942fe328a992bedd787594"
 }

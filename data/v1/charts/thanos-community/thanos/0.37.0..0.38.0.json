@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo https://thanos-community.github.io/helm-charts --chart thanos --from 0.37.0 --to 0.38.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "afb8dc54203894f83aa98ac00284a175a40cb6e1d06f4aa3e73f9df6a20fff44"
 }

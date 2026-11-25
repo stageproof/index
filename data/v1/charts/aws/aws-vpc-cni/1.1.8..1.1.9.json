@@ -109,6 +109,6 @@
   "reproduce_command": "stageproof check --repo https://aws.github.io/eks-charts --chart aws-vpc-cni --from 1.1.8 --to 1.1.9 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5a1fbccd3753d19ad126175e25f6d2bec7fb3c5f282594cf24f0e550abe409e2"
 }

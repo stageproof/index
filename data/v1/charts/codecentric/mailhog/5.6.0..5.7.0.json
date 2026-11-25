@@ -48,6 +48,6 @@
   "reproduce_command": "stageproof check --repo https://codecentric.github.io/helm-charts --chart mailhog --from 5.6.0 --to 5.7.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "9eba370f48d0c32d3b2fd2ba0845dbd1f19934c681ece5f753d0fa08e529e524"
 }

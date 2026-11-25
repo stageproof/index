@@ -116,13 +116,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `public.ecr.aws/sumologic/opentelemetry-operator:0.144.0` could not be checked. The registry did not answer.",
-          "resource": "public.ecr.aws/sumologic/opentelemetry-operator:0.144.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
           "message": "Not sent to the API server: MutatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-mutation, ValidatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-validation, MutatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-mutation, ValidatingWebhookConfiguration/default/stageproof-rel-opentelemetry-operator-validation.",
           "rule_id": "k8s.apply.not_exercised",
@@ -174,6 +167,6 @@
   "reproduce_command": "stageproof check --repo https://sumologic.github.io/sumologic-kubernetes-collection --chart sumologic --from 4.21.0 --to 4.21.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c50f0b7f81d98f27b54ad716c2614365eabff9f4718c862120bd9632d71cb247"
 }

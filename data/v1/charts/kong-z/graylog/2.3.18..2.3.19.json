@@ -69,13 +69,6 @@
           "message": "1 container image changed. StatefulSet/default/stageproof-rel-graylog.template.spec.containers[0] graylog-server container moves from graylog/graylog:6.3.1 to graylog/graylog:6.3.3.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `graylog/graylog:6.3.3` could not be checked. The registry did not answer.",
-          "resource": "graylog/graylog:6.3.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "2.3.19",
@@ -88,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://charts.kong-z.com/ --chart graylog --from 2.3.18 --to 2.3.19 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8ab15c26df4b4d4ec3f9f1ede3a8962695c23a6d1f260b463e2d7699148d2dcc"
 }

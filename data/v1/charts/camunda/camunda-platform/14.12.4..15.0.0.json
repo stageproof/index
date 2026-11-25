@@ -1,0 +1,791 @@
+{
+  "from_sha256": "ffa4c955315222d978e5a858805b72c8ade94cfd7b814348b9d262123d0e2f16",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "14.12.4",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: orchestration.data.secondaryStorage.type"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 13 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "2 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects from the API server."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-release, ConfigMap/default/stageproof-rel-connectors-configuration, Deployment/default/stageproof-rel-connectors, Service/default/stageproof-rel-connectors, Service/default/stageproof-rel-connectors-headless, ServiceAccount/default/stageproof-rel-connectors",
+          "message": "Chart default `connectors.image.tag` changed from `8.9.22` to `8.10.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "connectors.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.affinity` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.affinity",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.command` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.command",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.configuration` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.configuration",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.containerSecurityContext.allowPrivilegeEscalation` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.containerSecurityContext.allowPrivilegeEscalation",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.containerSecurityContext.privileged` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.containerSecurityContext.privileged",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.containerSecurityContext.readOnlyRootFilesystem` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.containerSecurityContext.readOnlyRootFilesystem",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.containerSecurityContext.runAsNonRoot` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.containerSecurityContext.runAsNonRoot",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.containerSecurityContext.runAsUser` changed from `1001` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.containerSecurityContext.runAsUser",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.containerSecurityContext.seccompProfile.type` changed from `RuntimeDefault` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.containerSecurityContext.seccompProfile.type",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.contextPath` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.contextPath",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.dnsConfig` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.dnsConfig",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.dnsPolicy` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.dnsPolicy",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.env` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.env",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.envFrom` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.envFrom",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.extraConfiguration` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.extraConfiguration",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.extraVolumeMounts` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.extraVolumeMounts",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.extraVolumes` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.extraVolumes",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.image.digest` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.image.digest",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.image.pullSecrets` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.image.pullSecrets",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.image.registry` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.image.registry",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.image.repository` changed from `camunda/console` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.image.tag` changed from `8.9.133` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.initContainers` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.initContainers",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.keycloak.realm` changed from `camunda-platform` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.keycloak.realm",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.livenessProbe.enabled` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.livenessProbe.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.livenessProbe.failureThreshold` changed from `5` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.livenessProbe.failureThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.livenessProbe.initialDelaySeconds` changed from `30` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.livenessProbe.initialDelaySeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.livenessProbe.periodSeconds` changed from `30` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.livenessProbe.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.livenessProbe.probePath` changed from `/health/liveness` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.livenessProbe.probePath",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.livenessProbe.scheme` changed from `HTTP` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.livenessProbe.scheme",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.livenessProbe.successThreshold` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.livenessProbe.successThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.livenessProbe.timeoutSeconds` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.livenessProbe.timeoutSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.logging` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.logging",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.metrics.prometheus` changed from `/prometheus` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.metrics.prometheus",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.nodeEnv` changed from `prod` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.nodeEnv",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.nodeSelector` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.nodeSelector",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.overrideConfiguration` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.overrideConfiguration",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.podAnnotations` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.podAnnotations",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.podLabels` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.podLabels",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.podSecurityContext.fsGroup` changed from `1001` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.podSecurityContext.fsGroup",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.podSecurityContext.runAsNonRoot` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.podSecurityContext.runAsNonRoot",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.podSecurityContext.seccompProfile.type` changed from `RuntimeDefault` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.podSecurityContext.seccompProfile.type",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.readinessProbe.enabled` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.readinessProbe.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.readinessProbe.failureThreshold` changed from `5` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.readinessProbe.failureThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.readinessProbe.initialDelaySeconds` changed from `30` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.readinessProbe.initialDelaySeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.readinessProbe.periodSeconds` changed from `30` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.readinessProbe.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.readinessProbe.probePath` changed from `/health/readiness` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.readinessProbe.probePath",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.readinessProbe.scheme` changed from `HTTP` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.readinessProbe.scheme",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.readinessProbe.successThreshold` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.readinessProbe.successThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.readinessProbe.timeoutSeconds` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.readinessProbe.timeoutSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.replicas` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.replicas",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.resources.limits.cpu` changed from `2000m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.resources.limits.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.resources.limits.memory` changed from `2Gi` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.resources.limits.memory",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.resources.requests.cpu` changed from `1000m` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.resources.requests.cpu",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.resources.requests.memory` changed from `1Gi` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.resources.requests.memory",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.service.annotations` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.service.annotations",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.service.appProtocols` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.service.appProtocols",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.service.managementPort` changed from `9100` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.service.managementPort",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.service.port` changed from `80` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.service.port",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.service.serverName` changed from `http` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.service.serverName",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.service.type` changed from `ClusterIP` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.service.type",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.serviceAccount.annotations` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.serviceAccount.annotations",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.serviceAccount.automountServiceAccountToken` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.serviceAccount.automountServiceAccountToken",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.serviceAccount.enabled` changed from `true` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.serviceAccount.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.serviceAccount.labels` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.serviceAccount.labels",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.serviceAccount.name` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.serviceAccount.name",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.sidecars` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.sidecars",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.startupProbe.enabled` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.startupProbe.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.startupProbe.failureThreshold` changed from `5` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.startupProbe.failureThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.startupProbe.initialDelaySeconds` changed from `30` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.startupProbe.initialDelaySeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.startupProbe.periodSeconds` changed from `30` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.startupProbe.periodSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.startupProbe.probePath` changed from `/health/readiness` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.startupProbe.probePath",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.startupProbe.scheme` changed from `HTTP` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.startupProbe.scheme",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.startupProbe.successThreshold` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.startupProbe.successThreshold",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.startupProbe.timeoutSeconds` changed from `1` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.startupProbe.timeoutSeconds",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.tls.certKeyFilename` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.tls.certKeyFilename",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.tls.enabled` changed from `false` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.tls.enabled",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.tls.existingSecret` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.tls.existingSecret",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.tls.secret.existingSecret` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.tls.secret.existingSecret",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `console.tolerations` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "console.tolerations",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `global.identity.auth.console.audience` changed from `console-api` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.identity.auth.console.audience",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `global.identity.auth.console.clientId` changed from `console` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.identity.auth.console.clientId",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `global.identity.auth.console.redirectUrl` changed from `http://localhost:8087` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.identity.auth.console.redirectUrl",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-warnings",
+          "message": "Chart default `global.identity.auth.console.wellKnown` changed from `https://well-known-uri` to `unset` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "global.identity.auth.console.wellKnown",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `orchestration.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "orchestration.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/default/stageproof-rel-camunda-platform-release, ConfigMap/default/stageproof-rel-zeebe-configuration, Service/default/stageproof-rel-zeebe, Service/default/stageproof-rel-zeebe-gateway, ServiceAccount/default/stageproof-rel-zeebe, StatefulSet/default/stageproof-rel-zeebe",
+          "message": "Chart default `orchestration.image.tag` changed from `8.9.30` to `8.10.2` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "orchestration.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-connectors changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-connectors",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of StatefulSet/default/stageproof-rel-zeebe changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/default/stageproof-rel-zeebe",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 14.12.4 to 15.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 8.9.x to 8.10.x. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "2 container images changed. Deployment/default/stageproof-rel-connectors.template.spec.containers[0] connectors container moves from camunda/connectors-bundle:8.9.22 to camunda/connectors-bundle:8.10.0. StatefulSet/default/stageproof-rel-zeebe.template.spec.containers[0] orchestration container moves from camunda/camunda:8.9.30 to camunda/camunda:8.10.2.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "15.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://helm.camunda.io --chart camunda-platform --from 14.12.4 --to 15.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.4.0",
+  "to_sha256": "b1156298149ed5bdeb57e694bbecc28173d8e6ebad2cb592009fe041eda84d63"
+}

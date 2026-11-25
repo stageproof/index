@@ -61,13 +61,6 @@
           "message": "1 container image changed. Deployment/default/stageproof-rel-kafka-ui.template.spec.containers[0] kafka-ui container moves from docker.io/provectuslabs/kafka-ui:v0.6.1 to docker.io/provectuslabs/kafka-ui:v0.6.2.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/provectuslabs/kafka-ui:v0.6.2` could not be checked. The registry did not answer.",
-          "resource": "docker.io/provectuslabs/kafka-ui:v0.6.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.6.2",
@@ -80,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://ui.charts.kafbat.io/ --chart kafka-ui --from 0.6.1 --to 0.6.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c8eb41a0fcd385b5017563780a294d7a560b249efaa5a10c45d1e3d0ca1211c2"
 }

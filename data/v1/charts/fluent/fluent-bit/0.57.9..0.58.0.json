@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://fluent.github.io/helm-charts --chart fluent-bit --from 0.57.9 --to 0.58.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5547242f41ffccb8bda55454b8c777a086f20e55d7d5e0cc139ba537d8df1f75"
 }

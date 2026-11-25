@@ -185,6 +185,6 @@
   "reproduce_command": "stageproof check --repo https://helm.cilium.io/ --chart cilium --from 1.15.19 --to 1.16.5 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "182035ae7c2cf8d19490ececf618f6a11adc460ed1e7dbd38b23065f02f18b4d"
 }

@@ -79,6 +79,6 @@
   "reproduce_command": "stageproof check --repo https://aquasecurity.github.io/helm-charts/ --chart trivy-operator --from 0.29.2 --to 0.29.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "e170575d9cbc7626303047c2381041d2ce1fa9175882932f6a6a9b056df98982"
 }

@@ -79,6 +79,6 @@
   "reproduce_command": "stageproof check --repo https://kubernetes-sigs.github.io/descheduler/ --chart descheduler --from 0.35.0 --to 0.35.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1d5f01a97dd6799108153434bbd6f2552839255e6e44c83fe3b48c62738fd8e8"
 }

@@ -77,13 +77,6 @@
           "message": "2 container images changed. Pod/stageproof-check/stageproof-rel-redis-ha-configmap-test.containers[0] check-init container moves from koalaman/shellcheck:v0.5.0 to koalaman/shellcheck:v0.10.0. StatefulSet/stageproof-check/stageproof-rel-redis-ha-server.template.spec.containers[0] redis container moves from public.ecr.aws/docker/library/redis:7.2.4-alpine to public.ecr.aws/docker/library/redis:7.2.7-alpine.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `koalaman/shellcheck:v0.10.0` could not be checked. The registry did not answer.",
-          "resource": "koalaman/shellcheck:v0.10.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "4.33.1",
@@ -96,6 +89,6 @@
   "reproduce_command": "stageproof check --repo https://dandydeveloper.github.io/charts/ --chart redis-ha --from 4.32.0 --to 4.33.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "543d089b5dc06dc7053e968c518399de14db63f167c558834881da293518525d"
 }

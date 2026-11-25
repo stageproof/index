@@ -9,7 +9,7 @@
         {
           "name": "helm template",
           "status": "pass",
-          "summary": "rendered 13 Kubernetes objects cleanly"
+          "summary": "rendered 9 Kubernetes objects cleanly"
         },
         {
           "name": "values.yaml AST",
@@ -24,7 +24,7 @@
         {
           "name": "image tags",
           "status": "pass",
-          "summary": "4 new or changed image tags checked"
+          "summary": "2 new or changed image tags checked"
         },
         {
           "name": "API server 1.35.0",
@@ -51,7 +51,7 @@
           "severity": "warning"
         },
         {
-          "message": "Helm will delete objects the new chart does not render: Job/default/stageproof-rel, Service/default/stageproof-rel-step-certificates.",
+          "message": "Helm will delete objects the new chart does not render: Job/default/stageproof-rel, Role/stageproof-check/stageproof-rel-step-certificates-config, RoleBinding/stageproof-check/stageproof-rel-step-certificates-config, Service/default/stageproof-rel-step-certificates, ServiceAccount/stageproof-check/stageproof-rel-step-certificates-config.",
           "rule_id": "impact.delete",
           "severity": "warning"
         },
@@ -59,14 +59,6 @@
           "message": "StatefulSet/stageproof-check/stageproof-rel-step-certificates container step-certificates securityContext is weaker at capabilities.add.",
           "resource": "StatefulSet/stageproof-check/stageproof-rel-step-certificates",
           "rule_id": "impact.privilege.securitycontext",
-          "severity": "warning"
-        },
-        {
-          "detail": "Affected objects: Job/stageproof-check/stageproof-rel",
-          "message": "Chart default `bootstrap.image.repository` changed from `cr.step.sm/smallstep/step-ca-bootstrap` to `cr.smallstep.com/smallstep/step-ca-bootstrap` and the rendered objects differ.",
-          "proof": "render",
-          "resource": "bootstrap.image.repository",
-          "rule_id": "helm.values.default_changed",
           "severity": "warning"
         },
         {
@@ -91,13 +83,6 @@
         },
         {
           "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `cr.smallstep.com/smallstep/step-ca-bootstrap:latest` could not be checked. The registry did not answer.",
-          "resource": "cr.smallstep.com/smallstep/step-ca-bootstrap:latest",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
           "message": "Image `cr.smallstep.com/smallstep/step-ca:0.30.2` could not be checked. The registry did not answer.",
           "resource": "cr.smallstep.com/smallstep/step-ca:0.30.2",
           "rule_id": "supply.registry_unreachable",
@@ -114,6 +99,6 @@
   "reproduce_command": "stageproof check --repo https://smallstep.github.io/helm-charts/ --chart step-certificates --from 1.17.6 --to 1.30.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1a211cfa59eab3bea4712a7b344e8c8e8714ee784655b6ba36d9689870044c03"
 }

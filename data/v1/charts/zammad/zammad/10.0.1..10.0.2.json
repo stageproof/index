@@ -69,13 +69,6 @@
           "message": "2 container images changed. StatefulSet/default/stageproof-rel-zammad.template.spec.containers[0] zammad-nginx container moves from ghcr.io/zammad/zammad:6.1.0-22 to ghcr.io/zammad/zammad:6.1.0-24. StatefulSet/default/stageproof-rel-zammad.template.spec.initContainers[0] zammad-volume-permissions container moves from alpine:3.18.3 to alpine:3.18.4.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `alpine:3.18.4` could not be checked. The registry did not answer.",
-          "resource": "alpine:3.18.4",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "10.0.2",
@@ -88,6 +81,6 @@
   "reproduce_command": "stageproof check --repo oci://ghcr.io/zammad/charts --chart zammad --from 10.0.1 --to 10.0.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "88a4ca39dadff662e00bdb79571edde900c506fcb0606d3f4b8d9c3e7f274318"
 }

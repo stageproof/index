@@ -80,13 +80,6 @@
           "message": "1 container image changed. StatefulSet/stageproof-check/loki-backend.template.spec.containers[1] loki-sc-rules container moves from docker.io/kiwigrid/k8s-sidecar:2.5.5 to docker.io/kiwigrid/k8s-sidecar:2.6.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/kiwigrid/k8s-sidecar:2.6.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/kiwigrid/k8s-sidecar:2.6.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "11.1.0",
@@ -99,6 +92,6 @@
   "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 11.0.5 --to 11.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "f5dcc41be004c6b098806573675d5aaa0f5b25f90065d03532abe4bbd0c41baf"
 }

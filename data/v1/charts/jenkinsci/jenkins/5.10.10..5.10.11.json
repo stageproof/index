@@ -40,19 +40,12 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-oo8sq, Pod/stageproof-check/stageproof-rel-ui-test-tqmsl",
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-1qge2, Pod/stageproof-check/stageproof-rel-ui-test-gin0v",
           "message": "Chart default `controller.clusterIp` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "controller.clusterIp",
           "rule_id": "helm.values.default_changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bats/bats:1.14.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bats/bats:1.14.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "5.10.11",
@@ -65,6 +58,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.10.10 --to 5.10.11 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "e402400c03168d68f1c5e6a0fcd9b3bc8d971a40ab013ea4b08e07ebd42aaf1d"
 }

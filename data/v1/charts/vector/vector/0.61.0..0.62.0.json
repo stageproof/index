@@ -63,13 +63,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/timberio/vector:0.62.0-distroless-libc` could not be checked. The registry did not answer.",
-          "resource": "docker.io/timberio/vector:0.62.0-distroless-libc",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Kubernetes rejected the update. `spec` is immutable.",
           "resource": "StatefulSet/stageproof-check/stageproof-rel-vector",
           "rule_id": "k8s.apply.immutable_field",
@@ -93,6 +86,6 @@
   "reproduce_command": "stageproof check --repo https://helm.vector.dev --chart vector --from 0.61.0 --to 0.62.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "408c3c5cc8b7a50d57274f51a6469de7fd31b8b42ba0516c5ab32bde0404c6c7"
 }

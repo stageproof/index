@@ -204,6 +204,6 @@
   "reproduce_command": "stageproof check --repo oci://ghcr.io/nginx/charts --chart nginx-gateway-fabric --from 2.6.4 --to 2.9.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d98344da21e79ada6de3830ecc1371090ece7ce7ba94a666a1732bd335b2b382"
 }

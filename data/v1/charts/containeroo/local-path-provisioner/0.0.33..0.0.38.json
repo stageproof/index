@@ -91,13 +91,6 @@
           "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-local-path-provisioner.template.spec.containers[0] local-path-provisioner container moves from rancher/local-path-provisioner:v0.0.32 to docker.io/rancher/local-path-provisioner:v0.0.37.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/library/busybox:latest` could not be checked. The registry did not answer.",
-          "resource": "ConfigMap/stageproof-check/local-path-config docker.io/library/busybox",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.0.38",
@@ -110,6 +103,6 @@
   "reproduce_command": "stageproof check --repo https://charts.containeroo.ch --chart local-path-provisioner --from 0.0.33 --to 0.0.38 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1df764f8d8ce5368a869034b055c8caf234c756a0cac5f71a1eeee001f3a930a"
 }

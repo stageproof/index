@@ -352,20 +352,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnamilegacy/postgresql:16.1.0-debian-11-r15` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bitnamilegacy/postgresql:16.1.0-debian-11-r15",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `redis:7.2-bookworm` could not be checked. The registry did not answer.",
-          "resource": "redis:7.2-bookworm",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Kubernetes rejected the update. `spec` is immutable.",
           "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql",
           "rule_id": "k8s.apply.immutable_field",
@@ -389,6 +375,6 @@
   "reproduce_command": "stageproof check --repo https://airflow.apache.org/ --chart airflow --from 1.7.0 --to 1.22.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1f7d1dfe3d58e2c54899950aba907a43625a18c8b6fb3c54760c21592129a5b6"
 }

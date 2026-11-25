@@ -95,6 +95,6 @@
   "reproduce_command": "stageproof check --repo https://helm.cilium.io/ --chart tetragon --from 1.5.0 --to 1.6.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "70fc9b2476dc9d3710b54a5eaa86590dfdf1908ec11f00649b4de4733b5f24bc"
 }

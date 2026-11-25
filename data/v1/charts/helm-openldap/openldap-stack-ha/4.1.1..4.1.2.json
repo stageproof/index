@@ -83,6 +83,6 @@
   "reproduce_command": "stageproof check --repo https://jp-gouin.github.io/helm-openldap/ --chart openldap-stack-ha --from 4.1.1 --to 4.1.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "6afdf018f4eea0d29ec6a7f68c607f21c1140da0c28beb5da3cb92cccd361906"
 }

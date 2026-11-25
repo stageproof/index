@@ -23,6 +23,6 @@
   "reproduce_command": "stageproof check --repo https://jitsi-contrib.github.io/jitsi-helm/ --chart jitsi-meet --from 1.5.0 --to 1.5.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "f9d453653095bd7db6f7185e7d1df069daffb526e542ebdbe7a0b2d2a3b3844d"
 }

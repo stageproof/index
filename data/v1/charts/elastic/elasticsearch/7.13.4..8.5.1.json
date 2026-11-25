@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-kscgx-test, Pod/default/stageproof-rel-xiawb-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-fsaou-test, Pod/default/stageproof-rel-ypylx-test",
           "message": "Chart default `fsGroup` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "fsGroup",
@@ -53,7 +53,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-mtiub-test, Pod/default/stageproof-rel-xiawb-test, StatefulSet/default/elasticsearch-master",
+          "detail": "Affected objects: Pod/default/stageproof-rel-goeyr-test, Pod/default/stageproof-rel-ypylx-test, StatefulSet/default/elasticsearch-master",
           "message": "Chart default `imageTag` changed from `7.13.4` to `8.5.1` and the rendered objects differ.",
           "proof": "render",
           "resource": "imageTag",
@@ -61,7 +61,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-tzxug-test, Pod/default/stageproof-rel-xiawb-test, StatefulSet/default/elasticsearch-master",
+          "detail": "Affected objects: Pod/default/stageproof-rel-uftej-test, Pod/default/stageproof-rel-ypylx-test, StatefulSet/default/elasticsearch-master",
           "message": "Chart default `protocol` changed from `http` to `https` and the rendered objects differ.",
           "proof": "render",
           "resource": "protocol",
@@ -103,6 +103,6 @@
   "reproduce_command": "stageproof check --repo https://helm.elastic.co --chart elasticsearch --from 7.13.4 --to 8.5.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8a5e70ec72dc480c8a01b079bf7240722da7d017f5683178e23a745d418448ba"
 }

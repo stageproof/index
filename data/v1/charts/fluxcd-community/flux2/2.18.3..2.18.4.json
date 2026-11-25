@@ -165,6 +165,6 @@
   "reproduce_command": "stageproof check --repo https://fluxcd-community.github.io/helm-charts --chart flux2 --from 2.18.3 --to 2.18.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "262f0646e60ffdb50ff9c944dd0a6455ca7e64359b237ff8a2edd60b5916f57a"
 }

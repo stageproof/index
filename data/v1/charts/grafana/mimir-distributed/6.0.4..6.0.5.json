@@ -158,6 +158,6 @@
   "reproduce_command": "stageproof check --repo https://grafana.github.io/helm-charts --chart mimir-distributed --from 6.0.4 --to 6.0.5 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "371b91d285fba5d3d56b1aba595d68821d43e6740378fb75b4c0142b4d7db638"
 }

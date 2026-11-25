@@ -87,6 +87,6 @@
   "reproduce_command": "stageproof check --repo https://istio-release.storage.googleapis.com/charts --chart istiod --from 1.28.1 --to 1.28.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "80f54aa38f2144f316229aafce55ebba5587cd0a564b2f76dbcce0502f095910"
 }

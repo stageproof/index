@@ -48,6 +48,6 @@
   "reproduce_command": "stageproof check --repo https://1password.github.io/connect-helm-charts --chart connect --from 2.2.0 --to 2.2.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8f6e9ea69d7b81e593782aa0ef4b9918a074c5d376ea06eec1fcd3bf7352f701"
 }

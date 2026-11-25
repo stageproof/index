@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-podinfo, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-2vdok, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-8ufay, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-msbfz, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-oevbx, Pod/stageproof-check/stageproof-rel-podinfo-service-test-gpqkl, Pod/stageproof-check/stageproof-rel-podinfo-service-test-ivvja",
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-podinfo, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-2huwa, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-9ezvn, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-3qyyg, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-ndfow, Pod/stageproof-check/stageproof-rel-podinfo-service-test-hlta8, Pod/stageproof-check/stageproof-rel-podinfo-service-test-zqanb",
           "message": "Chart default `image.tag` changed from `6.15.0` to `6.16.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "image.tag",
@@ -69,20 +69,6 @@
           "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-podinfo.template.spec.containers[0] podinfo container moves from ghcr.io/stefanprodan/podinfo:6.15.0 to ghcr.io/stefanprodan/podinfo:6.16.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `curlimages/curl:7.69.0` could not be checked. The registry did not answer.",
-          "resource": "curlimages/curl:7.69.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `giantswarm/tiny-tools` could not be checked. The registry did not answer.",
-          "resource": "giantswarm/tiny-tools",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "6.16.0",
@@ -95,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://stefanprodan.github.io/podinfo --chart podinfo --from 6.15.0 --to 6.16.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "0b1aebb87a895e62b871e68f56f9bd35f0bd58127c26ab14434c876e880cde78"
 }

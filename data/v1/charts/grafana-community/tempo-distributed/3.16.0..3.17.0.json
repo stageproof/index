@@ -103,6 +103,6 @@
   "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart tempo-distributed --from 3.16.0 --to 3.17.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "21448b0af27699afa7d0fd68fde57f1fbd40b2d60f38a1d10a877f99b4ecb424"
 }

@@ -88,20 +88,6 @@
           "message": "2 container images changed. StatefulSet/stageproof-check/enterprise-logs-backend.template.spec.containers[0] loki-sc-rules container moves from kiwigrid/k8s-sidecar:1.28.0 to kiwigrid/k8s-sidecar:1.29.0. StatefulSet/stageproof-check/stageproof-rel-enterprise-logs-chunks-cache.template.spec.containers[0] memcached container moves from memcached:1.6.33-alpine to memcached:1.6.34-alpine.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `kiwigrid/k8s-sidecar:1.29.0` could not be checked. The registry did not answer.",
-          "resource": "kiwigrid/k8s-sidecar:1.29.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `memcached:1.6.34-alpine` could not be checked. The registry did not answer.",
-          "resource": "memcached:1.6.34-alpine",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "6.24.1",
@@ -114,6 +100,6 @@
   "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 6.24.0 --to 6.24.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "f887bb3f9493f3ec12160277b38c9fc840783c8adcd3f8aaaff092ef3230dd07"
 }

@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config, Pod/stageproof-check/stageproof-rel-ui-test-kdyfd, Pod/stageproof-check/stageproof-rel-ui-test-u29im",
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config, Pod/stageproof-check/stageproof-rel-ui-test-jig9b, Pod/stageproof-check/stageproof-rel-ui-test-ssn3y",
           "message": "Chart default `agent.image.tag` changed from `3395.v6e5377b_0fb_3c-2-jdk25` to `3395.v6e5377b_0fb_3c-5-jdk25` and the rendered objects differ.",
           "proof": "render",
           "resource": "agent.image.tag",
@@ -53,7 +53,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-kdyfd, Pod/stageproof-check/stageproof-rel-ui-test-vckhy",
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-jig9b, Pod/stageproof-check/stageproof-rel-ui-test-smijv",
           "message": "Chart default `controller.clusterIp` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "controller.clusterIp",
@@ -61,7 +61,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins, Pod/stageproof-check/stageproof-rel-ui-test-dsd8h, Pod/stageproof-check/stageproof-rel-ui-test-kdyfd, StatefulSet/stageproof-check/stageproof-rel-jenkins",
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins, Pod/stageproof-check/stageproof-rel-ui-test-7yr75, Pod/stageproof-check/stageproof-rel-ui-test-jig9b, StatefulSet/stageproof-check/stageproof-rel-jenkins",
           "message": "Chart default `controller.installPlugins` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "controller.installPlugins",
@@ -69,7 +69,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-kdyfd, Pod/stageproof-check/stageproof-rel-ui-test-tcane, StatefulSet/stageproof-check/stageproof-rel-jenkins",
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-jig9b, Pod/stageproof-check/stageproof-rel-ui-test-rqsz7, StatefulSet/stageproof-check/stageproof-rel-jenkins",
           "message": "Chart default `controller.sidecars.configAutoReload.image.tag` changed from `2.14.1` to `2.14.3` and the rendered objects differ.",
           "proof": "render",
           "resource": "controller.sidecars.configAutoReload.image.tag",
@@ -93,20 +93,6 @@
           "message": "2 container images changed. ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config jenkins/inbound-agent image moves from jenkins/inbound-agent:3395.v6e5377b_0fb_3c-2-jdk25 to jenkins/inbound-agent:3395.v6e5377b_0fb_3c-5-jdk25. StatefulSet/stageproof-check/stageproof-rel-jenkins.template.spec.containers[1] config-reload container moves from docker.io/kiwigrid/k8s-sidecar:2.14.1 to docker.io/kiwigrid/k8s-sidecar:2.14.3.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bats/bats:1.14.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bats/bats:1.14.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/kiwigrid/k8s-sidecar:2.14.3` could not be checked. The registry did not answer.",
-          "resource": "docker.io/kiwigrid/k8s-sidecar:2.14.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "5.13.3",
@@ -119,6 +105,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.10.7 --to 5.13.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "90ba804e982aa2c413b88a76c62980d33838282a4200a1b2720f0a9d489287e7"
 }

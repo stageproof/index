@@ -68,6 +68,6 @@
   "reproduce_command": "stageproof check --repo https://openfaas.github.io/faas-netes --chart openfaas --from 15.0.16 --to 15.0.17 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "dac04d15b65d1e08c837f0ed01c1b7d5715cf8d748c706bd6a210a802d3b0de6"
 }

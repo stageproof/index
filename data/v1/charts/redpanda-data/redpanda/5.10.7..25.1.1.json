@@ -128,13 +128,6 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `mintel/docker-alpine-bash-curl-jq:latest` could not be checked. The registry did not answer.",
-          "resource": "mintel/docker-alpine-bash-curl-jq:latest",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Certificate/stageproof-check/stageproof-rel-default-root-certificate was not judged. the API group is not installed on this server.",
           "resource": "Certificate/stageproof-check/stageproof-rel-default-root-certificate",
           "rule_id": "k8s.apply.not_exercised",
@@ -193,6 +186,6 @@
   "reproduce_command": "stageproof check --repo https://charts.redpanda.com --chart redpanda --from 5.10.7 --to 25.1.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5cf31b1717c007262c9b9cea9ec57d9660d5ae0f75c3a59f1c805c3017c9b7aa"
 }

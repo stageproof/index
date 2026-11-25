@@ -63,13 +63,6 @@
           "message": "1 container image changed. Deployment/default/stageproof-rel-acryl-datahub-actions.template.spec.containers[0] acryl-datahub-actions container moves from docker.io/acryldata/datahub-actions:v0.2.0 to docker.io/acryldata/datahub-actions:v1.2.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/acryldata/datahub-actions:v1.2.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/acryldata/datahub-actions:v1.2.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.6.16",
@@ -82,6 +75,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datahubproject.io --chart datahub --from 0.6.15 --to 0.6.16 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8fcfc4cbcfea67f256b182a4a86fd2fcfb735f10c3a8f315e8ecc91aa49bc9f1"
 }

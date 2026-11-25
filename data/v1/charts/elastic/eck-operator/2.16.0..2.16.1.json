@@ -85,6 +85,6 @@
   "reproduce_command": "stageproof check --repo https://helm.elastic.co --chart eck-operator --from 2.16.0 --to 2.16.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "fefb27516f60d1673087b58c7cdc15364fee8e194ee242e6b0b8ec7fab12e632"
 }

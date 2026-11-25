@@ -95,20 +95,6 @@
           "resource": "gcr.io/kubecost1/frontend:prod-1.103.0",
           "rule_id": "supply.image.unverifiable",
           "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `kiwigrid/k8s-sidecar:1.23.1` could not be checked. The registry did not answer.",
-          "resource": "kiwigrid/k8s-sidecar:1.23.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/node-exporter:v1.5.0` could not be checked. The registry did not answer.",
-          "resource": "prom/node-exporter:v1.5.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.103.0",
@@ -121,6 +107,6 @@
   "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 1.102.2 --to 1.103.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "583f628e24737a5d8187be3faa54dfe072837b04cd58f0cbc213a36fa1670bd5"
 }

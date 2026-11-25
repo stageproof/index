@@ -67,13 +67,6 @@
           "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-semaphore.template.spec.containers[0] semaphore container moves from semaphoreui/semaphore:v2.14.8 to semaphoreui/semaphore:v2.18.3.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `semaphoreui/semaphore:v2.18.3` could not be checked. The registry did not answer.",
-          "resource": "semaphoreui/semaphore:v2.18.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "16.2.2",
@@ -86,6 +79,6 @@
   "reproduce_command": "stageproof check --repo https://semaphoreui.github.io/charts/ --chart semaphore --from 15.1.4 --to 16.2.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a7802961495579054262740908e71effa9d8d5858a15ef187d2de77498b35945"
 }

@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo oci://ghcr.io/zammad/charts --chart zammad --from 9.0.1 --to 9.0.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "9cbb930e79d6f3eb4a714cdc543b84b8759a7b9b9e89a0b10f6c8880ef5b7b3c"
 }

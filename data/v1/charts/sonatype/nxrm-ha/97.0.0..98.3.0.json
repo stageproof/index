@@ -75,13 +75,6 @@
           "message": "1 container image changed. StatefulSet/nexusrepo/stageproof-rel-nxrm-ha.template.spec.containers[0] nxrm-app container moves from sonatype/nexus3:3.97.0 to sonatype/nexus3:3.98.3.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `sonatype/nexus3:3.98.3` could not be checked. The registry did not answer.",
-          "resource": "sonatype/nexus3:3.98.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "98.3.0",
@@ -94,6 +87,6 @@
   "reproduce_command": "stageproof check --repo https://sonatype.github.io/helm3-charts/ --chart nxrm-ha --from 97.0.0 --to 98.3.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d23a0779ef594dc408bc7232dbd20516d60261d9cb0e15b1ce5819f5a65d245c"
 }

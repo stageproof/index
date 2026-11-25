@@ -88,6 +88,6 @@
   "reproduce_command": "stageproof check --repo https://bokysan.github.io/docker-postfix/ --chart mail --from v5.1.0 --to 5.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5c0a88cdbd5090f0518474c746ea8a58dbb32eec886b7fda3d51b4f0ab534b00"
 }

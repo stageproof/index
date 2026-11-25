@@ -83,20 +83,6 @@
           "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
           "rule_id": "helm.operator.existing_custom_resources",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/alertmanager:v0.29.0` could not be checked. The registry did not answer.",
-          "resource": "prom/alertmanager:v0.29.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/prometheus:v3.7.3` could not be checked. The registry did not answer.",
-          "resource": "prom/prometheus:v3.7.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "14.2.129",
@@ -109,6 +95,6 @@
   "reproduce_command": "stageproof check --repo https://openfaas.github.io/faas-netes --chart openfaas --from 14.2.128 --to 14.2.129 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "4f2c98412be44b5377ea3dceb64bbefac4a6a6f0ade7d532cff51847a9b8b96e"
 }

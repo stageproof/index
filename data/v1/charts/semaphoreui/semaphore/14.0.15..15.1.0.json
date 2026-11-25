@@ -15,7 +15,7 @@
       "exit_code": 1,
       "findings": [
         {
-          "detail": "helm template 15.1.0 failed: exit status 1\nError: values don't meet the specifications of the schema(s) in the following chart(s):\nsemaphore:\n- at '/general/host': got null, want string\n- at '/ingress/className': got null, want string\n- at '/database': validation failed\n  - at '/database/port': got null, want integer\n  - at '/database/existingSecret': got null, want string\n  - at '/database/password': got null, want string\n  - at '/database/persistence': validation failed\n    - at '/database/persistence/storageClass': got null, want string\n    - at '/database/persistence/existingClaim': got null, want string\n  - at '/database/host': got null, want string\n- at '/persistence': validation failed\n  - at '/persistence/existingClaim': got null, want string\n  - at '/persistence/storageClass': got null, want string\n- at '/secrets': validation failed\n  - at '/secrets/existingSecret': got null, want string\n  - at '/secrets/accesskeyEncryption': got null, want string\n  - at '/secrets/cookieEncryption': got null, want string\n  - at '/secrets/cookieHash': got null, want string",
+          "detail": "helm template 15.1.0 failed: exit status 1\nError: values don't meet the specifications of the schema(s) in the following chart(s):\nsemaphore:\n- at '/database': validation failed\n  - at '/database/password': got null, want string\n  - at '/database/persistence': validation failed\n    - at '/database/persistence/existingClaim': got null, want string\n    - at '/database/persistence/storageClass': got null, want string\n  - at '/database/existingSecret': got null, want string\n  - at '/database/port': got null, want integer\n  - at '/database/host': got null, want string\n- at '/persistence': validation failed\n  - at '/persistence/storageClass': got null, want string\n  - at '/persistence/existingClaim': got null, want string\n- at '/ingress/className': got null, want string\n- at '/general/host': got null, want string\n- at '/secrets': validation failed\n  - at '/secrets/accesskeyEncryption': got null, want string\n  - at '/secrets/cookieEncryption': got null, want string\n  - at '/secrets/cookieHash': got null, want string\n  - at '/secrets/existingSecret': got null, want string",
           "file": "15.1.0",
           "message": "Candidate chart (`--to`) failed `helm template` rendering.",
           "rule_id": "helm.template.render_failed",
@@ -32,6 +32,6 @@
   "reproduce_command": "stageproof check --repo https://semaphoreui.github.io/charts/ --chart semaphore --from 14.0.15 --to 15.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "660f306d4ad7ea5e97022899edd54be4066c768d977f14feaf50217c16984f11"
 }

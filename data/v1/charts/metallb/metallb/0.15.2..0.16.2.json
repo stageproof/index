@@ -172,6 +172,6 @@
   "reproduce_command": "stageproof check --repo https://metallb.github.io/metallb --chart metallb --from 0.15.2 --to 0.16.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "96667a810bdf9b9d1e6d320af16a4e66c63ba56301bc21005e645cd7a1c298a4"
 }

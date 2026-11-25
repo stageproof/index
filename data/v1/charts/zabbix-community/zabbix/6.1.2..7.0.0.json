@@ -34,7 +34,7 @@
         {
           "name": "impact",
           "status": "warn",
-          "summary": "Compared stored objects for 7 of 12 objects, and rendered objects for the rest."
+          "summary": "Compared stored objects for 8 of 12 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -106,41 +106,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `busybox:latest` could not be checked. The registry did not answer.",
-          "resource": "busybox:latest",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `zabbix/zabbix-agent2:ubuntu-7.0.8` could not be checked. The registry did not answer.",
-          "resource": "zabbix/zabbix-agent2:ubuntu-7.0.8",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `zabbix/zabbix-server-pgsql:ubuntu-7.0.8` could not be checked. The registry did not answer.",
-          "resource": "zabbix/zabbix-server-pgsql:ubuntu-7.0.8",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `zabbix/zabbix-web-nginx-pgsql:ubuntu-7.0.8` could not be checked. The registry did not answer.",
-          "resource": "zabbix/zabbix-web-nginx-pgsql:ubuntu-7.0.8",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `zabbix/zabbix-web-service:ubuntu-7.0.8` could not be checked. The registry did not answer.",
-          "resource": "zabbix/zabbix-web-service:ubuntu-7.0.8",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Kubernetes rejected the update. `spec.selector` is immutable.",
           "resource": "Deployment/default/stageproof-rel-zabbix-zabbix-server",
           "rule_id": "k8s.apply.immutable_field",
@@ -203,6 +168,6 @@
   "reproduce_command": "stageproof check --repo https://zabbix-community.github.io/helm-zabbix/ --chart zabbix --from 6.1.2 --to 7.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a00ab26751c78d5036ed93091ba725fcee382777e17bce34e735231641dc2374"
 }

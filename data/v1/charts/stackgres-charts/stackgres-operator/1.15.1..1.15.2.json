@@ -23,6 +23,6 @@
   "reproduce_command": "stageproof check --repo https://stackgres.io/downloads/stackgres-k8s/stackgres/helm/ --chart stackgres-operator --from 1.15.1 --to 1.15.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "50c82c8ae1d0781725ab82413eb5267e181d1a48aa83fdb08ecf1766ddf69c3a"
 }

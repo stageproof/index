@@ -81,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://prometheus-community.github.io/helm-charts --chart prometheus-kafka-exporter --from 3.1.1 --to 4.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "0ed81a6760461a710121f58d817d46c4218c36cd1b4a93aaa3d34aae470d521b"
 }

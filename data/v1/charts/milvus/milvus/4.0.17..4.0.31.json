@@ -9,7 +9,7 @@
         {
           "name": "helm template",
           "status": "pass",
-          "summary": "rendered 46 Kubernetes objects cleanly"
+          "summary": "rendered 44 Kubernetes objects cleanly"
         },
         {
           "name": "values.yaml AST",
@@ -33,8 +33,8 @@
         },
         {
           "name": "impact",
-          "status": "pass",
-          "summary": "Compared stored objects for 45 of 46 objects, and rendered objects for the rest."
+          "status": "warn",
+          "summary": "Compared stored objects for 43 of 44 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -44,6 +44,11 @@
       ],
       "exit_code": 0,
       "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Job/stageproof-check/stageproof-rel-pulsar-bookie-init, Job/stageproof-check/stageproof-rel-pulsar-pulsar-init.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
         {
           "detail": "Affected objects: Deployment/default/stageproof-rel-milvus-datacoord, Deployment/default/stageproof-rel-milvus-datanode, Deployment/default/stageproof-rel-milvus-indexcoord, Deployment/default/stageproof-rel-milvus-indexnode, Deployment/default/stageproof-rel-milvus-proxy, Deployment/default/stageproof-rel-milvus-querycoord, Deployment/default/stageproof-rel-milvus-querynode, Deployment/default/stageproof-rel-milvus-rootcoord",
           "message": "Chart default `image.all.tag` changed from `v2.2.6` to `v2.2.13` and the rendered objects differ.",
@@ -115,6 +120,12 @@
           "severity": "info"
         },
         {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-etcd changed at spec.template.spec.containers[name=etcd].env[name=ETCD_INITIAL_CLUSTER_STATE].value. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-etcd",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
           "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
           "message": "appVersion moves from 2.2.6 to 2.2.13. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
@@ -137,6 +148,6 @@
   "reproduce_command": "stageproof check --repo https://raw.githubusercontent.com/milvus-io/milvus-helm/gh-pages --chart milvus --from 4.0.17 --to 4.0.31 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "355d48bcd1b64dbaaf66a455a9b04f986116f7be9cb055d0f72bc36701de9bbb"
 }

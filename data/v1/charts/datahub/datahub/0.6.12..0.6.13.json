@@ -40,22 +40,6 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-system-update-nonblk",
-          "message": "Chart default `global.elasticsearch.search.custom.config.queryConfigurations` changed and the rendered objects differ.",
-          "proof": "render",
-          "resource": "global.elasticsearch.search.custom.config.queryConfigurations",
-          "rule_id": "helm.values.default_changed",
-          "severity": "warning"
-        },
-        {
-          "detail": "Affected objects: Job/default/stageproof-rel-system-update-nonblk",
-          "message": "Chart default `global.elasticsearch.search.custom.enabled` changed from `false` to `unset` and the rendered objects differ.",
-          "proof": "render",
-          "resource": "global.elasticsearch.search.custom.enabled",
-          "rule_id": "helm.values.default_changed",
-          "severity": "warning"
-        },
-        {
           "message": "The pod template of Deployment/default/stageproof-rel-datahub-gms changed at spec.template.spec.containers[name=datahub-gms].env[name=ELASTICSEARCH_QUERY_CUSTOM_CONFIG_ENABLED]. The pods will restart. A restart is normal for an upgrade.",
           "resource": "Deployment/default/stageproof-rel-datahub-gms",
           "rule_id": "impact.restart",
@@ -72,6 +56,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datahubproject.io --chart datahub --from 0.6.12 --to 0.6.13 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "32766126998ca620cf48f6c09ad7f31871eebf6f5215e5d2cb1df34aff382e34"
 }

@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo oci://registry-1.docker.io/cloudpirates --chart postgres --from 0.19.14 --to 0.19.15 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d0851bf4dabd0e0ca056a5320f7812c1e7b7a862b64c70155db599237cb32fd9"
 }

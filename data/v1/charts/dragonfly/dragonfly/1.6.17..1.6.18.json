@@ -67,13 +67,6 @@
           "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-mysql.template.spec.containers[0] mysql container moves from docker.io/bitnamilegacy/mysql:8.0.36-debian-12-r10 to docker.io/bitnamilegacy/mysql:8.4.3-debian-12-r0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnamilegacy/mysql:8.4.3-debian-12-r0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bitnamilegacy/mysql:8.4.3-debian-12-r0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.6.18",
@@ -86,6 +79,6 @@
   "reproduce_command": "stageproof check --repo https://dragonflyoss.github.io/helm-charts/ --chart dragonfly --from 1.6.17 --to 1.6.18 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "2a0db87e1baf92f58b4c56a454d1cacce1277d970e72745b148e79e2e73caeb1"
 }

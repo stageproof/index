@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://emberstack.github.io/helm-charts --chart reflector --from 5.3.1 --to 5.3.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "ccabae9ce5c5d961ef6049683ac16e479b88f2e7080e9c27309492c1628029ad"
 }

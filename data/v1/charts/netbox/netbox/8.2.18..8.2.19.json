@@ -79,24 +79,17 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 8.2.19 failed: exit status 1\nError: execution error at (netbox/charts/valkey/templates/secret.yaml:25:22): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.valkey.password' must not be empty, please add '--set global.valkey.password=$VALKEY_PASSWORD' to the command. To get the current value:\n\n        export VALKEY_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-valkey -o jsonpath=\"{.data.valkey-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "8.2.19",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
           "message": "2 container images changed. Deployment/stageproof-check/stageproof-rel-netbox.template.spec.initContainers[0] init-dirs container moves from docker.io/busybox:1.37.0 to docker.io/busybox:1.38.0. Pod/default/stageproof-rel-netbox-test-connection.containers[0] wget container moves from busybox:1.37.0 to busybox:1.38.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `busybox:1.38.0` could not be checked. The registry did not answer.",
-          "resource": "busybox:1.38.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/busybox:1.38.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/busybox:1.38.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "8.2.19",
@@ -109,6 +102,6 @@
   "reproduce_command": "stageproof check --repo https://charts.netbox.oss.netboxlabs.com/ --chart netbox --from 8.2.18 --to 8.2.19 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "219d6c0978c9c5e95f091db1827fb3f584dc4b5808ea246ddff262f9ba7792ce"
 }

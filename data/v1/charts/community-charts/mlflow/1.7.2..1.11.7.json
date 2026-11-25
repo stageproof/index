@@ -75,13 +75,6 @@
           "message": "1 container image changed. Deployment/default/stageproof-rel-mlflow.template.spec.containers[0] mlflow container moves from burakince/mlflow:3.5.0 to burakince/mlflow:3.16.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `burakince/mlflow:3.16.0` could not be checked. The registry did not answer.",
-          "resource": "burakince/mlflow:3.16.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.11.7",
@@ -94,6 +87,6 @@
   "reproduce_command": "stageproof check --repo https://community-charts.github.io/helm-charts --chart mlflow --from 1.7.2 --to 1.11.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8aecf5a11bee5b87ec8e76f524ce415e322eb19007acec2657f6b38260723d87"
 }

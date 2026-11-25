@@ -70,6 +70,6 @@
   "reproduce_command": "stageproof check --repo https://vmware-tanzu.github.io/helm-charts/ --chart velero --from 12.2.1 --to 12.2.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "28142d37e82d86bf52963848613cafa36092f421f00675f12d458369fc5fafd3"
 }

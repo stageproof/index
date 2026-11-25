@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo https://cetic.github.io/helm-charts --chart nifi --from 1.1.5 --to 1.2.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "eec502f3156fb903905f834085cc1177492db792873adbede757632b29df7888"
 }

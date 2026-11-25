@@ -1,0 +1,48 @@
+{
+  "from_sha256": "56ba9aa4b90bc64d66b840ab7600498c276c1c0733f8a0db7b74744b5487b763",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "9.11.17",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "required values shim",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: global.hosts.workspaces.name"
+        },
+        {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: certmanager-issuer.email"
+        },
+        {
+          "name": "helm template",
+          "status": "fail",
+          "summary": "a required value is unset"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "detail": "helm template 10.0.0 failed: exit status 1\nError: execution error at (gitlab/templates/NOTES.txt:214:3): \nCONFIGURATION CHECKS:\n\nRegistry Object Storage:\n  The chart provides no longer bundled object storage solution. Please\n  prepare an external object storage solution for the Registry by following \n  https://docs.gitlab.com/charts/advanced/external-object-storage/#registry-configuration\n\nBackup Object Storage:\n  The chart provides no longer bundled object storage solution. Please\n  prepare an external object storage solution for backup and restore by following\n  https://docs.gitlab.com/charts/advanced/external-object-storage/#backups\n\nObject Storage:\n  When type-specific object storage is enabled the `connection` property can not be empty. Check the following object storage configuration(s): artifacts,lfs,uploads,packages\n\nredis:\n  You must configure an Redis connetion. Please set `global.redis.host`. Since chart v10.0.0,\n  external Redis became required. If you were using the bundled Redis chart refer to\n  https://docs.gitlab.com/charts/installation/migration/bundled_chart_migration/.\n\npostgresql:\n    You must configure an PostgreSQL connetion. Please set `global.psql.host`. Since chart v10.0.0,\n    external PostgreSQL became required. If you were using the bundled PostgreSQL chart refer to\n    https://docs.gitlab.com/charts/installation/migration/bundled_chart_migration/.\n\npostgresql:\n    You must configure an PostgreSQL connetion. Please set `global.psql.password.secret`. Since chart v10.0.0,\n    external PostgreSQL became required. If you were using the bundled PostgreSQL chart refer to\n    https://docs.gitlab.com/charts/installation/migration/bundled_chart_migration/.\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "10.0.0",
+          "message": "The new chart does not render because a required value is unset.",
+          "proof": "render",
+          "rule_id": "helm.values.new_required_unset",
+          "severity": "blocker"
+        }
+      ],
+      "head_ref": "10.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo http://charts.gitlab.io/ --chart gitlab --from 9.11.17 --to 10.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.4.0",
+  "to_sha256": "6787dcd77db6cf8a68895c90a2d99138eb84a9a376e62f6306a2a82dacc2d924"
+}

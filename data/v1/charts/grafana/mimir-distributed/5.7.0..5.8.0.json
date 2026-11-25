@@ -188,13 +188,6 @@
           "message": "2 container images changed. Deployment/stageproof-check/stageproof-rel-mimir-distributor.template.spec.containers[0] distributor container moves from grafana/mimir:2.16.0 to grafana/mimir:2.17.0. Deployment/stageproof-check/stageproof-rel-mimir-nginx.template.spec.containers[0] nginx container moves from docker.io/nginxinc/nginx-unprivileged:1.27-alpine to docker.io/nginxinc/nginx-unprivileged:1.28-alpine.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/nginxinc/nginx-unprivileged:1.28-alpine` could not be checked. The registry did not answer.",
-          "resource": "docker.io/nginxinc/nginx-unprivileged:1.28-alpine",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "5.8.0",
@@ -207,6 +200,6 @@
   "reproduce_command": "stageproof check --repo https://grafana.github.io/helm-charts --chart mimir-distributed --from 5.7.0 --to 5.8.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "07f3d784b98165717e0d2aa6b56d4b104c0067aa968305b8616f0e1a6574c03a"
 }

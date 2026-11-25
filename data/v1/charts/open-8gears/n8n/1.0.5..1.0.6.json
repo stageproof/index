@@ -48,6 +48,6 @@
   "reproduce_command": "stageproof check --repo oci://8gears.container-registry.com/library --chart n8n --from 1.0.5 --to 1.0.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5b97669bbd1b4e2e08d6270b5aacef42e07e44807645bba03cd88c94572eb986"
 }

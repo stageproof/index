@@ -75,13 +75,6 @@
           "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-mailpit.template.spec.containers[0] mailpit container moves from docker.io/axllent/mailpit:v1.30.6 to docker.io/axllent/mailpit:v1.34.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/axllent/mailpit:v1.34.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/axllent/mailpit:v1.34.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.39.1",
@@ -94,6 +87,6 @@
   "reproduce_command": "stageproof check --repo https://jouve.github.io/charts/ --chart mailpit --from 0.35.0 --to 0.39.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "cc36f9ca8460097b7d99c34b47efc79a6541a790fffb3fd76f52fcb5bac662dc"
 }

@@ -48,6 +48,6 @@
   "reproduce_command": "stageproof check --repo https://jaegertracing.github.io/helm-charts --chart jaeger --from 4.18.0 --to 4.19.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c3a3e6e95c5a45e76fabb6626d0fdda2b6925ee76b93058818a022a613c0a441"
 }

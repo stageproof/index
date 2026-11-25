@@ -41,14 +41,6 @@
       "findings": [
         {
           "detail": "Affected objects: Job/default/stageproof-rel-system-update",
-          "message": "Chart default `datahubSystemUpdate.elasticsearch.setup.enabled` changed from `false` to `true` and the rendered objects differ.",
-          "proof": "render",
-          "resource": "datahubSystemUpdate.elasticsearch.setup.enabled",
-          "rule_id": "helm.values.default_changed",
-          "severity": "warning"
-        },
-        {
-          "detail": "Affected objects: Job/default/stageproof-rel-system-update",
           "message": "Chart default `datahubSystemUpdate.sql.setup.enabled` changed from `false` to `true` and the rendered objects differ.",
           "proof": "render",
           "resource": "datahubSystemUpdate.sql.setup.enabled",
@@ -56,7 +48,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-elasticsearch-setup-job, Job/default/stageproof-rel-system-update",
+          "detail": "Affected objects: Job/default/stageproof-rel-elasticsearch-setup-job",
           "message": "Chart default `elasticsearchSetupJob.enabled` changed from `true` to `false` and the rendered objects differ.",
           "proof": "render",
           "resource": "elasticsearchSetupJob.enabled",
@@ -64,7 +56,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-mysql-setup-job, Job/default/stageproof-rel-system-update",
+          "detail": "Affected objects: Job/default/stageproof-rel-mysql-setup-job",
           "message": "Chart default `mysqlSetupJob.enabled` changed from `true` to `false` and the rendered objects differ.",
           "proof": "render",
           "resource": "mysqlSetupJob.enabled",
@@ -82,6 +74,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datahubproject.io --chart datahub --from 0.8.16 --to 0.8.17 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "f34e38aef2803a7dcc4be1acacfd218ad0b8a8720e8976942f1a8770669667f5"
 }

@@ -74,6 +74,13 @@
           "resource": "CronJob/stageproof-check/stageproof-rel-netbox-housekeeping",
           "rule_id": "impact.restart",
           "severity": "info"
+        },
+        {
+          "detail": "helm template 5.0.13 failed: exit status 1\nError: execution error at (netbox/charts/redis/templates/replicas/application.yaml:52:35): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.redis.password' must not be empty, please add '--set global.redis.password=$REDIS_PASSWORD' to the command. To get the current value:\n\n        export REDIS_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-redis -o jsonpath=\"{.data.redis-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "5.0.13",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
         }
       ],
       "head_ref": "5.0.13",
@@ -86,6 +93,6 @@
   "reproduce_command": "stageproof check --repo https://charts.netbox.oss.netboxlabs.com/ --chart netbox --from 5.0.12 --to 5.0.13 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c2a5ebdf078eb6e30cd47fcb035897047adef7cc31bb1557ffa2fbb64bd5313b"
 }

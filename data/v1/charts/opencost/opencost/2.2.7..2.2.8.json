@@ -89,6 +89,6 @@
   "reproduce_command": "stageproof check --repo https://opencost.github.io/opencost-helm-chart/ --chart opencost --from 2.2.7 --to 2.2.8 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "fb3590f4fe21d3aeb3dea4bf468e028f8421bc35985350eb8c3b22ffd4e3b71e"
 }

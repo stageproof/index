@@ -28,6 +28,6 @@
   "reproduce_command": "stageproof check --repo https://dagster-io.github.io/helm --chart dagster --from 1.10.11 --to 1.10.12 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c864c0396576979642fb6881e259096bd79e047d96318579f5b574f5e32d5858"
 }

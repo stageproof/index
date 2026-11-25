@@ -132,13 +132,6 @@
           "message": "3 container images changed. DaemonSet/stageproof-check/enterprise-logs-canary.template.spec.containers[0] loki-canary container moves from docker.io/grafana/loki-canary:3.3.1 to docker.io/grafana/loki-canary:3.3.2. Deployment/default/stageproof-rel-enterprise-logs-admin-api.template.spec.containers[0] admin-api container moves from docker.io/grafana/enterprise-logs:3.3.1 to docker.io/grafana/enterprise-logs:3.3.0. StatefulSet/stageproof-check/stageproof-rel-enterprise-logs-chunks-cache.template.spec.containers[0] memcached container moves from memcached:1.6.32-alpine to memcached:1.6.33-alpine.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `memcached:1.6.33-alpine` could not be checked. The registry did not answer.",
-          "resource": "memcached:1.6.33-alpine",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "6.24.0",
@@ -151,6 +144,6 @@
   "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 6.23.0 --to 6.24.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a0c5ce3ce659ad3f940b9bdeeef49624fb14a5e4eec840814d76f2edaae3c886"
 }

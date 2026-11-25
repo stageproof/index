@@ -98,13 +98,6 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `minio/operator:v4.5.1` could not be checked. The registry did not answer.",
-          "resource": "minio/operator:v4.5.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
           "message": "CRD size is 662 KiB (>256 KiB client-side `last-applied-configuration` limit).",
           "resource": "CustomResourceDefinition/default/tenants.minio.min.io",
@@ -122,6 +115,6 @@
   "reproduce_command": "stageproof check --repo https://operator.min.io --chart operator --from 4.5.0 --to 4.5.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d1be481f3701bc53041e0b6f23e0b9a94f6af0f2cc3da9034d609c608958f892"
 }

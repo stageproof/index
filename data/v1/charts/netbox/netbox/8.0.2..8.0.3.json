@@ -68,6 +68,13 @@
           "resource": "CronJob/stageproof-check/stageproof-rel-netbox-housekeeping",
           "rule_id": "impact.restart",
           "severity": "info"
+        },
+        {
+          "detail": "helm template 8.0.3 failed: exit status 1\nError: execution error at (netbox/charts/valkey/templates/replicas/application.yaml:51:35): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.valkey.password' must not be empty, please add '--set global.valkey.password=$VALKEY_PASSWORD' to the command. To get the current value:\n\n        export VALKEY_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-valkey -o jsonpath=\"{.data.valkey-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "8.0.3",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
         }
       ],
       "head_ref": "8.0.3",
@@ -80,6 +87,6 @@
   "reproduce_command": "stageproof check --repo https://charts.netbox.oss.netboxlabs.com/ --chart netbox --from 8.0.2 --to 8.0.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "7cfc5c52e9613c4b0947843c7dee2ebda090f37014f397f9398921d527ec7d68"
 }

@@ -98,7 +98,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-della-test, Pod/default/stageproof-rel-kuiau-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-fzkpx-test, Pod/default/stageproof-rel-mvkfi-test",
           "message": "Chart default `externalServices.redisHost` changed from `redis_hostname` to `dragonfly_hostname` and the rendered objects differ.",
           "proof": "render",
           "resource": "externalServices.redisHost",
@@ -106,7 +106,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-dhapz-test, Pod/default/stageproof-rel-kuiau-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-imvuo-test, Pod/default/stageproof-rel-mvkfi-test",
           "message": "Chart default `redis.architecture` changed from `standalone` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.architecture",
@@ -114,7 +114,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-knpil-test, Pod/default/stageproof-rel-kuiau-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-mvkfi-test, Pod/default/stageproof-rel-zgsin-test",
           "message": "Chart default `redis.auth.enabled` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.auth.enabled",
@@ -122,7 +122,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-flode-test, Pod/default/stageproof-rel-kuiau-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-mvkfi-test, Pod/default/stageproof-rel-xagly-test",
           "message": "Chart default `redis.databaseNumber` changed from `0` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.databaseNumber",
@@ -130,7 +130,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-ajtbn-test, Pod/default/stageproof-rel-kuiau-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-miyee-test, Pod/default/stageproof-rel-mvkfi-test",
           "message": "Chart default `redis.enabled` changed from `true` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.enabled",
@@ -138,7 +138,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-ebvpu-test, Pod/default/stageproof-rel-kuiau-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-etgkw-test, Pod/default/stageproof-rel-mvkfi-test",
           "message": "Chart default `redis.master.name` changed from `{{ .Release.Name }}-redis-master` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.master.name",
@@ -146,7 +146,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-kuiau-test, Pod/default/stageproof-rel-uxwia-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-kmcjn-test, Pod/default/stageproof-rel-mvkfi-test",
           "message": "Chart default `redis.master.persistence.accessModes` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.master.persistence.accessModes",
@@ -154,7 +154,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-jogyk-test, Pod/default/stageproof-rel-kuiau-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-mvkfi-test, Pod/default/stageproof-rel-qrvsk-test",
           "message": "Chart default `redis.master.persistence.enabled` changed from `true` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.master.persistence.enabled",
@@ -162,7 +162,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-kuiau-test, Pod/default/stageproof-rel-qcqrm-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-kjcel-test, Pod/default/stageproof-rel-mvkfi-test",
           "message": "Chart default `redis.master.persistence.size` changed from `5Gi` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.master.persistence.size",
@@ -170,7 +170,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-kuiau-test, Pod/default/stageproof-rel-utlqd-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-evzzf-test, Pod/default/stageproof-rel-mvkfi-test",
           "message": "Chart default `redis.master.persistence.storageClass` changed from `null` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.master.persistence.storageClass",
@@ -178,7 +178,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-hguiv-test, Pod/default/stageproof-rel-kuiau-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-gqjvo-test, Pod/default/stageproof-rel-mvkfi-test",
           "message": "Chart default `redis.master.port` changed from `6379` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.master.port",
@@ -221,13 +221,6 @@
           "resource": "Deployment/stageproof-check/stageproof-rel-mongodb.template.spec.containers[0] mongodb",
           "rule_id": "supply.image.moved",
           "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnamilegacy/mongodb:6.0.10-debian-11-r8` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bitnamilegacy/mongodb:6.0.10-debian-11-r8",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "7.15.0",
@@ -240,6 +233,6 @@
   "reproduce_command": "stageproof check --repo https://clearml.github.io/clearml-helm-charts --chart clearml --from 7.14.5 --to 7.15.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5781f05a6f98c465d282cd2494658ff9894e965d655cdbe800849387d512f893"
 }

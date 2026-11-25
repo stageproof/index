@@ -116,6 +116,6 @@
   "reproduce_command": "stageproof check --repo https://prometheus-community.github.io/helm-charts --chart kube-prometheus-stack --from 88.1.0 --to 88.1.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "65d777ca8097ff8a8c83e1c44b7e5a8b468be77d479ccd0a403f23164f2be4a0"
 }

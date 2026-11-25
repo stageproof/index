@@ -67,13 +67,6 @@
           "message": "1 container image changed. Deployment/default/stageproof-rel-opensearch-dashboards.template.spec.containers[0] dashboards container moves from opensearchproject/opensearch-dashboards:3.1.0 to opensearchproject/opensearch-dashboards:3.10.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `opensearchproject/opensearch-dashboards:3.10.0` could not be checked. The registry did not answer.",
-          "resource": "opensearchproject/opensearch-dashboards:3.10.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "3.10.0",
@@ -86,6 +79,6 @@
   "reproduce_command": "stageproof check --repo https://opensearch-project.github.io/helm-charts --chart opensearch-dashboards --from 3.1.0 --to 3.10.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "02a1adc978fce8a1e91fe94ec328dc8fd2d51ac0ca00d497c98c5ba2b8d975d6"
 }

@@ -69,13 +69,6 @@
           "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-weblate.template.spec.containers[0] weblate container moves from weblate/weblate:2026.11.1.0@sha256:6e0caa383cdf44e6130d5d3fe858c2addc959a1d091de86d67aefb6bb892a42b to weblate/weblate:2026.11.2.0@sha256:559bb57e2cae8471386ac646cb852c615996d199d02a3f8894d004acb03a1b77.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `weblate/weblate:2026.11.2.0@sha256:559bb57e2cae8471386ac646cb852c615996d199d02a3f8894d004acb03a1b77` could not be checked. The registry did not answer.",
-          "resource": "weblate/weblate:2026.11.2.0@sha256:559bb57e2cae8471386ac646cb852c615996d199d02a3f8894d004acb03a1b77",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.5.49",
@@ -88,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://helm.weblate.org --chart weblate --from 0.5.48 --to 0.5.49 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "035d7880b74d30f7836488fb92ba1cf48bcb3146e2927194057b031691d751a9"
 }

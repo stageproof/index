@@ -67,13 +67,6 @@
           "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-trino-coordinator.template.spec.containers[0] trino-coordinator container moves from trinodb/trino:470 to trinodb/trino:474.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `trinodb/trino:474` could not be checked. The registry did not answer.",
-          "resource": "trinodb/trino:474",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.38.0",
@@ -86,6 +79,6 @@
   "reproduce_command": "stageproof check --repo https://trinodb.github.io/charts/ --chart trino --from 1.37.0 --to 1.38.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8c785a3002f81e20795b22fc2a796cee972db086dfe52154c799bea541c1fd55"
 }

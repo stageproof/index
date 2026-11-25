@@ -66,13 +66,6 @@
           "message": "1 container image changed. Deployment/default/stageproof-rel-kestra-standalone.template.spec.containers[0] kestra-standalone container moves from kestra/kestra:v1.1.10 to kestra/kestra:v1.1.11.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `kestra/kestra:v1.1.11` could not be checked. The registry did not answer.",
-          "resource": "kestra/kestra:v1.1.11",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.0.25",
@@ -85,6 +78,6 @@
   "reproduce_command": "stageproof check --repo https://helm.kestra.io/ --chart kestra --from 1.0.24 --to 1.0.25 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "371c89bbe1f0a7720d7ae136d7bdd21a55c5743cadc5a64566bf265af914bd63"
 }

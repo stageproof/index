@@ -77,13 +77,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/datawire/aes:1.8.1` could not be checked. The registry did not answer.",
-          "resource": "docker.io/datawire/aes:1.8.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
           "resource": "ClusterRole/default/stageproof-rel-ambassador-crds",
           "rule_id": "k8s.api.removed",
@@ -148,6 +141,6 @@
   "reproduce_command": "stageproof check --repo https://getambassador.io/ --chart ambassador --from 6.5.9 --to 6.5.10 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3b8986e9d86278717b12a8abb0245678fdcc6685189773dc3f34c05fb410ec89"
 }

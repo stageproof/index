@@ -79,6 +79,6 @@
   "reproduce_command": "stageproof check --repo https://prometheus-community.github.io/helm-charts --chart prometheus --from 27.22.1 --to 27.23.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "08c7a03d540d95d06bd36c40797db5b47a56b6129f63e17fee0940cb704a351a"
 }

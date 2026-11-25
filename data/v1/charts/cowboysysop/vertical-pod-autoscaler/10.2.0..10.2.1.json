@@ -103,6 +103,6 @@
   "reproduce_command": "stageproof check --repo https://cowboysysop.github.io/charts/ --chart vertical-pod-autoscaler --from 10.2.0 --to 10.2.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "6a1cabf02f906ecc5f8103fbfecd68073029eb5477e799c04ae1b37f3b48f336"
 }

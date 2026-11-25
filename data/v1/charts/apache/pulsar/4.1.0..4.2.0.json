@@ -9,7 +9,7 @@
         {
           "name": "helm template",
           "status": "pass",
-          "summary": "rendered 169 Kubernetes objects cleanly"
+          "summary": "rendered 167 Kubernetes objects cleanly"
         },
         {
           "name": "values.yaml AST",
@@ -28,13 +28,13 @@
         },
         {
           "name": "API server 1.35.0",
-          "status": "fail",
-          "summary": "2 rejections"
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
         },
         {
           "name": "impact",
-          "status": "pass",
-          "summary": "Compared stored objects for 141 of 168 objects, and rendered objects for the rest."
+          "status": "warn",
+          "summary": "Compared stored objects for 141 of 166 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -42,8 +42,13 @@
           "summary": "0 blockers (4 deprecation, EOL, or CRD warnings)"
         }
       ],
-      "exit_code": 1,
+      "exit_code": 0,
       "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Job/stageproof-check/stageproof-rel-pulsar-bookie-init, Job/stageproof-check/stageproof-rel-pulsar-pulsar-init.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
         {
           "message": "The pod template of Deployment/stageproof-check/stageproof-rel-grafana changed at spec.template.metadata.annotations.checksum/secret. The pods will restart. A restart is normal for an upgrade.",
           "resource": "Deployment/stageproof-check/stageproof-rel-grafana",
@@ -87,18 +92,6 @@
           "severity": "info"
         },
         {
-          "message": "The pod template of Job/stageproof-check/stageproof-rel-pulsar-bookie-init changed at spec.template.metadata. The pods will restart. A restart is normal for an upgrade.",
-          "resource": "Job/stageproof-check/stageproof-rel-pulsar-bookie-init",
-          "rule_id": "impact.restart",
-          "severity": "info"
-        },
-        {
-          "message": "The pod template of Job/stageproof-check/stageproof-rel-pulsar-pulsar-init changed at spec.template.metadata. The pods will restart. A restart is normal for an upgrade.",
-          "resource": "Job/stageproof-check/stageproof-rel-pulsar-pulsar-init",
-          "rule_id": "impact.restart",
-          "severity": "info"
-        },
-        {
           "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
           "message": "appVersion moves from 4.0.5 to 4.0.6. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
@@ -106,7 +99,7 @@
         },
         {
           "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
-          "message": "1 container image changed. Job/stageproof-check/stageproof-rel-pulsar-bookie-init.template.spec.containers[0] stageproof-rel-pulsar-bookie-init container moves from apachepulsar/pulsar-all:4.0.5 to apachepulsar/pulsar-all:4.0.6.",
+          "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-pulsar-bookie.template.spec.containers[0] stageproof-rel-pulsar-bookie container moves from apachepulsar/pulsar-all:4.0.5 to apachepulsar/pulsar-all:4.0.6.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
         },
@@ -122,18 +115,6 @@
           "resource": "Service/kube-system/stageproof-rel-victoria-metrics-k8s-stack-kube-controller-manager",
           "rule_id": "k8s.apply.invalid",
           "severity": "warning"
-        },
-        {
-          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
-          "resource": "Job/stageproof-check/stageproof-rel-pulsar-bookie-init",
-          "rule_id": "k8s.apply.immutable_field",
-          "severity": "blocker"
-        },
-        {
-          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
-          "resource": "Job/stageproof-check/stageproof-rel-pulsar-pulsar-init",
-          "rule_id": "k8s.apply.immutable_field",
-          "severity": "blocker"
         },
         {
           "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
@@ -173,13 +154,13 @@
       "head_ref": "4.2.0",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "BLOCKED"
+      "verdict": "PASSED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo https://pulsar.apache.org/charts --chart pulsar --from 4.1.0 --to 4.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "6da84b35c76461b08574eb3f2bd43a7256afe81a3c60d02a128de24ed9239131"
 }

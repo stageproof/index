@@ -67,20 +67,6 @@
           "message": "2 container images changed. Deployment/default/stageproof-rel-guacamole-guacamole.template.spec.containers[0] guacamole container moves from guacamole/guacamole:1.5.0 to guacamole/guacamole:1.6.0. Deployment/default/stageproof-rel-guacamole-guacd.template.spec.containers[0] guacamole container moves from guacamole/guacd:1.5.0 to guacamole/guacd:1.6.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `guacamole/guacamole:1.6.0` could not be checked. The registry did not answer.",
-          "resource": "guacamole/guacamole:1.6.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `guacamole/guacd:1.6.0` could not be checked. The registry did not answer.",
-          "resource": "guacamole/guacd:1.6.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.4.2",
@@ -93,6 +79,6 @@
   "reproduce_command": "stageproof check --repo https://charts.beryju.org --chart guacamole --from 1.4.0 --to 1.4.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "4d72d6bc78a282cc333fc79ae38c28f23f9dd53a04131dd89406df5c9b489766"
 }

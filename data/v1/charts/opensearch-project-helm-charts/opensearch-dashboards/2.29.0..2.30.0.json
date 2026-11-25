@@ -48,6 +48,6 @@
   "reproduce_command": "stageproof check --repo https://opensearch-project.github.io/helm-charts --chart opensearch-dashboards --from 2.29.0 --to 2.30.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "e9437345ad965c0b46d297a774d91fe119df63631fb2e1dda3c4cee1fdae561b"
 }

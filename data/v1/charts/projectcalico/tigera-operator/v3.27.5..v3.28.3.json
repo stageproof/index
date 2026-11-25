@@ -148,6 +148,6 @@
   "reproduce_command": "stageproof check --repo https://docs.projectcalico.org/charts/ --chart tigera-operator --from v3.27.5 --to v3.28.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c607f338e6d0f911d99c91e6bd460d4331a8bb8ca5f76d8d7e5a5b063d5ee9fb"
 }

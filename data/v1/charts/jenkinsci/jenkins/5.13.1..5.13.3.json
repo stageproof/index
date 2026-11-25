@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config, Pod/stageproof-check/stageproof-rel-ui-test-kd1jy, Pod/stageproof-check/stageproof-rel-ui-test-ujs6v",
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config, Pod/stageproof-check/stageproof-rel-ui-test-w9civ, Pod/stageproof-check/stageproof-rel-ui-test-xc82n",
           "message": "Chart default `agent.image.tag` changed from `3395.v6e5377b_0fb_3c-4-jdk25` to `3395.v6e5377b_0fb_3c-5-jdk25` and the rendered objects differ.",
           "proof": "render",
           "resource": "agent.image.tag",
@@ -57,13 +57,6 @@
           "message": "1 container image changed. ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config jenkins/inbound-agent image moves from jenkins/inbound-agent:3395.v6e5377b_0fb_3c-4-jdk25 to jenkins/inbound-agent:3395.v6e5377b_0fb_3c-5-jdk25.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bats/bats:1.14.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bats/bats:1.14.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "5.13.3",
@@ -76,6 +69,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.13.1 --to 5.13.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "90ba804e982aa2c413b88a76c62980d33838282a4200a1b2720f0a9d489287e7"
 }

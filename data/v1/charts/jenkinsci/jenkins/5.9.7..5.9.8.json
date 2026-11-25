@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config, Pod/stageproof-check/stageproof-rel-ui-test-kbefd, Pod/stageproof-check/stageproof-rel-ui-test-ujyzy",
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config, Pod/stageproof-check/stageproof-rel-ui-test-nlmoy, Pod/stageproof-check/stageproof-rel-ui-test-plfaq",
           "message": "Chart default `agent.image.tag` changed from `3355.v388858a_47b_33-14` to `3355.v388858a_47b_33-16` and the rendered objects differ.",
           "proof": "render",
           "resource": "agent.image.tag",
@@ -75,6 +75,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.9.7 --to 5.9.8 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "4136034d6930e1e18b9710f91f69937595d2e930dfaaae6c5453204f9a4b034b"
 }

@@ -87,20 +87,6 @@
           "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql.template.spec.containers[0] stageproof-rel-postgresql",
           "rule_id": "supply.image.moved",
           "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnamilegacy/postgresql:11.14.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bitnamilegacy/postgresql:11.14.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `sonarqube:25.8.0.112029-community` could not be checked. The registry did not answer.",
-          "resource": "sonarqube:25.8.0.112029-community",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "2025.4.2",
@@ -113,6 +99,6 @@
   "reproduce_command": "stageproof check --repo https://SonarSource.github.io/helm-chart-sonarqube --chart sonarqube --from 2025.4.1 --to 2025.4.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a309cb8651ee79c5d40f49ddc9b389b3e6f1e09426dab0a065f7118651ee6058"
 }

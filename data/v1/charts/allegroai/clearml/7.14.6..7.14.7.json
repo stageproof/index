@@ -75,20 +75,6 @@
           "resource": "StatefulSet/stageproof-check/stageproof-rel-redis-master.template.spec.containers[0] redis",
           "rule_id": "supply.image.moved",
           "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnamilegacy/mongodb:6.0.10-debian-11-r8` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bitnamilegacy/mongodb:6.0.10-debian-11-r8",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnamilegacy/redis:7.0.9-debian-11-r1` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bitnamilegacy/redis:7.0.9-debian-11-r1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "7.14.7",
@@ -101,6 +87,6 @@
   "reproduce_command": "stageproof check --repo https://clearml.github.io/clearml-helm-charts --chart clearml --from 7.14.6 --to 7.14.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8e87c78d2937a2faf2d1a7696b06dbf536c3433558fa020ae3fcd701a0e314b1"
 }

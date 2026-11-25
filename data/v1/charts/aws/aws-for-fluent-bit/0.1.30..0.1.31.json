@@ -97,6 +97,6 @@
   "reproduce_command": "stageproof check --repo https://aws.github.io/eks-charts --chart aws-for-fluent-bit --from 0.1.30 --to 0.1.31 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5d09181b2d26aff54c170f68f1e58b316a6b202abad5373b24e30e3c584965af"
 }

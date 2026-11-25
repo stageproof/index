@@ -23,6 +23,6 @@
   "reproduce_command": "stageproof check --repo oci://ghcr.io/backstage/charts --chart backstage --from 1.1.3 --to 1.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "77233d9b152ec559fa449370ed33938ea3316617591c127629defe7c15b313c4"
 }

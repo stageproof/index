@@ -73,20 +73,6 @@
           "message": "2 container images changed. ConfigMap/default/stageproof-rel-dagster-daemon-env docker.io/dagster/user-code-example image moves from docker.io/dagster/user-code-example:1.13.18 to docker.io/dagster/user-code-example:1.13.19. Deployment/default/stageproof-rel-dagster-daemon.template.spec.containers[0] dagster container moves from docker.io/dagster/dagster-celery-k8s:1.13.18 to docker.io/dagster/dagster-celery-k8s:1.13.19.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/dagster/dagster-celery-k8s:1.13.19` could not be checked. The registry did not answer.",
-          "resource": "docker.io/dagster/dagster-celery-k8s:1.13.19",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/dagster/user-code-example:1.13.19` could not be checked. The registry did not answer.",
-          "resource": "docker.io/dagster/user-code-example:1.13.19",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.13.19",
@@ -99,6 +85,6 @@
   "reproduce_command": "stageproof check --repo https://dagster-io.github.io/helm --chart dagster --from 1.13.18 --to 1.13.19 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "dd42c671b76211d8cba9ac812cae9ecbec74c63b0ea2ab48247b5d152ba24df0"
 }

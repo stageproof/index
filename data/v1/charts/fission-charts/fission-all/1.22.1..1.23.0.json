@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Job/default/stageproof-rel-fission-a-1.23.0-068, Job/default/stageproof-rel-fission-a-1.23.0-779",
+          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Job/default/stageproof-rel-fission-a-1.23.0-856, Job/default/stageproof-rel-fission-a-1.23.0-950",
           "message": "Chart default `fetcher.imageTag` changed from `v1.22.0` to `v1.23.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "fetcher.imageTag",
@@ -53,7 +53,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Deployment/default/kubewatcher, Deployment/default/mqtrigger-keda, Deployment/default/router, Deployment/default/storagesvc, Deployment/default/timer, Deployment/default/webhook, Job/default/stageproof-rel-fission-a-1.23.0-779, Job/default/stageproof-rel-fission-a-1.23.0-985, Job/default/stageproof-rel-fission-a-1.23.0-post-install, Job/default/stageproof-rel-fission-a-1.23.0-post-upgrade",
+          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Deployment/default/kubewatcher, Deployment/default/mqtrigger-keda, Deployment/default/router, Deployment/default/storagesvc, Deployment/default/timer, Deployment/default/webhook, Job/default/stageproof-rel-fission-a-1.23.0-856, Job/default/stageproof-rel-fission-a-1.23.0-928, Job/default/stageproof-rel-fission-a-1.23.0-post-install, Job/default/stageproof-rel-fission-a-1.23.0-post-upgrade",
           "message": "Chart default `imageTag` changed from `v1.22.0` to `v1.23.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "imageTag",
@@ -61,7 +61,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-779, Job/default/stageproof-rel-fission-a-1.23.0-907",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-447, Job/default/stageproof-rel-fission-a-1.23.0-856",
           "message": "Chart default `mqt_keda.connector_images.aws_sqs.tag` changed from `v0.16` to `v0.20` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.aws_sqs.tag",
@@ -69,7 +69,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-779, Job/default/stageproof-rel-fission-a-1.23.0-813",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-246, Job/default/stageproof-rel-fission-a-1.23.0-856",
           "message": "Chart default `mqt_keda.connector_images.awskinesis.tag` changed from `v0.15` to `v0.19` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.awskinesis.tag",
@@ -77,7 +77,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-477, Job/default/stageproof-rel-fission-a-1.23.0-779",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-218, Job/default/stageproof-rel-fission-a-1.23.0-856",
           "message": "Chart default `mqt_keda.connector_images.gcp_pubsub.tag` changed from `v0.11` to `v0.14` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.gcp_pubsub.tag",
@@ -85,7 +85,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-459, Job/default/stageproof-rel-fission-a-1.23.0-779",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-423, Job/default/stageproof-rel-fission-a-1.23.0-856",
           "message": "Chart default `mqt_keda.connector_images.kafka.tag` changed from `v0.17` to `v0.20` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.kafka.tag",
@@ -93,7 +93,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-201, Job/default/stageproof-rel-fission-a-1.23.0-779",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-421, Job/default/stageproof-rel-fission-a-1.23.0-856",
           "message": "Chart default `mqt_keda.connector_images.nats_jetstream.tag` changed from `v0.9` to `v0.12` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.nats_jetstream.tag",
@@ -101,7 +101,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-596, Job/default/stageproof-rel-fission-a-1.23.0-779",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-407, Job/default/stageproof-rel-fission-a-1.23.0-856",
           "message": "Chart default `mqt_keda.connector_images.nats_steaming.tag` changed from `v0.18` to `v0.20` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.nats_steaming.tag",
@@ -109,7 +109,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-478, Job/default/stageproof-rel-fission-a-1.23.0-779",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-790, Job/default/stageproof-rel-fission-a-1.23.0-856",
           "message": "Chart default `mqt_keda.connector_images.rabbitmq.tag` changed from `v0.15` to `v0.17` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.rabbitmq.tag",
@@ -117,7 +117,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-779, Job/default/stageproof-rel-fission-a-1.23.0-919",
+          "detail": "Affected objects: Deployment/default/mqtrigger-keda, Job/default/stageproof-rel-fission-a-1.23.0-063, Job/default/stageproof-rel-fission-a-1.23.0-856",
           "message": "Chart default `mqt_keda.connector_images.redis.tag` changed from `v0.8` to `v0.10` and the rendered objects differ.",
           "proof": "render",
           "resource": "mqt_keda.connector_images.redis.tag",
@@ -125,7 +125,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.23.0-626, Job/default/stageproof-rel-fission-a-1.23.0-779",
+          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.23.0-239, Job/default/stageproof-rel-fission-a-1.23.0-856",
           "message": "Chart default `preUpgradeChecks.imageTag` changed from `v1.22.0` to `v1.23.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "preUpgradeChecks.imageTag",
@@ -209,6 +209,6 @@
   "reproduce_command": "stageproof check --repo https://fission.github.io/fission-charts/ --chart fission-all --from 1.22.1 --to 1.23.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "fbf071154c6dafdcebdcdb456f1f7c81270c431eaedf6c9429e6b820b0f758a0"
 }

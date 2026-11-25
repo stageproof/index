@@ -75,6 +75,6 @@
   "reproduce_command": "stageproof check --repo https://helm.linkerd.io/stable --chart linkerd-crds --from 1.4.0 --to 1.8.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "516789ccd8116f5f7ddd69ad2368be6f3c26cb53eae94f3950061592c0074991"
 }

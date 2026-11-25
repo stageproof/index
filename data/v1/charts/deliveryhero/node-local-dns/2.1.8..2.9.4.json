@@ -92,6 +92,6 @@
   "reproduce_command": "stageproof check --repo https://raw.githubusercontent.com/deliveryhero/helm-charts/refs/heads/master/ --chart node-local-dns --from 2.1.8 --to 2.9.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "ce6fa0a20bec993d6597e5ce6ce8b5b79c75d3cdd86dc687c65cce3071d3f2f2"
 }

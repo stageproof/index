@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap, Deployment/stageproof-check/stageproof-rel-datadog-cluster-agent",
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-datadog-cluster-agent",
           "message": "Chart default `registryMigrationMode` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "registryMigrationMode",
@@ -95,6 +95,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datadoghq.com --chart datadog --from 3.197.0 --to 3.197.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d98fcc7f22524bca9b453dd1c165b269a6885a3766d159f41d8b1d9051ec4908"
 }

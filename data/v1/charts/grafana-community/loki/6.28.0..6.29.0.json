@@ -110,27 +110,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `kiwigrid/k8s-sidecar:1.30.2` could not be checked. The registry did not answer.",
-          "resource": "kiwigrid/k8s-sidecar:1.30.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `memcached:1.6.38-alpine` could not be checked. The registry did not answer.",
-          "resource": "memcached:1.6.38-alpine",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/memcached-exporter:v0.15.2` could not be checked. The registry did not answer.",
-          "resource": "prom/memcached-exporter:v0.15.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "ClusterBinding/stageproof-check/enterprise-logs-provisioner was not judged. the API group is not installed on this server.",
           "resource": "ClusterBinding/stageproof-check/enterprise-logs-provisioner",
           "rule_id": "k8s.apply.not_exercised",
@@ -147,6 +126,6 @@
   "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 6.28.0 --to 6.29.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "882102769cad2ecead90d30c1e940446ebb397f9b7057947e9b1fed571c97397"
 }

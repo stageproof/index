@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-bdmnb, Pod/stageproof-check/stageproof-rel-ui-test-xgfwq, StatefulSet/stageproof-check/stageproof-rel-jenkins",
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-6e6vg, Pod/stageproof-check/stageproof-rel-ui-test-cglxh, StatefulSet/stageproof-check/stageproof-rel-jenkins",
           "message": "Chart default `controller.sidecars.configAutoReload.image.tag` changed from `2.1.4` to `2.3.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "controller.sidecars.configAutoReload.image.tag",
@@ -63,20 +63,6 @@
           "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-jenkins.template.spec.containers[1] config-reload container moves from docker.io/kiwigrid/k8s-sidecar:2.1.4 to docker.io/kiwigrid/k8s-sidecar:2.3.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bats/bats:1.13.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bats/bats:1.13.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/kiwigrid/k8s-sidecar:2.3.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/kiwigrid/k8s-sidecar:2.3.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "5.8.122",
@@ -89,6 +75,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.8.121 --to 5.8.122 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "ce6c575589690b927bfa5ec82a9ea95f23d88499a551bac2fef7b5ddadea00f7"
 }

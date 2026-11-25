@@ -105,27 +105,6 @@
           "message": "3 container images changed. Deployment/default/stageproof-rel-nats-box.template.spec.containers[0] nats-box container moves from natsio/nats-box:0.19.2 to natsio/nats-box:0.20.2. StatefulSet/default/stageproof-rel-nats.template.spec.containers[0] nats container moves from nats:2.11.10-alpine to nats:2.15.3-alpine. StatefulSet/default/stageproof-rel-nats.template.spec.containers[1] reloader container moves from natsio/nats-server-config-reloader:0.20.1 to natsio/nats-server-config-reloader:0.25.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `nats:2.15.3-alpine` could not be checked. The registry did not answer.",
-          "resource": "nats:2.15.3-alpine",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `natsio/nats-box:0.20.2` could not be checked. The registry did not answer.",
-          "resource": "natsio/nats-box:0.20.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `natsio/nats-server-config-reloader:0.25.0` could not be checked. The registry did not answer.",
-          "resource": "natsio/nats-server-config-reloader:0.25.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "2.15.3",
@@ -138,6 +117,6 @@
   "reproduce_command": "stageproof check --repo https://nats-io.github.io/k8s/helm/charts/ --chart nats --from 1.3.16 --to 2.15.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3dc7d544cac9b7ce351cc33529fcae33c16f59a95647012efd3eaec3f92c14f8"
 }

@@ -48,6 +48,6 @@
   "reproduce_command": "stageproof check --repo https://openfga.github.io/helm-charts --chart openfga --from 0.2.36 --to 0.2.37 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1df4fc871f62f685ab64d375dc3cb13fc3c359f822fc3b05db0101914550d25e"
 }

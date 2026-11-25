@@ -1,5 +1,5 @@
 {
-  "from_sha256": "b1c37e8f3b9a1d498c72442b08197a99385663529ea8831b522bf9cdf7988046",
+  "from_sha256": "c6b3b9bf8d3103be8947e01ed254fd49ba064a2f204d5ac8d0524e06a978e2b8",
   "k8s_results": {
     "1.35": {
       "adapter": "helm",
@@ -92,6 +92,6 @@
   "reproduce_command": "stageproof check --repo https://helm.open-metadata.org --chart openmetadata --from 2.0.9 --to 2.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.1",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "0c86245716b38fb76729aada7f20698751bd169ba553f84fa6aff9057c595829"
 }

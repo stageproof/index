@@ -91,6 +91,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jetstack.io --chart cert-manager --from v1.18.3 --to v1.18.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "17b8d19a337c43f057168ccba579349f1fd0ca5c2d6ab5afb5d999ce92cd2eee"
 }

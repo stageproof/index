@@ -24,17 +24,17 @@
         {
           "name": "image tags",
           "status": "pass",
-          "summary": "3 new or changed image tags checked"
+          "summary": "6 new or changed image tags checked"
         },
         {
           "name": "API server 1.35.0",
-          "status": "fail",
-          "summary": "2 rejections"
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
         },
         {
           "name": "impact",
-          "status": "pass",
-          "summary": "Compared stored objects for 30 of 35 objects, and rendered objects for the rest."
+          "status": "warn",
+          "summary": "Compared stored objects for 30 of 33 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -42,8 +42,13 @@
           "summary": "current Kubernetes was checked by API server 1.35.0"
         }
       ],
-      "exit_code": 1,
+      "exit_code": 0,
       "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Job/default/stageproof-rel-signoz-schema-migrator-async-init, Job/default/stageproof-rel-signoz-schema-migrator-sync-init.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
         {
           "detail": "Affected objects: Deployment/default/stageproof-rel-signoz-otel-collector",
           "message": "Chart default `otelCollector.image.tag` changed from `v0.129.4` to `v0.129.5` and the rendered objects differ.",
@@ -53,7 +58,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-signoz-schema-migrator-async-init, Job/default/stageproof-rel-signoz-schema-migrator-sync-init",
+          "detail": "Affected objects: Job/default/stageproof-rel-signoz-schema-migrator-async, Job/default/stageproof-rel-signoz-schema-migrator-sync",
           "message": "Chart default `schemaMigrator.image.tag` changed from `v0.129.4` to `v0.129.5` and the rendered objects differ.",
           "proof": "render",
           "resource": "schemaMigrator.image.tag",
@@ -81,18 +86,6 @@
           "severity": "info"
         },
         {
-          "message": "The pod template of Job/default/stageproof-rel-signoz-schema-migrator-async-init changed at spec.template.spec.containers[name=schema-migrator].image. The pods will restart. A restart is normal for an upgrade.",
-          "resource": "Job/default/stageproof-rel-signoz-schema-migrator-async-init",
-          "rule_id": "impact.restart",
-          "severity": "info"
-        },
-        {
-          "message": "The pod template of Job/default/stageproof-rel-signoz-schema-migrator-sync-init changed at spec.template.spec.containers[name=schema-migrator].image. The pods will restart. A restart is normal for an upgrade.",
-          "resource": "Job/default/stageproof-rel-signoz-schema-migrator-sync-init",
-          "rule_id": "impact.restart",
-          "severity": "info"
-        },
-        {
           "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
           "message": "appVersion moves from v0.94.1 to v0.95.0. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
@@ -100,7 +93,7 @@
         },
         {
           "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
-          "message": "3 container images changed. Deployment/default/stageproof-rel-signoz-otel-collector.template.spec.containers[0] collector container moves from docker.io/signoz/signoz-otel-collector:v0.129.4 to docker.io/signoz/signoz-otel-collector:v0.129.5. Job/default/stageproof-rel-signoz-schema-migrator-async-init.template.spec.containers[0] schema-migrator container moves from docker.io/signoz/signoz-schema-migrator:v0.129.4 to docker.io/signoz/signoz-schema-migrator:v0.129.5. StatefulSet/default/stageproof-rel-signoz.template.spec.containers[0] signoz container moves from docker.io/signoz/signoz:v0.94.1 to docker.io/signoz/signoz:v0.95.0.",
+          "message": "2 container images changed. Deployment/default/stageproof-rel-signoz-otel-collector.template.spec.containers[0] collector container moves from docker.io/signoz/signoz-otel-collector:v0.129.4 to docker.io/signoz/signoz-otel-collector:v0.129.5. StatefulSet/default/stageproof-rel-signoz.template.spec.containers[0] signoz container moves from docker.io/signoz/signoz:v0.94.1 to docker.io/signoz/signoz:v0.95.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
         },
@@ -109,51 +102,18 @@
           "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
           "rule_id": "helm.operator.existing_custom_resources",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/signoz/signoz-otel-collector:v0.129.5` could not be checked. The registry did not answer.",
-          "resource": "docker.io/signoz/signoz-otel-collector:v0.129.5",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/signoz/signoz-schema-migrator:v0.129.5` could not be checked. The registry did not answer.",
-          "resource": "docker.io/signoz/signoz-schema-migrator:v0.129.5",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/signoz/signoz:v0.95.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/signoz/signoz:v0.95.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
-          "resource": "Job/default/stageproof-rel-signoz-schema-migrator-async-init",
-          "rule_id": "k8s.apply.immutable_field",
-          "severity": "blocker"
-        },
-        {
-          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
-          "resource": "Job/default/stageproof-rel-signoz-schema-migrator-sync-init",
-          "rule_id": "k8s.apply.immutable_field",
-          "severity": "blocker"
         }
       ],
       "head_ref": "0.92.0",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "BLOCKED"
+      "verdict": "PASSED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo https://charts.signoz.io --chart signoz --from 0.91.1 --to 0.92.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3e63ddf46e92ceea3c03667924de4d1cd93fe8309d0b9293459a15077455cc65"
 }

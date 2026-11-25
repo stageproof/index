@@ -124,20 +124,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `lachlanevenson/k8s-kubectl:v1.23.2` could not be checked. The registry did not answer.",
-          "resource": "lachlanevenson/k8s-kubectl:v1.23.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `pravega/zookeeper-operator:0.2.15` could not be checked. The registry did not answer.",
-          "resource": "pravega/zookeeper-operator:0.2.15",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
           "message": "CRD size is 1745 KiB (>256 KiB client-side `last-applied-configuration` limit).",
           "resource": "CustomResourceDefinition/default/solrclouds.solr.apache.org",
@@ -162,6 +148,6 @@
   "reproduce_command": "stageproof check --repo https://solr.apache.org/charts --chart solr-operator --from 0.4.0 --to 0.9.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1f83c21324a72dc90b16293569ea461bbced221a4475dc5265473604b113f8a9"
 }

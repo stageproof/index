@@ -61,13 +61,6 @@
           "message": "1 container image changed. Deployment/default/stageproof-rel-unleash.template.spec.containers[0] unleash container moves from unleashorg/unleash-server:7.3.0 to unleashorg/unleash-server:7.5.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `unleashorg/unleash-server:7.5.0` could not be checked. The registry did not answer.",
-          "resource": "unleashorg/unleash-server:7.5.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "5.6.5",
@@ -80,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://docs.getunleash.io/helm-charts/ --chart unleash --from 5.6.4 --to 5.6.5 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "44594eb8e1e392671d406e12ee423bfd6ab3413aece9aa8a1bac5d33f8d0a331"
 }

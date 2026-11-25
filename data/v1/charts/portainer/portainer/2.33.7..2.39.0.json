@@ -87,6 +87,6 @@
   "reproduce_command": "stageproof check --repo https://portainer.github.io/k8s/ --chart portainer --from 2.33.7 --to 2.39.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "684cb608539dec3d2cd3b6771e899acefcafcb1f0c9a749d6d282afe95c3d626"
 }

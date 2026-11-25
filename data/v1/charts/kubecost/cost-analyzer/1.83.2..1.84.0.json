@@ -90,13 +90,6 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `jimmidyson/configmap-reload:v0.5.0` could not be checked. The registry did not answer.",
-          "resource": "jimmidyson/configmap-reload:v0.5.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "API `policy/v1beta1` (PodSecurityPolicy) is not served by Kubernetes 1.35.0.",
           "resource": "PodSecurityPolicy/default/stageproof-rel-grafana",
           "rule_id": "k8s.api.removed",
@@ -155,6 +148,6 @@
   "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 1.83.2 --to 1.84.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5568f74946e71ab55ba1c5078c8b2ef037c5df5e48ad1fe1526167699e625fdc"
 }

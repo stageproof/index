@@ -69,13 +69,6 @@
           "message": "1 container image changed. Deployment/default/stageproof-rel-mattermost-team-edition.template.spec.containers[0] mattermost-team-edition container moves from mattermost/mattermost-team-edition:11.9.0@sha256:1c538cf33c2144ba2c825571cd414aaaebf8d8c231d4b18081b811cd0ca0ef2a to mattermost/mattermost-team-edition:11.10.0@sha256:8a68c6544020eb223e98bc3bdc5784149826039b62f046680d640a3664a4201b.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `mattermost/mattermost-team-edition:11.10.0@sha256:8a68c6544020eb223e98bc3bdc5784149826039b62f046680d640a3664a4201b` could not be checked. The registry did not answer.",
-          "resource": "mattermost/mattermost-team-edition:11.10.0@sha256:8a68c6544020eb223e98bc3bdc5784149826039b62f046680d640a3664a4201b",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "6.6.105",
@@ -88,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://helm.mattermost.com --chart mattermost-team-edition --from 6.6.104 --to 6.6.105 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "819ac6ab68e8bab186dbbed96b34f4ef00c9196a65f3c0ef8926d34246c45b37"
 }

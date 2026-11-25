@@ -133,13 +133,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `summerwind/actions-runner-controller:v0.27.6` could not be checked. The registry did not answer.",
-          "resource": "summerwind/actions-runner-controller:v0.27.6",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Certificate/stageproof-check/stageproof-rel-actions-runner-controller-serving-cert was not judged. the API group is not installed on this server.",
           "resource": "Certificate/stageproof-check/stageproof-rel-actions-runner-controller-serving-cert",
           "rule_id": "k8s.apply.not_exercised",
@@ -196,6 +189,6 @@
   "reproduce_command": "stageproof check --repo https://actions-runner-controller.github.io/actions-runner-controller --chart actions-runner-controller --from 0.17.3 --to 0.23.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "014d73474c09ef9f82cd25fbf9daba72a3441df81d9b4017a0c60e864b907e48"
 }

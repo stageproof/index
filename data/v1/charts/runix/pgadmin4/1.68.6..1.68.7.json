@@ -57,13 +57,6 @@
           "message": "1 container image changed. Pod/stageproof-check/stageproof-rel-pgadmin4-test-connection.containers[0] wget container moves from docker.io/busybox:latest to docker.io/busybox:1.38.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/busybox:1.38.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/busybox:1.38.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.68.7",
@@ -76,6 +69,6 @@
   "reproduce_command": "stageproof check --repo https://helm.runix.net/ --chart pgadmin4 --from 1.68.6 --to 1.68.7 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "4eccd15a41cfaadbb15435d17b8d4fb14d6f1977a965288c76cc6f8dbe1841a9"
 }

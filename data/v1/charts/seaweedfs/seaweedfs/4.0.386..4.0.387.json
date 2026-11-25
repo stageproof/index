@@ -85,6 +85,6 @@
   "reproduce_command": "stageproof check --repo https://seaweedfs.github.io/seaweedfs/helm --chart seaweedfs --from 4.0.386 --to 4.0.387 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "08e4627beaea9b7145804ff5296713d0f437c455946a465377a282b0f72e2338"
 }

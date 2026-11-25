@@ -28,13 +28,13 @@
         },
         {
           "name": "API server 1.35.0",
-          "status": "fail",
-          "summary": "2 rejections"
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
         },
         {
           "name": "impact",
           "status": "pass",
-          "summary": "Compared stored objects for 10 of 23 objects, and rendered objects for the rest."
+          "summary": "Compared stored objects for 12 of 23 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -42,7 +42,7 @@
           "summary": "current Kubernetes was checked by API server 1.35.0"
         }
       ],
-      "exit_code": 1,
+      "exit_code": 0,
       "findings": [
         {
           "detail": "Affected objects: Job/stageproof-check/stageproof-rel-cockroachdb-init, Pod/stageproof-check/stageproof-rel-cockroachdb-test, StatefulSet/stageproof-check/stageproof-rel-cockroachdb",
@@ -69,37 +69,18 @@
           "message": "1 container image changed. Job/stageproof-check/stageproof-rel-cockroachdb-init.template.spec.containers[0] cluster-init container moves from cockroachdb/cockroach:v25.1.2 to cockroachdb/cockroach:v25.1.3.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `cockroachdb/cockroach:v25.1.3` could not be checked. The registry did not answer.",
-          "resource": "cockroachdb/cockroach:v25.1.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "message": "API `batch/v1beta1` (CronJob) is not served by Kubernetes 1.35.0.",
-          "resource": "CronJob/stageproof-check/stageproof-rel-cockroachdb-rotate-self-signer",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `batch/v1beta1` (CronJob) is not served by Kubernetes 1.35.0.",
-          "resource": "CronJob/stageproof-check/stageproof-rel-cockroachdb-rotate-self-signer-client",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
         }
       ],
       "head_ref": "16.0.5",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "BLOCKED"
+      "verdict": "PASSED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo https://charts.cockroachdb.com/ --chart cockroachdb --from 16.0.4 --to 16.0.5 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "6b2bfc942c378e4c216c8e20ddd24c7366930fdc4cd544f9975fb16ca77b85ec"
 }

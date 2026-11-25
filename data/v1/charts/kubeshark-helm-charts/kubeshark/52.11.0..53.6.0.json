@@ -103,27 +103,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/kubeshark/front:v53.6` could not be checked. The registry did not answer.",
-          "resource": "docker.io/kubeshark/front:v53.6",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/kubeshark/hub:v53.6` could not be checked. The registry did not answer.",
-          "resource": "docker.io/kubeshark/hub:v53.6",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/kubeshark/worker:v53.6` could not be checked. The registry did not answer.",
-          "resource": "docker.io/kubeshark/worker:v53.6",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Kubernetes rejected the update. `spec.selector` is immutable.",
           "resource": "DaemonSet/stageproof-check/kubeshark-worker-daemon-set",
           "rule_id": "k8s.apply.immutable_field",
@@ -173,6 +152,6 @@
   "reproduce_command": "stageproof check --repo https://helm.kubeshark.com/ --chart kubeshark --from 52.11.0 --to 53.6.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "9c4ccb14341fc3e9d56f603aca4a75564bd6a28c23193cca14da729b7d520c45"
 }

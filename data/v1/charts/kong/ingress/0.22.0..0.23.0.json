@@ -9,7 +9,7 @@
         {
           "name": "helm template",
           "status": "pass",
-          "summary": "rendered 40 Kubernetes objects cleanly"
+          "summary": "rendered 41 Kubernetes objects cleanly"
         },
         {
           "name": "values.yaml AST",
@@ -29,7 +29,7 @@
         {
           "name": "impact",
           "status": "pass",
-          "summary": "Compared stored objects for 15 of 16 objects, and rendered objects for the rest."
+          "summary": "Compared stored objects for 16 of 17 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -68,6 +68,6 @@
   "reproduce_command": "stageproof check --repo https://charts.konghq.com --chart ingress --from 0.22.0 --to 0.23.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "7f23f5ff2e66bfefb17ea3f3e0855afb5b59fd83e808327dff2d53c0cb2978d1"
 }

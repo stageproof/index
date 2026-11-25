@@ -76,6 +76,6 @@
   "reproduce_command": "stageproof check --repo https://helm.kubeshark.com/ --chart kubeshark --from 52.10.0 --to 52.10.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "0ccebe10da87822a1509c4fa6e2669ed7ef5ade3545c25d377d0e506cfdd4387"
 }

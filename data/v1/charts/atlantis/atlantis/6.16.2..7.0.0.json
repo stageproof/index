@@ -79,6 +79,6 @@
   "reproduce_command": "stageproof check --repo https://runatlantis.github.io/helm-charts --chart atlantis --from 6.16.2 --to 7.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "27a6cc217a35bf17e8a40c7f8f1adb13b23e364e6583a1c9163865d07e5c2adf"
 }

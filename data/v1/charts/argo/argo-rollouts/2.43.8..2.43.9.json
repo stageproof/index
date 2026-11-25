@@ -114,6 +114,6 @@
   "reproduce_command": "stageproof check --repo https://argoproj.github.io/argo-helm --chart argo-rollouts --from 2.43.8 --to 2.43.9 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "27da1b0501c01bb4b11908fa3425ea68b6b19929ec8ee7b179a148d1c3cc5f7b"
 }

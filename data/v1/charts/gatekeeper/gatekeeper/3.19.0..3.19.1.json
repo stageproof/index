@@ -107,6 +107,6 @@
   "reproduce_command": "stageproof check --repo https://open-policy-agent.github.io/gatekeeper/charts --chart gatekeeper --from 3.19.0 --to 3.19.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "717c9281c22252c7432afe0957794a82b7c3c78605ddba0a0ef7ade776eaeea6"
 }

@@ -28,13 +28,13 @@
         },
         {
           "name": "API server 1.35.0",
-          "status": "fail",
-          "summary": "2 rejections"
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
         },
         {
           "name": "impact",
           "status": "pass",
-          "summary": "Compared stored objects for 30 of 76 objects, and rendered objects for the rest."
+          "summary": "Compared stored objects for 32 of 76 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -112,18 +112,6 @@
           "severity": "blocker"
         },
         {
-          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
-          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-consul-connect-injector",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
-          "message": "API `policy/v1beta1` (PodDisruptionBudget) is not served by Kubernetes 1.35.0.",
-          "resource": "PodDisruptionBudget/stageproof-check/stageproof-rel-consul-server",
-          "rule_id": "k8s.api.removed",
-          "severity": "blocker"
-        },
-        {
           "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
           "message": "Not sent to the API server: MutatingWebhookConfiguration/stageproof-check/stageproof-rel-consul-connect-injector, ValidatingWebhookConfiguration/stageproof-check/stageproof-rel-consul-connect-injector, MutatingWebhookConfiguration/stageproof-check/stageproof-rel-consul-connect-injector, ValidatingWebhookConfiguration/stageproof-check/stageproof-rel-consul-connect-injector.",
           "rule_id": "k8s.apply.not_exercised",
@@ -140,6 +128,6 @@
   "reproduce_command": "stageproof check --repo https://helm.releases.hashicorp.com --chart consul --from 1.4.9 --to 1.4.10 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "816d2bffee0c3eab49834bd7b6ffd1a3a73fc0cc93a7f23683c186cabfad7124"
 }

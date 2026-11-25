@@ -90,20 +90,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `clickhouse/clickhouse-server:26.8.36.3` could not be checked. The registry did not answer.",
-          "resource": "ClickHouseCluster/stageproof-check/stageproof-rel-langfuse.containerTemplate",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `clickhouse/clickhouse-keeper:26.8.36.3` could not be checked. The registry did not answer.",
-          "resource": "KeeperCluster/stageproof-check/stageproof-rel-langfuse.containerTemplate",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "ClickHouseCluster/stageproof-check/stageproof-rel-langfuse was not judged. the API group is not installed on this server.",
           "resource": "ClickHouseCluster/stageproof-check/stageproof-rel-langfuse",
           "rule_id": "k8s.apply.not_exercised",
@@ -126,6 +112,6 @@
   "reproduce_command": "stageproof check --repo https://langfuse.github.io/langfuse-k8s/ --chart langfuse --from 2.1.3 --to 2.2.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1a3f14c0f1899d1ddfa926e4c9988e3871da940434ee8a9ff79bff80a1b36016"
 }

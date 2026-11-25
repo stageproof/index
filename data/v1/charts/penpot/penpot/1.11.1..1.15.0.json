@@ -139,41 +139,6 @@
           "message": "5 container images changed. Deployment/stageproof-check/stageproof-rel-penpot-admin-console.template.spec.containers[0] penpot-admin-console container moves from penpotapp/admin-console:2.18.1 to penpotapp/admin-console:2.19.4. Deployment/stageproof-check/stageproof-rel-penpot-backend.template.spec.containers[0] penpot-backend container moves from penpotapp/backend:2.18.1 to penpotapp/backend:2.19.4. Deployment/stageproof-check/stageproof-rel-penpot-exporter.template.spec.containers[0] penpot-exporter container moves from penpotapp/exporter:2.18.1 to penpotapp/exporter:2.19.4. Deployment/stageproof-check/stageproof-rel-penpot-frontend.template.spec.containers[0] penpot-frontend container moves from penpotapp/frontend:2.18.1 to penpotapp/frontend:2.19.4. Deployment/stageproof-check/stageproof-rel-penpot-mcp.template.spec.containers[0] penpot-mcp container moves from penpotapp/mcp:2.18.1 to penpotapp/mcp:2.19.4.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `penpotapp/admin-console:2.19.4` could not be checked. The registry did not answer.",
-          "resource": "penpotapp/admin-console:2.19.4",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `penpotapp/backend:2.19.4` could not be checked. The registry did not answer.",
-          "resource": "penpotapp/backend:2.19.4",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `penpotapp/exporter:2.19.4` could not be checked. The registry did not answer.",
-          "resource": "penpotapp/exporter:2.19.4",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `penpotapp/frontend:2.19.4` could not be checked. The registry did not answer.",
-          "resource": "penpotapp/frontend:2.19.4",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `penpotapp/mcp:2.19.4` could not be checked. The registry did not answer.",
-          "resource": "penpotapp/mcp:2.19.4",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.15.0",
@@ -186,6 +151,6 @@
   "reproduce_command": "stageproof check --repo https://helm.penpot.app --chart penpot --from 1.11.1 --to 1.15.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "daa9b46af7c3020ec4f16f14cb7be234470391fc1df11f6cc1fcd50df3c1ec36"
 }

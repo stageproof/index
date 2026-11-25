@@ -150,20 +150,6 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `kiwigrid/k8s-sidecar:1.12.0` could not be checked. The registry did not answer.",
-          "resource": "kiwigrid/k8s-sidecar:1.12.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/prometheus:v2.22.2` could not be checked. The registry did not answer.",
-          "resource": "prom/prometheus:v2.22.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
           "message": "Image `quay.io/coreos/kube-state-metrics:v1.9.8` could not be checked. The registry refused the request.",
           "resource": "quay.io/coreos/kube-state-metrics:v1.9.8",
@@ -229,6 +215,6 @@
   "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 1.80.1 --to 1.81.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "ffcb740f106577597da43aa000513d8b52af588c672ac78c947e60508f3ba1c5"
 }

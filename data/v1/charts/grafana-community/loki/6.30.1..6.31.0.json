@@ -131,20 +131,6 @@
           "resource": "Job/stageproof-check/enterprise-logs-provisioner.template.spec.initContainers[0] provisioner",
           "rule_id": "supply.image.moved",
           "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `kiwigrid/k8s-sidecar:1.30.6` could not be checked. The registry did not answer.",
-          "resource": "kiwigrid/k8s-sidecar:1.30.6",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/memcached-exporter:v0.15.3` could not be checked. The registry did not answer.",
-          "resource": "prom/memcached-exporter:v0.15.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "6.31.0",
@@ -157,6 +143,6 @@
   "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 6.30.1 --to 6.31.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d59e734520bced7248d96f386e5254ffa0f1835499fe175531ff79fc165c3ef4"
 }

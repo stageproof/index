@@ -77,13 +77,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `velero/velero:v1.17.1` could not be checked. The registry did not answer.",
-          "resource": "velero/velero:v1.17.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "spec.credential in body must be of type object: \"null\"",
           "message": "Kubernetes rejected `spec.credential` on BackupStorageLocation/stageproof-check/default. The current chart failed the same validation; the upgrade did not introduce it.",
           "resource": "BackupStorageLocation/stageproof-check/default",
@@ -108,6 +101,6 @@
   "reproduce_command": "stageproof check --repo https://vmware-tanzu.github.io/helm-charts/ --chart velero --from 11.1.1 --to 11.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "9278e2472b1a3b50366a76b5dca2afe2fdc599e5c76dd808efacde18572bea64"
 }

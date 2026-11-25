@@ -77,20 +77,6 @@
           "message": "2 container images changed. Deployment/default/stageproof-rel-nats-box.template.spec.containers[0] nats-box container moves from natsio/nats-box:0.15.0 to natsio/nats-box:0.16.0. StatefulSet/default/stageproof-rel-nats.template.spec.containers[1] reloader container moves from natsio/nats-server-config-reloader:0.16.0 to natsio/nats-server-config-reloader:0.16.1.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `natsio/nats-box:0.16.0` could not be checked. The registry did not answer.",
-          "resource": "natsio/nats-box:0.16.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `natsio/nats-server-config-reloader:0.16.1` could not be checked. The registry did not answer.",
-          "resource": "natsio/nats-server-config-reloader:0.16.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.2.9",
@@ -103,6 +89,6 @@
   "reproduce_command": "stageproof check --repo https://nats-io.github.io/k8s/helm/charts/ --chart nats --from 1.2.8 --to 1.2.9 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "cbec52ad3ef31251bef3d84c56ddb302a1090a8c709136c3f8edba5b54c823eb"
 }

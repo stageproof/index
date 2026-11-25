@@ -81,48 +81,6 @@
           "message": "6 container images changed. CronJob/default/stageproof-rel-datahub-cleanup-job-template.jobTemplate.spec.template.spec.containers[0] datahub-upgrade-job container moves from docker.io/acryldata/datahub-upgrade:v0.15.0 to docker.io/acryldata/datahub-upgrade:v0.15.0.1. Deployment/default/stageproof-rel-datahub-frontend.template.spec.containers[0] datahub-frontend container moves from docker.io/acryldata/datahub-frontend-react:v0.15.0 to docker.io/acryldata/datahub-frontend-react:v0.15.0.1. Deployment/default/stageproof-rel-datahub-gms.template.spec.containers[0] datahub-gms container moves from docker.io/acryldata/datahub-gms:v0.15.0 to docker.io/acryldata/datahub-gms:v0.15.0.1. Job/default/stageproof-rel-elasticsearch-setup-job.template.spec.containers[0] elasticsearch-setup-job container moves from docker.io/acryldata/datahub-elasticsearch-setup:v0.15.0 to docker.io/acryldata/datahub-elasticsearch-setup:v0.15.0.1. Job/default/stageproof-rel-kafka-setup-job.template.spec.containers[0] kafka-setup-job container moves from docker.io/acryldata/datahub-kafka-setup:v0.15.0 to docker.io/acryldata/datahub-kafka-setup:v0.15.0.1. Job/default/stageproof-rel-mysql-setup-job.template.spec.containers[0] mysql-setup-job container moves from docker.io/acryldata/datahub-mysql-setup:v0.15.0 to docker.io/acryldata/datahub-mysql-setup:v0.15.0.1.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/acryldata/datahub-elasticsearch-setup:v0.15.0.1` could not be checked. The registry did not answer.",
-          "resource": "docker.io/acryldata/datahub-elasticsearch-setup:v0.15.0.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/acryldata/datahub-frontend-react:v0.15.0.1` could not be checked. The registry did not answer.",
-          "resource": "docker.io/acryldata/datahub-frontend-react:v0.15.0.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/acryldata/datahub-gms:v0.15.0.1` could not be checked. The registry did not answer.",
-          "resource": "docker.io/acryldata/datahub-gms:v0.15.0.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/acryldata/datahub-kafka-setup:v0.15.0.1` could not be checked. The registry did not answer.",
-          "resource": "docker.io/acryldata/datahub-kafka-setup:v0.15.0.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/acryldata/datahub-mysql-setup:v0.15.0.1` could not be checked. The registry did not answer.",
-          "resource": "docker.io/acryldata/datahub-mysql-setup:v0.15.0.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/acryldata/datahub-upgrade:v0.15.0.1` could not be checked. The registry did not answer.",
-          "resource": "docker.io/acryldata/datahub-upgrade:v0.15.0.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.5.2",
@@ -135,6 +93,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datahubproject.io --chart datahub --from 0.5.1 --to 0.5.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "0a04133d41e6dee8944906926ece18dcbf295133e1c4e7c394654e3e8e335874"
 }

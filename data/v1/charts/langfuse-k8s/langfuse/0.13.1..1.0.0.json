@@ -15,7 +15,7 @@
       "exit_code": 1,
       "findings": [
         {
-          "detail": "helm template 1.0.0 failed: exit status 1\nError: execution error at (langfuse/templates/worker/deployment.yaml:63:16): no valid value or secretKeyRef provided for langfuse.salt\n\nUse --debug flag to render out invalid YAML",
+          "detail": "helm template 1.0.0 failed: exit status 1\nError: execution error at (langfuse/charts/s3/templates/standalone/deployment.yaml:29:40): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'auth.rootPassword' must not be empty, please add '--set auth.rootPassword=$ROOT_PASSWORD' to the command. To get the current value:\n\n        export ROOT_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-s3 -o jsonpath=\"{.data.root-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
           "file": "1.0.0",
           "message": "Candidate chart (`--to`) failed `helm template` rendering.",
           "rule_id": "helm.template.render_failed",
@@ -32,6 +32,6 @@
   "reproduce_command": "stageproof check --repo https://langfuse.github.io/langfuse-k8s/ --chart langfuse --from 0.13.1 --to 1.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d297bedf82eadb2205a83f4d0e139df99e72815b17747d810cd26b1f84f5ea0d"
 }

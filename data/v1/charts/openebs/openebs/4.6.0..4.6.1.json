@@ -9,7 +9,7 @@
         {
           "name": "helm template",
           "status": "pass",
-          "summary": "rendered 104 Kubernetes objects cleanly"
+          "summary": "rendered 113 Kubernetes objects cleanly"
         },
         {
           "name": "values.yaml AST",
@@ -24,7 +24,7 @@
         {
           "name": "image tags",
           "status": "pass",
-          "summary": "14 new or changed image tags checked"
+          "summary": "15 new or changed image tags checked"
         },
         {
           "name": "API server 1.35.0",
@@ -33,7 +33,7 @@
         },
         {
           "name": "impact",
-          "status": "pass",
+          "status": "warn",
           "summary": "Compared stored objects for 89 of 104 objects, and rendered objects for the rest."
         },
         {
@@ -44,6 +44,18 @@
       ],
       "exit_code": 0,
       "findings": [
+        {
+          "message": "ClusterRole/default/mayastor-pre-upgrade-hook adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/mayastor-pre-upgrade-hook",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/openebs-pre-upgrade-hook adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/openebs-pre-upgrade-hook",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
         {
           "message": "The pod template of DaemonSet/default/stageproof-rel-agent-ha-node changed at spec.template.metadata.labels.openebs.io/version. The pods will restart. A restart is normal for an upgrade.",
           "resource": "DaemonSet/default/stageproof-rel-agent-ha-node",
@@ -157,6 +169,6 @@
   "reproduce_command": "stageproof check --repo https://openebs.github.io/openebs --chart openebs --from 4.6.0 --to 4.6.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "ac308a4252f67104bb147fc0f22f85f0a172ac65f433a06689c62efd4478633c"
 }

@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo https://coredns.github.io/helm --chart coredns --from 1.46.1 --to 1.46.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "4c12217e06b5bf8cddf6250df55852832fbd5e0e4c89520fd10a96d0c4867b2b"
 }

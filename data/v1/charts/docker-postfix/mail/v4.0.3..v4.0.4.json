@@ -69,13 +69,6 @@
           "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-mail.template.spec.containers[0] mail container moves from boky/postfix:v4.0.3 to boky/postfix:v4.0.4.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `boky/postfix:v4.0.4` could not be checked. The registry did not answer.",
-          "resource": "boky/postfix:v4.0.4",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "v4.0.4",
@@ -88,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://bokysan.github.io/docker-postfix/ --chart mail --from v4.0.3 --to v4.0.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "6ec3afc29f675c25ea1b04d7bd35aa4b3d97f256ebd4818491a196c2d8dd78a0"
 }

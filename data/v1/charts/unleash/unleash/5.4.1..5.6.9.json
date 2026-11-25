@@ -79,20 +79,6 @@
           "resource": "StatefulSet/stageproof-check/unleash-postgresql.template.spec.containers[0] postgresql",
           "rule_id": "supply.image.moved",
           "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/postgres:18-alpine` could not be checked. The registry did not answer.",
-          "resource": "docker.io/postgres:18-alpine",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `unleashorg/unleash-server:7.5.0` could not be checked. The registry did not answer.",
-          "resource": "unleashorg/unleash-server:7.5.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "5.6.9",
@@ -105,6 +91,6 @@
   "reproduce_command": "stageproof check --repo https://docs.getunleash.io/helm-charts/ --chart unleash --from 5.4.1 --to 5.6.9 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3633ac9fca4cd7aa436b29a0d41f02e18a4caa71afef498a4366793fa883c46f"
 }

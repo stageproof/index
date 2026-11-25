@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://kubernetes-sigs.github.io/headlamp/ --chart headlamp --from 0.28.1 --to 0.29.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "57e9374ba5f142e9b52fe4bf0182afce5c23d0320ab256adb614fb5b9474ab72"
 }

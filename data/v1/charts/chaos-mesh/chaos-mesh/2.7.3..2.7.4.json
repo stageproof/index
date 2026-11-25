@@ -163,6 +163,34 @@
           "severity": "info"
         },
         {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `cr.chaos-mesh.dev/chaos-mesh/chaos-coredns:v0.2.8` could not be checked. The registry did not answer.",
+          "resource": "cr.chaos-mesh.dev/chaos-mesh/chaos-coredns:v0.2.8",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `cr.chaos-mesh.dev/chaos-mesh/chaos-daemon:v2.7.4` could not be checked. The registry did not answer.",
+          "resource": "cr.chaos-mesh.dev/chaos-mesh/chaos-daemon:v2.7.4",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `cr.chaos-mesh.dev/chaos-mesh/chaos-dashboard:v2.7.4` could not be checked. The registry did not answer.",
+          "resource": "cr.chaos-mesh.dev/chaos-mesh/chaos-dashboard:v2.7.4",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `cr.chaos-mesh.dev/chaos-mesh/chaos-mesh:v2.7.4` could not be checked. The registry did not answer.",
+          "resource": "cr.chaos-mesh.dev/chaos-mesh/chaos-mesh:v2.7.4",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
           "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
           "message": "Not sent to the API server: MutatingWebhookConfiguration/default/chaos-mesh-mutation, ValidatingWebhookConfiguration/default/chaos-mesh-validation, ValidatingWebhookConfiguration/default/chaos-mesh-validation-auth, MutatingWebhookConfiguration/default/chaos-mesh-mutation, ValidatingWebhookConfiguration/default/chaos-mesh-validation, ValidatingWebhookConfiguration/default/chaos-mesh-validation-auth.",
           "rule_id": "k8s.apply.not_exercised",
@@ -200,6 +228,6 @@
   "reproduce_command": "stageproof check --repo https://charts.chaos-mesh.org --chart chaos-mesh --from 2.7.3 --to 2.7.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1468771b02d2eee3f39ae2791868d86002015d5a56871697a605f2cd1342eb92"
 }

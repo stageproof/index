@@ -53,6 +53,6 @@
   "reproduce_command": "stageproof check --repo oci://ghcr.io/immich-app/immich-charts --chart immich --from 0.10.2 --to 0.10.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "13d96a22351ed5654457c203acc01b05324c2a3f00ce98a027b7cd0c2618a3c6"
 }

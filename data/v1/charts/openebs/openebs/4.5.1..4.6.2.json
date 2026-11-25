@@ -9,7 +9,7 @@
         {
           "name": "helm template",
           "status": "pass",
-          "summary": "rendered 104 Kubernetes objects cleanly"
+          "summary": "rendered 113 Kubernetes objects cleanly"
         },
         {
           "name": "values.yaml AST",
@@ -24,7 +24,7 @@
         {
           "name": "image tags",
           "status": "pass",
-          "summary": "21 new or changed image tags checked"
+          "summary": "22 new or changed image tags checked"
         },
         {
           "name": "API server 1.35.0",
@@ -45,8 +45,20 @@
       "exit_code": 0,
       "findings": [
         {
+          "message": "ClusterRole/default/mayastor-pre-upgrade-hook adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/mayastor-pre-upgrade-hook",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
           "message": "ClusterRole/default/openebs-lvm-snapshotter-role adds rules that the current chart did not have.",
           "resource": "ClusterRole/default/openebs-lvm-snapshotter-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/openebs-pre-upgrade-hook adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/openebs-pre-upgrade-hook",
           "rule_id": "impact.privilege.rbac",
           "severity": "warning"
         },
@@ -183,6 +195,6 @@
   "reproduce_command": "stageproof check --repo https://openebs.github.io/openebs --chart openebs --from 4.5.1 --to 4.6.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "87c759684e23832115466813d6f16aa0920bed7b9c1b4b63e1cff64ca6023629"
 }

@@ -9,7 +9,7 @@
         {
           "name": "helm template",
           "status": "pass",
-          "summary": "rendered 104 Kubernetes objects cleanly"
+          "summary": "rendered 113 Kubernetes objects cleanly"
         },
         {
           "name": "values.yaml AST",
@@ -24,7 +24,7 @@
         {
           "name": "image tags",
           "status": "pass",
-          "summary": "32 new or changed image tags checked"
+          "summary": "33 new or changed image tags checked"
         },
         {
           "name": "API server 1.35.0",
@@ -50,6 +50,12 @@
           "severity": "warning"
         },
         {
+          "message": "ClusterRole/default/mayastor-pre-upgrade-hook adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/mayastor-pre-upgrade-hook",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
           "message": "ClusterRole/default/openebs-lvm-provisioner-role adds rules that the current chart did not have.",
           "resource": "ClusterRole/default/openebs-lvm-provisioner-role",
           "rule_id": "impact.privilege.rbac",
@@ -62,9 +68,23 @@
           "severity": "warning"
         },
         {
+          "message": "ClusterRole/default/openebs-pre-upgrade-hook adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/openebs-pre-upgrade-hook",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
           "message": "ClusterRole/default/stageproof-rel-localpv-provisioner adds rules that the current chart did not have.",
           "resource": "ClusterRole/default/stageproof-rel-localpv-provisioner",
           "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Job/default/openebs-pre-upgrade-hook",
+          "message": "Chart default `preUpgradeHook.image.repo` changed from `bitnami/kubectl` to `openebs/kubectl` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "preUpgradeHook.image.repo",
+          "rule_id": "helm.values.default_changed",
           "severity": "warning"
         },
         {
@@ -209,41 +229,6 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/kiwigrid/k8s-sidecar:1.30.2` could not be checked. The registry did not answer.",
-          "resource": "docker.io/kiwigrid/k8s-sidecar:1.30.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/nats:2.9.17-alpine` could not be checked. The registry did not answer.",
-          "resource": "docker.io/nats:2.9.17-alpine",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/natsio/nats-box:0.13.8` could not be checked. The registry did not answer.",
-          "resource": "docker.io/natsio/nats-box:0.13.8",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/natsio/nats-server-config-reloader:0.10.1` could not be checked. The registry did not answer.",
-          "resource": "docker.io/natsio/nats-server-config-reloader:0.10.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/natsio/prometheus-nats-exporter:0.11.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/natsio/prometheus-nats-exporter:0.11.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Kubernetes rejected the update. `spec` is immutable.",
           "resource": "StatefulSet/stageproof-check/stageproof-rel-etcd",
           "rule_id": "k8s.apply.immutable_field",
@@ -267,6 +252,6 @@
   "reproduce_command": "stageproof check --repo https://openebs.github.io/openebs --chart openebs --from 4.3.2 --to 4.6.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "87c759684e23832115466813d6f16aa0920bed7b9c1b4b63e1cff64ca6023629"
 }

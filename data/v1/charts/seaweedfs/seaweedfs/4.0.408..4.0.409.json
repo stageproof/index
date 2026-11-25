@@ -73,13 +73,6 @@
           "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-seaweedfs-filer.template.spec.containers[0] seaweedfs container moves from chrislusf/seaweedfs:4.08 to chrislusf/seaweedfs:4.09.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `chrislusf/seaweedfs:4.09` could not be checked. The registry did not answer.",
-          "resource": "chrislusf/seaweedfs:4.09",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "4.0.409",
@@ -92,6 +85,6 @@
   "reproduce_command": "stageproof check --repo https://seaweedfs.github.io/seaweedfs/helm --chart seaweedfs --from 4.0.408 --to 4.0.409 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "598f52329a7958a4885ebf50b3e3e0a98aa93c0176894ab7a3eb598824afb5c8"
 }

@@ -85,6 +85,6 @@
   "reproduce_command": "stageproof check --repo https://grafana.github.io/helm-charts --chart pyroscope --from 1.21.0 --to 2.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1a05ba1bc13f789df1defe45a59f5d0e761b3d59a95ff76e57a592bf0de8ee56"
 }

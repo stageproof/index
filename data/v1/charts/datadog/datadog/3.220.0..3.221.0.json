@@ -58,7 +58,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: ClusterRole/default/stageproof-rel-operator, ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap",
+          "detail": "Affected objects: ClusterRole/default/stageproof-rel-operator",
           "message": "Chart default `operator.datadogAgentInternal.enabled` changed from `false` to `true` and the rendered objects differ.",
           "proof": "render",
           "resource": "operator.datadogAgentInternal.enabled",
@@ -66,7 +66,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap, CustomResourceDefinition/default/datadogagentinternals.datadoghq.com",
+          "detail": "Affected objects: CustomResourceDefinition/default/datadogagentinternals.datadoghq.com",
           "message": "Chart default `operator.datadogCRDs.crds.datadogAgentInternals` changed from `false` to `true` and the rendered objects differ.",
           "proof": "render",
           "resource": "operator.datadogCRDs.crds.datadogAgentInternals",
@@ -74,7 +74,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap, CustomResourceDefinition/default/datadogcsidrivers.datadoghq.com",
+          "detail": "Affected objects: CustomResourceDefinition/default/datadogcsidrivers.datadoghq.com",
           "message": "Chart default `operator.datadogCRDs.crds.datadogCSIDrivers` changed from `false` to `true` and the rendered objects differ.",
           "proof": "render",
           "resource": "operator.datadogCRDs.crds.datadogCSIDrivers",
@@ -82,7 +82,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap, Deployment/stageproof-check/stageproof-rel-operator",
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-operator",
           "message": "Chart default `operator.image.tag` changed from `1.26.0` to `1.27.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "operator.image.tag",
@@ -138,6 +138,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datadoghq.com --chart datadog --from 3.220.0 --to 3.221.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d2c53693a2bcc42ff19e28c792ea46a54a4d753fbaaf9950ac0617bc4d61eccb"
 }

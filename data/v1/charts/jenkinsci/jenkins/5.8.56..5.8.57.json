@@ -38,15 +38,6 @@
         }
       ],
       "exit_code": 0,
-      "findings": [
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bats/bats:1.12.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bats/bats:1.12.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        }
-      ],
       "head_ref": "5.8.57",
       "schema_version": 1,
       "target_k8s": "1.35",
@@ -57,6 +48,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.8.56 --to 5.8.57 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5e04c5c423fc317ff7c38ced52568814f9266eb363609c22b15cd9f6c9f303ff"
 }

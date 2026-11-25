@@ -76,34 +76,6 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ajaytripathy/kubecost-cost-model:prod-1.50.3` could not be checked. The registry did not answer.",
-          "resource": "ajaytripathy/kubecost-cost-model:prod-1.50.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ajaytripathy/kubecost-frontend:prod-1.50.3` could not be checked. The registry did not answer.",
-          "resource": "ajaytripathy/kubecost-frontend:prod-1.50.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ajaytripathy/kubecost-init:prod-1.50.3` could not be checked. The registry did not answer.",
-          "resource": "ajaytripathy/kubecost-init:prod-1.50.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ajaytripathy/kubecost:prod-1.50.3` could not be checked. The registry did not answer.",
-          "resource": "ajaytripathy/kubecost:prod-1.50.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "API `policy/v1beta1` (PodSecurityPolicy) is not served by Kubernetes 1.35.0.",
           "resource": "PodSecurityPolicy/default/stageproof-rel-grafana",
           "rule_id": "k8s.api.removed",
@@ -162,6 +134,6 @@
   "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 1.50.2 --to 1.50.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8ca8cca049c209d7f2edb8cb89178ef9522a3e266f5e4e5c390ab6cdd37df3f1"
 }

@@ -127,6 +127,6 @@
   "reproduce_command": "stageproof check --repo https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts --chart csi-driver-nfs --from 4.11.0 --to 4.12.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "2d02ab3bc3bf6b49537f83e04180fe8e434bb126a4c402b0d54caa2610a475d1"
 }

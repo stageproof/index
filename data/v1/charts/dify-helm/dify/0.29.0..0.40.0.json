@@ -165,6 +165,13 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 0.40.0 failed: exit status 1\nError: execution error at (dify/charts/postgresql/templates/secrets.yaml:9:27): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'auth.replicationPassword' must not be empty, please add '--set auth.replicationPassword=$REPLICATION_PASSWORD' to the command. To get the current value:\n\n        export REPLICATION_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-postgresql -o jsonpath=\"{.data.replication-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "0.40.0",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
           "message": "Chart version moves from 0.29.0 to 0.40.0, skipping 10 minor versions.",
           "rule_id": "helm.release.version_span",
@@ -197,55 +204,6 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/alpine:latest` could not be checked. The registry did not answer.",
-          "resource": "docker.io/alpine:latest",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `langgenius/dify-agent-backend:1.18.0` could not be checked. The registry did not answer.",
-          "resource": "langgenius/dify-agent-backend:1.18.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `langgenius/dify-agent-local-sandbox:1.18.0` could not be checked. The registry did not answer.",
-          "resource": "langgenius/dify-agent-local-sandbox:1.18.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `langgenius/dify-api:1.18.0` could not be checked. The registry did not answer.",
-          "resource": "langgenius/dify-api:1.18.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `langgenius/dify-plugin-daemon:0.6.10-local` could not be checked. The registry did not answer.",
-          "resource": "langgenius/dify-plugin-daemon:0.6.10-local",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `langgenius/dify-sandbox:0.2.15` could not be checked. The registry did not answer.",
-          "resource": "langgenius/dify-sandbox:0.2.15",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `langgenius/dify-web:1.18.0` could not be checked. The registry did not answer.",
-          "resource": "langgenius/dify-web:1.18.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Kubernetes rejected the update. `spec` is immutable.",
           "resource": "StatefulSet/default/weaviate",
           "rule_id": "k8s.apply.immutable_field",
@@ -262,6 +220,6 @@
   "reproduce_command": "stageproof check --repo https://borispolonsky.github.io/dify-helm --chart dify --from 0.29.0 --to 0.40.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "cebf75042f4b5c060ef94f009ded45ea7f1e8f91590db93982a975b9b3ac70e7"
 }

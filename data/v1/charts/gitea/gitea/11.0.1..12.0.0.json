@@ -23,8 +23,8 @@
         },
         {
           "name": "image tags",
-          "status": "pass",
-          "summary": "4 new or changed image tags checked"
+          "status": "fail",
+          "summary": "a new or changed image tag was not found, or it lacks the required platform"
         },
         {
           "name": "API server 1.35.0",
@@ -98,25 +98,25 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnami/pgpool:4.6.0-debian-12-r8` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `docker.io/bitnami/pgpool:4.6.0-debian-12-r8` was not found.",
           "resource": "docker.io/bitnami/pgpool:4.6.0-debian-12-r8",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnami/postgresql-repmgr:17.5.0-debian-12-r1` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `docker.io/bitnami/postgresql-repmgr:17.5.0-debian-12-r1` was not found.",
           "resource": "docker.io/bitnami/postgresql-repmgr:17.5.0-debian-12-r1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnami/valkey-cluster:8.1.1-debian-12-r0` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `docker.io/bitnami/valkey-cluster:8.1.1-debian-12-r0` was not found.",
           "resource": "docker.io/bitnami/valkey-cluster:8.1.1-debian-12-r0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
           "detail": "Not found: \"postgres-password\"",
@@ -136,6 +136,6 @@
   "reproduce_command": "stageproof check --repo https://dl.gitea.com/charts --chart gitea --from 11.0.1 --to 12.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "16139290707ef01ac65e001d2c71e364828ed388cf60807a435b0ca1fe78ea70"
 }

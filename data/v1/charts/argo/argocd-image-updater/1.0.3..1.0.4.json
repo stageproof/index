@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo https://argoproj.github.io/argo-helm --chart argocd-image-updater --from 1.0.3 --to 1.0.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "b5db07febc29c0474887782894e0e068750993bb23061af27ad648c8d3ec8a43"
 }

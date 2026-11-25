@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://community-charts.github.io/helm-charts --chart n8n --from 1.24.13 --to 1.24.14 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "b81c8feb4a48c3dbe4db9807abd08b214d5ef74bd4df9bb87cf3e5343b1c725a"
 }

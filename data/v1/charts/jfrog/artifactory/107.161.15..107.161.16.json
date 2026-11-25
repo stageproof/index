@@ -112,6 +112,13 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 107.161.16 failed: exit status 1\nError: execution error at (artifactory/charts/postgresql/templates/secrets.yaml:26:16): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.postgresql.auth.password' must not be empty, please add '--set global.postgresql.auth.password=$PASSWORD' to the command. To get the current value:\n\n        export PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-postgresql -o jsonpath=\"{.data.password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "107.161.16",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
           "message": "appVersion moves from 7.161.15 to 7.161.16. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
@@ -134,6 +141,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jfrog.io --chart artifactory --from 107.161.15 --to 107.161.16 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "fc5876a148e254d7d7f029c8aab7f66841f5639f2cdef7a3d19af1c6e193ea98"
 }

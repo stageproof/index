@@ -74,13 +74,6 @@
           "message": "appVersion moves from 1.0.0-alpha.83 to 1.0.0-alpha.84. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `busybox:stable` could not be checked. The registry did not answer.",
-          "resource": "busybox:stable",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.0.84",
@@ -93,6 +86,6 @@
   "reproduce_command": "stageproof check --repo https://charts.rustfs.com --chart rustfs --from 0.0.83 --to 0.0.84 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "903605253b742acdaeebabf28b2e726a6552554d0a6ededa9e37ae5d815933a0"
 }

@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-podinfo, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-8x2fc, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-ck8t1, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-fn4pr, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-uunhf, Pod/stageproof-check/stageproof-rel-podinfo-service-test-3iqwr, Pod/stageproof-check/stageproof-rel-podinfo-service-test-zipds",
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-podinfo, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-okdfh, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-wkgwg, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-ddoma, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-y6bmt, Pod/stageproof-check/stageproof-rel-podinfo-service-test-6gxf0, Pod/stageproof-check/stageproof-rel-podinfo-service-test-br7wj",
           "message": "Chart default `image.tag` changed from `6.11.1` to `6.11.2` and the rendered objects differ.",
           "proof": "render",
           "resource": "image.tag",
@@ -69,27 +69,6 @@
           "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-podinfo.template.spec.containers[0] podinfo container moves from ghcr.io/stefanprodan/podinfo:6.11.1 to ghcr.io/stefanprodan/podinfo:6.11.2.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `curlimages/curl:7.69.0` could not be checked. The registry did not answer.",
-          "resource": "curlimages/curl:7.69.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `giantswarm/tiny-tools` could not be checked. The registry did not answer.",
-          "resource": "giantswarm/tiny-tools",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `stefanprodan/grpc_health_probe:v0.3.0` could not be checked. The registry did not answer.",
-          "resource": "stefanprodan/grpc_health_probe:v0.3.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "6.11.2",
@@ -102,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://stefanprodan.github.io/podinfo --chart podinfo --from 6.11.1 --to 6.11.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3d510239779e71820f71e0fa9ad94ab01144a1ebed9f03135517aaa182033e23"
 }

@@ -69,20 +69,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `nirmata/kyverno:v1.2.0` could not be checked. The registry did not answer.",
-          "resource": "nirmata/kyverno:v1.2.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `nirmata/kyvernopre:v1.2.0` could not be checked. The registry did not answer.",
-          "resource": "nirmata/kyvernopre:v1.2.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "API `rbac.authorization.k8s.io/v1beta1` (ClusterRole) is not served by Kubernetes 1.35.0.",
           "resource": "ClusterRole/default/stageproof-rel-kyverno:policyviolations",
           "rule_id": "k8s.api.removed",
@@ -99,6 +85,6 @@
   "reproduce_command": "stageproof check --repo https://kyverno.github.io/kyverno/ --chart kyverno --from 1.1.12 --to 1.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "ac4beee71de8260fa38bcfbd0c702f15ab393a678ebc3875cbb2bcd5022027f5"
 }

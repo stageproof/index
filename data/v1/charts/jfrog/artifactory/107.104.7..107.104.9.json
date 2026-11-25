@@ -65,6 +65,13 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 107.104.9 failed: exit status 1\nError: execution error at (artifactory/templates/artifactory-statefulset.yaml:13:29): \n\n*********\nIMPORTANT: UPGRADE STOPPED to prevent data loss!\nReview CHANGELOG.md (https://github.com/jfrog/charts/blob/master/stable/artifactory/CHANGELOG.md) \nNote: This applies only when you are using bundled postgresql (postgresql.enabled=true) \nIf you are upgrading from a chart version (< 107.79.x) that has postgresql.image.tag of 9.x or 10.x or 12.x or 13.x, make sure to set the current postgresql.image.tag to the same tag and databaseUpgradeReady=true \nOR \nIf you are upgrading from a chart version (>= 107.79.x), just set databaseUpgradeReady=true \n\n\nUse --debug flag to render out invalid YAML",
+          "file": "107.104.9",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
           "message": "appVersion moves from 7.104.7 to 7.104.9. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
@@ -87,6 +94,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jfrog.io --chart artifactory --from 107.104.7 --to 107.104.9 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "6afef390b075f80defc0af08786a452892928488af017a46e0a358f8d5eabbda"
 }

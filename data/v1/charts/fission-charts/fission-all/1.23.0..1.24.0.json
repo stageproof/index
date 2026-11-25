@@ -87,7 +87,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Job/default/stageproof-rel-fission-a-1.24.0-342, Job/default/stageproof-rel-fission-a-1.24.0-888",
+          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Job/default/stageproof-rel-fission-a-1.24.0-602, Job/default/stageproof-rel-fission-a-1.24.0-652",
           "message": "Chart default `fetcher.imageTag` changed from `v1.23.0` to `v1.24.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "fetcher.imageTag",
@@ -95,7 +95,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Deployment/default/kubewatcher, Deployment/default/mqtrigger-keda, Deployment/default/router, Deployment/default/storagesvc, Deployment/default/timer, Deployment/default/webhook, Job/default/stageproof-rel-fission-a-1.24.0-888, Job/default/stageproof-rel-fission-a-1.24.0-946, Job/default/stageproof-rel-fission-a-1.24.0-post-install, Job/default/stageproof-rel-fission-a-1.24.0-post-upgrade",
+          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Deployment/default/kubewatcher, Deployment/default/mqtrigger-keda, Deployment/default/router, Deployment/default/storagesvc, Deployment/default/timer, Deployment/default/webhook, Job/default/stageproof-rel-fission-a-1.24.0-510, Job/default/stageproof-rel-fission-a-1.24.0-602, Job/default/stageproof-rel-fission-a-1.24.0-post-install, Job/default/stageproof-rel-fission-a-1.24.0-post-upgrade",
           "message": "Chart default `imageTag` changed from `v1.23.0` to `v1.24.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "imageTag",
@@ -103,7 +103,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.24.0-167, Job/default/stageproof-rel-fission-a-1.24.0-888",
+          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.24.0-203, Job/default/stageproof-rel-fission-a-1.24.0-602",
           "message": "Chart default `preUpgradeChecks.imageTag` changed from `v1.23.0` to `v1.24.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "preUpgradeChecks.imageTag",
@@ -187,6 +187,6 @@
   "reproduce_command": "stageproof check --repo https://fission.github.io/fission-charts/ --chart fission-all --from 1.23.0 --to 1.24.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "0ed65ac960d209850bbabf3bd5edfb618a567928c4957a12499b26558f027c99"
 }

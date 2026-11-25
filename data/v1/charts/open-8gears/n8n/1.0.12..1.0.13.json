@@ -43,13 +43,6 @@
           "message": "Helm will delete objects the new chart does not render: Deployment/default/stageproof-rel-n8n, Service/default/stageproof-rel-n8n, ServiceAccount/default/stageproof-rel-n8n.",
           "rule_id": "impact.delete",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `n8nio/n8n:1.107.4` could not be checked. The registry did not answer.",
-          "resource": "n8nio/n8n:1.107.4",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.0.13",
@@ -62,6 +55,6 @@
   "reproduce_command": "stageproof check --repo oci://8gears.container-registry.com/library --chart n8n --from 1.0.12 --to 1.0.13 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "433683d3ccc7d264c9029a8b9a0af952d78ef4180dacbc4fdffc8b2c0f12ede1"
 }

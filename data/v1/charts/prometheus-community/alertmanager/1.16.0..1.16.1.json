@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo https://prometheus-community.github.io/helm-charts --chart alertmanager --from 1.16.0 --to 1.16.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3b3f0945ae72812aa7b5d80bf3614a88edc96dbd6cc0e6dc5ae6ca6c9f5afe80"
 }

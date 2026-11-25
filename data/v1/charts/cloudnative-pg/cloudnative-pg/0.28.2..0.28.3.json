@@ -76,6 +76,6 @@
   "reproduce_command": "stageproof check --repo https://cloudnative-pg.io/charts/ --chart cloudnative-pg --from 0.28.2 --to 0.28.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a220f174b72637f505553b9c0fddb0b9fed03380d58be171935cd99d880877d6"
 }

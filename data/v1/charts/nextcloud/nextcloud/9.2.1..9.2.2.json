@@ -48,6 +48,6 @@
   "reproduce_command": "stageproof check --repo https://nextcloud.github.io/helm/ --chart nextcloud --from 9.2.1 --to 9.2.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "df2723a36a9e42bcf50adb4bd9f19f604c161d081517d6f64345febef3a57864"
 }

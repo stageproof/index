@@ -87,6 +87,6 @@
   "reproduce_command": "stageproof check --repo https://sonatype.github.io/helm3-charts/ --chart nxrm-ha --from 68.1.0 --to 69.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "ca9063da835244e44c258b11427ff97eb3877bc22b2633c2c1b7577e03f94833"
 }

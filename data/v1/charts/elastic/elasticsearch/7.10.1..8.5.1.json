@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-nejca-test, Pod/default/stageproof-rel-psieh-test, StatefulSet/default/elasticsearch-master",
+          "detail": "Affected objects: Pod/default/stageproof-rel-isgst-test, Pod/default/stageproof-rel-kgbys-test, StatefulSet/default/elasticsearch-master",
           "message": "Chart default `esJavaOpts` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "esJavaOpts",
@@ -53,7 +53,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-dbhfc-test, Pod/default/stageproof-rel-psieh-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-kgbys-test, Pod/default/stageproof-rel-nrfgs-test",
           "message": "Chart default `fsGroup` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "fsGroup",
@@ -61,7 +61,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-nohcp-test, Pod/default/stageproof-rel-psieh-test, StatefulSet/default/elasticsearch-master",
+          "detail": "Affected objects: Pod/default/stageproof-rel-kgbys-test, Pod/default/stageproof-rel-ljlsc-test, StatefulSet/default/elasticsearch-master",
           "message": "Chart default `imageTag` changed from `7.10.1` to `8.5.1` and the rendered objects differ.",
           "proof": "render",
           "resource": "imageTag",
@@ -69,7 +69,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-myfoj-test, Pod/default/stageproof-rel-psieh-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-kgbys-test, Pod/default/stageproof-rel-uzgcy-test",
           "message": "Chart default `ingress.hosts` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "ingress.hosts",
@@ -77,7 +77,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-ihxgi-test, Pod/default/stageproof-rel-psieh-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-gzzfo-test, Pod/default/stageproof-rel-kgbys-test",
           "message": "Chart default `ingress.path` changed from `/` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "ingress.path",
@@ -85,7 +85,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-mpgww-test, Pod/default/stageproof-rel-psieh-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-kgbys-test, Pod/default/stageproof-rel-owcov-test",
           "message": "Chart default `masterTerminationFix` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "masterTerminationFix",
@@ -93,7 +93,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-abyzi-test, Pod/default/stageproof-rel-psieh-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-kgbys-test, Pod/default/stageproof-rel-zdsda-test",
           "message": "Chart default `podSecurityPolicy.spec.volumes` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "podSecurityPolicy.spec.volumes",
@@ -101,7 +101,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-fioqp-test, Pod/default/stageproof-rel-psieh-test, StatefulSet/default/elasticsearch-master",
+          "detail": "Affected objects: Pod/default/stageproof-rel-ekmye-test, Pod/default/stageproof-rel-kgbys-test, StatefulSet/default/elasticsearch-master",
           "message": "Chart default `protocol` changed from `http` to `https` and the rendered objects differ.",
           "proof": "render",
           "resource": "protocol",
@@ -109,7 +109,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-gtrcz-test, Pod/default/stageproof-rel-psieh-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-kgbys-test, Pod/default/stageproof-rel-rpbhe-test",
           "message": "Chart default `sidecarResources` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "sidecarResources",
@@ -151,6 +151,6 @@
   "reproduce_command": "stageproof check --repo https://helm.elastic.co --chart elasticsearch --from 7.10.1 --to 8.5.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8a5e70ec72dc480c8a01b079bf7240722da7d017f5683178e23a745d418448ba"
 }

@@ -63,13 +63,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `boky/postfix:v2.2.0` could not be checked. The registry did not answer.",
-          "resource": "boky/postfix:v2.2.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "A client-side Helm upgrade drops this field and continues.",
           "message": "Kubernetes does not know `field not declared in schema\n  .spec.template.spec.containers[name=\"mail\"].startupProbe.command`.",
           "resource": "StatefulSet/stageproof-check/stageproof-rel-mail",
@@ -87,6 +80,6 @@
   "reproduce_command": "stageproof check --repo https://bokysan.github.io/docker-postfix/ --chart mail --from v2.1.1 --to v2.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "f803d3fbb2149d95e296ddd64fe7eb69fbd26262ecc07f41952122d1f7c7bc57"
 }

@@ -99,6 +99,13 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 7.0.0 failed: exit status 1\nError: execution error at (rocketchat/charts/mongodb/templates/secrets.yaml:26:21): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'auth.rootPassword' must not be empty, please add '--set auth.rootPassword=$MONGODB_ROOT_PASSWORD' to the command. To get the current value:\n\n        export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-mongodb -o jsonpath=\"{.data.mongodb-root-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "7.0.0",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
           "message": "Chart version moves from 6.32.1 to 7.0.0, a new major version.",
           "rule_id": "helm.release.version_span",
@@ -134,6 +141,6 @@
   "reproduce_command": "stageproof check --repo https://rocketchat.github.io/helm-charts --chart rocketchat --from 6.32.1 --to 7.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "cb9939a2341b881797ebd9cf4afa2868c7825b42eb19b969a2a6060f23cd4180"
 }

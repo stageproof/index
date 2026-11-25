@@ -82,13 +82,6 @@
           "resource": "StatefulSet/stageproof-check/stageproof-rel-etcd.template.spec.containers[0] etcd",
           "rule_id": "supply.image.moved",
           "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnamilegacy/etcd:latest` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bitnamilegacy/etcd:latest",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "2.12.0",
@@ -101,6 +94,6 @@
   "reproduce_command": "stageproof check --repo https://charts.apiseven.com --chart apisix --from 2.11.6 --to 2.12.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "f9066e6e813495dedf77a61a7851da3af85fd44aac0e21cb829d02ed15c9d25a"
 }

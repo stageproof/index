@@ -62,6 +62,6 @@
   "reproduce_command": "stageproof check --repo https://dragonflyoss.github.io/helm-charts/ --chart dragonfly --from 1.6.9 --to 1.6.10 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "190e3f7a2ebc200bea7b64cc34626f487a05e9393b7e2aea0be3b2274c3615d8"
 }

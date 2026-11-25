@@ -1,0 +1,33 @@
+{
+  "from_sha256": "fd3d0a8448365bc3c867ecf8dd75ec8af5960268a24fcff591d1373e6a39c25c",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "10.1.10",
+      "checked": "files",
+      "checks": [
+        {
+          "name": "required values shim",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: global.hosts.workspaces.name"
+        },
+        {
+          "name": "baseline helm template",
+          "status": "fail",
+          "summary": "helm template 10.1.10 failed: exit status 1\nError: execution error at (gitlab/templates/NOTES.txt:226:3): \nCONFIGURATION CHECKS:\n\nRegistry Object Storage:\n  The chart provides no longer bundled object storage solution. Please\n  prepare an external object storage solution for the Registry by following \n  https://docs.gitlab.com/charts/advanced/external-object-storage/#registry-configuration\n\nBackup Object Storage:\n  The chart provides no longer bundled object storage solution. Please\n  prepare an external object storage solution for backup and restore by following\n  https://docs.gitlab.com/charts/advanced/external-object-storage/#backups\n\nObject Storage:\n  When type-specific object storage is enabled the `connection` property can not be empty. Check the following object storage configuration(s): artifacts,lfs,uploads,packages\n\nUse --debug flag to render out invalid YAML"
+        }
+      ],
+      "exit_code": 2,
+      "head_ref": "10.1.11",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "NOT CHECKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo http://charts.gitlab.io/ --chart gitlab --from 10.1.10 --to 10.1.11 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.4.0",
+  "to_sha256": "4bdf83fa791e2ace4b42f68cb466308ed712875421680cb37a69c567fced4551"
+}

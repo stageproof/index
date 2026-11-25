@@ -67,13 +67,6 @@
           "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-plantuml.template.spec.containers[0] plantuml container moves from docker.io/plantuml/plantuml-server:jetty-v1.2024.7 to docker.io/plantuml/plantuml-server:jetty-v1.2026.8.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/plantuml/plantuml-server:jetty-v1.2026.8` could not be checked. The registry did not answer.",
-          "resource": "docker.io/plantuml/plantuml-server:jetty-v1.2026.8",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "3.49.0",
@@ -86,6 +79,6 @@
   "reproduce_command": "stageproof check --repo https://stevehipwell.github.io/helm-charts/ --chart plantuml --from 3.34.0 --to 3.49.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "ad0892801cc1321d42ba374dbcb205a4846634a156b917b4e7dc4742501d8207"
 }

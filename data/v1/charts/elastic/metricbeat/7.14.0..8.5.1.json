@@ -172,6 +172,6 @@
   "reproduce_command": "stageproof check --repo https://helm.elastic.co --chart metricbeat --from 7.14.0 --to 8.5.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "b19a8af7f34e7bd9eeaea9c425cf1272efe2edac0f073e1cd42690be6dd463ad"
 }

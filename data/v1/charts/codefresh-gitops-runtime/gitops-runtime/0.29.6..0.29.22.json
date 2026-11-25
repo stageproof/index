@@ -245,13 +245,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/nginxinc/nginx-unprivileged:1.31.3-alpine3.24` could not be checked. The registry did not answer.",
-          "resource": "docker.io/nginxinc/nginx-unprivileged:1.31.3-alpine3.24",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "A client-side Helm upgrade drops this field and continues.",
           "message": "Kubernetes does not know `spec.template.spec.containers[name=\"cap-app-proxy\"].env[name=\"USER_TOKEN\"].valueFrom.secretKeyRef.stageproofPlaceholder`.",
           "resource": "Deployment/default/cap-app-proxy",
@@ -290,6 +283,6 @@
   "reproduce_command": "stageproof check --repo oci://quay.io/codefresh --chart gitops-runtime --from 0.29.6 --to 0.29.22 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3b5d2d9bbcfae3d2d7a90e655f98410c33431267662debb95b2b3560e71cc6e9"
 }

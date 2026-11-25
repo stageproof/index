@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo oci://ghcr.io/dexidp/helm-charts --chart dex --from 0.25.1 --to 0.25.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8092493d4fa87096d9ca6062f9b3ae351c728d8366088ec259eb1fba03f61426"
 }

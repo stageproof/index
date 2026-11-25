@@ -53,6 +53,14 @@
           "severity": "warning"
         },
         {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap",
+          "message": "Chart default `clusterChecksRunner.image.tag` changed from `7.65.2` to `7.66.1` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "clusterChecksRunner.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
           "message": "The pod template of Deployment/stageproof-check/stageproof-rel-datadog-cluster-agent changed at spec.template.metadata.annotations.checksum/api_key. The pods will restart. A restart is normal for an upgrade.",
           "resource": "Deployment/stageproof-check/stageproof-rel-datadog-cluster-agent",
           "rule_id": "impact.restart",
@@ -75,6 +83,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datadoghq.com --chart datadog --from 3.117.3 --to 3.117.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "23571309633ad48503f08ed8b4f1346bfcd85ab9231e1abfe507f575ab43a5d4"
 }

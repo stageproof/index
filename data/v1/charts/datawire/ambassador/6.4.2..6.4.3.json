@@ -101,20 +101,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/datawire/aes:1.5.2` could not be checked. The registry did not answer.",
-          "resource": "docker.io/datawire/aes:1.5.2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `registry:2` could not be checked. The registry did not answer.",
-          "resource": "registry:2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
           "resource": "CustomResourceDefinition/default/projects.getambassador.io",
           "rule_id": "k8s.api.removed",
@@ -221,6 +207,6 @@
   "reproduce_command": "stageproof check --repo https://getambassador.io/ --chart ambassador --from 6.4.2 --to 6.4.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "fecc54369bf730d3da358bb8a55c84e6fab735ad0271a6a519d6d849597fb026"
 }

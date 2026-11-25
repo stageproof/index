@@ -80,13 +80,6 @@
           "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-loki-chunks-cache.template.spec.containers[1] exporter container moves from docker.io/prom/memcached-exporter:v0.17.0 to docker.io/prom/memcached-exporter:v0.18.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/prom/memcached-exporter:v0.18.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/prom/memcached-exporter:v0.18.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "19.1.0",
@@ -99,6 +92,6 @@
   "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 19.0.3 --to 19.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "b1ba74c99c165dfbb9889f2b3d78ed7d3cc2cf8615be26e0f367056465467caa"
 }

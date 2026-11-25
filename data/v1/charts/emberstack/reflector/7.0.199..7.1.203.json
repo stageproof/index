@@ -61,13 +61,6 @@
           "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-reflector.template.spec.containers[0] reflector container moves from emberstack/kubernetes-reflector:7.0.199 to emberstack/kubernetes-reflector:7.1.203.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `emberstack/kubernetes-reflector:7.1.203` could not be checked. The registry did not answer.",
-          "resource": "emberstack/kubernetes-reflector:7.1.203",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "7.1.203",
@@ -80,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://emberstack.github.io/helm-charts --chart reflector --from 7.0.199 --to 7.1.203 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d1a9cbc6464a3d9c7e2c1e37a938e4932ef2507c0934ca31595b0e950976dfbe"
 }

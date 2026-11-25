@@ -67,6 +67,13 @@
           "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
           "rule_id": "helm.operator.existing_custom_resources",
           "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `ghcr.io/kyverno/kyverno:v1.5.8` could not be checked. The registry did not answer.",
+          "resource": "ghcr.io/kyverno/kyverno:v1.5.8",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
         }
       ],
       "head_ref": "v2.1.10",
@@ -79,6 +86,6 @@
   "reproduce_command": "stageproof check --repo https://kyverno.github.io/kyverno/ --chart kyverno --from v2.1.9 --to v2.1.10 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "88508b07c3102ef0a4dd4bc5b94863fd04e9cf35865fcbf8c0bd8c1b5f681455"
 }

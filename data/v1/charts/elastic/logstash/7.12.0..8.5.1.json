@@ -87,6 +87,6 @@
   "reproduce_command": "stageproof check --repo https://helm.elastic.co --chart logstash --from 7.12.0 --to 8.5.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "70aace1eb5ecb759942e60ffd192a849330582900658a6b306055a9530adb44b"
 }

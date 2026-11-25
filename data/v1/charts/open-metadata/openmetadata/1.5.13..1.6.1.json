@@ -71,7 +71,7 @@
         },
         {
           "detail": "A client-side Helm upgrade drops this field and continues.",
-          "message": "Kubernetes does not know `spec.jobTemplate.spec.matchLabels`.",
+          "message": "Kubernetes does not know `spec.jobTemplate.spec.app.kubernetes.io/name`.",
           "resource": "CronJob/default/cron-deploy-pipelines",
           "rule_id": "k8s.apply.unknown_field",
           "severity": "warning"
@@ -94,6 +94,6 @@
   "reproduce_command": "stageproof check --repo https://helm.open-metadata.org --chart openmetadata --from 1.5.13 --to 1.6.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "ccd52c22ac171be27ffe12a0be844497b508d63a98d4a755590945569035b767"
 }

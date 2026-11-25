@@ -126,6 +126,6 @@
   "reproduce_command": "stageproof check --repo oci://quay.io/strimzi-helm --chart strimzi-kafka-operator --from 0.49.0 --to 0.49.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "f36ffbd4dd5c27e34f4c7445e9df5b905fd27ad34e7ff05826cb44d4d8da4e43"
 }

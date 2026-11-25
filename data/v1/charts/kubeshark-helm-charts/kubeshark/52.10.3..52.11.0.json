@@ -139,27 +139,6 @@
           "message": "3 container images changed. DaemonSet/stageproof-check/kubeshark-worker-daemon-set.template.spec.containers[0] sniffer container moves from docker.io/kubeshark/worker:v52.10 to docker.io/kubeshark/worker:v52.11. Deployment/stageproof-check/stageproof-rel-front.template.spec.containers[0] kubeshark-front container moves from docker.io/kubeshark/front:v52.10 to docker.io/kubeshark/front:v52.11. Deployment/stageproof-check/stageproof-rel-hub.template.spec.containers[0] hub container moves from docker.io/kubeshark/hub:v52.10 to docker.io/kubeshark/hub:v52.11.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/kubeshark/front:v52.11` could not be checked. The registry did not answer.",
-          "resource": "docker.io/kubeshark/front:v52.11",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/kubeshark/hub:v52.11` could not be checked. The registry did not answer.",
-          "resource": "docker.io/kubeshark/hub:v52.11",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/kubeshark/worker:v52.11` could not be checked. The registry did not answer.",
-          "resource": "docker.io/kubeshark/worker:v52.11",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "52.11.0",
@@ -172,6 +151,6 @@
   "reproduce_command": "stageproof check --repo https://helm.kubeshark.com/ --chart kubeshark --from 52.10.3 --to 52.11.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a8e2e7fab43bce5d0dc92f3b1c5f2bf75f7edcc91801ebde17e3f3df984c2e59"
 }

@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.9.8 --to 5.9.9 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "52fb04f5de9111988b8ecc1c57ff8ec39b6f4666e7e7951f26fa0a937d74d080"
 }

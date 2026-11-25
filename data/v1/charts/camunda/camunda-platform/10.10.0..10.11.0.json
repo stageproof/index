@@ -149,52 +149,17 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 10.11.0 failed: exit status 1\nError: execution error at (camunda-platform/charts/identityKeycloak/charts/postgresql/templates/secrets.yaml:23:16): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.postgresql.auth.password' must not be empty, please add '--set global.postgresql.auth.password=$PASSWORD' to the command. To get the current value:\n\n        export PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-postgresql -o jsonpath=\"{.data.password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "10.11.0",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
           "message": "6 container images changed. Deployment/default/stageproof-rel-identity.template.spec.containers[0] camunda-platform container moves from camunda/identity:8.5.19 to camunda/identity:8.5.20. Deployment/default/stageproof-rel-operate.template.spec.containers[0] operate container moves from camunda/operate:8.5.18 to camunda/operate:8.5.19. Deployment/default/stageproof-rel-optimize.template.spec.containers[0] optimize container moves from camunda/optimize:8.5.18 to camunda/optimize:8.5.19. Deployment/default/stageproof-rel-tasklist.template.spec.containers[0] tasklist container moves from camunda/tasklist:8.5.20 to camunda/tasklist:8.5.21. Deployment/default/stageproof-rel-zeebe-gateway.template.spec.containers[0] zeebe-gateway container moves from camunda/zeebe:8.5.22 to camunda/zeebe:8.5.23. StatefulSet/stageproof-check/stageproof-rel-keycloak.template.spec.initContainers[1] copy-camunda-theme container moves from docker.io/camunda/identity:8.5.19 to docker.io/camunda/identity:8.5.20.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `camunda/identity:8.5.20` could not be checked. The registry did not answer.",
-          "resource": "camunda/identity:8.5.20",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `camunda/operate:8.5.19` could not be checked. The registry did not answer.",
-          "resource": "camunda/operate:8.5.19",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `camunda/optimize:8.5.19` could not be checked. The registry did not answer.",
-          "resource": "camunda/optimize:8.5.19",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `camunda/tasklist:8.5.21` could not be checked. The registry did not answer.",
-          "resource": "camunda/tasklist:8.5.21",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `camunda/zeebe:8.5.23` could not be checked. The registry did not answer.",
-          "resource": "camunda/zeebe:8.5.23",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/camunda/identity:8.5.20` could not be checked. The registry did not answer.",
-          "resource": "docker.io/camunda/identity:8.5.20",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "10.11.0",
@@ -207,6 +172,6 @@
   "reproduce_command": "stageproof check --repo https://helm.camunda.io --chart camunda-platform --from 10.10.0 --to 10.11.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c2cb2f15cbe22531f3a806e03f24431d60acdab57a358bb91371575fb242793f"
 }

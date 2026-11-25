@@ -28,8 +28,8 @@
         },
         {
           "name": "image tags",
-          "status": "pass",
-          "summary": "2 new or changed image tags checked"
+          "status": "fail",
+          "summary": "a new or changed image tag was not found, or it lacks the required platform"
         },
         {
           "name": "API server 1.35.0",
@@ -47,7 +47,7 @@
           "summary": "current Kubernetes was checked by API server 1.35.0"
         }
       ],
-      "exit_code": 0,
+      "exit_code": 1,
       "findings": [
         {
           "detail": "Affected objects: ClickHouseCluster/stageproof-check/stageproof-rel-langfuse",
@@ -72,18 +72,18 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `clickhouse/clickhouse-server:26.8.36.3-lts` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `clickhouse/clickhouse-server:26.8.36.3-lts` was not found.",
           "resource": "ClickHouseCluster/stageproof-check/stageproof-rel-langfuse.containerTemplate",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `clickhouse/clickhouse-keeper:26.8.36.3-lts` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `clickhouse/clickhouse-keeper:26.8.36.3-lts` was not found.",
           "resource": "KeeperCluster/stageproof-check/stageproof-rel-langfuse.containerTemplate",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
           "message": "ClickHouseCluster/stageproof-check/stageproof-rel-langfuse was not judged. the API group is not installed on this server.",
@@ -101,13 +101,13 @@
       "head_ref": "2.2.0",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "PASSED"
+      "verdict": "BLOCKED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo https://langfuse.github.io/langfuse-k8s/ --chart langfuse --from 2.1.7 --to 2.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "445963d35af145ed4997b940850faf42dd3ed148672d28847b02fd01b7f6b81b"
 }

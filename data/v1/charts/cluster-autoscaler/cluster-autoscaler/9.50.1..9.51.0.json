@@ -48,6 +48,6 @@
   "reproduce_command": "stageproof check --repo https://kubernetes.github.io/autoscaler --chart cluster-autoscaler --from 9.50.1 --to 9.51.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c2d1619c92bc61eb83ad99ee9ac21d01864a2ce4b7ac924e811d3ce44ce22cad"
 }

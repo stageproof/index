@@ -131,6 +131,6 @@
   "reproduce_command": "stageproof check --repo https://jupyterhub.github.io/helm-chart/ --chart jupyterhub --from 4.4.1 --to 4.4.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "0ddfa517050d16f2e1b50c62b5b6377b12574f9a2b88f3b352bd211ef3173c3e"
 }

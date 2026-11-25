@@ -99,13 +99,6 @@
           "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
           "rule_id": "helm.operator.existing_custom_resources",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ghcr.io/fluxcd/flagger:1.45.0` could not be checked. The registry did not answer.",
-          "resource": "ghcr.io/fluxcd/flagger:1.45.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.45.0",
@@ -118,6 +111,6 @@
   "reproduce_command": "stageproof check --repo https://flagger.app --chart flagger --from 1.33.0 --to 1.45.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "397abd82e40f8bb57fa3a81bbb45b604e4f81a9c22c3b4ae16f3d95992b7940e"
 }

@@ -77,13 +77,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `nginx/nginx-ingress:1.12.3` could not be checked. The registry did not answer.",
-          "resource": "nginx/nginx-ingress:1.12.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "API `networking.k8s.io/v1beta1` (IngressClass) is not served by Kubernetes 1.35.0.",
           "resource": "IngressClass/default/nginx",
           "rule_id": "k8s.api.removed",
@@ -100,6 +93,6 @@
   "reproduce_command": "stageproof check --repo https://helm.nginx.com/stable --chart nginx-ingress --from 0.10.2 --to 0.10.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "09347b7f670a341835ad0c354ee7615c704b2933147585f39a2d94c255678aae"
 }

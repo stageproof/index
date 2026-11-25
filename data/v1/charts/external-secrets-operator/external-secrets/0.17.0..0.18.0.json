@@ -99,6 +99,13 @@
           "severity": "warning"
         },
         {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `oci.external-secrets.io/external-secrets/external-secrets:v0.18.0` could not be checked. The registry did not answer.",
+          "resource": "oci.external-secrets.io/external-secrets/external-secrets:v0.18.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
           "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
           "message": "Not sent to the API server: ValidatingWebhookConfiguration/default/secretstore-validate, ValidatingWebhookConfiguration/default/externalsecret-validate, ValidatingWebhookConfiguration/default/secretstore-validate, ValidatingWebhookConfiguration/default/externalsecret-validate.",
           "rule_id": "k8s.apply.not_exercised",
@@ -129,6 +136,6 @@
   "reproduce_command": "stageproof check --repo https://charts.external-secrets.io/ --chart external-secrets --from 0.17.0 --to 0.18.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "547ee29499f8a6125b7b8eed8e9cbf262050987c73dcb079e8f229ff8a4a72bb"
 }

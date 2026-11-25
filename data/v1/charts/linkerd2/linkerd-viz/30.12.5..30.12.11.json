@@ -103,13 +103,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/prometheus:v2.48.0` could not be checked. The registry did not answer.",
-          "resource": "prom/prometheus:v2.48.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "AuthorizationPolicy/stageproof-check/metrics-api was not judged. the API group is not installed on this server.",
           "resource": "AuthorizationPolicy/stageproof-check/metrics-api",
           "rule_id": "k8s.apply.not_exercised",
@@ -204,6 +197,6 @@
   "reproduce_command": "stageproof check --repo https://helm.linkerd.io/stable --chart linkerd-viz --from 30.12.5 --to 30.12.11 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "40c056070b4c7644da47747eb8ea173df366e01cfc3d0dc2d1890157adb18421"
 }

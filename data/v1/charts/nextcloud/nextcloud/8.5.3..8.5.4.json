@@ -75,6 +75,6 @@
   "reproduce_command": "stageproof check --repo https://nextcloud.github.io/helm/ --chart nextcloud --from 8.5.3 --to 8.5.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "41fa3c25a1e73606f0d1dec09f1418226839593694e5970ece08aa41aa968c1a"
 }

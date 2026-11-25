@@ -66,13 +66,6 @@
           "message": "1 container image changed. Deployment/default/stageproof-rel-outline.template.spec.containers[0] outline container moves from outlinewiki/outline:0.81.1 to outlinewiki/outline:0.82.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `outlinewiki/outline:0.82.0` could not be checked. The registry did not answer.",
-          "resource": "outlinewiki/outline:0.82.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.1.2",
@@ -85,6 +78,6 @@
   "reproduce_command": "stageproof check --repo https://community-charts.github.io/helm-charts --chart outline --from 0.1.1 --to 0.1.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "6493f6386b23d75eca1f8f541b0ed83e6a37b49e2466e0a53794bd8eedfd327b"
 }

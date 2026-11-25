@@ -73,13 +73,6 @@
           "message": "1 container image changed. CronJob/default/cron-deploy-pipelines.jobTemplate.spec.template.spec.containers[0] cron-deploy-pipelines container moves from docker.getcollate.io/openmetadata/server:2.0.5 to docker.getcollate.io/openmetadata/server:2.0.6.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.getcollate.io/openmetadata/server:2.0.6` could not be checked. The registry did not answer.",
-          "resource": "docker.getcollate.io/openmetadata/server:2.0.6",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "2.0.6",
@@ -92,6 +85,6 @@
   "reproduce_command": "stageproof check --repo https://helm.open-metadata.org --chart openmetadata --from 2.0.5 --to 2.0.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "af717ea7052b9954106724f02c9d3d09f6e4f0a0dabaa8e5b08a155adca38620"
 }

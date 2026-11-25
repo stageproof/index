@@ -53,14 +53,6 @@
         },
         {
           "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap",
-          "message": "Chart default `datadog.configStream.enabled` changed and the rendered objects differ.",
-          "proof": "render",
-          "resource": "datadog.configStream.enabled",
-          "rule_id": "helm.values.default_changed",
-          "severity": "warning"
-        },
-        {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap",
           "message": "Chart default `datadog.hostProfiler.runAsNonRoot` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "datadog.hostProfiler.runAsNonRoot",
@@ -130,6 +122,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datadoghq.com --chart datadog --from 3.268.0 --to 3.276.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "7f51f088994eee77a18fe51d3e89f2548b22eb8345e8f5b4835f91a63c3a8792"
 }

@@ -110,6 +110,6 @@
   "reproduce_command": "stageproof check --repo https://getambassador.io/ --chart ambassador --from 6.5.15 --to 6.5.16 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c8f0e04fa31cfcfd99dfd194197803cf46143d0079371af174a2d307b41de1cf"
 }

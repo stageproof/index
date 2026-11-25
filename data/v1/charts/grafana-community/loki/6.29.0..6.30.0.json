@@ -122,13 +122,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `kiwigrid/k8s-sidecar:1.30.3` could not be checked. The registry did not answer.",
-          "resource": "kiwigrid/k8s-sidecar:1.30.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "ClusterBinding/stageproof-check/enterprise-logs-provisioner was not judged. the API group is not installed on this server.",
           "resource": "ClusterBinding/stageproof-check/enterprise-logs-provisioner",
           "rule_id": "k8s.apply.not_exercised",
@@ -145,6 +138,6 @@
   "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 6.29.0 --to 6.30.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "eb3704121db66c3cb91535724d03fa472d3ec4102be8bf77ebadf554c70962af"
 }

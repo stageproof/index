@@ -111,27 +111,6 @@
           "resource": "StatefulSet/stageproof-check/stageproof-rel-valkey-cluster.template.spec.containers[0] stageproof-rel-valkey-cluster",
           "rule_id": "supply.image.moved",
           "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnamilegacy/pgpool:4.6.3-debian-12-r0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bitnamilegacy/pgpool:4.6.3-debian-12-r0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnamilegacy/postgresql-repmgr:17.6.0-debian-12-r2` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bitnamilegacy/postgresql-repmgr:17.6.0-debian-12-r2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnamilegacy/valkey-cluster:8.1.3-debian-12-r3` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bitnamilegacy/valkey-cluster:8.1.3-debian-12-r3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "12.7.0",
@@ -144,6 +123,6 @@
   "reproduce_command": "stageproof check --repo https://dl.gitea.com/charts --chart gitea --from 12.0.0 --to 12.7.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5881ef9c59400bee2d5547e77c4cd0efb925143c2f5d93fb4f38446db76b0167"
 }

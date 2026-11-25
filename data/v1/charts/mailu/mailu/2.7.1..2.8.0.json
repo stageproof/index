@@ -104,6 +104,13 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 2.8.0 failed: exit status 1\nError: execution error at (mailu/templates/webmail/secret.yaml:18:61): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.database.roundcube.password' must not be empty, please add '--set global.database.roundcube.password=$ROUNDCUBE_DB_PASSWORD' to the command. To get the current value:\n\n        export ROUNDCUBE_DB_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" mailu-roundcube -o jsonpath=\"{.data.roundcube-db-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "2.8.0",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
           "message": "appVersion moves from 2024.06.51 to 2024.06.58. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
@@ -133,6 +140,6 @@
   "reproduce_command": "stageproof check --repo https://mailu.github.io/helm-charts/ --chart mailu --from 2.7.1 --to 2.8.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "1d045e0dba7dd7cb2aaf331d55f7e2a1b5ae8ebf221115b98bda05f1cbcd5570"
 }

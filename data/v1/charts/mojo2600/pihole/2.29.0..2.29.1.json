@@ -88,6 +88,6 @@
   "reproduce_command": "stageproof check --repo https://mojo2600.github.io/pihole-kubernetes/ --chart pihole --from 2.29.0 --to 2.29.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5b5cea79796ebaaa847bd9fa0d10a817fbc793b70055288ec5bfe8465e30750b"
 }

@@ -106,6 +106,6 @@
   "reproduce_command": "stageproof check --repo https://airflow.apache.org/ --chart airflow --from 1.16.0 --to 1.17.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "836aee8485d521289713a10346abc420b7d59d34ec144e1175ba5bfd79fe2027"
 }

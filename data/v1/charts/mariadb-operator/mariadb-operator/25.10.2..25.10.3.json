@@ -99,6 +99,6 @@
   "reproduce_command": "stageproof check --repo https://helm.mariadb.com/mariadb-operator --chart mariadb-operator --from 25.10.2 --to 25.10.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "72825dbeabc47ac1cacb67f9c79397f4095ac9aa97ec20905e773cf1d43b3168"
 }

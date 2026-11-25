@@ -69,13 +69,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `keelhq/keel:0.16.1` could not be checked. The registry did not answer.",
-          "resource": "keelhq/keel:0.16.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "cannot change roleRef",
           "message": "Kubernetes rejected `roleRef` on ClusterRoleBinding/default/keel.",
           "resource": "ClusterRoleBinding/default/keel",
@@ -93,6 +86,6 @@
   "reproduce_command": "stageproof check --repo https://charts.keel.sh --chart keel --from 0.8.22 --to 0.9.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "17ea4145520080ce642e8f60a2f04c81e93ae6e4ff94f37301159936da95b27a"
 }

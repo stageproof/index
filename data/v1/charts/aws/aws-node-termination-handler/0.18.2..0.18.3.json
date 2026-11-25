@@ -79,6 +79,6 @@
   "reproduce_command": "stageproof check --repo https://aws.github.io/eks-charts --chart aws-node-termination-handler --from 0.18.2 --to 0.18.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "368ecfec56adbc8ad5706e3050d5b8543d2d416248ede3e4b8b0a5d0be1fd5ac"
 }

@@ -88,6 +88,6 @@
   "reproduce_command": "stageproof check --repo https://opensearch-project.github.io/opensearch-k8s-operator/ --chart opensearch-operator --from 3.0.0 --to 3.0.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8090b51513455b8ba1a169f0b9e9078096e96bb5fab2e7ba26608f1467651eb8"
 }

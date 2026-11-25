@@ -40,19 +40,12 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-0b3gn, Pod/stageproof-check/stageproof-rel-ui-test-2mmdk",
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-3mgsg, Pod/stageproof-check/stageproof-rel-ui-test-bxdil",
           "message": "Chart default `helmtest.bats.image.tag` changed from `1.11.1` to `1.12.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "helmtest.bats.image.tag",
           "rule_id": "helm.values.default_changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bats/bats:1.12.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bats/bats:1.12.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "5.8.48",
@@ -65,6 +58,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.8.47 --to 5.8.48 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3d50aadaf6db91c6d8f3eeedc0dca4c80d6a73690533d0b1612d398a21af40a9"
 }

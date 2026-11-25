@@ -40,6 +40,46 @@
       "exit_code": 0,
       "findings": [
         {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap",
+          "message": "Chart default `agents.containers.agent.securityContext` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "agents.containers.agent.securityContext",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap",
+          "message": "Chart default `agents.containers.otelAgent.securityContext` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "agents.containers.otelAgent.securityContext",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap",
+          "message": "Chart default `agents.containers.processAgent.securityContext` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "agents.containers.processAgent.securityContext",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap",
+          "message": "Chart default `agents.containers.traceAgent.securityContext` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "agents.containers.traceAgent.securityContext",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap",
+          "message": "Chart default `clusterChecksRunner.containers.agent.securityContext` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "clusterChecksRunner.containers.agent.securityContext",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
           "message": "The pod template of Deployment/stageproof-check/stageproof-rel-datadog-cluster-agent changed at spec.template.metadata.annotations.checksum/api_key. The pods will restart. A restart is normal for an upgrade.",
           "resource": "Deployment/stageproof-check/stageproof-rel-datadog-cluster-agent",
           "rule_id": "impact.restart",
@@ -56,6 +96,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datadoghq.com --chart datadog --from 3.147.2 --to 3.148.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3708bceae4f36512000db273549cfad85cb339e566a479e382d64d039481b965"
 }

@@ -57,6 +57,13 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 0.13.0 failed: exit status 1\nError: execution error at (kestra/charts/postgresql/templates/secrets.yaml:17:24): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.postgresql.auth.postgresPassword' must not be empty, please add '--set global.postgresql.auth.postgresPassword=$POSTGRES_PASSWORD' to the command. To get the current value:\n\n        export POSTGRES_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-postgresql -o jsonpath=\"{.data.postgres-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "0.13.0",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
           "message": "Chart version moves from 0.11.0 to 0.13.0, skipping 1 minor version.",
           "rule_id": "helm.release.version_span",
@@ -79,6 +86,6 @@
   "reproduce_command": "stageproof check --repo https://helm.kestra.io/ --chart kestra --from 0.11.0 --to 0.13.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "427accd60239f94e2ea14e61f17076ed520c0bad9a609ab172349563c0bd7ddd"
 }

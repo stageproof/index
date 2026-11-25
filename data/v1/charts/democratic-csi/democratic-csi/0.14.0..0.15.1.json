@@ -101,13 +101,6 @@
           "resource": "DaemonSet/stageproof-check/stageproof-rel-democratic-csi-node.template.spec.containers[1] csi-proxy",
           "rule_id": "supply.image.moved",
           "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/busybox:1.37.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/busybox:1.37.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.15.1",
@@ -120,6 +113,6 @@
   "reproduce_command": "stageproof check --repo https://democratic-csi.github.io/charts/ --chart democratic-csi --from 0.14.0 --to 0.15.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3d87e129cea46d49d810e9e5085b61d06c01a313bcf92160e3d106adc30426ed"
 }

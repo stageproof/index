@@ -105,34 +105,6 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/alertmanager:v0.18.0` could not be checked. The registry did not answer.",
-          "resource": "prom/alertmanager:v0.18.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/node-exporter:v0.18.0` could not be checked. The registry did not answer.",
-          "resource": "prom/node-exporter:v0.18.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/prometheus:v2.11.1` could not be checked. The registry did not answer.",
-          "resource": "prom/prometheus:v2.11.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `prom/pushgateway:v0.8.0` could not be checked. The registry did not answer.",
-          "resource": "prom/pushgateway:v0.8.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "PodSecurityPolicy/default/stageproof-rel-grafana was not judged. the API group is not installed on this server.",
           "resource": "PodSecurityPolicy/default/stageproof-rel-grafana",
           "rule_id": "k8s.apply.not_exercised",
@@ -227,6 +199,6 @@
   "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 1.37.0 --to 1.38.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5b5bc687876f6af1d496743ea6d39431678aed8591a9bbad64f418203805de81"
 }

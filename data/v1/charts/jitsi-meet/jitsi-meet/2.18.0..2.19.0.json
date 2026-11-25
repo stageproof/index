@@ -84,34 +84,6 @@
           "message": "4 container images changed. Deployment/default/stageproof-rel-jitsi-meet-jicofo.template.spec.containers[0] jitsi-meet container moves from jitsi/jicofo:stable-10978 to jitsi/jicofo:stable-11031. Deployment/default/stageproof-rel-jitsi-meet-jvb-0.template.spec.containers[0] jitsi-meet container moves from jitsi/jvb:stable-10978 to jitsi/jvb:stable-11031. Deployment/default/stageproof-rel-jitsi-meet-web.template.spec.containers[0] jitsi-meet container moves from jitsi/web:stable-10978 to jitsi/web:stable-11031. StatefulSet/default/stageproof-rel-jitsi-meet-prosody.template.spec.containers[0] jitsi-meet container moves from jitsi/prosody:stable-10978 to jitsi/prosody:stable-11031.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `jitsi/jicofo:stable-11031` could not be checked. The registry did not answer.",
-          "resource": "jitsi/jicofo:stable-11031",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `jitsi/jvb:stable-11031` could not be checked. The registry did not answer.",
-          "resource": "jitsi/jvb:stable-11031",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `jitsi/prosody:stable-11031` could not be checked. The registry did not answer.",
-          "resource": "jitsi/prosody:stable-11031",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `jitsi/web:stable-11031` could not be checked. The registry did not answer.",
-          "resource": "jitsi/web:stable-11031",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "2.19.0",
@@ -124,6 +96,6 @@
   "reproduce_command": "stageproof check --repo https://jitsi-contrib.github.io/jitsi-helm/ --chart jitsi-meet --from 2.18.0 --to 2.19.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "107852a32dc787a6306a5fce2c80439f9c56c4a459ff757e3fb97368bc526d98"
 }

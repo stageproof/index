@@ -127,13 +127,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `bitnami/kubectl:latest` could not be checked. The registry did not answer.",
-          "resource": "bitnami/kubectl:latest",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
           "message": "CRD size is 1042 KiB (>256 KiB client-side `last-applied-configuration` limit).",
           "resource": "CustomResourceDefinition/default/clusterpolicies.kyverno.io",
@@ -158,6 +151,6 @@
   "reproduce_command": "stageproof check --repo https://kyverno.github.io/kyverno/ --chart kyverno --from 3.0.1 --to 3.0.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3d3b14e7705f8351e05b955658842d44c010b1cbc15796c6b43d2e939278d97a"
 }

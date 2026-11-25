@@ -132,6 +132,6 @@
   "reproduce_command": "stageproof check --repo https://nicholaswilde.github.io/helm-charts/ --chart code-server --from 0.1.2 --to 1.1.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "dfbdac88e3fd0db9697a899b85095517493dca8ecd2464a79f7fc18a4c83c2ae"
 }

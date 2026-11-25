@@ -76,34 +76,6 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ajaytripathy/kubecost-cost-model:prod-1.46.5` could not be checked. The registry did not answer.",
-          "resource": "ajaytripathy/kubecost-cost-model:prod-1.46.5",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ajaytripathy/kubecost-frontend:prod-1.46.5` could not be checked. The registry did not answer.",
-          "resource": "ajaytripathy/kubecost-frontend:prod-1.46.5",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ajaytripathy/kubecost-init:prod-1.46.5` could not be checked. The registry did not answer.",
-          "resource": "ajaytripathy/kubecost-init:prod-1.46.5",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ajaytripathy/kubecost:prod-1.46.5` could not be checked. The registry did not answer.",
-          "resource": "ajaytripathy/kubecost:prod-1.46.5",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "PodSecurityPolicy/default/stageproof-rel-grafana was not judged. the API group is not installed on this server.",
           "resource": "PodSecurityPolicy/default/stageproof-rel-grafana",
           "rule_id": "k8s.apply.not_exercised",
@@ -204,6 +176,6 @@
   "reproduce_command": "stageproof check --repo https://kubecost.github.io/cost-analyzer --chart cost-analyzer --from 1.46.4 --to 1.46.5 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "022fc50af5b2d0443d40718af151b8908c21e30d23a51e709d3ddfda53cf45da"
 }

@@ -172,13 +172,6 @@
           "resource": "StatefulSet/default/stageproof-rel-jitsi-meet-prosody.template.spec.containers[0] jitsi-meet",
           "rule_id": "supply.image.moved",
           "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `busybox:1.38.0` could not be checked. The registry did not answer.",
-          "resource": "busybox:1.38.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "3.0.0",
@@ -191,6 +184,6 @@
   "reproduce_command": "stageproof check --repo https://jitsi-contrib.github.io/jitsi-helm/ --chart jitsi-meet --from 2.22.2 --to 3.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "07c0ffcdc7853e6079f23844bc1473127b2b65a06f076019e2b5ad6c926f847a"
 }

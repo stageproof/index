@@ -77,13 +77,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/nacos/nacos-server:v3.0.1` could not be checked. The registry did not answer.",
-          "resource": "docker.io/nacos/nacos-server:v3.0.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "Duplicate value: {\"Name\":\"\",\"Protocol\":\"TCP\",\"AppProtocol\":null,\"Port\":8848,\"TargetPort\":0,\"NodePort\":0}",
           "message": "Kubernetes rejected `spec.ports[2]` on Service/stageproof-check/stageproof-rel-nacos-headless.",
           "resource": "Service/stageproof-check/stageproof-rel-nacos-headless",
@@ -121,6 +114,6 @@
   "reproduce_command": "stageproof check --repo https://ygqygq2.github.io/charts/ --chart nacos --from 2.1.8 --to 2.1.9 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c79594764775acd961cdabecbdf214fa6336d065236232615be683d129c1bcc3"
 }

@@ -19,7 +19,7 @@
         {
           "name": "image tags",
           "status": "pass",
-          "summary": "no new or changed image"
+          "summary": "4 new or changed image tags checked"
         },
         {
           "name": "API server 1.35.0",
@@ -28,8 +28,8 @@
         },
         {
           "name": "impact",
-          "status": "pass",
-          "summary": "Compared stored objects for 47 of 51 objects, and rendered objects for the rest."
+          "status": "warn",
+          "summary": "Compared stored objects for 45 of 49 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -39,6 +39,11 @@
       ],
       "exit_code": 0,
       "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Job/default/stageproof-rel-signoz-schema-migrator-async-init, Job/default/stageproof-rel-signoz-schema-migrator-sync-init.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
         {
           "message": "The pod template of Deployment/default/stageproof-rel-signoz-frontend changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
           "resource": "Deployment/default/stageproof-rel-signoz-frontend",
@@ -68,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://charts.signoz.io --chart signoz --from 0.62.2 --to 0.62.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "7f3aabc586bd2ef2a1afc7fb573127a3efade4ff0b9b65d7cd32d09512f04dcf"
 }

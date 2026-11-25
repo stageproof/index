@@ -119,34 +119,6 @@
           "message": "4 container images changed. Deployment/default/stageproof-rel-acryl-datahub-actions.template.spec.containers[0] acryl-datahub-actions container moves from docker.io/acryldata/datahub-actions:v1.5.0.1 to docker.io/acryldata/datahub-actions:v1.6.0. Deployment/default/stageproof-rel-datahub-frontend.template.spec.containers[0] datahub-frontend container moves from docker.io/acryldata/datahub-frontend-react:v1.5.0.1 to docker.io/acryldata/datahub-frontend-react:v1.6.0. Deployment/default/stageproof-rel-datahub-gms.template.spec.containers[0] datahub-gms container moves from docker.io/acryldata/datahub-gms:v1.5.0.1 to docker.io/acryldata/datahub-gms:v1.6.0. Job/default/stageproof-rel-system-update-nonblk.template.spec.containers[0] datahub-system-update-job container moves from docker.io/acryldata/datahub-upgrade:v1.5.0.1 to docker.io/acryldata/datahub-upgrade:v1.6.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/acryldata/datahub-actions:v1.6.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/acryldata/datahub-actions:v1.6.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/acryldata/datahub-frontend-react:v1.6.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/acryldata/datahub-frontend-react:v1.6.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/acryldata/datahub-gms:v1.6.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/acryldata/datahub-gms:v1.6.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/acryldata/datahub-upgrade:v1.6.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/acryldata/datahub-upgrade:v1.6.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.0.0",
@@ -159,6 +131,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datahubproject.io --chart datahub --from 0.11.0 --to 1.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "9dff3907d8bb4d2487f588ef5e891f8cb32d32fc36c4582e7c2d496940b44cb2"
 }

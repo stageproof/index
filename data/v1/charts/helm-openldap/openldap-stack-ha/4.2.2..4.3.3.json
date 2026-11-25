@@ -85,13 +85,6 @@
           "message": "1 container image changed. StatefulSet/default/stageproof-rel.template.spec.containers[0] openldap-stack-ha container moves from jpgouin/openldap:2.6.6-fix to jpgouin/openldap:2.6.9-fix.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `jpgouin/openldap:2.6.9-fix` could not be checked. The registry did not answer.",
-          "resource": "jpgouin/openldap:2.6.9-fix",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "4.3.3",
@@ -104,6 +97,6 @@
   "reproduce_command": "stageproof check --repo https://jp-gouin.github.io/helm-openldap/ --chart openldap-stack-ha --from 4.2.2 --to 4.3.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "fecd5437a980e7f08cfd60629b9eb494a8b0abd67bd6bab28b0031d5f82993b1"
 }

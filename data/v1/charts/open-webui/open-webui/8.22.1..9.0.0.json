@@ -63,13 +63,6 @@
           "message": "Chart version moves from 8.22.1 to 9.0.0, a new major version.",
           "rule_id": "helm.release.version_span",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `redis:7.4.2-alpine3.21` could not be checked. The registry did not answer.",
-          "resource": "redis:7.4.2-alpine3.21",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "9.0.0",
@@ -82,6 +75,6 @@
   "reproduce_command": "stageproof check --repo https://helm.openwebui.com --chart open-webui --from 8.22.1 --to 9.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "caacdcf0dbaee261c3ca63c936da48e91a6288092a033eaa769b48ef199fc159"
 }

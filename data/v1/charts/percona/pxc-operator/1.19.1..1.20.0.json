@@ -104,6 +104,6 @@
   "reproduce_command": "stageproof check --repo https://percona.github.io/percona-helm-charts --chart pxc-operator --from 1.19.1 --to 1.20.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "b8bff81d0f9691b1e495f958fba1bb268e48838cf548adf6ae6570ea0e0059cf"
 }

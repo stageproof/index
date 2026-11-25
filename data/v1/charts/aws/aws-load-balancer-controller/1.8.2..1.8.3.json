@@ -98,6 +98,6 @@
   "reproduce_command": "stageproof check --repo https://aws.github.io/eks-charts --chart aws-load-balancer-controller --from 1.8.2 --to 1.8.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "f7d9e7fe001d3b5e95a75124111a72e6fcf0097d3bbef22ec78a58ad60a9d83c"
 }

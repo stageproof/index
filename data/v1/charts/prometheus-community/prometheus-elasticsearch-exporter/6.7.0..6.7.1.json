@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo https://prometheus-community.github.io/helm-charts --chart prometheus-elasticsearch-exporter --from 6.7.0 --to 6.7.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "9ca311050d7834d2aaa3da8f66ed7480a70803cc9b2e71ff87d7fbbbe194a57c"
 }

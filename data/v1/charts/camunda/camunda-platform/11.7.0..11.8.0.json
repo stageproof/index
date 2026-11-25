@@ -177,6 +177,13 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 11.8.0 failed: exit status 1\nError: execution error at (camunda-platform/charts/identityKeycloak/charts/postgresql/templates/secrets.yaml:23:16): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.postgresql.auth.password' must not be empty, please add '--set global.postgresql.auth.password=$PASSWORD' to the command. To get the current value:\n\n        export PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-postgresql -o jsonpath=\"{.data.password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "11.8.0",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
           "message": "9 container images changed. Deployment/default/stageproof-rel-connectors.template.spec.containers[0] connectors container moves from camunda/connectors-bundle:8.6.15 to camunda/connectors-bundle:8.6.17. Deployment/default/stageproof-rel-identity.template.spec.containers[0] camunda-platform container moves from camunda/identity:8.6.17 to camunda/identity:8.6.18. Deployment/default/stageproof-rel-operate.template.spec.containers[0] operate container moves from camunda/operate:8.6.21 to camunda/operate:8.6.24. Deployment/default/stageproof-rel-optimize.template.spec.containers[0] optimize container moves from camunda/optimize:8.6.12 to camunda/optimize:8.6.14. Deployment/default/stageproof-rel-tasklist.template.spec.containers[0] tasklist container moves from camunda/tasklist:8.6.21 to camunda/tasklist:8.6.24. Deployment/default/stageproof-rel-zeebe-gateway.template.spec.containers[0] zeebe-gateway container moves from camunda/zeebe:8.6.21 to camunda/zeebe:8.6.24. StatefulSet/stageproof-check/stageproof-rel-elasticsearch-master.template.spec.containers[0] elasticsearch container moves from docker.io/bitnami/elasticsearch:8.15.4 to docker.io/bitnamilegacy/elasticsearch:8.15.4. StatefulSet/stageproof-check/stageproof-rel-elasticsearch-master.template.spec.initContainers[0] sysctl container moves from docker.io/bitnami/os-shell:12-debian-12-r43 to docker.io/bitnamilegacy/os-shell:12-debian-12-r43. StatefulSet/stageproof-check/stageproof-rel-postgresql.template.spec.containers[0] postgresql container moves from docker.io/bitnami/postgresql:15.10.0-debian-12-r2 to docker.io/bitnamilegacy/postgresql:15.10.0-debian-12-r2.",
           "rule_id": "helm.image.changed",
@@ -202,69 +209,6 @@
           "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql.template.spec.containers[0] postgresql",
           "rule_id": "supply.image.moved",
           "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `camunda/connectors-bundle:8.6.17` could not be checked. The registry did not answer.",
-          "resource": "camunda/connectors-bundle:8.6.17",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `camunda/identity:8.6.18` could not be checked. The registry did not answer.",
-          "resource": "camunda/identity:8.6.18",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `camunda/operate:8.6.24` could not be checked. The registry did not answer.",
-          "resource": "camunda/operate:8.6.24",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `camunda/optimize:8.6.14` could not be checked. The registry did not answer.",
-          "resource": "camunda/optimize:8.6.14",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `camunda/tasklist:8.6.24` could not be checked. The registry did not answer.",
-          "resource": "camunda/tasklist:8.6.24",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `camunda/zeebe:8.6.24` could not be checked. The registry did not answer.",
-          "resource": "camunda/zeebe:8.6.24",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnamilegacy/elasticsearch:8.15.4` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bitnamilegacy/elasticsearch:8.15.4",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnamilegacy/os-shell:12-debian-12-r43` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bitnamilegacy/os-shell:12-debian-12-r43",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnamilegacy/postgresql:15.10.0-debian-12-r2` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bitnamilegacy/postgresql:15.10.0-debian-12-r2",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "11.8.0",
@@ -277,6 +221,6 @@
   "reproduce_command": "stageproof check --repo https://helm.camunda.io --chart camunda-platform --from 11.7.0 --to 11.8.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5a1cc61cbe0bf232fac5af7262fb3041cb22726ee8751ce6186a6b6056e1df4a"
 }

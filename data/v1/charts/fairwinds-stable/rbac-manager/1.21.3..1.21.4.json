@@ -87,6 +87,6 @@
   "reproduce_command": "stageproof check --repo https://charts.fairwinds.com/stable --chart rbac-manager --from 1.21.3 --to 1.21.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "4add9d3841845f32956a2cc0583aea8be8d07cc9357eaa1b7d11cce0efda1e00"
 }

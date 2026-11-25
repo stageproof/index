@@ -23,8 +23,8 @@
         },
         {
           "name": "API server 1.35.0",
-          "status": "fail",
-          "summary": "1 rejection"
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
         },
         {
           "name": "impact",
@@ -37,7 +37,7 @@
           "summary": "current Kubernetes was checked by API server 1.35.0"
         }
       ],
-      "exit_code": 1,
+      "exit_code": 0,
       "findings": [
         {
           "message": "The pod template of Deployment/stageproof-check/stageproof-rel-openproject-cron changed at spec.template.metadata.annotations.checksum/env-core. The pods will restart. A restart is normal for an upgrade.",
@@ -70,6 +70,13 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 13.1.0 failed: exit status 1\ncoalesce.go:319: warning: destination for memcached.service.sessionAffinity is a table. Ignoring non-table value ()\nError: execution error at (openproject/charts/postgresql/templates/secrets.yaml:23:16): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.postgresql.auth.password' must not be empty, please add '--set global.postgresql.auth.password=$PASSWORD' to the command. To get the current value:\n\n        export PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-postgresql -o jsonpath=\"{.data.password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "13.1.0",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "A client-side Helm upgrade drops this field and continues.",
           "message": "Kubernetes does not know `spec.template.spec.containers[name=\"hocuspocus\"].ports[containerPort=1234,protocol=\"TCP\"].port`.",
           "resource": "Deployment/stageproof-check/stageproof-rel-openproject-hocuspocus",
@@ -77,22 +84,23 @@
           "severity": "warning"
         },
         {
+          "detail": "The template uses .Release.Revision in a dynamic object name. `helm template` renders revision 1 for both charts, so a real upgrade creates a new object name instead of updating in place.",
           "message": "Kubernetes rejected the update. `spec.template` is immutable.",
           "resource": "Job/stageproof-check/stageproof-rel-openproject-seeder-1",
           "rule_id": "k8s.apply.immutable_field",
-          "severity": "blocker"
+          "severity": "warning"
         }
       ],
       "head_ref": "13.1.0",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "BLOCKED"
+      "verdict": "PASSED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo https://charts.openproject.org --chart openproject --from 13.0.4 --to 13.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d19cb605edcf11647d5a9fcc1351bd549ee1019b2221e5dc12c071e63a54b0b5"
 }

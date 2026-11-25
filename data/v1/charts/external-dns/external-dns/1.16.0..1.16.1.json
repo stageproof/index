@@ -72,6 +72,6 @@
   "reproduce_command": "stageproof check --repo https://kubernetes-sigs.github.io/external-dns/ --chart external-dns --from 1.16.0 --to 1.16.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "6e560d8f57e3eb68ff61fdd1312b9ad5d52fc455f1928ab7c75bb33d90fcd472"
 }

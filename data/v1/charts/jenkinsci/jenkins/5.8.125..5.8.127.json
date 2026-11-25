@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config, Pod/stageproof-check/stageproof-rel-ui-test-eabbs, Pod/stageproof-check/stageproof-rel-ui-test-i5dor",
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config, Pod/stageproof-check/stageproof-rel-ui-test-dhild, Pod/stageproof-check/stageproof-rel-ui-test-n92vg",
           "message": "Chart default `agent.image.tag` changed from `3355.v388858a_47b_33-5` to `3355.v388858a_47b_33-6` and the rendered objects differ.",
           "proof": "render",
           "resource": "agent.image.tag",
@@ -53,7 +53,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-6wguh, Pod/stageproof-check/stageproof-rel-ui-test-eabbs, StatefulSet/stageproof-check/stageproof-rel-jenkins",
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-4f2r1, Pod/stageproof-check/stageproof-rel-ui-test-n92vg, StatefulSet/stageproof-check/stageproof-rel-jenkins",
           "message": "Chart default `controller.sidecars.configAutoReload.image.tag` changed from `2.4.0` to `2.5.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "controller.sidecars.configAutoReload.image.tag",
@@ -71,20 +71,6 @@
           "message": "2 container images changed. ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config jenkins/inbound-agent image moves from jenkins/inbound-agent:3355.v388858a_47b_33-5 to jenkins/inbound-agent:3355.v388858a_47b_33-6. StatefulSet/stageproof-check/stageproof-rel-jenkins.template.spec.containers[1] config-reload container moves from docker.io/kiwigrid/k8s-sidecar:2.4.0 to docker.io/kiwigrid/k8s-sidecar:2.5.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bats/bats:1.13.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bats/bats:1.13.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/kiwigrid/k8s-sidecar:2.5.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/kiwigrid/k8s-sidecar:2.5.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "5.8.127",
@@ -97,6 +83,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.8.125 --to 5.8.127 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "97b751430c57c3215ba16d0d39a2f718d26cb5fe427a5e8c09f54a813748ef65"
 }

@@ -57,6 +57,13 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 107.133.3 failed: exit status 1\nError: execution error at (artifactory-oss/charts/artifactory/charts/postgresql/templates/secrets.yaml:26:16): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.postgresql.auth.password' must not be empty, please add '--set global.postgresql.auth.password=$PASSWORD' to the command. To get the current value:\n\n        export PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-postgresql -o jsonpath=\"{.data.password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "107.133.3",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
           "message": "Chart version moves from 107.125.21 to 107.133.3, skipping 7 minor versions.",
           "rule_id": "helm.release.version_span",
@@ -85,6 +92,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jfrog.io --chart artifactory-oss --from 107.125.21 --to 107.133.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "7debd304c87efa1e7f2b66767e1222974a72de773ebfbd3ca4f4d2b79db83c58"
 }

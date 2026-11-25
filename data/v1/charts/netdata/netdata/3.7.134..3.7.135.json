@@ -84,6 +84,6 @@
   "reproduce_command": "stageproof check --repo https://netdata.github.io/helmchart --chart netdata --from 3.7.134 --to 3.7.135 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a00570ecc6f7a4dcd7cfe8f0303ba66a8d53efa65572aeca3f47cd8cd279660a"
 }

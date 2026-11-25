@@ -61,13 +61,6 @@
           "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-emqx.template.spec.containers[0] emqx container moves from emqx/emqx:5.2.1 to emqx/emqx:5.3.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `emqx/emqx:5.3.0` could not be checked. The registry did not answer.",
-          "resource": "emqx/emqx:5.3.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "5.3.0",
@@ -80,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://repos.emqx.io/charts --chart emqx --from 5.2.1 --to 5.3.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "baf4d5e379a98c050ef03c1da90ac5687e0ead6eaabc9a754e2b542fe822024a"
 }

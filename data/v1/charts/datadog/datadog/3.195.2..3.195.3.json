@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-datadog-kpi-telemetry-configmap, Deployment/stageproof-check/stageproof-rel-datadog-cluster-agent",
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-datadog-cluster-agent",
           "message": "Chart default `clusterAgent.image.tag` changed from `7.76.1` to `7.77.1` and the rendered objects differ.",
           "proof": "render",
           "resource": "clusterAgent.image.tag",
@@ -96,6 +96,6 @@
   "reproduce_command": "stageproof check --repo https://helm.datadoghq.com --chart datadog --from 3.195.2 --to 3.195.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "65b1b44103e5dd01b0d076466bb507a7de60a93c0052d8b33e241f9fe1bca0d2"
 }

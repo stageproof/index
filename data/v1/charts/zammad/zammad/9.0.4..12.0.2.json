@@ -23,8 +23,8 @@
         },
         {
           "name": "image tags",
-          "status": "pass",
-          "summary": "7 new or changed image tags checked"
+          "status": "fail",
+          "summary": "a new or changed image tag was not found, or it lacks the required platform"
         },
         {
           "name": "API server 1.35.0",
@@ -42,7 +42,7 @@
           "summary": "current Kubernetes was checked by API server 1.35.0"
         }
       ],
-      "exit_code": 0,
+      "exit_code": 1,
       "findings": [
         {
           "message": "Helm will delete StatefulSet/default/stageproof-rel-zammad. persistentVolumeClaimRetentionPolicy.whenDeleted is not Delete, so the claims created for it stay.",
@@ -80,13 +80,13 @@
           "severity": "warning"
         },
         {
-          "message": "Job/default/stageproof-rel-zammad-init-732a4854-0ecf-4783-9f76-d9f070e493d2 container zammad-volume-permissions securityContext is weaker at privileged, runAsUser.",
-          "resource": "Job/default/stageproof-rel-zammad-init-732a4854-0ecf-4783-9f76-d9f070e493d2",
+          "message": "Job/default/stageproof-rel-zammad-init-8d1d6d42-dc45-4329-b894-fc50e0755860 container zammad-volume-permissions securityContext is weaker at privileged, runAsUser.",
+          "resource": "Job/default/stageproof-rel-zammad-init-8d1d6d42-dc45-4329-b894-fc50e0755860",
           "rule_id": "impact.privilege.securitycontext",
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-172cb01f-5b5d-4046-aa78-45b4008e1fa8, Job/default/stageproof-rel-zammad-init-2e5159e4-96bc-4617-bc21-a67ff4f1333e",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-a4b3edeb-1133-4ec4-a79d-bd87d2fd40f6, Job/default/stageproof-rel-zammad-init-ff9824d8-5fac-4c7a-950e-42b3af7ffbed",
           "message": "Chart default `persistence.accessModes` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "persistence.accessModes",
@@ -94,7 +94,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-172cb01f-5b5d-4046-aa78-45b4008e1fa8, Job/default/stageproof-rel-zammad-init-7db695f1-b3a2-4f23-b5a3-255717403c36",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-f6017e14-cb53-4564-bd53-2c1a9c8094a6, Job/default/stageproof-rel-zammad-init-ff9824d8-5fac-4c7a-950e-42b3af7ffbed",
           "message": "Chart default `persistence.annotations` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "persistence.annotations",
@@ -102,7 +102,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-172cb01f-5b5d-4046-aa78-45b4008e1fa8, Job/default/stageproof-rel-zammad-init-231dce8d-c1d9-4fd2-882e-e5e2e45a3ece",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-cf11e2c2-d89d-4f07-912e-5586744149c3, Job/default/stageproof-rel-zammad-init-ff9824d8-5fac-4c7a-950e-42b3af7ffbed",
           "message": "Chart default `persistence.enabled` changed from `true` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "persistence.enabled",
@@ -110,7 +110,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-172cb01f-5b5d-4046-aa78-45b4008e1fa8, Job/default/stageproof-rel-zammad-init-ff95e0da-ead4-43d3-8072-209a807837b6",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-6efd9723-795e-44d0-8aec-f8b9e58def05, Job/default/stageproof-rel-zammad-init-ff9824d8-5fac-4c7a-950e-42b3af7ffbed",
           "message": "Chart default `persistence.size` changed from `5Gi` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "persistence.size",
@@ -118,7 +118,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-172cb01f-5b5d-4046-aa78-45b4008e1fa8, Job/default/stageproof-rel-zammad-init-80f5e2a8-6520-449f-864b-0c0d51fbc3fd",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-f46eefd0-7147-481c-93b5-e66a1a9d2c8e, Job/default/stageproof-rel-zammad-init-ff9824d8-5fac-4c7a-950e-42b3af7ffbed",
           "message": "Chart default `persistence.storageClass` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "persistence.storageClass",
@@ -126,7 +126,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-0baa36fd-8e61-440d-8b48-3e50c5447560, Job/default/stageproof-rel-zammad-init-172cb01f-5b5d-4046-aa78-45b4008e1fa8",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-690badad-4e42-4e93-a0cf-283882733161, Job/default/stageproof-rel-zammad-init-ff9824d8-5fac-4c7a-950e-42b3af7ffbed",
           "message": "Chart default `replicas` changed from `1` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "replicas",
@@ -134,7 +134,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-0e2d911b-a1eb-45ac-82b1-a19a51083cbc, Job/default/stageproof-rel-zammad-init-172cb01f-5b5d-4046-aa78-45b4008e1fa8",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-17d34eff-8fd4-463e-aab9-285d645f358b, Job/default/stageproof-rel-zammad-init-ff9824d8-5fac-4c7a-950e-42b3af7ffbed",
           "message": "Chart default `sidecars` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "sidecars",
@@ -142,7 +142,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-0c0097c5-7d28-43ea-8d5b-453838b47a4d, Job/default/stageproof-rel-zammad-init-172cb01f-5b5d-4046-aa78-45b4008e1fa8",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-f0e9e02a-fbcf-44f0-acf5-0c60b45d887b, Job/default/stageproof-rel-zammad-init-ff9824d8-5fac-4c7a-950e-42b3af7ffbed",
           "message": "Chart default `volumePermissions.enabled` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "volumePermissions.enabled",
@@ -150,7 +150,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-172cb01f-5b5d-4046-aa78-45b4008e1fa8, Job/default/stageproof-rel-zammad-init-63f5e260-7f3c-43a5-b1d2-97c3b8bfb1e2",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-487a69d5-6292-4739-93c7-8fa90f926bd9, Job/default/stageproof-rel-zammad-init-ff9824d8-5fac-4c7a-950e-42b3af7ffbed",
           "message": "Chart default `volumePermissions.image.pullPolicy` changed from `IfNotPresent` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "volumePermissions.image.pullPolicy",
@@ -158,7 +158,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-172cb01f-5b5d-4046-aa78-45b4008e1fa8, Job/default/stageproof-rel-zammad-init-58d567b2-565a-4a93-8e43-340f88515d3c",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-de72ef13-1d72-49de-a00e-7454c61d0516, Job/default/stageproof-rel-zammad-init-ff9824d8-5fac-4c7a-950e-42b3af7ffbed",
           "message": "Chart default `volumePermissions.image.repository` changed from `alpine` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "volumePermissions.image.repository",
@@ -166,7 +166,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-172cb01f-5b5d-4046-aa78-45b4008e1fa8, Job/default/stageproof-rel-zammad-init-9a9f653a-4cb5-4abc-889a-b78fda9259f2",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-036d432f-c864-494a-9aa3-4a13e57ab8b4, Job/default/stageproof-rel-zammad-init-ff9824d8-5fac-4c7a-950e-42b3af7ffbed",
           "message": "Chart default `volumePermissions.image.tag` changed from `3.18.2` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "volumePermissions.image.tag",
@@ -174,7 +174,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-172cb01f-5b5d-4046-aa78-45b4008e1fa8, Job/default/stageproof-rel-zammad-init-20460a42-cd7d-4b4f-a6ed-bbe462c64a5c",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-303ef766-a0df-48dc-a32e-3c0b1dbc69c3, Job/default/stageproof-rel-zammad-init-ff9824d8-5fac-4c7a-950e-42b3af7ffbed",
           "message": "Chart default `zammadConfig.initContainers.zammad.extraRsyncParams` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "zammadConfig.initContainers.zammad.extraRsyncParams",
@@ -182,7 +182,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-10ad42e6-2583-4271-879a-39010f255240, Job/default/stageproof-rel-zammad-init-172cb01f-5b5d-4046-aa78-45b4008e1fa8",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-69e66db1-375d-4ac0-8b6c-aee682237289, Job/default/stageproof-rel-zammad-init-ff9824d8-5fac-4c7a-950e-42b3af7ffbed",
           "message": "Chart default `zammadConfig.initContainers.zammad.securityContext.runAsNonRoot` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "zammadConfig.initContainers.zammad.securityContext.runAsNonRoot",
@@ -190,7 +190,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-172cb01f-5b5d-4046-aa78-45b4008e1fa8, Job/default/stageproof-rel-zammad-init-f69e4a3d-a361-400e-8ab6-e4c3a52be29f",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-d99a945d-b3e2-42d3-b729-0c36b620f855, Job/default/stageproof-rel-zammad-init-ff9824d8-5fac-4c7a-950e-42b3af7ffbed",
           "message": "Chart default `zammadConfig.initContainers.zammad.securityContext.runAsUser` changed from `0` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "zammadConfig.initContainers.zammad.securityContext.runAsUser",
@@ -247,58 +247,51 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `alpine:3.18.4` could not be checked. The registry did not answer.",
-          "resource": "alpine:3.18.4",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnami/elasticsearch:8.12.0-debian-11-r1` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `docker.io/bitnami/elasticsearch:8.12.0-debian-11-r1` was not found.",
           "resource": "docker.io/bitnami/elasticsearch:8.12.0-debian-11-r1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnami/memcached:1.6.23-debian-11-r0` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `docker.io/bitnami/memcached:1.6.23-debian-11-r0` was not found.",
           "resource": "docker.io/bitnami/memcached:1.6.23-debian-11-r0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnami/os-shell:11-debian-11-r94` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `docker.io/bitnami/os-shell:11-debian-11-r94` was not found.",
           "resource": "docker.io/bitnami/os-shell:11-debian-11-r94",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnami/postgresql:15.4.0-debian-11-r45` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `docker.io/bitnami/postgresql:15.4.0-debian-11-r45` was not found.",
           "resource": "docker.io/bitnami/postgresql:15.4.0-debian-11-r45",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnami/redis:7.0.12-debian-11-r34` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `docker.io/bitnami/redis:7.0.12-debian-11-r34` was not found.",
           "resource": "docker.io/bitnami/redis:7.0.12-debian-11-r34",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         }
       ],
       "head_ref": "12.0.2",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "PASSED"
+      "verdict": "BLOCKED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo oci://ghcr.io/zammad/charts --chart zammad --from 9.0.4 --to 12.0.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a6124f612022916ef6a6ce0d4384ba5e10ae9e792fb89da6337c7bf81c4d0bd8"
 }

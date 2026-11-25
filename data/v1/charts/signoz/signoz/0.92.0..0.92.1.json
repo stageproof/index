@@ -24,7 +24,7 @@
         {
           "name": "image tags",
           "status": "pass",
-          "summary": "1 new or changed image tag checked"
+          "summary": "5 new or changed image tags checked"
         },
         {
           "name": "API server 1.35.0",
@@ -33,8 +33,8 @@
         },
         {
           "name": "impact",
-          "status": "pass",
-          "summary": "Compared stored objects for 32 of 35 objects, and rendered objects for the rest."
+          "status": "warn",
+          "summary": "Compared stored objects for 30 of 33 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -44,6 +44,11 @@
       ],
       "exit_code": 0,
       "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Job/default/stageproof-rel-signoz-schema-migrator-async-init, Job/default/stageproof-rel-signoz-schema-migrator-sync-init.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
         {
           "detail": "Affected objects: StatefulSet/default/stageproof-rel-signoz",
           "message": "Chart default `signoz.image.tag` changed from `v0.95.0` to `v0.95.1` and the rendered objects differ.",
@@ -81,13 +86,6 @@
           "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
           "rule_id": "helm.operator.existing_custom_resources",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/signoz/signoz:v0.95.1` could not be checked. The registry did not answer.",
-          "resource": "docker.io/signoz/signoz:v0.95.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.92.1",
@@ -100,6 +98,6 @@
   "reproduce_command": "stageproof check --repo https://charts.signoz.io --chart signoz --from 0.92.0 --to 0.92.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "fdea616e980659f3b77d04f3afe0fde41f79b0a39b41d9226ad899da738dfc55"
 }

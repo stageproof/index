@@ -40,7 +40,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins, Pod/stageproof-check/stageproof-rel-ui-test-bboux, Pod/stageproof-check/stageproof-rel-ui-test-xny5l, StatefulSet/stageproof-check/stageproof-rel-jenkins",
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins, Pod/stageproof-check/stageproof-rel-ui-test-jurlk, Pod/stageproof-check/stageproof-rel-ui-test-set7v, StatefulSet/stageproof-check/stageproof-rel-jenkins",
           "message": "Chart default `controller.installPlugins` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "controller.installPlugins",
@@ -51,13 +51,6 @@
           "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-jenkins changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
           "resource": "StatefulSet/stageproof-check/stageproof-rel-jenkins",
           "rule_id": "impact.restart",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bats/bats:1.13.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bats/bats:1.13.0",
-          "rule_id": "supply.registry_unreachable",
           "severity": "info"
         }
       ],
@@ -71,6 +64,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.9.14 --to 5.9.15 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d62f2e784fde09314caa564a8158de7fbf9551b72108b6b8c5ccaccb662e363e"
 }

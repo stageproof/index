@@ -135,13 +135,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/traefik:v3.4.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/traefik:v3.4.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
           "message": "CRD size is 454 KiB (>256 KiB client-side `last-applied-configuration` limit).",
           "resource": "CustomResourceDefinition/default/httproutes.gateway.networking.k8s.io",
@@ -159,6 +152,6 @@
   "reproduce_command": "stageproof check --repo https://traefik.github.io/charts --chart traefik --from 35.2.0 --to 35.3.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "e77a46f4ee6823d61a4cc25e2df8ed6729d101fb1ade9c24b91522d3ec833a3f"
 }

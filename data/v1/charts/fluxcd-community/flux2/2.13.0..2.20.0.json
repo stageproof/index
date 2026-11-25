@@ -242,20 +242,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ghcr.io/fluxcd/flux-cli:v2.10.0` could not be checked. The registry did not answer.",
-          "resource": "ghcr.io/fluxcd/flux-cli:v2.10.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `ghcr.io/fluxcd/helm-controller:v1.7.1` could not be checked. The registry did not answer.",
-          "resource": "ghcr.io/fluxcd/helm-controller:v1.7.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "missing from spec.versions; v1beta2 was previously a storage version, and must remain in spec.versions until a storage migration ensures no data remains persisted in v1beta2 and removes v1beta2 from status.storedVersions",
           "message": "Kubernetes rejected `status.storedVersions[0]` on CustomResourceDefinition/default/imageupdateautomations.image.toolkit.fluxcd.io.",
           "resource": "CustomResourceDefinition/default/imageupdateautomations.image.toolkit.fluxcd.io",
@@ -301,6 +287,6 @@
   "reproduce_command": "stageproof check --repo https://fluxcd-community.github.io/helm-charts --chart flux2 --from 2.13.0 --to 2.20.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "61965e50b3fb5b95d6a040dca7ea8833769ce8a0d218a9aed87c432fc76d14bc"
 }

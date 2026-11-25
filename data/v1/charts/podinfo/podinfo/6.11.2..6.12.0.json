@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-podinfo, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-nozba, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-yl2hs, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-dmynt, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-qjoma, Pod/stageproof-check/stageproof-rel-podinfo-service-test-4hiph, Pod/stageproof-check/stageproof-rel-podinfo-service-test-aszsx",
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-podinfo, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-fi84r, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-xkpb0, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-lixwq, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-lr4ng, Pod/stageproof-check/stageproof-rel-podinfo-service-test-4lvjs, Pod/stageproof-check/stageproof-rel-podinfo-service-test-k4gxr",
           "message": "Chart default `image.tag` changed from `6.11.2` to `6.12.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "image.tag",
@@ -53,7 +53,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-cgunb, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-nozba, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-dmynt, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-dn1ly, Pod/stageproof-check/stageproof-rel-podinfo-service-test-4hiph, Pod/stageproof-check/stageproof-rel-podinfo-service-test-lrfvy",
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-fi84r, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-mrpby, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-kraoz, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-lr4ng, Pod/stageproof-check/stageproof-rel-podinfo-service-test-4u3z6, Pod/stageproof-check/stageproof-rel-podinfo-service-test-k4gxr",
           "message": "Chart default `redis.tag` changed from `8.6.1` to `8.6.3` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.tag",
@@ -77,27 +77,6 @@
           "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-podinfo.template.spec.containers[0] podinfo container moves from ghcr.io/stefanprodan/podinfo:6.11.2 to ghcr.io/stefanprodan/podinfo:6.12.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `curlimages/curl:7.69.0` could not be checked. The registry did not answer.",
-          "resource": "curlimages/curl:7.69.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `giantswarm/tiny-tools` could not be checked. The registry did not answer.",
-          "resource": "giantswarm/tiny-tools",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `stefanprodan/grpc_health_probe:v0.3.0` could not be checked. The registry did not answer.",
-          "resource": "stefanprodan/grpc_health_probe:v0.3.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "6.12.0",
@@ -110,6 +89,6 @@
   "reproduce_command": "stageproof check --repo https://stefanprodan.github.io/podinfo --chart podinfo --from 6.11.2 --to 6.12.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c2244728e28bdbc091c1b143de8a04e5696ded9dabf5df0af7154f3139a0e4f2"
 }

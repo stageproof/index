@@ -88,13 +88,6 @@
           "message": "1 container image changed. Deployment/default/stageproof-rel-akhq.template.spec.containers[0] akhq container moves from tchiotludo/akhq:0.18.0 to tchiotludo/akhq:0.29.1.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `tchiotludo/akhq:0.29.1` could not be checked. The registry did not answer.",
-          "resource": "tchiotludo/akhq:0.29.1",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "0.29.1",
@@ -107,6 +100,6 @@
   "reproduce_command": "stageproof check --repo https://akhq.io/ --chart akhq --from 0.2.5 --to 0.29.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "bc66f0350f54c26588211302c18df0877ac4c525bfa62bef461d523149f62b9f"
 }

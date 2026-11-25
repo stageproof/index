@@ -185,13 +185,6 @@
           "severity": "info"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `pgsty/silo:RELEASE.2026-09-03T13-18-01Z` could not be checked. The registry did not answer.",
-          "resource": "pgsty/silo:RELEASE.2026-09-03T13-18-01Z",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Kubernetes rejected the update. `spec.template` is immutable.",
           "resource": "Job/stageproof-check/stageproof-rel-mimir-make-minio-buckets-5.4.0",
           "rule_id": "k8s.apply.immutable_field",
@@ -214,6 +207,6 @@
   "reproduce_command": "stageproof check --repo https://grafana.github.io/helm-charts --chart mimir-distributed --from 6.2.0 --to 6.2.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "20ad72a2d365adc876418a835720f0a0e8a7de9d26acd1310d122c9b9c05ea9f"
 }

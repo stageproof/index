@@ -1,0 +1,162 @@
+{
+  "from_sha256": "f78ef2d97c4f6f4e7edc8d83b8db9321260c19d37b29a2b146a7ffda2bb11c6f",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "0.1.1",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "required values shim",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: clusterName"
+        },
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 11 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "3 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "1 new or changed image tag checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "fail",
+          "summary": "1 rejection"
+        },
+        {
+          "name": "impact",
+          "status": "warn",
+          "summary": "Compared stored objects for 7 of 9 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "Helm will delete objects the new chart does not render: Secret/default/aws-load-balancer-webhook-secret.",
+          "rule_id": "impact.delete",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD targetgroupbindings.elbv2.k8s.aws under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/targetgroupbindings.elbv2.k8s.aws",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/stageproof-rel-aws-load-balancer-controller-role adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/stageproof-rel-aws-load-balancer-controller-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "Role/default/stageproof-rel-aws-load-balancer-controller-leader-election-role adds rules that the current chart did not have.",
+          "resource": "Role/default/stageproof-rel-aws-load-balancer-controller-leader-election-role",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-aws-load-balancer-controller",
+          "message": "Chart default `image.pullPolicy` changed from `Always` to `IfNotPresent` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.pullPolicy",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-aws-load-balancer-controller",
+          "message": "Chart default `image.repository` changed from `amazon/aws-alb-ingress-controller` to `602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-load-balancer-controller` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.repository",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Deployment/default/stageproof-rel-aws-load-balancer-controller",
+          "message": "Chart default `image.tag` changed from `v2.0.0-rc2` to `v2.0.0` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of Deployment/default/stageproof-rel-aws-load-balancer-controller changed at spec.template.spec.containers[name=aws-load-balancer-controller].args. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/default/stageproof-rel-aws-load-balancer-controller",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 0.1.1 to 1.0.0, a new major version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "1 container image changed. Deployment/default/stageproof-rel-aws-load-balancer-controller.template.spec.containers[0] aws-load-balancer-controller container moves from amazon/aws-alb-ingress-controller:v2.0.0-rc2 to 602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-load-balancer-controller:v2.0.0.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "A private image and a missing image can both look like this. This is not proof that the tag is missing.",
+          "message": "Image `602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-load-balancer-controller:v2.0.0` could not be checked. The registry refused the request.",
+          "resource": "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-load-balancer-controller:v2.0.0",
+          "rule_id": "supply.image.unverifiable",
+          "severity": "info"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `index.docker.io/amazon/aws-alb-ingress-controller` to `602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-load-balancer-controller`.",
+          "resource": "Deployment/default/stageproof-rel-aws-load-balancer-controller.template.spec.containers[0] aws-load-balancer-controller",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "message": "API `apiextensions.k8s.io/v1beta1` (CustomResourceDefinition) is not served by Kubernetes 1.35.0.",
+          "resource": "CustomResourceDefinition/default/targetgroupbindings.elbv2.k8s.aws",
+          "rule_id": "k8s.api.removed",
+          "severity": "blocker"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/default/aws-load-balancer-webhook, ValidatingWebhookConfiguration/default/aws-load-balancer-webhook, MutatingWebhookConfiguration/default/aws-load-balancer-webhook, ValidatingWebhookConfiguration/default/aws-load-balancer-webhook.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        }
+      ],
+      "head_ref": "1.0.0",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://aws.github.io/eks-charts --chart aws-load-balancer-controller --from 0.1.1 --to 1.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.4.0",
+  "to_sha256": "b4fb302b408b1e74d90d1796035866ddc5941dd5626f7863ea445120c8589bd6"
+}

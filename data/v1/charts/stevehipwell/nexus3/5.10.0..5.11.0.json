@@ -61,13 +61,6 @@
           "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-nexus3.template.spec.containers[0] nexus3 container moves from docker.io/sonatype/nexus3:3.80.0-java17-ubi to docker.io/sonatype/nexus3:3.81.1-java17-ubi.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/sonatype/nexus3:3.81.1-java17-ubi` could not be checked. The registry did not answer.",
-          "resource": "docker.io/sonatype/nexus3:3.81.1-java17-ubi",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "5.11.0",
@@ -80,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://stevehipwell.github.io/helm-charts/ --chart nexus3 --from 5.10.0 --to 5.11.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "4215b2e2671f98c1279c25804dca3016de2dddd9532fb6db76b7de384313d455"
 }

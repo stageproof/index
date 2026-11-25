@@ -87,7 +87,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Job/default/stageproof-rel-fission-a-1.25.0-054, Job/default/stageproof-rel-fission-a-1.25.0-062",
+          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Job/default/stageproof-rel-fission-a-1.25.0-323, Job/default/stageproof-rel-fission-a-1.25.0-507",
           "message": "Chart default `fetcher.imageTag` changed from `v1.24.0` to `v1.25.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "fetcher.imageTag",
@@ -95,7 +95,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Deployment/default/kubewatcher, Deployment/default/mqtrigger-keda, Deployment/default/router, Deployment/default/storagesvc, Deployment/default/timer, Deployment/default/webhook, Job/default/stageproof-rel-fission-a-1.25.0-054, Job/default/stageproof-rel-fission-a-1.25.0-992, Job/default/stageproof-rel-fission-a-1.25.0-post-install, Job/default/stageproof-rel-fission-a-1.25.0-post-upgrade",
+          "detail": "Affected objects: Deployment/default/buildermgr, Deployment/default/executor, Deployment/default/kubewatcher, Deployment/default/mqtrigger-keda, Deployment/default/router, Deployment/default/storagesvc, Deployment/default/timer, Deployment/default/webhook, Job/default/stageproof-rel-fission-a-1.25.0-507, Job/default/stageproof-rel-fission-a-1.25.0-585, Job/default/stageproof-rel-fission-a-1.25.0-post-install, Job/default/stageproof-rel-fission-a-1.25.0-post-upgrade",
           "message": "Chart default `imageTag` changed from `v1.24.0` to `v1.25.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "imageTag",
@@ -103,7 +103,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.25.0-054, Job/default/stageproof-rel-fission-a-1.25.0-252",
+          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.25.0-221, Job/default/stageproof-rel-fission-a-1.25.0-507",
           "message": "Chart default `logger.podSecurityPolicy.additionalCapabilities` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "logger.podSecurityPolicy.additionalCapabilities",
@@ -111,7 +111,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.25.0-054, Job/default/stageproof-rel-fission-a-1.25.0-870",
+          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.25.0-034, Job/default/stageproof-rel-fission-a-1.25.0-507",
           "message": "Chart default `logger.podSecurityPolicy.enabled` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "logger.podSecurityPolicy.enabled",
@@ -119,7 +119,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.25.0-054, Job/default/stageproof-rel-fission-a-1.25.0-812",
+          "detail": "Affected objects: Job/default/stageproof-rel-fission-a-1.25.0-341, Job/default/stageproof-rel-fission-a-1.25.0-507",
           "message": "Chart default `preUpgradeChecks.imageTag` changed from `v1.24.0` to `v1.25.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "preUpgradeChecks.imageTag",
@@ -203,6 +203,6 @@
   "reproduce_command": "stageproof check --repo https://fission.github.io/fission-charts/ --chart fission-all --from 1.24.0 --to 1.25.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "9adf65746bb8b05b069075c806f8b702bea7fb5dbc899936943b411321bf118e"
 }

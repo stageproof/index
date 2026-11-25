@@ -68,13 +68,6 @@
           "message": "1 container image changed. Deployment/stageproof-check/stageproof-rel-loki-gateway.template.spec.containers[0] nginx container moves from docker.io/nginx/nginx-unprivileged:1.31.9-alpine3.24 to docker.io/nginx/nginx-unprivileged:1.31.10-alpine3.24.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/nginx/nginx-unprivileged:1.31.10-alpine3.24` could not be checked. The registry did not answer.",
-          "resource": "docker.io/nginx/nginx-unprivileged:1.31.10-alpine3.24",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "21.5.1",
@@ -87,6 +80,6 @@
   "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart loki --from 21.5.0 --to 21.5.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "fd7172d46feb75c7477b8599d08a94e1befe0ba4a6a27b9ccea0f5bb4f88a84d"
 }

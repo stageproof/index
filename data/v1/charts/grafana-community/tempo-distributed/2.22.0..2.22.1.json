@@ -93,13 +93,6 @@
           "message": "1 container image changed. StatefulSet/stageproof-check/stageproof-rel-tempo-memcached.template.spec.containers[0] memcached container moves from docker.io/memcached:1.6.41-alpine to docker.io/memcached:1.6.42-alpine.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/memcached:1.6.42-alpine` could not be checked. The registry did not answer.",
-          "resource": "docker.io/memcached:1.6.42-alpine",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "2.22.1",
@@ -112,6 +105,6 @@
   "reproduce_command": "stageproof check --repo https://grafana-community.github.io/helm-charts/ --chart tempo-distributed --from 2.22.0 --to 2.22.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "cdaaef44cc16267512c87da35012ba5beecf1b3a40cbe43aaf92cb20f955a20b"
 }

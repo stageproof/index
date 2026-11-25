@@ -45,6 +45,12 @@
       "exit_code": 0,
       "findings": [
         {
+          "message": "ValidatingWebhookConfiguration/default/istio-validator-istio-system webhook rev.validation.istio.io has failurePolicy Fail and no namespace selector.",
+          "resource": "ValidatingWebhookConfiguration/default/istio-validator-istio-system",
+          "rule_id": "impact.privilege.webhook",
+          "severity": "warning"
+        },
+        {
           "message": "ClusterRole/default/istiod-clusterrole-stageproof-check adds rules that the current chart did not have.",
           "resource": "ClusterRole/default/istiod-clusterrole-stageproof-check",
           "rule_id": "impact.privilege.rbac",
@@ -108,6 +114,6 @@
   "reproduce_command": "stageproof check --repo https://istio-release.storage.googleapis.com/charts --chart istiod --from 1.29.10 --to 1.30.8 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "f14f7c5c41de2d2ec0dde99723f52335e3661b0daca1e400eaa046664f937f36"
 }

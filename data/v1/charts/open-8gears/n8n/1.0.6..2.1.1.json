@@ -68,13 +68,6 @@
           "message": "appVersion moves from 1.85.1 to 2.36.8. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `n8nio/n8n:2.36.8` could not be checked. The registry did not answer.",
-          "resource": "n8nio/n8n:2.36.8",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "2.1.1",
@@ -87,6 +80,6 @@
   "reproduce_command": "stageproof check --repo oci://8gears.container-registry.com/library --chart n8n --from 1.0.6 --to 2.1.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "6d10670b98a850df4e27474e95321f165021bd105c90325247eafedfec57b75b"
 }

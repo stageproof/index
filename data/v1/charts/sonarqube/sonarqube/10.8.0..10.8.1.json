@@ -71,13 +71,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `sonarqube:24.12.0.100206-community` could not be checked. The registry did not answer.",
-          "resource": "sonarqube:24.12.0.100206-community",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "message": "Kubernetes rejected the update. `spec` is immutable.",
           "resource": "StatefulSet/default/stageproof-rel-sonarqube",
           "rule_id": "k8s.apply.immutable_field",
@@ -101,6 +94,6 @@
   "reproduce_command": "stageproof check --repo https://SonarSource.github.io/helm-chart-sonarqube --chart sonarqube --from 10.8.0 --to 10.8.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "ed420b33267d009c4a934f791bd852d0d962164231649549e353040df9ac8b2a"
 }

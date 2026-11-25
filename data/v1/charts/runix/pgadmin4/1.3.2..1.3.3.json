@@ -69,13 +69,6 @@
           "message": "1 container image changed. Deployment/default/stageproof-rel-pgadmin4.template.spec.containers[0] pgadmin4 container moves from dpage/pgadmin4:4.24 to dpage/pgadmin4:4.25.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `dpage/pgadmin4:4.25` could not be checked. The registry did not answer.",
-          "resource": "dpage/pgadmin4:4.25",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.3.3",
@@ -88,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://helm.runix.net/ --chart pgadmin4 --from 1.3.2 --to 1.3.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d138a1adf215f8aa38034e5092be050a283bd516e4b914546b241a6a84baaa49"
 }

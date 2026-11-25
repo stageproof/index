@@ -79,13 +79,6 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `jpgouin/openldap:2.6.9-fix` could not be checked. The registry did not answer.",
-          "resource": "jpgouin/openldap:2.6.9-fix",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
           "detail": "may only be set for externally-accessible services",
           "message": "Kubernetes rejected `spec.externalTrafficPolicy` on Service/stageproof-check/stageproof-rel.",
           "resource": "Service/stageproof-check/stageproof-rel",
@@ -103,6 +96,6 @@
   "reproduce_command": "stageproof check --repo https://jp-gouin.github.io/helm-openldap/ --chart openldap-stack-ha --from 4.3.1 --to 4.3.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "bb592844d7cbaaccc6e4ad5ec9b0e845c996dcdf399b2e2063ed56e6fc9622d9"
 }

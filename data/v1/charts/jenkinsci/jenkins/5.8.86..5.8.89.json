@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config, Pod/stageproof-check/stageproof-rel-ui-test-ffpin, Pod/stageproof-check/stageproof-rel-ui-test-zjqjb",
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config, Pod/stageproof-check/stageproof-rel-ui-test-r2qsj, Pod/stageproof-check/stageproof-rel-ui-test-vbwjp",
           "message": "Chart default `agent.image.tag` changed from `3327.v868139a_d00e0-7` to `3327.v868139a_d00e0-8` and the rendered objects differ.",
           "proof": "render",
           "resource": "agent.image.tag",
@@ -69,13 +69,6 @@
           "message": "2 container images changed. ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config jenkins/inbound-agent image moves from jenkins/inbound-agent:3327.v868139a_d00e0-7 to jenkins/inbound-agent:3327.v868139a_d00e0-8. StatefulSet/stageproof-check/stageproof-rel-jenkins.template.spec.containers[0] jenkins container moves from docker.io/jenkins/jenkins:2.516.2-jdk21 to docker.io/jenkins/jenkins:2.516.3-jdk21.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bats/bats:1.12.0` could not be checked. The registry did not answer.",
-          "resource": "docker.io/bats/bats:1.12.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "5.8.89",
@@ -88,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.8.86 --to 5.8.89 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "b1f8a1e7d1339171259b1dc190c769f119169dfbdb7b73215a18ad3437808a79"
 }

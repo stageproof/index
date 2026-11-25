@@ -69,6 +69,6 @@
   "reproduce_command": "stageproof check --repo oci://registry-1.docker.io/cloudpirates --chart minio --from 0.5.7 --to 0.6.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c1352dd5495a71d50d39f5b715255b5c67d485179673f0238eba28437a3c658c"
 }

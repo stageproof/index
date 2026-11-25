@@ -61,13 +61,6 @@
           "message": "1 container image changed. StatefulSet/default/stageproof-rel-qdrant.template.spec.containers[0] qdrant container moves from docker.io/qdrant/qdrant:v1.18.2 to docker.io/qdrant/qdrant:v1.18.3.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/qdrant/qdrant:v1.18.3` could not be checked. The registry did not answer.",
-          "resource": "docker.io/qdrant/qdrant:v1.18.3",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "1.18.3",
@@ -80,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://qdrant.github.io/qdrant-helm --chart qdrant --from 1.18.2 --to 1.18.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "8e9c7e1cbf4fd29aac3a84b2d03e91108d409acc3e714a173314815692730ec3"
 }

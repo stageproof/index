@@ -23,6 +23,6 @@
   "reproduce_command": "stageproof check --repo https://releases.rancher.com/server-charts/latest --chart rancher --from 2.10.2 --to 2.10.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "62af699eac72dffff5e444ce8de133d2b03baf12b98c2ee8ddf20d4effce1c94"
 }

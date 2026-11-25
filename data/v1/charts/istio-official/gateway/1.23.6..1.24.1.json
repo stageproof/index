@@ -23,6 +23,6 @@
   "reproduce_command": "stageproof check --repo https://istio-release.storage.googleapis.com/charts --chart gateway --from 1.23.6 --to 1.24.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "f3c2d202e6b055a70263a59bebaa3e9a1fb45ee4e9cfec66f70df888c2afdd27"
 }

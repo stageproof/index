@@ -23,8 +23,8 @@
         },
         {
           "name": "image tags",
-          "status": "pass",
-          "summary": "5 new or changed image tags checked"
+          "status": "fail",
+          "summary": "a new or changed image tag was not found, or it lacks the required platform"
         },
         {
           "name": "API server 1.35.0",
@@ -42,7 +42,7 @@
           "summary": "current Kubernetes was checked by API server 1.35.0"
         }
       ],
-      "exit_code": 0,
+      "exit_code": 1,
       "findings": [
         {
           "detail": "Affected objects: Deployment/default/stageproof-rel-dify-api, Deployment/default/stageproof-rel-dify-worker",
@@ -99,6 +99,13 @@
           "severity": "info"
         },
         {
+          "detail": "helm template 0.27.0 failed: exit status 1\nError: execution error at (dify/charts/postgresql/templates/secrets.yaml:9:27): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'auth.replicationPassword' must not be empty, please add '--set auth.replicationPassword=$REPLICATION_PASSWORD' to the command. To get the current value:\n\n        export REPLICATION_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-postgresql -o jsonpath=\"{.data.replication-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
+          "file": "0.27.0",
+          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
+          "rule_id": "helm.template.upgrade_fallback",
+          "severity": "warning"
+        },
+        {
           "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
           "message": "appVersion moves from 1.5.0 to 1.6.0. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
@@ -111,51 +118,30 @@
           "severity": "warning"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnami/postgresql:15.3.0-debian-11-r7` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `docker.io/bitnami/postgresql:15.3.0-debian-11-r7` was not found.",
           "resource": "docker.io/bitnami/postgresql:15.3.0-debian-11-r7",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         },
         {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/bitnami/redis:7.0.11-debian-11-r12` could not be checked. The registry did not answer.",
+          "detail": "The registry answered that this tag or digest is not there.",
+          "message": "Image `docker.io/bitnami/redis:7.0.11-debian-11-r12` was not found.",
           "resource": "docker.io/bitnami/redis:7.0.11-debian-11-r12",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `langgenius/dify-api:1.6.0` could not be checked. The registry did not answer.",
-          "resource": "langgenius/dify-api:1.6.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `langgenius/dify-plugin-daemon:0.1.3-local` could not be checked. The registry did not answer.",
-          "resource": "langgenius/dify-plugin-daemon:0.1.3-local",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `langgenius/dify-web:1.6.0` could not be checked. The registry did not answer.",
-          "resource": "langgenius/dify-web:1.6.0",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
+          "rule_id": "supply.image.not_found",
+          "severity": "blocker"
         }
       ],
       "head_ref": "0.27.0",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "PASSED"
+      "verdict": "BLOCKED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo https://borispolonsky.github.io/dify-helm --chart dify --from 0.26.1 --to 0.27.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "a983e20dea98e6f032496e7110c785f9a7d8b77d2a7dce405fa86784828dac1f"
 }

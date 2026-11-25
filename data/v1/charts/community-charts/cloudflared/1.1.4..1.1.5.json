@@ -61,6 +61,6 @@
   "reproduce_command": "stageproof check --repo https://community-charts.github.io/helm-charts --chart cloudflared --from 1.1.4 --to 1.1.5 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.0",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "f419dee12daea41d166ce13bd805d9f32ad9d925b6cb6388b25ff8efe1ebc4c5"
 }
