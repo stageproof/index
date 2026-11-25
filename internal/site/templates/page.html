@@ -30,6 +30,7 @@ footer { color: #57534e; font-size: 0.9rem; }
 <a href="{{href .Root}}">Stageproof index</a>
 <a href="{{href .ChartsPath}}">Charts</a>
 <a href="{{href .APIPath}}">API</a>
+<a href="{{href "/values/"}}">Your values</a>
 </header>
 <main>
 {{if eq .Kind "home"}}
@@ -45,7 +46,7 @@ footer { color: #57534e; font-size: 0.9rem; }
 {{end}}
 </ul>
 {{end}}
-<p><a href="{{href .ChartsPath}}">Browse charts</a> or read the <a href="{{href .APIPath}}">JSON API</a>.</p>
+<p><a href="{{href .ChartsPath}}">Browse charts</a>, read the <a href="{{href .APIPath}}">JSON API</a>, or <a href="{{href "/values/"}}">check a values file in your browser</a>. The paste stays on your machine.</p>
 {{else if eq .Kind "charts"}}
 <h1>Charts</h1>
 <p class="notice">{{.Notice}}</p>
@@ -164,7 +165,7 @@ steps.addEventListener('input', function () {
 {{if .Defaults}}<h2>Defaults</h2><ul>{{range .Defaults}}<li><code>{{.RuleID}}</code> {{.Message}}</li>{{end}}</ul>{{end}}
 {{if .CRDs}}<h2>CRDs</h2><ul>{{range .CRDs}}<li><code>{{.RuleID}}</code> {{.Message}}</li>{{end}}</ul>{{end}}
 {{if .Images}}<h2>Images</h2><ul>{{range .Images}}<li><code>{{.RuleID}}</code> {{.Message}}</li>{{end}}</ul>{{end}}
-<p class="banner">Checked with chart defaults only. Run the command below with your -f values.yaml to check your cluster.</p>
+<p class="banner">Checked with chart defaults only. Run the command below with your -f values.yaml to check your cluster. Or <a href="{{.ValuesHref}}">compare a values file in your browser</a>. The paste stays on your machine.</p>
 <h2>Command</h2>
 <pre>{{.Command}}</pre>
 {{if .ReleaseNotes}}<p><a href="{{.ReleaseNotes}}">Release notes</a></p>{{end}}

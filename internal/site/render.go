@@ -106,6 +106,7 @@ type view struct {
 	Command        string
 	Bug            string
 	APIHref        string
+	ValuesHref     string
 	IndexPath      string
 	UpgradePattern string
 	BadgeURL       string
@@ -292,6 +293,10 @@ func collect(root string, cat catalog) (built, error) {
 	}
 	pages.raw = append(pages.raw, rawFile{route: BadgeRegistry, body: registry})
 	pages.raw = append(pages.raw, rawFile{route: BadgeUnknown, body: UnknownSVG()})
+	if err := addValuesPage(&pages); err != nil {
+		return built{}, err
+	}
+	locs = append(locs, Values)
 	pages.sitemap, err = sitemap(locs)
 	if err != nil {
 		return built{}, err
@@ -379,7 +384,8 @@ func upgradeView(nav view, item chart, one pairFile, route, api string) view {
 		Blockers: blockers, Warnings: warnings, Info: info, Defaults: defaults, CRDs: crds, Images: images,
 		Command: one.Doc.ReproduceCommand, ReleaseNotes: httpLink(item.ReleaseNotesURL),
 		Bug:     BugURL(item.Repo, item.Chart, one.From, one.To, one.Doc.StageproofVersion),
-		APIHref: Href(api), NotChecked: one.NotChecked, Checks: checksToShow(one.Doc, one.NotChecked),
+		APIHref: Href(api), ValuesHref: valuesLink(item.RepoName, item.Chart, one.From, one.To),
+		NotChecked: one.NotChecked, Checks: checksToShow(one.Doc, one.NotChecked),
 	}
 }
 
@@ -481,7 +487,7 @@ func writeRaw(root, route string, body []byte) error {
 	rel := strings.TrimPrefix(route, "/")
 	var path string
 	switch {
-	case strings.HasSuffix(route, ".json") || strings.HasSuffix(route, ".xml") || strings.HasSuffix(route, ".svg"):
+	case strings.HasSuffix(route, ".json") || strings.HasSuffix(route, ".xml") || strings.HasSuffix(route, ".svg") || strings.HasSuffix(route, ".js") || strings.HasSuffix(route, ".css"):
 		path = filepath.Join(root, filepath.FromSlash(rel))
 	case route == "/":
 		path = filepath.Join(root, "index.html")

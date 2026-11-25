@@ -11,6 +11,7 @@ import (
 const (
 	Root          = "/"
 	Charts        = "/charts/"
+	Values        = "/values/"
 	API           = "/api/"
 	APIIndex      = "/api/v1/index.json"
 	Sitemap       = "/sitemap.xml"
