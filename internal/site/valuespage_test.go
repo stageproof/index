@@ -3,6 +3,7 @@ package site
 import (
 	"crypto/sha512"
 	"encoding/base64"
+	"encoding/json"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -25,6 +26,12 @@ func TestValuesPageIsLocalAndHashed(t *testing.T) {
 	if strings.Contains(page, "<script>") || strings.Contains(page, "onclick=") {
 		t.Fatal("inline script")
 	}
+	if !strings.Contains(page, `>Check</button>`) {
+		t.Fatal("primary button should be labeled Check")
+	}
+	if !strings.Contains(page, "From version") || !strings.Contains(page, "To version") {
+		t.Fatal("version labels missing")
+	}
 	sum := sha512.Sum384([]byte(js))
 	sri := "sha384-" + base64.StdEncoding.EncodeToString(sum[:])
 	if !strings.Contains(page, sri) {
@@ -34,6 +41,17 @@ func TestValuesPageIsLocalAndHashed(t *testing.T) {
 		if strings.Contains(js, banned) {
 			t.Fatalf("values.js contains %s", banned)
 		}
+	}
+	rawChart := readPage(t, out, "api/v1/chart/fixtures/web.json")
+	var doc chartPairsDoc
+	if err := json.Unmarshal([]byte(rawChart), &doc); err != nil {
+		t.Fatalf("parse chart pairs json: %v", err)
+	}
+	if doc.DefaultFrom != "0.2.0" || doc.DefaultTo != "0.3.0" {
+		t.Fatalf("default pair = %s -> %s, want 0.2.0 -> 0.3.0", doc.DefaultFrom, doc.DefaultTo)
+	}
+	if len(doc.Pairs) < 2 {
+		t.Fatalf("expected at least 2 pairs, got %d", len(doc.Pairs))
 	}
 	upgrade := readPage(t, out, "upgrade/fixtures/web/0.2.0/0.3.0/index.html")
 	if !strings.Contains(upgrade, "/values/?") || !strings.Contains(upgrade, "repo=fixtures") {
