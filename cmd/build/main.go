@@ -23,6 +23,7 @@ func main() {
 	apiDir := flag.String("api-server-dir", "", "stageproof --api-server-dir value")
 	limit := flag.Int("limit", 0, "build at most this many charts; 0 builds the whole list")
 	maxPairs := flag.Int("max-pairs", 0, "build at most this many pairs per chart; 0 builds every pair")
+	releaseJumps := flag.Int("release-jumps", 0, "when the newest version changed, also jump to it from each of the newest N stable versions")
 	recheck := flag.Bool("recheck", false, "also re-check stored pair files whose stageproof_version is not the pin")
 	shardFlag := flag.String("shard", "", "build charts i/n of the id-sorted list, for example 3/40")
 	listShard := flag.String("list-shard", "", "print repo_name/chart for shard i/n and exit")
@@ -77,6 +78,7 @@ func main() {
 		APIServerDir: *apiDir,
 		Limit:        *limit,
 		MaxPairs:     *maxPairs,
+		ReleaseJumps: *releaseJumps,
 		Recheck:      *recheck,
 		Shard:        shard,
 		Shards:       shards,

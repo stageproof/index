@@ -96,6 +96,47 @@ func Enumerate(versions []Version, now time.Time) []Pair {
 	return out
 }
 
+// ToLatest returns a jump from each of the newest n stable versions to the
+// newest stable version. The newest version is not paired with itself.
+func ToLatest(versions []Version, n int) []Pair {
+	stable := Stable(versions)
+	if len(stable) < 2 || n < 1 {
+		return nil
+	}
+	latest := stable[len(stable)-1].Name
+	start := 0
+	if len(stable) > n {
+		start = len(stable) - n
+	}
+	var out []Pair
+	for _, v := range stable[start:] {
+		if canon(v.Name) == "" || canon(v.Name) == canon(latest) {
+			continue
+		}
+		if semver.Compare(canon(v.Name), canon(latest)) >= 0 {
+			continue
+		}
+		out = append(out, Pair{From: v.Name, To: latest})
+	}
+	sort.Slice(out, func(i, j int) bool {
+		if c := semver.Compare(canon(out[i].From), canon(out[j].From)); c != 0 {
+			return c < 0
+		}
+		return semver.Compare(canon(out[i].To), canon(out[j].To)) < 0
+	})
+	return out
+}
+
+// LatestChanged reports that the newest stable version is not the stored one.
+// An empty stored name counts as a change.
+func LatestChanged(versions []Version, stored string) bool {
+	stable := Stable(versions)
+	if len(stable) == 0 {
+		return false
+	}
+	return canon(stable[len(stable)-1].Name) != canon(stored)
+}
+
 func isStable(v string) bool {
 	raw := strings.TrimSpace(v)
 	if raw == "" {
