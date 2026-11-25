@@ -33,6 +33,14 @@ type Options struct {
 	MaxPairs     int
 	Now          time.Time
 	Source       source.Source
+	// Recheck also runs pair files already stored for a chart when their
+	// stageproof_version is not the pinned release, including files the
+	// current enumeration does not list.
+	Recheck bool
+	// Shard and Shards select charts by position in the id-sorted list.
+	// Shards 0 means every chart. Shard is the zero-based remainder.
+	Shard  int
+	Shards int
 }
 
 // Result counts what the build wrote.
@@ -78,9 +86,9 @@ func Run(ctx context.Context, file charts.File, opt Options) (Result, error) {
 	if now.IsZero() {
 		now = time.Now().UTC()
 	}
-	list := file.Charts
-	if opt.Limit > 0 && opt.Limit < len(list) {
-		list = list[:opt.Limit]
+	list, err := selectCharts(file.Charts, opt)
+	if err != nil {
+		return Result{}, err
 	}
 	cat := []catalogChart{}
 	var result Result
@@ -139,9 +147,17 @@ func buildChart(ctx context.Context, chart charts.Chart, opt Options, minors []s
 		row.Blocked = blocked
 		return row, nil
 	}
+	dir := filepath.Join(opt.OutDir, "v1", "charts", chart.RepoName, chart.Chart)
 	chosen := pairs.Enumerate(versions, now)
 	if opt.MaxPairs > 0 && len(chosen) > opt.MaxPairs {
 		chosen = chosen[len(chosen)-opt.MaxPairs:]
+	}
+	if opt.Recheck {
+		extra, err := staleStoredPairs(dir, release.Version)
+		if err != nil {
+			return catalogChart{}, err
+		}
+		chosen = mergePairs(chosen, extra)
 	}
 	row.Pairs = len(chosen)
 	if stable := pairs.Stable(versions); len(stable) > 0 {
@@ -156,7 +172,6 @@ func buildChart(ctx context.Context, chart charts.Chart, opt Options, minors []s
 	if err != nil {
 		return catalogChart{}, err
 	}
-	dir := filepath.Join(opt.OutDir, "v1", "charts", chart.RepoName, chart.Chart)
 	if err := writeFile(filepath.Join(dir, "meta.json"), buf); err != nil {
 		return catalogChart{}, err
 	}
@@ -398,4 +413,200 @@ func writeFile(path string, buf []byte) error {
 		return err
 	}
 	return os.WriteFile(path, buf, 0o644)
+}
+
+// ParseShard reads "i/n". An empty string means every chart.
+func ParseShard(raw string) (shard, shards int, err error) {
+	raw = strings.TrimSpace(raw)
+	if raw == "" {
+		return 0, 0, nil
+	}
+	left, right, ok := strings.Cut(raw, "/")
+	if !ok {
+		return 0, 0, fmt.Errorf("shard %q must look like 3/40", raw)
+	}
+	shard, err = atoi(left)
+	if err != nil {
+		return 0, 0, fmt.Errorf("shard %q must look like 3/40", raw)
+	}
+	shards, err = atoi(right)
+	if err != nil || shards < 1 || shard >= shards {
+		return 0, 0, fmt.Errorf("shard %q is out of range", raw)
+	}
+	return shard, shards, nil
+}
+
+func atoi(raw string) (int, error) {
+	n := 0
+	if raw == "" {
+		return 0, fmt.Errorf("empty")
+	}
+	for _, r := range raw {
+		if r < '0' || r > '9' {
+			return 0, fmt.Errorf("not a number")
+		}
+		n = n*10 + int(r-'0')
+	}
+	return n, nil
+}
+
+func selectCharts(list []charts.Chart, opt Options) ([]charts.Chart, error) {
+	if opt.Shards == 0 {
+		if opt.Limit > 0 && opt.Limit < len(list) {
+			return list[:opt.Limit], nil
+		}
+		return list, nil
+	}
+	if opt.Shard < 0 || opt.Shard >= opt.Shards {
+		return nil, fmt.Errorf("shard %d/%d is out of range", opt.Shard, opt.Shards)
+	}
+	sorted := append([]charts.Chart(nil), list...)
+	sort.Slice(sorted, func(i, j int) bool { return sorted[i].ID < sorted[j].ID })
+	var out []charts.Chart
+	for i, chart := range sorted {
+		if i%opt.Shards == opt.Shard {
+			out = append(out, chart)
+		}
+	}
+	if opt.Limit > 0 && opt.Limit < len(out) {
+		out = out[:opt.Limit]
+	}
+	return out, nil
+}
+
+// ShardSlugs returns repo_name/chart for one shard, in id order.
+func ShardSlugs(list []charts.Chart, shard, shards int) ([]string, error) {
+	chosen, err := selectCharts(list, Options{Shard: shard, Shards: shards})
+	if err != nil {
+		return nil, err
+	}
+	slugs := make([]string, 0, len(chosen))
+	for _, chart := range chosen {
+		slugs = append(slugs, chart.RepoName+"/"+chart.Chart)
+	}
+	return slugs, nil
+}
+
+func staleStoredPairs(dir, version string) ([]pairs.Pair, error) {
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return nil, nil
+		}
+		return nil, err
+	}
+	names := make([]string, 0, len(entries))
+	for _, entry := range entries {
+		if entry.IsDir() {
+			continue
+		}
+		names = append(names, entry.Name())
+	}
+	sort.Strings(names)
+	var out []pairs.Pair
+	for _, name := range names {
+		pair, ok := pairFromFile(name)
+		if !ok {
+			continue
+		}
+		got, readable := storedVersion(filepath.Join(dir, name))
+		if readable && got == version {
+			continue
+		}
+		out = append(out, pair)
+	}
+	return out, nil
+}
+
+func pairFromFile(name string) (pairs.Pair, bool) {
+	if name == "meta.json" || !strings.HasSuffix(name, ".json") {
+		return pairs.Pair{}, false
+	}
+	stem := strings.TrimSuffix(name, ".json")
+	from, to, ok := strings.Cut(stem, "..")
+	if !ok || from == "" || to == "" || strings.Contains(from, "..") || strings.Contains(to, "..") {
+		return pairs.Pair{}, false
+	}
+	if strings.Contains(from, "/") || strings.Contains(to, "/") {
+		return pairs.Pair{}, false
+	}
+	return pairs.Pair{From: from, To: to}, true
+}
+
+func storedVersion(path string) (string, bool) {
+	buf, err := os.ReadFile(path)
+	if err != nil {
+		return "", false
+	}
+	var doc struct {
+		Version string `json:"stageproof_version"`
+	}
+	if err := json.Unmarshal(buf, &doc); err != nil {
+		return "", false
+	}
+	return doc.Version, true
+}
+
+func mergePairs(chosen, extra []pairs.Pair) []pairs.Pair {
+	seen := map[string]bool{}
+	for _, pair := range chosen {
+		seen[pair.From+"\x00"+pair.To] = true
+	}
+	for _, pair := range extra {
+		key := pair.From + "\x00" + pair.To
+		if seen[key] {
+			continue
+		}
+		seen[key] = true
+		chosen = append(chosen, pair)
+	}
+	return chosen
+}
+
+// WriteCatalog rewrites data/v1/index.json from the pair files already on disk.
+// It does not run Stageproof.
+func WriteCatalog(file charts.File, outDir string) error {
+	cat := make([]catalogChart, 0, len(file.Charts))
+	for _, chart := range file.Charts {
+		if err := chart.Validate(); err != nil {
+			return err
+		}
+		dir := filepath.Join(outDir, "v1", "charts", chart.RepoName, chart.Chart)
+		n, blocked, err := countPairFiles(dir)
+		if err != nil {
+			return fmt.Errorf("%s: %w", chart.ID, err)
+		}
+		row := catalogChart{
+			ID: chart.ID, Repo: chart.Repo, RepoName: chart.RepoName, Chart: chart.Chart,
+			Stars: chart.Stars, Homepage: chart.Homepage, ReleaseNotesURL: chart.ReleaseNotesURL,
+			Latest: readLatest(dir), Pairs: n, Blocked: blocked,
+		}
+		cat = append(cat, row)
+	}
+	sort.Slice(cat, func(i, j int) bool { return cat[i].ID < cat[j].ID })
+	body := map[string]any{
+		"schema_version":     1,
+		"stageproof_version": release.Version,
+		"notice":             notice,
+		"charts":             cat,
+	}
+	buf, err := report.Marshal(body)
+	if err != nil {
+		return err
+	}
+	return writeFile(filepath.Join(outDir, "v1", "index.json"), buf)
+}
+
+func readLatest(dir string) string {
+	buf, err := os.ReadFile(filepath.Join(dir, "meta.json"))
+	if err != nil {
+		return ""
+	}
+	var doc struct {
+		Latest string `json:"latest"`
+	}
+	if err := json.Unmarshal(buf, &doc); err != nil {
+		return ""
+	}
+	return doc.Latest
 }

@@ -14,6 +14,7 @@ import (
 
 	"github.com/stageproof/index/internal/charts"
 	"github.com/stageproof/index/internal/pairs"
+	"github.com/stageproof/index/internal/release"
 	"github.com/stageproof/index/internal/source"
 )
 
@@ -254,4 +255,178 @@ func walkNoArchives(t *testing.T, root string) {
 
 func pad(n int) string {
 	return strconv.Itoa(n/100) + strconv.Itoa((n/10)%10) + strconv.Itoa(n%10)
+}
+
+func TestSelectShardUsesSortedIDs(t *testing.T) {
+	list := []charts.Chart{
+		{ID: "b/b", RepoName: "b", Chart: "b"},
+		{ID: "a/a", RepoName: "a", Chart: "a"},
+		{ID: "d/d", RepoName: "d", Chart: "d"},
+		{ID: "c/c", RepoName: "c", Chart: "c"},
+	}
+	got, err := ShardSlugs(list, 0, 2)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if strings.Join(got, ",") != "a/a,c/c" {
+		t.Fatalf("shard 0: %v", got)
+	}
+	got, err = ShardSlugs(list, 1, 2)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if strings.Join(got, ",") != "b/b,d/d" {
+		t.Fatalf("shard 1: %v", got)
+	}
+	shard, shards, err := ParseShard("3/40")
+	if err != nil || shard != 3 || shards != 40 {
+		t.Fatalf("parse %d/%d %v", shard, shards, err)
+	}
+	if _, _, err := ParseShard(""); err != nil {
+		t.Fatal(err)
+	}
+	if _, _, err := ParseShard("2/2"); err == nil {
+		t.Fatal("2/2 was accepted")
+	}
+	if _, _, err := ParseShard("nope"); err == nil {
+		t.Fatal("bare shard was accepted")
+	}
+}
+
+func TestCatalogCountsStoredPairs(t *testing.T) {
+	root := t.TempDir()
+	chart := charts.Chart{
+		ID: "fixtures/web", Repo: "https://charts.example/fixtures", RepoName: "fixtures", Chart: "web", Stars: 4,
+	}
+	dir := filepath.Join(root, "v1", "charts", "fixtures", "web")
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "meta.json"), []byte(`{"latest":"0.2.0"}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "0.1.0..0.2.0.json"), []byte(`{"k8s_results":{"1.35":{"verdict":"BLOCKED","exit_code":1}}}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "0.2.0..0.3.0.json"), []byte(`{"k8s_results":{"1.35":{"verdict":"PASSED","exit_code":0}}}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := WriteCatalog(charts.File{Charts: []charts.Chart{chart}}, root); err != nil {
+		t.Fatal(err)
+	}
+	buf, err := os.ReadFile(filepath.Join(root, "v1", "index.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var doc struct {
+		Version string `json:"stageproof_version"`
+		Charts  []struct {
+			Latest  string `json:"latest"`
+			Pairs   int    `json:"pairs"`
+			Blocked int    `json:"blocked"`
+		} `json:"charts"`
+	}
+	if err := json.Unmarshal(buf, &doc); err != nil {
+		t.Fatal(err)
+	}
+	if doc.Version != release.Version || len(doc.Charts) != 1 {
+		t.Fatalf("catalog %#v", doc)
+	}
+	row := doc.Charts[0]
+	if row.Latest != "0.2.0" || row.Pairs != 2 || row.Blocked != 1 {
+		t.Fatalf("row %#v", row)
+	}
+}
+
+func TestRecheckRebuildsStoredPairsOutsideTheWindow(t *testing.T) {
+	bin := os.Getenv("STAGEPROOF_BIN")
+	if bin == "" {
+		t.Fatal("STAGEPROOF_BIN is required")
+	}
+	root := t.TempDir()
+	chart := charts.Chart{ID: "fixtures/web", Repo: "https://charts.example/fixtures", RepoName: "fixtures", Chart: "web"}
+	oldFrom := writeChart(t, root, "web", "1.0.0", "n: {{ .Chart.Version | quote }}\n")
+	oldTo := writeChart(t, root, "web", "1.1.0", "n: {{ .Chart.Version | quote }}\n")
+	keptFrom := writeChart(t, root, "web", "2.0.0", "n: {{ .Chart.Version | quote }}\n")
+	keptTo := writeChart(t, root, "web", "2.1.0", "n: {{ .Chart.Version | quote }}\n")
+	blankFrom := writeChart(t, root, "web", "3.0.0", "n: {{ .Chart.Version | quote }}\n")
+	blankTo := writeChart(t, root, "web", "3.1.0", "n: {{ .Chart.Version | quote }}\n")
+	latest := writeChart(t, root, "web", "9.0.0", "n: {{ .Chart.Version | quote }}\n")
+	now := time.Date(2026, 11, 25, 0, 0, 0, 0, time.UTC)
+	recent := time.Date(2026, 6, 1, 0, 0, 0, 0, time.UTC)
+	old := time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC)
+	src := source.Local{
+		VersionsByID: map[string][]pairs.Version{chart.ID: {
+			{Name: "1.0.0", Created: old},
+			{Name: "1.1.0", Created: old},
+			{Name: "2.0.0", Created: old},
+			{Name: "2.1.0", Created: old},
+			{Name: "3.0.0", Created: old},
+			{Name: "3.1.0", Created: old},
+			{Name: "9.0.0", Created: recent},
+		}},
+		Dirs: map[string]string{
+			chart.ID + "@1.0.0": oldFrom, chart.ID + "@1.1.0": oldTo,
+			chart.ID + "@2.0.0": keptFrom, chart.ID + "@2.1.0": keptTo,
+			chart.ID + "@3.0.0": blankFrom, chart.ID + "@3.1.0": blankTo,
+			chart.ID + "@9.0.0": latest,
+		},
+	}
+	out := filepath.Join(root, "out")
+	dir := filepath.Join(out, "v1", "charts", "fixtures", "web")
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	stale := filepath.Join(dir, "1.0.0..1.1.0.json")
+	staleBody := []byte(`{"stageproof_version":"v0.3.0","k8s_results":{"1.35":{"verdict":"BLOCKED"}}}`)
+	if err := os.WriteFile(stale, staleBody, 0o644); err != nil {
+		t.Fatal(err)
+	}
+	kept := filepath.Join(dir, "2.0.0..2.1.0.json")
+	keptBody := `{"stageproof_version":"` + release.Version + `","marker":"keep-this-body","k8s_results":{"1.35":{"verdict":"PASSED"}}}`
+	if err := os.WriteFile(kept, []byte(keptBody), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	blank := filepath.Join(dir, "3.0.0..3.1.0.json")
+	if err := os.WriteFile(blank, []byte(`{"k8s_results":{"1.35":{"verdict":"PASSED"}}}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	opt := Options{
+		OutDir: out, Binary: bin, Minors: []string{"1.35"}, APIServer: "off", Now: now, Source: src,
+	}
+	if _, err := Run(context.Background(), charts.File{Charts: []charts.Chart{chart}}, opt); err != nil {
+		t.Fatal(err)
+	}
+	buf, err := os.ReadFile(stale)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(buf) != string(staleBody) {
+		t.Fatalf("stored pair was rebuilt without -recheck:\n%s", buf)
+	}
+	opt.Recheck = true
+	if _, err := Run(context.Background(), charts.File{Charts: []charts.Chart{chart}}, opt); err != nil {
+		t.Fatal(err)
+	}
+	buf, err = os.ReadFile(stale)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(buf), release.Version) {
+		t.Fatalf("stale pair was not rebuilt:\n%s", buf)
+	}
+	keptBuf, err := os.ReadFile(kept)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(keptBuf), "keep-this-body") {
+		t.Fatalf("current pair was rebuilt:\n%s", keptBuf)
+	}
+	blankBuf, err := os.ReadFile(blank)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(blankBuf), release.Version) {
+		t.Fatalf("pair with no stageproof_version was not rebuilt:\n%s", blankBuf)
+	}
 }

@@ -1,0 +1,136 @@
+name: rebuild
+
+# Manual only. The nightly build.yml schedule is unchanged, and this workflow
+# does not publish the site. After the commit lands, a separate build.yml run
+# publishes it.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: index-rebuild
+  cancel-in-progress: false
+
+jobs:
+  shard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    permissions:
+      contents: read
+      actions: write
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: "1.27.4"
+
+      - uses: azure/setup-helm@2f5e7bc67f1f9972ab16657bb795f36d8f04de0e
+        with:
+          version: "v3.22.1"
+
+      # One key per shard. Shards writing one shared key would replace each other.
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: |
+            ~/.cache/stageproof-index
+            ~/.cache/stageproof/envtest
+          key: index-tools-${{ github.run_id }}-${{ matrix.shard }}
+          restore-keys: index-tools-
+
+      - name: Recheck this shard
+        run: go run ./cmd/build -charts charts.yaml -o data -recheck -shard ${{ matrix.shard }}/64 -minors 1.35 -api-server auto
+
+      - name: Collect this shard's chart directories
+        run: |
+          set -euo pipefail
+          mkdir -p upload
+          while IFS= read -r slug; do
+            src="data/v1/charts/$slug"
+            if [ -d "$src" ]; then
+              mkdir -p "upload/data/v1/charts/$(dirname "$slug")"
+              cp -a "$src" "upload/data/v1/charts/$slug"
+            fi
+          done < <(go run ./cmd/build -charts charts.yaml -list-shard "${{ matrix.shard }}/64")
+          if [ -z "$(find upload -type f -name '*.json' -print -quit)" ]; then
+            echo "shard produced no json"
+            exit 1
+          fi
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: shard-${{ matrix.shard }}
+          path: upload
+          if-no-files-found: error
+          retention-days: 7
+
+  commit:
+    needs: shard
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: "1.27.4"
+
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          pattern: shard-*
+          path: incoming
+          merge-multiple: true
+
+      - name: Commit the rechecked reports
+        run: |
+          set -euo pipefail
+          python3 - << 'PY'
+          import os, sys
+          root = "incoming"
+          bad = []
+          for dirpath, _, files in os.walk(root):
+              for name in files:
+                  rel = os.path.relpath(os.path.join(dirpath, name), root)
+                  parts = rel.split(os.sep)
+                  if ".." in parts or not rel.startswith("data/v1/") or not rel.endswith(".json"):
+                      bad.append(rel)
+          if bad:
+              print("refusing files outside data/v1 json")
+              print("\n".join(bad))
+              sys.exit(1)
+          PY
+          cp -a incoming/data/v1/charts/. data/v1/charts/
+          go run ./cmd/build -charts charts.yaml -o data -catalog
+          go run ./cmd/report -data data -o REPORT.md
+          git add -- data/v1 REPORT.md
+          staged=$(git diff --cached --name-only)
+          if [ -z "$staged" ]; then
+            echo "no report changes"
+            exit 0
+          fi
+          bad=$(printf '%s\n' "$staged" | grep -E '\.(tgz|tar\.gz)$' || true)
+          if [ -n "$bad" ]; then
+            echo "refusing chart archives"
+            printf '%s\n' "$bad"
+            exit 1
+          fi
+          other=$(printf '%s\n' "$staged" | grep -v -E '^(data/v1/.*\.json|REPORT\.md)$' || true)
+          if [ -n "$other" ]; then
+            echo "refusing files outside data/v1 json and REPORT.md"
+            printf '%s\n' "$other"
+            exit 1
+          fi
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m "Recheck stored chart upgrade reports with Stageproof v0.4.0."
+          git push origin HEAD:refs/heads/main || {
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' pull --rebase origin main
+            git push origin HEAD:refs/heads/main
+          }
