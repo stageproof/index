@@ -370,7 +370,9 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0
+      "blocked": 0,
+      "failed": 1,
+      "error": "https://bitnami-labs.github.io/sealed-secrets/index.yaml: 404 Not Found"
     },
     {
       "id": "bootc/netbox",
@@ -1484,8 +1486,8 @@
       "stars": 104,
       "homepage": "https://goauthentik.io",
       "release_notes_url": "",
-      "latest": "2026.8.6",
-      "pairs": 65,
+      "latest": "2026.8.7",
+      "pairs": 66,
       "blocked": 0
     },
     {
@@ -1954,7 +1956,9 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0
+      "blocked": 0,
+      "failed": 1,
+      "error": "https://kubernetes.github.io/dashboard/index.yaml: 404 Not Found"
     },
     {
       "id": "kafka-ui/kafka-ui",
@@ -2144,8 +2148,8 @@
       "stars": 14,
       "homepage": "https://langfuse.com/",
       "release_notes_url": "",
-      "latest": "2.2.6",
-      "pairs": 114,
+      "latest": "2.3.0",
+      "pairs": 115,
       "blocked": 7
     },
     {
@@ -2350,7 +2354,9 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0
+      "blocked": 0,
+      "failed": 1,
+      "error": "chart minio is not in https://helm.min.io/"
     },
     {
       "id": "mojo2600/pihole",
@@ -2576,8 +2582,8 @@
       "stars": 41,
       "homepage": "https://www.openwebui.com/",
       "release_notes_url": "",
-      "latest": "18.4.0",
-      "pairs": 234,
+      "latest": "18.5.0",
+      "pairs": 235,
       "blocked": 8
     },
     {
@@ -2600,8 +2606,8 @@
       "stars": 28,
       "homepage": "https://github.com/opencost/opencost-helm-chart",
       "release_notes_url": "",
-      "latest": "2.5.34",
-      "pairs": 79,
+      "latest": "2.5.35",
+      "pairs": 80,
       "blocked": 0
     },
     {
@@ -2686,7 +2692,9 @@
       "release_notes_url": "",
       "latest": "3.10.0",
       "pairs": 41,
-      "blocked": 1
+      "blocked": 1,
+      "failed": 1,
+      "error": "digest mismatch for opensearch-dashboards@3.9.0"
     },
     {
       "id": "opentelemetry-helm/opentelemetry-collector",
@@ -3358,7 +3366,9 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0
+      "blocked": 0,
+      "failed": 1,
+      "error": "Get \"https://helm.twun.io/index.yaml\": EOF"
     },
     {
       "id": "unleash/unleash",
