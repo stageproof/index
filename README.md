@@ -33,6 +33,12 @@ The curated list currently expands to about 20,000 stable pairs. That history is
 go run ./cmd/report -data data
 ```
 
+`cmd/presets` writes the Renovate preset `default.json` from `charts.yaml`. HTTP rules match the chart name and the repository URL, with a trailing slash removed. A chart name that has more than one HTTP repository includes that URL in the rule description. OCI rules match the Docker `packageName`, the catalog URL without `oci://`.
+
+```bash
+go run ./cmd/presets -charts charts.yaml -o default.json
+```
+
 ## Site
 
 `cmd/site` reads `data/v1/` and writes the HTML pages and the JSON API. The nightly workflow runs it after `cmd/build` and uploads the files for GitHub Pages. A push to `main` does not publish a site, and the generated files are not committed.
