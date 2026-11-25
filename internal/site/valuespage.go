@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-//go:embed assets/values.js assets/values.css
+//go:embed assets/values.js assets/site.css assets/favicon.svg
 var valueAssets embed.FS
 
 type chartPairsDoc struct {
@@ -87,38 +87,59 @@ func addValuesPage(pages *built) error {
 	if err != nil {
 		return err
 	}
-	css, err := valueAssets.ReadFile("assets/values.css")
+	css, err := valueAssets.ReadFile("assets/site.css")
+	if err != nil {
+		return err
+	}
+	icon, err := valueAssets.ReadFile("assets/favicon.svg")
 	if err != nil {
 		return err
 	}
 	sum := sha512.Sum384(js)
 	sri := "sha384-" + base64.StdEncoding.EncodeToString(sum[:])
 	pages.raw = append(pages.raw,
+		rawFile{route: "/assets/site.css", body: css},
+		rawFile{route: "/assets/favicon.svg", body: icon},
 		rawFile{route: "/values/values.js", body: js},
-		rawFile{route: "/values/values.css", body: css},
 		rawFile{route: Values, body: []byte(valuesHTML(sri))},
 	)
 	return nil
 }
 
 func valuesHTML(sri string) string {
-	css := Href("/values/values.css")
+	css := Href("/assets/site.css")
+	icon := Href("/assets/favicon.svg")
 	js := Href("/values/values.js")
 	return fmt.Sprintf(`<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#06080D">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'">
 <title>Your values - Stageproof index</title>
+<link rel="icon" href="%s" type="image/svg+xml">
 <link rel="stylesheet" href="%s">
 </head>
 <body data-root="%s">
-<header>
-<a href="%s">Stageproof index</a>
+<header class="nav">
+<div class="nav-inner">
+<a class="brand" href="%s">
+<img class="brand-mark" src="%s" alt="">
+<span>stageproof</span>
+<span class="brand-tag">index</span>
+</a>
+<nav class="nav-links" aria-label="Primary">
+<a href="%s">Overview</a>
 <a href="%s">Charts</a>
-<a href="%s">API</a>
 <a href="%s" class="active">Your values</a>
+<a href="%s">API</a>
+</nav>
+<div class="nav-ext">
+<a href="https://stageproof.github.io/stageproof/">Stageproof CLI</a>
+<a href="https://stageproof.github.io/stageproof/docs.html">Docs</a>
+</div>
+</div>
 </header>
 <main>
 <div class="hero">
@@ -178,5 +199,5 @@ func valuesHTML(sri string) string {
 <script src="%s" integrity="%s" defer></script>
 </body>
 </html>
-`, css, BasePath(), Href(Root), Href(Charts), Href(API), Href(Values), js, sri)
+`, icon, css, BasePath(), Href(Root), icon, Href(Root), Href(Charts), Href(Values), Href(API), js, sri)
 }
