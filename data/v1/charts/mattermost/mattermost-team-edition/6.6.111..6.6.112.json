@@ -81,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://helm.mattermost.com --chart mattermost-team-edition --from 6.6.111 --to 6.6.112 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.1",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "5810d81e4442b6b982bef4d0a12ce8919fc43dfe837a2f04db40889d99f34399"
 }

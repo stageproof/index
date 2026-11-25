@@ -28,13 +28,13 @@
         },
         {
           "name": "API server 1.35.0",
-          "status": "fail",
-          "summary": "1 rejection"
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
         },
         {
           "name": "impact",
           "status": "pass",
-          "summary": "Compared stored objects for 28 of 32 objects, and rendered objects for the rest."
+          "summary": "Compared stored objects for 27 of 32 objects, and rendered objects for the rest."
         },
         {
           "name": "k8s 1.35 compatibility",
@@ -42,7 +42,7 @@
           "summary": "current Kubernetes was checked by API server 1.35.0"
         }
       ],
-      "exit_code": 1,
+      "exit_code": 0,
       "findings": [
         {
           "detail": "Affected objects: Deployment/default/stageproof-rel-signoz-otel-collector, Job/default/signoz-telemetrystore-migrator",
@@ -73,12 +73,6 @@
           "severity": "info"
         },
         {
-          "message": "The pod template of Job/default/signoz-telemetrystore-migrator changed at spec.template.spec.containers[name=async].image. The pods will restart. A restart is normal for an upgrade.",
-          "resource": "Job/default/signoz-telemetrystore-migrator",
-          "rule_id": "impact.restart",
-          "severity": "info"
-        },
-        {
           "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
           "message": "appVersion moves from v0.150.0 to v0.151.0. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
@@ -95,24 +89,18 @@
           "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
           "rule_id": "helm.operator.existing_custom_resources",
           "severity": "warning"
-        },
-        {
-          "message": "Kubernetes rejected the update. `spec.template` is immutable.",
-          "resource": "Job/default/signoz-telemetrystore-migrator",
-          "rule_id": "k8s.apply.immutable_field",
-          "severity": "blocker"
         }
       ],
       "head_ref": "0.151.0",
       "schema_version": 1,
       "target_k8s": "1.35",
-      "verdict": "BLOCKED"
+      "verdict": "PASSED"
     }
   },
   "notice": "chart defaults only; run with your values files",
   "reproduce_command": "stageproof check --repo https://charts.signoz.io --chart signoz --from 0.150.0 --to 0.151.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.1",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "c09021f5c095eba3d273b3484a154ebc8ddf668f07a775ba4f357ba93ea87004"
 }

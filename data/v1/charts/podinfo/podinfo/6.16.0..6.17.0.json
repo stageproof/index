@@ -45,7 +45,7 @@
       "exit_code": 0,
       "findings": [
         {
-          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-podinfo, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-2cgrq, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-hzbgj, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-68yd2, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-fht2s, Pod/stageproof-check/stageproof-rel-podinfo-service-test-9zl0p, Pod/stageproof-check/stageproof-rel-podinfo-service-test-id2q1",
+          "detail": "Affected objects: Deployment/stageproof-check/stageproof-rel-podinfo, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-kwrtw, Pod/stageproof-check/stageproof-rel-podinfo-grpc-test-y0ke6, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-73mxb, Pod/stageproof-check/stageproof-rel-podinfo-jwt-test-wdygb, Pod/stageproof-check/stageproof-rel-podinfo-service-test-tmksn, Pod/stageproof-check/stageproof-rel-podinfo-service-test-yvolj",
           "message": "Chart default `image.tag` changed from `6.16.0` to `6.17.0` and the rendered objects differ.",
           "proof": "render",
           "resource": "image.tag",
@@ -81,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://stefanprodan.github.io/podinfo --chart podinfo --from 6.16.0 --to 6.17.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.1",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "d3d67f460f9f94bb6d10950315fc0953799efc0ee60332e3c475e755e99c0e04"
 }

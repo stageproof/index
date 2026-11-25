@@ -85,6 +85,6 @@
   "reproduce_command": "stageproof check --repo https://traefik.github.io/charts --chart traefik --from 42.4.3 --to 43.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.1",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "29cbf019c5e013d9455c89fa29be66d2dd9007c84ed51b969220225fd1b7983c"
 }

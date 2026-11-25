@@ -2,7 +2,7 @@
 
 These numbers are chart defaults only. They are not a check of any cluster's values files. Regenerate with `go run ./cmd/report -data data`.
 
-Catalog charts: 300. Charts with a stored pair: 294. Upgrade pairs: 20488. Blocked: 2115. Not checked: 763. Passed: 17610.
+Catalog charts: 300. Charts with a stored pair: 294. Upgrade pairs: 20505. Blocked: 2109. Not checked: 764. Passed: 17632.
 
 Catalog charts with no stored pair:
 
@@ -10,7 +10,7 @@ Catalog charts with no stored pair:
 - `k8s-dashboard/kubernetes-dashboard`: https://kubernetes.github.io/dashboard/index.yaml: 404 Not Found
 - `minio/minio`: chart minio is not in https://helm.min.io/
 - `mysql-operator/mysql-operator`
-- `twuni/docker-registry`: Get "https://helm.twun.io/index.yaml": EOF
+- `twuni/docker-registry`: Get "https://helm.twun.io/index.yaml": dial tcp: lookup helm.twun.io on 127.0.0.53:53: read udp 127.0.0.1:33690->127.0.0.53:53: i/o timeout
 - `wso2/mysql`
 
 A pair is blocked when any Kubernetes minor in the file is BLOCKED. Otherwise a pair with any NOT CHECKED minor is not checked. The rest are passed.
@@ -18,7 +18,8 @@ A pair is blocked when any Kubernetes minor in the file is BLOCKED. Otherwise a 
 ## Stageproof version
 
 - `v0.3.0`: 20182
-- `v0.3.1`: 306
+- `v0.4.0`: 293
+- `v0.3.1`: 30
 
 ## Blocker rules
 
@@ -26,8 +27,8 @@ Pairs is the number of upgrade files that contain the rule. Findings counts each
 
 | Rule | Pairs | Findings |
 |---|---:|---:|
-| `k8s.api.removed` | 983 | 4830 |
-| `k8s.apply.immutable_field` | 545 | 712 |
+| `k8s.api.removed` | 980 | 4824 |
+| `k8s.apply.immutable_field` | 541 | 707 |
 | `crd.not_upgraded_by_helm` | 308 | 1057 |
 | `helm.template.render_failed` | 136 | 136 |
 | `k8s.upgrade.immutable_selector_changed` | 114 | 170 |
@@ -116,7 +117,7 @@ stageproof check --repo https://pulsar.apache.org/charts --chart pulsar --from 3
 
 ### `supply.image.not_found`
 
-`airflow-helm/airflow` 8.8.0 to 8.9.0, report `v0.3.1`.
+`airflow-helm/airflow` 8.8.0 to 8.9.0, report `v0.4.0`.
 
 Image `docker.io/bitnami/redis:6.2.14-debian-12-r17` was not found.
 

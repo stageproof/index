@@ -189,6 +189,6 @@
   "reproduce_command": "stageproof check --repo https://helm.linkerd.io/stable --chart linkerd-viz --from 30.12.10 --to 30.12.11 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.1",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "40c056070b4c7644da47747eb8ea173df366e01cfc3d0dc2d1890157adb18421"
 }

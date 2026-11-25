@@ -9,7 +9,7 @@
         {
           "name": "helm template",
           "status": "pass",
-          "summary": "rendered 104 Kubernetes objects cleanly"
+          "summary": "rendered 113 Kubernetes objects cleanly"
         },
         {
           "name": "values.yaml AST",
@@ -24,7 +24,7 @@
         {
           "name": "image tags",
           "status": "pass",
-          "summary": "15 new or changed image tags checked"
+          "summary": "16 new or changed image tags checked"
         },
         {
           "name": "API server 1.35.0",
@@ -33,7 +33,7 @@
         },
         {
           "name": "impact",
-          "status": "pass",
+          "status": "warn",
           "summary": "Compared stored objects for 89 of 104 objects, and rendered objects for the rest."
         },
         {
@@ -44,6 +44,18 @@
       ],
       "exit_code": 0,
       "findings": [
+        {
+          "message": "ClusterRole/default/mayastor-pre-upgrade-hook adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/mayastor-pre-upgrade-hook",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "message": "ClusterRole/default/openebs-pre-upgrade-hook adds rules that the current chart did not have.",
+          "resource": "ClusterRole/default/openebs-pre-upgrade-hook",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
         {
           "message": "The pod template of DaemonSet/default/stageproof-rel-agent-ha-node changed at spec.template.metadata.labels.openebs.io/version. The pods will restart. A restart is normal for an upgrade.",
           "resource": "DaemonSet/default/stageproof-rel-agent-ha-node",
@@ -153,13 +165,6 @@
           "resource": "StatefulSet/default/stageproof-rel-minio.template.spec.containers[0] minio",
           "rule_id": "supply.image.moved",
           "severity": "info"
-        },
-        {
-          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
-          "message": "Image `docker.io/openebs/mc:RELEASE.2024-11-21T17-21-54Z` could not be checked. The registry did not answer.",
-          "resource": "docker.io/openebs/mc:RELEASE.2024-11-21T17-21-54Z",
-          "rule_id": "supply.registry_unreachable",
-          "severity": "info"
         }
       ],
       "head_ref": "4.6.2",
@@ -172,6 +177,6 @@
   "reproduce_command": "stageproof check --repo https://openebs.github.io/openebs --chart openebs --from 4.6.1 --to 4.6.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.1",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "87c759684e23832115466813d6f16aa0920bed7b9c1b4b63e1cff64ca6023629"
 }

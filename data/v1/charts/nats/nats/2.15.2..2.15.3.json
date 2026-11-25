@@ -103,6 +103,6 @@
   "reproduce_command": "stageproof check --repo https://nats-io.github.io/k8s/helm/charts/ --chart nats --from 2.15.2 --to 2.15.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.1",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "3dc7d544cac9b7ce351cc33529fcae33c16f59a95647012efd3eaec3f92c14f8"
 }

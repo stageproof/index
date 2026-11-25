@@ -81,6 +81,6 @@
   "reproduce_command": "stageproof check --repo https://helm.releases.hashicorp.com --chart terraform --from 1.1.1 --to 1.1.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.3.1",
+  "stageproof_version": "v0.4.0",
   "to_sha256": "9115fecf667f3d41a5a1c5833de948ef699321a6165be7bebe4976a7279702d5"
 }
