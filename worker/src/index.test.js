@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import worker, { NOT_INDEXED, resetForTests } from "./index.js";
+import worker, { NOT_INDEXED, PAIR_NOT_INDEXED, resetForTests } from "./index.js";
 
 const registry = "https://charts.example/fixtures/";
 const indexed = "<svg xmlns=\"http://www.w3.org/2000/svg\"></svg>\n";
@@ -67,7 +67,7 @@ test("an unknown chart is the not-indexed image", async () => {
   assert.equal(await res.text(), NOT_INDEXED);
 });
 
-test("a missing file is the not-indexed image", async () => {
+test("a missing file for a known chart is the missing-pair image", async () => {
   const calls = installFetch({
     [pages + "/badge/registries.json"]: {
       body: JSON.stringify({ [registry.replace(/\/+$/, "")]: { web: "fixtures" } }),
@@ -75,13 +75,13 @@ test("a missing file is the not-indexed image", async () => {
     [svgURL]: { status: 404, body: "nope" },
   });
   const res = await worker.fetch(new Request(query()));
-  assert.equal(await res.text(), NOT_INDEXED);
+  assert.equal(await res.text(), PAIR_NOT_INDEXED);
   const again = await worker.fetch(new Request(query()));
-  assert.equal(await again.text(), NOT_INDEXED);
+  assert.equal(await again.text(), PAIR_NOT_INDEXED);
   assert.equal(calls.filter((url) => url === svgURL).length, 2);
 });
 
-test("a body that is not SVG is the not-indexed image", async () => {
+test("a body that is not SVG is the missing-pair image", async () => {
   installFetch({
     [pages + "/badge/registries.json"]: {
       body: JSON.stringify({ [registry.replace(/\/+$/, "")]: { web: "fixtures" } }),
@@ -89,7 +89,7 @@ test("a body that is not SVG is the not-indexed image", async () => {
     [svgURL]: { body: "not an image" },
   });
   const res = await worker.fetch(new Request(query()));
-  assert.equal(await res.text(), NOT_INDEXED);
+  assert.equal(await res.text(), PAIR_NOT_INDEXED);
 });
 
 test("a bad path segment is the not-indexed image", async () => {

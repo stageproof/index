@@ -119,9 +119,14 @@ func BadgeOf(doc envelope) (string, string) {
 	return "no blocking finding (defaults)", "clear"
 }
 
-// UnknownSVG is the HTTP 200 image for a pair the catalog does not have.
+// UnknownSVG is the HTTP 200 image for a chart the catalog does not have.
 func UnknownSVG() []byte {
 	return RenderBadge("not indexed", "unknown")
+}
+
+// MissingPairSVG is the HTTP 200 image for a catalog chart that has no stored pair.
+func MissingPairSVG() []byte {
+	return RenderBadge("pair not indexed", "unknown")
 }
 
 // RenderBadge draws one flat SVG. Width is 7px per character plus 12px of padding on each side.
