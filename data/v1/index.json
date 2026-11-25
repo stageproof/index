@@ -286,7 +286,9 @@
       "release_notes_url": "",
       "latest": "1.15.3",
       "pairs": 37,
-      "blocked": 19
+      "blocked": 19,
+      "failed": 1,
+      "error": "https://public.ecr.aws/v2/karpenter/karpenter/manifests/1.14.3: 429 Too Many Requests"
     },
     {
       "id": "aws/aws-for-fluent-bit",
@@ -634,8 +636,8 @@
       "stars": 168,
       "homepage": "https://github.com/kubernetes/autoscaler",
       "release_notes_url": "",
-      "latest": "9.60.0",
-      "pairs": 46,
+      "latest": "9.60.1",
+      "pairs": 65,
       "blocked": 0
     },
     {
@@ -910,8 +912,8 @@
       "stars": 21,
       "homepage": "",
       "release_notes_url": "",
-      "latest": "1.1.11",
-      "pairs": 125,
+      "latest": "1.1.12",
+      "pairs": 144,
       "blocked": 1
     },
     {
@@ -3368,7 +3370,7 @@
       "pairs": 0,
       "blocked": 0,
       "failed": 1,
-      "error": "Get \"https://helm.twun.io/index.yaml\": dial tcp: lookup helm.twun.io on 127.0.0.53:53: read udp 127.0.0.1:45368->127.0.0.53:53: i/o timeout"
+      "error": "Get \"https://helm.twun.io/index.yaml\": EOF"
     },
     {
       "id": "unleash/unleash",
