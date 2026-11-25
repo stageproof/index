@@ -6,13 +6,19 @@ package census
 
 import (
 	"bytes"
+	_ "embed"
 	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
+
+	"golang.org/x/mod/semver"
 )
+
+//go:embed accuracy.json
+var accuracyJSON []byte
 
 // Summary is one pass over data/v1/charts and the catalog in data/v1/index.json.
 type Summary struct {
@@ -23,8 +29,41 @@ type Summary struct {
 	Blocked      int
 	NotChecked   int
 	Passed       int
+	Minors       []string
+	Steps        StepCounts
+	Causes       CauseCounts
 	Versions     []Count
 	Rules        []Rule
+	Accuracy     Accuracy
+}
+
+// StepCounts is the newest adjacent upgrade of each chart that has a stored pair.
+// None is a chart whose stored pairs all skip a version.
+type StepCounts struct {
+	Blocked    int
+	NotChecked int
+	Passed     int
+	None       int
+}
+
+// CauseCounts splits blocked pairs by the blocker rules in the file.
+type CauseCounts struct {
+	Removed int
+	Render  int
+	Hazard  int
+	Mixed   int
+}
+
+// Accuracy is the copied corpus measurement. The numbers live in accuracy.json.
+type Accuracy struct {
+	Source     string   `json:"source"`
+	Repository string   `json:"repository"`
+	Commit     string   `json:"commit"`
+	Date       string   `json:"date"`
+	Workflow   string   `json:"workflow_run"`
+	Runner     string   `json:"runner"`
+	Lines      []string `json:"lines"`
+	Reproduce  []string `json:"reproduce"`
 }
 
 // CatalogGap is a catalog chart with no stored upgrade file.
@@ -49,7 +88,7 @@ type Rule struct {
 	Example  Example
 }
 
-// Example is the first upgrade file, in path order, that recorded a rule.
+// Example is the stored pair with the newest target version for a rule.
 type Example struct {
 	Repo    string
 	Chart   string
@@ -85,6 +124,9 @@ func Read(dataDir string) (Summary, error) {
 	versions := map[string]int{}
 	rules := map[string]*Rule{}
 	charts := map[string]struct{}{}
+	minors := map[string]struct{}{}
+	versionCache := map[string][]string{}
+	newest := map[string]*adjacentPair{}
 	err := filepath.WalkDir(root, func(path string, entry os.DirEntry, walkErr error) error {
 		if walkErr != nil {
 			return walkErr
@@ -120,6 +162,9 @@ func Read(dataDir string) (Summary, error) {
 		repo, chart := parts[0], parts[1]
 		charts[repo+"/"+chart] = struct{}{}
 		sum.Pairs++
+		for minor := range doc.Results {
+			minors[minor] = struct{}{}
+		}
 		version := doc.StageproofVersion
 		if version == "" {
 			version = "(none)"
@@ -133,6 +178,29 @@ func Read(dataDir string) (Summary, error) {
 			sum.NotChecked++
 		default:
 			sum.Passed++
+		}
+		vers, err := chartVersions(filepath.Dir(path), versionCache)
+		if err != nil {
+			return err
+		}
+		if adjacent(vers, from, to) {
+			id := repo + "/" + chart
+			cand := &adjacentPair{From: from, To: to, Blocked: blocked, NotChecked: notChecked}
+			if cur := newest[id]; cur == nil || newerPair(cand.From, cand.To, cur.From, cur.To) {
+				newest[id] = cand
+			}
+		}
+		if blocked {
+			switch causeOf(doc) {
+			case "removed":
+				sum.Causes.Removed++
+			case "render":
+				sum.Causes.Render++
+			case "mixed":
+				sum.Causes.Mixed++
+			default:
+				sum.Causes.Hazard++
+			}
 		}
 		seen := map[string]bool{}
 		for _, minor := range minorKeys(doc.Results) {
@@ -155,7 +223,7 @@ func Read(dataDir string) (Summary, error) {
 					Repo: repo, Chart: chart, From: from, To: to,
 					Version: doc.StageproofVersion, Message: item.Message, Command: doc.ReproduceCommand,
 				}
-				if rule.Example.Command == "" || pathLess(example, rule.Example) {
+				if rule.Example.Command == "" || newerExample(example, rule.Example) {
 					rule.Example = example
 				}
 			}
@@ -166,6 +234,30 @@ func Read(dataDir string) (Summary, error) {
 		return Summary{}, err
 	}
 	sum.Charts = len(charts)
+	for id := range charts {
+		step := newest[id]
+		if step == nil {
+			sum.Steps.None++
+			continue
+		}
+		switch {
+		case step.Blocked:
+			sum.Steps.Blocked++
+		case step.NotChecked:
+			sum.Steps.NotChecked++
+		default:
+			sum.Steps.Passed++
+		}
+	}
+	for minor := range minors {
+		sum.Minors = append(sum.Minors, minor)
+	}
+	sort.Strings(sum.Minors)
+	accuracy, err := loadAccuracy()
+	if err != nil {
+		return Summary{}, err
+	}
+	sum.Accuracy = accuracy
 	gaps, catalogN, err := catalogGaps(filepath.Join(dataDir, "v1", "index.json"))
 	if err != nil {
 		return Summary{}, err
@@ -257,15 +349,149 @@ func minorKeys(results map[string]k8sReport) []string {
 	return keys
 }
 
+type adjacentPair struct {
+	From       string
+	To         string
+	Blocked    bool
+	NotChecked bool
+}
+
+func chartVersions(dir string, cache map[string][]string) ([]string, error) {
+	if vers, ok := cache[dir]; ok {
+		return vers, nil
+	}
+	raw, err := os.ReadFile(filepath.Join(dir, "meta.json"))
+	if err != nil {
+		if os.IsNotExist(err) {
+			cache[dir] = nil
+			return nil, nil
+		}
+		return nil, err
+	}
+	var doc struct {
+		Versions []string `json:"versions"`
+	}
+	if err := json.Unmarshal(raw, &doc); err != nil {
+		return nil, fmt.Errorf("%s: %w", filepath.Join(dir, "meta.json"), err)
+	}
+	cache[dir] = doc.Versions
+	return doc.Versions, nil
+}
+
+func adjacent(versions []string, from, to string) bool {
+	for i := 0; i+1 < len(versions); i++ {
+		if versions[i] == from && versions[i+1] == to {
+			return true
+		}
+	}
+	return false
+}
+
+func newerPair(from, to, otherFrom, otherTo string) bool {
+	if c := semver.Compare(canon(to), canon(otherTo)); c != 0 {
+		return c > 0
+	}
+	return semver.Compare(canon(from), canon(otherFrom)) > 0
+}
+
+func newerExample(a, b Example) bool {
+	if c := semver.Compare(canon(a.To), canon(b.To)); c != 0 {
+		return c > 0
+	}
+	if c := semver.Compare(canon(a.From), canon(b.From)); c != 0 {
+		return c > 0
+	}
+	return pathLess(a, b)
+}
+
+func canon(v string) string {
+	v = strings.TrimSpace(v)
+	if v == "" {
+		return ""
+	}
+	if !strings.HasPrefix(v, "v") {
+		v = "v" + v
+	}
+	if !semver.IsValid(v) {
+		return ""
+	}
+	return semver.Canonical(v)
+}
+
+func causeOf(doc envelope) string {
+	removed, render, hazard := false, false, false
+	for _, minor := range minorKeys(doc.Results) {
+		if doc.Results[minor].Verdict != "BLOCKED" {
+			continue
+		}
+		for _, item := range doc.Results[minor].Findings {
+			if item.Severity != "blocker" || item.Ignored || item.RuleID == "" {
+				continue
+			}
+			switch item.RuleID {
+			case "k8s.api.removed":
+				removed = true
+			case "helm.template.render_failed", "helm.values.new_required_unset", "k8s.apply.invalid":
+				render = true
+			default:
+				hazard = true
+			}
+		}
+	}
+	n := 0
+	if removed {
+		n++
+	}
+	if render {
+		n++
+	}
+	if hazard {
+		n++
+	}
+	switch {
+	case n > 1:
+		return "mixed"
+	case removed:
+		return "removed"
+	case render:
+		return "render"
+	default:
+		return "hazard"
+	}
+}
+
+func loadAccuracy() (Accuracy, error) {
+	var doc Accuracy
+	if err := json.Unmarshal(accuracyJSON, &doc); err != nil {
+		return Accuracy{}, fmt.Errorf("accuracy.json: %w", err)
+	}
+	if doc.Commit == "" || doc.Source == "" || len(doc.Lines) == 0 {
+		return Accuracy{}, fmt.Errorf("accuracy.json is missing its source, commit, or lines")
+	}
+	return doc, nil
+}
+
+func minorPhrase(minors []string) string {
+	if len(minors) == 0 {
+		return "The stored files do not name a Kubernetes minor."
+	}
+	if len(minors) == 1 {
+		return "The stored files were checked against Kubernetes " + minors[0] + ". A removed API is a finding about that minor."
+	}
+	return "The stored files name Kubernetes minors " + strings.Join(minors, ", ") + ". A removed API is a finding about the minor in that file."
+}
+
 // Markdown writes the index counts. It does not call the reports safe.
 func Markdown(sum Summary) string {
 	var buf bytes.Buffer
 	fmt.Fprintf(&buf, "# Stageproof index report\n\n")
 	fmt.Fprintf(&buf, "These numbers are chart defaults only. They are not a check of any cluster's values files. Regenerate with `go run ./cmd/report -data data`.\n\n")
+	fmt.Fprintf(&buf, "%s\n\n", minorPhrase(sum.Minors))
+	fmt.Fprintf(&buf, "Newest adjacent upgrade: %d charts blocked, %d not checked, %d passed, %d with no adjacent step. That is %d charts with a stored pair.\n\n", sum.Steps.Blocked, sum.Steps.NotChecked, sum.Steps.Passed, sum.Steps.None, sum.Charts)
 	if sum.Catalog > 0 {
-		fmt.Fprintf(&buf, "Catalog charts: %d. Charts with a stored pair: %d. Upgrade pairs: %d. Blocked: %d. Not checked: %d. Passed: %d.\n\n", sum.Catalog, sum.Charts, sum.Pairs, sum.Blocked, sum.NotChecked, sum.Passed)
+		fmt.Fprintf(&buf, "%d charts are listed. %d have a stored pair.\n\n", sum.Catalog, sum.Charts)
 	} else {
-		fmt.Fprintf(&buf, "Charts with a stored pair: %d. Upgrade pairs: %d. Blocked: %d. Not checked: %d. Passed: %d.\n\n", sum.Charts, sum.Pairs, sum.Blocked, sum.NotChecked, sum.Passed)
+		fmt.Fprintf(&buf, "Charts with a stored pair: %d.\n\n", sum.Charts)
 	}
 	if len(sum.WithoutPairs) > 0 {
 		fmt.Fprintf(&buf, "Catalog charts with no stored pair:\n\n")
@@ -278,7 +504,15 @@ func Markdown(sum Summary) string {
 		}
 		fmt.Fprintf(&buf, "\n")
 	}
+	fmt.Fprintf(&buf, "Upgrade pairs: %d. Blocked: %d. Not checked: %d. Passed: %d.\n\n", sum.Pairs, sum.Blocked, sum.NotChecked, sum.Passed)
 	fmt.Fprintf(&buf, "A pair is blocked when any Kubernetes minor in the file is BLOCKED. Otherwise a pair with any NOT CHECKED minor is not checked. The rest are passed.\n\n")
+	fmt.Fprintf(&buf, "## Why blocked pairs are blocked\n\n")
+	fmt.Fprintf(&buf, "A chart-defaults render problem is `helm.template.render_failed`, `helm.values.new_required_unset`, or `k8s.apply.invalid`. An upgrade hazard is any other blocker, including a delete, an immutable field, a CRD change, or a missing image. Mixed means the file has blockers from more than one of those groups.\n\n")
+	fmt.Fprintf(&buf, "| Cause | Pairs |\n|---|---:|\n")
+	fmt.Fprintf(&buf, "| only a removed API | %d |\n", sum.Causes.Removed)
+	fmt.Fprintf(&buf, "| only a chart-defaults render problem | %d |\n", sum.Causes.Render)
+	fmt.Fprintf(&buf, "| an upgrade hazard | %d |\n", sum.Causes.Hazard)
+	fmt.Fprintf(&buf, "| more than one of those | %d |\n\n", sum.Causes.Mixed)
 	fmt.Fprintf(&buf, "## Stageproof version\n\n")
 	for _, item := range sum.Versions {
 		fmt.Fprintf(&buf, "- `%s`: %d\n", item.Name, item.Count)
@@ -290,7 +524,7 @@ func Markdown(sum Summary) string {
 		fmt.Fprintf(&buf, "| `%s` | %d | %d |\n", rule.ID, rule.Pairs, rule.Findings)
 	}
 	fmt.Fprintf(&buf, "\n## One stored command per rule\n\n")
-	fmt.Fprintf(&buf, "Each command is the `reproduce_command` stored in that index file. This report copies it. It does not run it again. The message is the first blocker finding for that rule in the file.\n\n")
+	fmt.Fprintf(&buf, "Each command is the `reproduce_command` stored in that index file. This report copies it. It does not run it again. The pair is the one with the newest target version for that rule. The message is the first blocker finding for that rule in the file.\n\n")
 	for _, rule := range sum.Rules {
 		ex := rule.Example
 		fmt.Fprintf(&buf, "### `%s`\n\n", rule.ID)
@@ -298,23 +532,17 @@ func Markdown(sum Summary) string {
 		fmt.Fprintf(&buf, "%s\n\n", ex.Message)
 		fmt.Fprintf(&buf, "```\n%s\n```\n\n", ex.Command)
 	}
+	acc := sum.Accuracy
 	fmt.Fprintf(&buf, "## Accuracy corpus\n\n")
-	fmt.Fprintf(&buf, "This command does not re-run the accuracy corpus. The measurement below is from `docs/accuracy.md` in `stageproof/stageproof`, dated 2026-11-22, commit `042579b`, workflow `45065690496`, on `ubuntu-latest` with Go 1.27.4, Helm 3.22.1, and Kubernetes 1.35.0.\n\n")
-	fmt.Fprintf(&buf, "- 12 of 12 incidents caught, 12 of 12 controls passed.\n")
-	fmt.Fprintf(&buf, "- 316 unique pairs across 105 CNCF projects. 281 were labeled clean and 35 were labeled breaks.\n")
-	fmt.Fprintf(&buf, "- Labeled-clean wrong blocks: 0 of 281 with `--api-server off`, and 0 of 281 with `--api-server auto`.\n")
-	fmt.Fprintf(&buf, "- File check latency: p50 0.74s, p95 4.13s, max 8.07s. API server proof: p50 5.19s, p95 15.41s.\n")
-	fmt.Fprintf(&buf, "- Flux replay: 70 of 70 across 5 public repositories, 62 passed, 8 blocked, 0 not checked, 0 errors. p50 3.53s, p95 25.04s.\n\n")
-	fmt.Fprintf(&buf, "Reproduce that measurement from the Stageproof repository:\n\n")
+	fmt.Fprintf(&buf, "This command does not re-run the accuracy corpus. The lines below are copied from `%s` in `%s`, dated %s, commit `%s`, workflow `%s`, on %s.\n\n", acc.Source, acc.Repository, acc.Date, acc.Commit, acc.Workflow, acc.Runner)
+	for _, line := range acc.Lines {
+		fmt.Fprintf(&buf, "- %s\n", line)
+	}
+	fmt.Fprintf(&buf, "\nReproduce that measurement from the Stageproof repository:\n\n")
 	fmt.Fprintf(&buf, "```\n")
-	fmt.Fprintf(&buf, "git checkout 042579b\n")
-	fmt.Fprintf(&buf, "go run ./cmd/corpus run --set incidents --out incidents.json\n")
-	fmt.Fprintf(&buf, "go run ./cmd/corpus run --set pairs --api-server off --out pairs-files.json\n")
-	fmt.Fprintf(&buf, "go run ./cmd/corpus run --set pairs --api-server auto --out pairs.json\n")
-	fmt.Fprintf(&buf, "go run ./cmd/corpus compare incidents.json corpus/baseline.json\n")
-	fmt.Fprintf(&buf, "go run ./cmd/corpus compare pairs-files.json corpus/baseline.json\n")
-	fmt.Fprintf(&buf, "go run ./cmd/corpus compare pairs.json corpus/baseline.json\n")
-	fmt.Fprintf(&buf, "go run ./cmd/corpus run --set replay --out replay.json\n")
+	for _, line := range acc.Reproduce {
+		fmt.Fprintf(&buf, "%s\n", line)
+	}
 	fmt.Fprintf(&buf, "```\n")
 	return buf.String()
 }

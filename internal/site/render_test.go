@@ -92,7 +92,7 @@ func TestGenerateLinksVersionsAndSitemap(t *testing.T) {
 		t.Fatal("latest upgrade column missing")
 	}
 	home := readPage(t, out, "index.html")
-	for _, want := range []string{"2 charts.", "3 upgrade pairs.", "1 blocked.", "Stageproof v0.3.0.", "fixtures/web 0.2.0 to 0.3.0"} {
+	for _, want := range []string{"2 listed, 1 with a report.", "3 upgrade pairs.", "1 blocked.", "Stageproof v0.3.0.", "fixtures/web 0.2.0 to 0.3.0"} {
 		if !strings.Contains(home, want) {
 			t.Fatalf("home missing %s\n%s", want, home)
 		}

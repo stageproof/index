@@ -1,0 +1,24 @@
+{
+  "source": "docs/accuracy.md",
+  "repository": "stageproof/stageproof",
+  "commit": "c3ec5b051d568f1a41081628d2c591bed54c39be",
+  "date": "2026-11-25",
+  "workflow_run": "45519144615",
+  "runner": "ubuntu-latest, Go 1.27.4, Helm v3.22.1, Kubernetes 1.35.0",
+  "lines": [
+    "18 of 18 incidents caught, 18 of 18 controls passed.",
+    "316 unique pairs across 105 CNCF projects. 283 were labeled clean and 33 were labeled breaks.",
+    "Labeled-clean wrong blocks: 0 of 283 with --api-server off, and 0 of 283 with --api-server auto.",
+    "File check latency: p50 0.92s, p95 3.47s, max 6.47s. API server proof: p50 5.42s, p95 13.71s, max 66.23s.",
+    "This run did not execute the Flux replay. The last local replay, on 042579b, checked 70 of 70 and is not part of workflow run 45519144615."
+  ],
+  "reproduce": [
+    "git checkout c3ec5b051d568f1a41081628d2c591bed54c39be",
+    "go run ./cmd/corpus run --set incidents --out incidents.json",
+    "go run ./cmd/corpus run --set pairs --api-server off --out pairs-files.json",
+    "go run ./cmd/corpus run --set pairs --api-server auto --out pairs.json",
+    "go run ./cmd/corpus compare incidents.json corpus/baseline.json",
+    "go run ./cmd/corpus compare pairs-files.json corpus/baseline.json",
+    "go run ./cmd/corpus compare pairs.json corpus/baseline.json"
+  ]
+}
