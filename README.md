@@ -10,7 +10,7 @@ The site is `https://stageproof.github.io/index/`. That address is `site.BaseURL
 
 `charts.yaml` is the curated chart list. `cmd/discover` writes a candidate list from Artifact Hub. `cmd/build` reads that list, chooses stable version pairs, and writes `data/v1/`.
 
-`data/` is CC BY 4.0. See [DATA-LICENSE](DATA-LICENSE). The Go code is Apache-2.0.
+`data/` is CC BY 4.0. See [DATA-LICENSE](DATA-LICENSE). The Go code is Apache-2.0. Security reports go to [stageproof/stageproof](https://github.com/stageproof/stageproof/security). See [SECURITY.md](SECURITY.md).
 
 ## Commands
 
