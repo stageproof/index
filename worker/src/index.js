@@ -1,6 +1,8 @@
 // Answers /badge.svg for a Renovate pull request.
 // Indexed SVG files stay on GitHub Pages. A missing pair is HTTP 200, not a 404.
-// The not-indexed document must match site.UnknownSVG. TestBadgeURLSchemeFrozen checks it.
+// The not-indexed document must match site.UnknownSVG.
+// The missing-pair document must match site.MissingPairSVG.
+// TestBadgeURLSchemeFrozen checks both.
 
 const PAGES = "https://stageproof.github.io/index";
 
@@ -15,7 +17,18 @@ const NOT_INDEXED = `<svg xmlns="http://www.w3.org/2000/svg" width="171" height=
 </svg>
 `;
 
-export { NOT_INDEXED };
+const PAIR_NOT_INDEXED = `<svg xmlns="http://www.w3.org/2000/svg" width="206" height="20" role="img" aria-label="stageproof: pair not indexed">
+<title>stageproof: pair not indexed</title>
+<rect width="82" height="20" fill="#555"/>
+<rect x="82" width="124" height="20" fill="#6c757d"/>
+<g fill="#fff" text-anchor="middle" font-family="Verdana,DejaVu Sans,sans-serif" font-size="11">
+<text x="41" y="14">stageproof</text>
+<text x="144" y="14">pair not indexed</text>
+</g>
+</svg>
+`;
+
+export { NOT_INDEXED, PAIR_NOT_INDEXED };
 
 let cache = { at: 0, map: null };
 const svgCache = new Map();
@@ -93,7 +106,7 @@ async function badge(url) {
   const file = PAGES + "/badge/" + encodeURIComponent(repo) + "/" + encodeURIComponent(chart) + "/" + encodeURIComponent(from) + "/" + encodeURIComponent(to) + ".svg";
   const body = await cachedSvg(file);
   if (body === null) {
-    return NOT_INDEXED;
+    return PAIR_NOT_INDEXED;
   }
   return body;
 }

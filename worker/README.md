@@ -34,6 +34,8 @@ curl -sS -D - -o /tmp/badge-slash.svg -G "$base/badge.svg" \
   --data-urlencode to=43.0.0
 
 # Unknown chart. HTTP 200 and the not-indexed image.
+# A known chart without that pair is HTTP 200 and says "pair not indexed".
+# The live script says that only after this workflow has deployed the current source.
 curl -sS -D - -o /tmp/badge-unknown.svg -G "$base/badge.svg" \
   --data-urlencode chart=not-a-real-chart \
   --data-urlencode from=1.0.0 \

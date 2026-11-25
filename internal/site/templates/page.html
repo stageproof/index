@@ -180,7 +180,7 @@ steps.addEventListener('input', function () {
 <p>One upgrade. Fields: <code>schema_version</code>, <code>stageproof_version</code>, <code>scope</code> (<code>chart-defaults-only</code>), <code>notice</code>, <code>reproduce_command</code>, <code>from_sha256</code>, <code>to_sha256</code>, and <code>k8s_results</code>. Each Kubernetes minor holds the Stageproof report for that minor.</p>
 <h2>Badges</h2>
 <p>Each indexed upgrade has an SVG at <code>/badge/&lt;repo&gt;/&lt;chart&gt;/&lt;from&gt;/&lt;to&gt;.svg</code>. The image states <code>no blocking finding (defaults)</code>, <code>not checked</code>, or the blocking finding. The report is chart defaults only.</p>
-<p><code>/badge/registries.json</code> maps a Helm repository URL and chart name to <code>repo</code>. A pull request requests <code>{{.BadgeURL}}?chart=&amp;from=&amp;registry=&amp;to=</code>. A pair that is not in the catalog is HTTP 200 and says <code>not indexed</code>.</p>
+<p><code>/badge/registries.json</code> maps a Helm repository URL and chart name to <code>repo</code>. A pull request requests <code>{{.BadgeURL}}?chart=&amp;from=&amp;registry=&amp;to=</code>. A chart this catalog does not have is HTTP 200 and says <code>not indexed</code>. A chart it has, without that exact pair, says <code>pair not indexed</code>.</p>
 {{end}}
 </main>
 <footer>

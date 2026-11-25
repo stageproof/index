@@ -116,6 +116,9 @@ func TestBadgeURLSchemeFrozen(t *testing.T) {
 	if !strings.Contains(string(worker), unknown) {
 		t.Fatal("worker fallback SVG drifted from UnknownSVG")
 	}
+	if !strings.Contains(string(worker), string(MissingPairSVG())) {
+		t.Fatal("worker missing-pair SVG drifted from MissingPairSVG")
+	}
 
 	crd, kind := BadgeOf(envelope{Results: map[string]k8sReport{"1.35": {
 		Verdict: "BLOCKED",
@@ -205,6 +208,9 @@ func TestBadgeWorkerURL(t *testing.T) {
 	page := buf.String()
 	if !strings.Contains(page, want+"?chart=&amp;from=&amp;registry=&amp;to=") {
 		t.Fatalf("API page does not print the worker URL\n%s", page)
+	}
+	if !strings.Contains(page, "not indexed") || !strings.Contains(page, "pair not indexed") {
+		t.Fatal("API page does not name both badge texts")
 	}
 	if strings.Contains(page, "github.io/index/badge.svg") {
 		t.Fatal("API page points the query at GitHub Pages")
