@@ -35,7 +35,7 @@ footer { color: #57534e; font-size: 0.9rem; }
 {{if eq .Kind "home"}}
 <h1>Helm upgrade index</h1>
 <p class="notice">These reports use each chart's default values. They are not a verdict on a cluster this index has not seen.</p>
-<p>{{.ChartCount}} charts. {{.PairCount}} upgrade pairs. {{.BlockedCount}} blocked.{{if .Version}} Stageproof {{.Version}}.{{end}}</p>
+<p>{{.ChartCount}} listed, {{.ReportedCount}} with a report. {{.PairCount}} upgrade pairs. {{.BlockedCount}} blocked.{{if .Version}} Stageproof {{.Version}}.{{end}}</p>
 {{if .Notable}}
 <h2>Notable blocked upgrades</h2>
 <p>The newest step for these charts is blocked.</p>

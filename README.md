@@ -27,7 +27,7 @@ The curated list currently expands to about 20,000 stable pairs. That history is
 
 `.github/workflows/rebuild.yml` is `workflow_dispatch` only. It runs 64 shards on Kubernetes 1.35, each shard uploads only its own chart directories, and one later job checks that every file is `data/v1/**/*.json`, rewrites the catalog, regenerates `REPORT.md`, and commits. It does not publish the site. The nightly schedule is unchanged. A repository that stamps one `created` day on every version stays inside the 24-month window, and files already stored are kept.
 
-`REPORT.md` is the chart-defaults count. Regenerate it with:
+`REPORT.md` leads with the newest adjacent upgrade on the Kubernetes minor stored in the files, then the listed and reported chart counts, then blocked pairs split into a removed API, a chart-defaults render problem, an upgrade hazard, or more than one of those. Each rule's example is the stored pair with the newest target version. The accuracy lines are copied from `internal/census/accuracy.json`, which is `docs/accuracy.md` in `stageproof/stageproof` at commit `c3ec5b051d568f1a41081628d2c591bed54c39be`. Regenerate the report with:
 
 ```bash
 go run ./cmd/report -data data
@@ -45,7 +45,7 @@ go run ./cmd/site -data data -o site
 
 Pages, relative to the site root:
 
-- `/` shows the catalog totals and links to charts whose newest step is blocked. It also links to the catalog and the API.
+- `/` shows how many charts are listed and how many have a stored report, plus the upgrade and blocked totals, and links to charts whose newest step is blocked. It also links to the catalog and the API.
 - `/charts/` lists every chart in the HTML. Columns are the newest version, the newest step (`blocked`, `not checked`, `no blocking finding`, or `none`), the pair count, and the historical blocked count. A script on that page filters the list. There is no search server and no analytics.
 - `/chart/<repo>/<chart>/` shows the versions, the newest adjacent upgrade, the step-by-step upgrades, and jumps to latest in a collapsed list. A version filter appears when there are more than 20 steps. `not checked` is not shown as a pass. The upstream repository, homepage, and release notes are links when the URL starts with `http://` or `https://`.
 - `/upgrade/<repo>/<chart>/<from>/<to>/` leads with the result for each Kubernetes minor. When a check failed, or the result is `NOT CHECKED`, the page lists those checks. A pair that was not checked says "This pair could not be checked with chart defaults." It does not say there was no blocking finding. Blocking findings, warnings, defaults, CRD changes, and image changes follow. It then prints: "Checked with chart defaults only. Run the command below with your `-f values.yaml` to check your cluster." The `reproduce_command` follows, then the release notes, then a link that opens a Stageproof bug report with the repository, chart, versions, and Stageproof version filled in.

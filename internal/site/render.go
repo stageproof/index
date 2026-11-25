@@ -109,6 +109,7 @@ type view struct {
 	IndexPath      string
 	UpgradePattern string
 	ChartCount     int
+	ReportedCount  int
 	PairCount      int
 	BlockedCount   int
 	Version        string
@@ -176,7 +177,7 @@ func collect(root string, cat catalog) (built, error) {
 	nav := view{Root: Root, ChartsPath: Charts, APIPath: API}
 	chartRows := make([]chartRow, 0, len(cat.Charts))
 	var notable []notableView
-	var pairTotal, blockedTotal int
+	var pairTotal, blockedTotal, reported int
 	var locs []string
 	locs = append(locs, Charts)
 	for _, item := range cat.Charts {
@@ -200,6 +201,9 @@ func collect(root string, cat catalog) (built, error) {
 		}
 		pairTotal += item.Pairs
 		blockedTotal += item.Blocked
+		if item.Pairs > 0 {
+			reported++
+		}
 		links := make([]upgradeLink, 0, len(pairs))
 		for _, one := range pairs {
 			up, err := Upgrade(item.RepoName, item.Chart, one.From, one.To)
@@ -262,7 +266,7 @@ func collect(root string, cat catalog) (built, error) {
 	pages.html = append(pages.html, view{
 		Kind: "home", Title: "Stageproof index", route: Root,
 		Root: Root, ChartsPath: Charts, APIPath: API,
-		ChartCount: len(cat.Charts), PairCount: pairTotal, BlockedCount: blockedTotal,
+		ChartCount: len(cat.Charts), ReportedCount: reported, PairCount: pairTotal, BlockedCount: blockedTotal,
 		Version: cat.StageproofVersion, Notable: notable,
 	})
 	pages.html = append(pages.html, view{
