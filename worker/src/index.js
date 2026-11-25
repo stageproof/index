@@ -15,19 +15,42 @@ const NOT_INDEXED = `<svg xmlns="http://www.w3.org/2000/svg" width="171" height=
 </svg>
 `;
 
+export { NOT_INDEXED };
+
 let cache = { at: 0, map: null };
+const svgCache = new Map();
+
+const svgHeaders = {
+  "content-type": "image/svg+xml; charset=utf-8",
+  "cache-control": "public, max-age=300",
+  "x-content-type-options": "nosniff",
+  "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'",
+};
+
+export function resetForTests() {
+  cache = { at: 0, map: null };
+  svgCache.clear();
+}
 
 export default {
   async fetch(request) {
+    if (request.method !== "GET" && request.method !== "HEAD") {
+      return text("method not allowed", 405);
+    }
     const url = new URL(request.url);
     if (url.pathname !== "/badge.svg") {
       return text("not found", 404);
     }
+    let body;
     try {
-      return svg(await badge(url));
+      body = await badge(url);
     } catch (_err) {
-      return svg(NOT_INDEXED);
+      body = NOT_INDEXED;
     }
+    if (request.method === "HEAD") {
+      return new Response(null, { status: 200, headers: svgHeaders });
+    }
+    return svg(body);
   },
 };
 
@@ -68,30 +91,41 @@ async function badge(url) {
     return NOT_INDEXED;
   }
   const file = PAGES + "/badge/" + encodeURIComponent(repo) + "/" + encodeURIComponent(chart) + "/" + encodeURIComponent(from) + "/" + encodeURIComponent(to) + ".svg";
-  const res = await fetch(file);
-  if (!res.ok) {
-    return NOT_INDEXED;
-  }
-  const body = await res.text();
-  if (!body.startsWith("<svg")) {
+  const body = await cachedSvg(file);
+  if (body === null) {
     return NOT_INDEXED;
   }
   return body;
 }
 
+async function cachedSvg(file) {
+  const now = Date.now();
+  const hit = svgCache.get(file);
+  if (hit && now - hit.at < 300000) {
+    return hit.body;
+  }
+  const res = await fetch(file);
+  if (!res.ok) {
+    return null;
+  }
+  const body = await res.text();
+  if (!body.startsWith("<svg")) {
+    return null;
+  }
+  svgCache.set(file, { at: now, body });
+  return body;
+}
+
 function svg(body) {
-  return new Response(body, {
-    status: 200,
-    headers: {
-      "content-type": "image/svg+xml; charset=utf-8",
-      "cache-control": "public, max-age=300",
-    },
-  });
+  return new Response(body, { status: 200, headers: svgHeaders });
 }
 
 function text(body, status) {
   return new Response(body, {
     status,
-    headers: { "content-type": "text/plain; charset=utf-8" },
+    headers: {
+      "content-type": "text/plain; charset=utf-8",
+      "x-content-type-options": "nosniff",
+    },
   });
 }
