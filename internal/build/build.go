@@ -41,6 +41,11 @@ type Options struct {
 	// Shards 0 means every chart. Shard is the zero-based remainder.
 	Shard  int
 	Shards int
+	// ReleaseJumps, when set, also builds a jump to the newest stable version
+	// from each of the newest ReleaseJumps stable versions, and only when that
+	// newest version is not already the stored latest. Zero leaves pair
+	// selection unchanged.
+	ReleaseJumps int
 }
 
 // Result counts what the build wrote.
@@ -148,10 +153,7 @@ func buildChart(ctx context.Context, chart charts.Chart, opt Options, minors []s
 		return row, nil
 	}
 	dir := filepath.Join(opt.OutDir, "v1", "charts", chart.RepoName, chart.Chart)
-	chosen := pairs.Enumerate(versions, now)
-	if opt.MaxPairs > 0 && len(chosen) > opt.MaxPairs {
-		chosen = chosen[len(chosen)-opt.MaxPairs:]
-	}
+	chosen := choosePairs(versions, now, opt.MaxPairs, opt.ReleaseJumps, storedLatest(dir))
 	if opt.Recheck {
 		extra, err := staleStoredPairs(dir, release.Version)
 		if err != nil {
@@ -192,6 +194,31 @@ func buildChart(ctx context.Context, chart charts.Chart, opt Options, minors []s
 	row.Pairs = pairs
 	row.Blocked = blocked
 	return row, nil
+}
+
+func choosePairs(versions []pairs.Version, now time.Time, maxPairs, releaseJumps int, stored string) []pairs.Pair {
+	chosen := pairs.Enumerate(versions, now)
+	if maxPairs > 0 && len(chosen) > maxPairs {
+		chosen = chosen[len(chosen)-maxPairs:]
+	}
+	if releaseJumps <= 0 || !pairs.LatestChanged(versions, stored) {
+		return chosen
+	}
+	return mergePairs(chosen, pairs.ToLatest(versions, releaseJumps))
+}
+
+func storedLatest(dir string) string {
+	buf, err := os.ReadFile(filepath.Join(dir, "meta.json"))
+	if err != nil {
+		return ""
+	}
+	var doc struct {
+		Latest string `json:"latest"`
+	}
+	if err := json.Unmarshal(buf, &doc); err != nil {
+		return ""
+	}
+	return doc.Latest
 }
 
 func countPairFiles(dir string) (int, int, error) {

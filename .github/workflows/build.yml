@@ -3,6 +3,11 @@ name: build
 # Schedule and manual runs only. A push to main does not publish an empty site.
 on:
   workflow_dispatch:
+    inputs:
+      release_jumps:
+        description: "For charts whose newest version changed, also jump to it from this many newest versions. 0 is the nightly command."
+        default: "0"
+        required: false
   schedule:
     - cron: "17 4 * * *"
 
@@ -40,7 +45,15 @@ jobs:
           restore-keys: index-tools-
 
       - name: Build the index
-        run: go run ./cmd/build -charts charts.yaml -o data -max-pairs 1 -minors 1.35 -api-server auto
+        env:
+          RELEASE_JUMPS: ${{ github.event.inputs.release_jumps }}
+        run: |
+          set -euo pipefail
+          args=(-charts charts.yaml -o data -max-pairs 1 -minors 1.35 -api-server auto)
+          if [ -n "${RELEASE_JUMPS:-}" ] && [ "$RELEASE_JUMPS" != "0" ]; then
+            args+=(-release-jumps "$RELEASE_JUMPS")
+          fi
+          go run ./cmd/build "${args[@]}"
 
       # The checkout is the history. New pair files exist only in this job
       # unless they are committed. Older files stay. Chart archives are not

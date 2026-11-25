@@ -73,6 +73,26 @@ func TestEnumerateFallsBackWhenDatesAreAbsent(t *testing.T) {
 	}
 }
 
+func TestToLatestUsesTheNewestVersionsOnly(t *testing.T) {
+	versions := make([]Version, 0, 25)
+	for i := 1; i <= 25; i++ {
+		versions = append(versions, Version{Name: itoa(i) + ".0.0"})
+	}
+	got := ToLatest(versions, 20)
+	if len(got) != 19 {
+		t.Fatalf("got %d pairs, want 19", len(got))
+	}
+	if got[0].From != "6.0.0" || got[0].To != "25.0.0" {
+		t.Fatalf("oldest jump %#v", got[0])
+	}
+	if got[len(got)-1].From != "24.0.0" || got[len(got)-1].To != "25.0.0" {
+		t.Fatalf("newest jump %#v", got[len(got)-1])
+	}
+	if !LatestChanged(versions, "24.0.0") || LatestChanged(versions, "v25.0.0") {
+		t.Fatal("latest change detection")
+	}
+}
+
 func itoa(n int) string {
 	if n == 0 {
 		return "0"

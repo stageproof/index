@@ -18,6 +18,23 @@ import (
 	"github.com/stageproof/index/internal/source"
 )
 
+func TestChoosePairsAddsJumpsOnlyWhenTheLatestChanges(t *testing.T) {
+	now := time.Date(2026, 11, 25, 0, 0, 0, 0, time.UTC)
+	versions := []pairs.Version{{Name: "1.0.0", Created: now}, {Name: "1.1.0", Created: now}, {Name: "1.2.0", Created: now}}
+	same := choosePairs(versions, now, 1, 20, "1.2.0")
+	if len(same) != 1 || same[0].From != "1.1.0" || same[0].To != "1.2.0" {
+		t.Fatalf("unchanged latest %#v", same)
+	}
+	changed := choosePairs(versions, now, 1, 20, "1.1.0")
+	got := map[string]string{}
+	for _, pair := range changed {
+		got[pair.From] = pair.To
+	}
+	if len(changed) != 2 || got["1.0.0"] != "1.2.0" || got["1.1.0"] != "1.2.0" {
+		t.Fatalf("released chart %#v", changed)
+	}
+}
+
 func TestReproduceCommandNormalizesOCIRepo(t *testing.T) {
 	cases := []struct {
 		repo  string
