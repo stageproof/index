@@ -1,0 +1,13 @@
+body { margin: 0; font: 16px/1.45 system-ui, sans-serif; color: #1c1917; background: #fafaf9; }
+header, main, footer { max-width: 52rem; margin: 0 auto; padding: 1rem 1.25rem; }
+header { display: flex; gap: 1rem; align-items: baseline; border-bottom: 1px solid #e7e5e4; }
+header a, a { color: #1d4ed8; }
+h1 { font-size: 1.6rem; line-height: 1.2; margin: 0 0 0.75rem; }
+h2 { font-size: 1.1rem; margin: 1.25rem 0 0.4rem; }
+.notice { background: #fff7ed; border: 1px solid #fdba74; padding: 0.6rem 0.75rem; }
+label { display: block; margin: 0.8rem 0 0.3rem; }
+input, select, textarea { width: 100%; max-width: 36rem; padding: 0.4rem 0.5rem; font: inherit; box-sizing: border-box; }
+textarea { min-height: 14rem; font-family: ui-monospace, monospace; }
+button { font: inherit; padding: 0.4rem 0.8rem; }
+code { font-family: ui-monospace, monospace; }
+footer { color: #57534e; font-size: 0.9rem; }

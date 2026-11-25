@@ -6,7 +6,7 @@ import (
 )
 
 func TestRoutesStayFrozen(t *testing.T) {
-	if Root != "/" || Charts != "/charts/" || API != "/api/" || APIIndex != "/api/v1/index.json" || Sitemap != "/sitemap.xml" {
+	if Root != "/" || Charts != "/charts/" || Values != "/values/" || API != "/api/" || APIIndex != "/api/v1/index.json" || Sitemap != "/sitemap.xml" {
 		t.Fatal("root routes changed")
 	}
 	chart, err := Chart("fixtures", "web")
