@@ -4,7 +4,7 @@ Nightly upgrade reports for public Helm charts. Each report is produced by the p
 
 These reports are chart defaults only. Run Stageproof with your values files before you treat a result as a check of your cluster. Nothing here is a verdict on a cluster the index has not seen.
 
-The site is `https://stageproof.github.io/index/`. That address is `site.BaseURL` in the Go module. Badge images that need a query string are served by the worker at `https://stageproof-index-badges.stageproof.workers.dev/badge.svg`, because GitHub Pages cannot route that query.
+The site is `https://stageproof.github.io/index/`. That address is `site.BaseURL` in the Go module. Badge images that need a query string are served at `site.BadgeWorkerURL`, because GitHub Pages cannot route that query.
 
 ## Layout
 

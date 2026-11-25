@@ -15,7 +15,7 @@ import (
 const (
 	schema = "https://docs.renovatebot.com/renovate-schema.json"
 	// Badge image. The registry value stays empty when no rule set stageproofRegistry.
-	badge = "![stageproof](https://stageproof-index-badges.stageproof.workers.dev/badge.svg?chart={{encodeURIComponent depName}}&from={{encodeURIComponent currentVersion}}&registry={{#if prBodyDefinitions.stageproofRegistry}}{{encodeURIComponent prBodyDefinitions.stageproofRegistry}}{{/if}}&to={{encodeURIComponent newVersion}})"
+	badge = "![stageproof](" + site.BadgeWorkerURL + "?chart={{encodeURIComponent depName}}&from={{encodeURIComponent currentVersion}}&registry={{#if prBodyDefinitions.stageproofRegistry}}{{encodeURIComponent prBodyDefinitions.stageproofRegistry}}{{/if}}&to={{encodeURIComponent newVersion}})"
 )
 
 var managers = []string{"helmv3", "argocd", "flux"}
