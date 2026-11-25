@@ -14,7 +14,7 @@ Catalog charts with no stored pair:
 - `k8s-dashboard/kubernetes-dashboard`: https://kubernetes.github.io/dashboard/index.yaml: 404 Not Found
 - `minio/minio`: chart minio is not in https://helm.min.io/
 - `mysql-operator/mysql-operator`
-- `twuni/docker-registry`: Get "https://helm.twun.io/index.yaml": EOF
+- `twuni/docker-registry`: Get "https://helm.twun.io/index.yaml": dial tcp: lookup helm.twun.io on 127.0.0.53:53: read udp 127.0.0.1:45368->127.0.0.53:53: i/o timeout
 - `wso2/mysql`
 
 Upgrade pairs: 21447. Blocked: 1850. Not checked: 812. Passed: 18785.
