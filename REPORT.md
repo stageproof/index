@@ -34,8 +34,7 @@ A chart-defaults render problem is `helm.template.render_failed`, `helm.values.n
 
 ## Stageproof version
 
-- `v0.4.0`: 21445
-- `v0.3.0`: 2
+- `v0.4.0`: 21447
 
 ## Blocker rules
 
