@@ -19,6 +19,20 @@ func TestValuesPageIsLocalAndHashed(t *testing.T) {
 		t.Fatal(err)
 	}
 	page := readPage(t, out, "values/index.html")
+	home := readPage(t, out, "index.html")
+	chartsPage := readPage(t, out, "charts/index.html")
+	css := readPage(t, out, "assets/site.css")
+	if !strings.Contains(css, "#06080D") {
+		t.Fatal("shared dark stylesheet missing")
+	}
+	for name, html := range map[string]string{"values": page, "home": home, "charts": chartsPage} {
+		if !strings.Contains(html, "/assets/site.css") {
+			t.Fatalf("%s page missing shared stylesheet", name)
+		}
+		if strings.Contains(html, "<style>") {
+			t.Fatalf("%s page still has inline style", name)
+		}
+	}
 	js := readPage(t, out, "values/values.js")
 	if !strings.Contains(page, "default-src 'self'; connect-src 'self'; form-action 'none'") {
 		t.Fatal("csp missing")
