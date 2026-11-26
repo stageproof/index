@@ -85,7 +85,7 @@
           "severity": "warning"
         },
         {
-          "message": "Kubernetes rejected the update. `spec.strategy.rollingUpdate` is immutable.",
+          "message": "Kubernetes rejected the update because `spec.strategy.rollingUpdate` is still set after `spec.strategy.type` changed. `spec.strategy.rollingUpdate` is allowed only when the type is RollingUpdate. Remove it when the type changes to Recreate, and set it when the type changes to RollingUpdate.",
           "resource": "Deployment/default/stageproof-rel-valkey",
           "rule_id": "k8s.apply.immutable_field",
           "severity": "blocker"
@@ -101,6 +101,6 @@
   "reproduce_command": "stageproof check --repo https://valkey.io/valkey-helm/ --chart valkey --from 0.12.0 --to 1.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.0",
   "to_sha256": "efb890856be4b2b4378a5332ff74c0366f0d6147951bd89c405912b43c0389e7"
 }

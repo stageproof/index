@@ -164,6 +164,27 @@
           "message": "5 container images changed. Deployment/default/stageproof-rel-dify-agent-backend.template.spec.containers[0] agent-backend container moves from langgenius/dify-agent-backend:1.16.1 to langgenius/dify-agent-backend:1.17.0. Deployment/default/stageproof-rel-dify-api.template.spec.containers[0] api container moves from langgenius/dify-api:1.16.1 to langgenius/dify-api:1.17.0. Deployment/default/stageproof-rel-dify-local-sandbox.template.spec.containers[0] local-sandbox container moves from langgenius/dify-agent-local-sandbox:1.16.1 to langgenius/dify-agent-local-sandbox:1.17.0. Deployment/default/stageproof-rel-dify-plugin-daemon.template.spec.containers[0] plugin-daemon container moves from langgenius/dify-plugin-daemon:0.6.3-local to langgenius/dify-plugin-daemon:0.6.10-local. Deployment/default/stageproof-rel-dify-web.template.spec.containers[0] web container moves from langgenius/dify-web:1.16.1 to langgenius/dify-web:1.17.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-agent-backend:1.17.0` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-agent-backend:1.17.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-plugin-daemon:0.6.10-local` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-plugin-daemon:0.6.10-local",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `langgenius/dify-web:1.17.0` could not be checked. The registry did not answer.",
+          "resource": "langgenius/dify-web:1.17.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
         }
       ],
       "head_ref": "0.39.0",
@@ -176,6 +197,6 @@
   "reproduce_command": "stageproof check --repo https://borispolonsky.github.io/dify-helm --chart dify --from 0.38.0 --to 0.39.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.0",
   "to_sha256": "0b8f02f03fa00a04e1d06f528a49ddb30272c8ac29c94e732e22c21ba036cb60"
 }
