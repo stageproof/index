@@ -1882,8 +1882,8 @@
       "stars": 255,
       "homepage": "https://www.jenkins.io/",
       "release_notes_url": "",
-      "latest": "5.13.4",
-      "pairs": 264,
+      "latest": "5.13.5",
+      "pairs": 265,
       "blocked": 0
     },
     {
@@ -2414,8 +2414,8 @@
       "stars": 26,
       "homepage": "https://netbox.dev/",
       "release_notes_url": "",
-      "latest": "8.3.116",
-      "pairs": 470,
+      "latest": "8.3.117",
+      "pairs": 471,
       "blocked": 67
     },
     {
@@ -2872,9 +2872,11 @@
       "stars": 559,
       "homepage": "https://prometheus.io/",
       "release_notes_url": "",
-      "latest": "30.0.1",
+      "latest": "31.0.0",
       "pairs": 206,
-      "blocked": 0
+      "blocked": 0,
+      "failed": 1,
+      "error": "digest mismatch for prometheus@31.0.0"
     },
     {
       "id": "prometheus-community/prometheus-adapter",
@@ -3368,7 +3370,7 @@
       "pairs": 0,
       "blocked": 0,
       "failed": 1,
-      "error": "Get \"https://helm.twun.io/index.yaml\": dial tcp: lookup helm.twun.io on 127.0.0.53:53: read udp 127.0.0.1:46398->127.0.0.53:53: i/o timeout"
+      "error": "Get \"https://helm.twun.io/index.yaml\": EOF"
     },
     {
       "id": "unleash/unleash",
