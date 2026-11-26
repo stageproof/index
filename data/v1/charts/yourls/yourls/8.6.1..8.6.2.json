@@ -7,6 +7,11 @@
       "checked": "files, API server 1.35.0",
       "checks": [
         {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 2 these values is set: mariadb.auth.rootPassword, yourls.password"
+        },
+        {
           "name": "helm template",
           "status": "pass",
           "summary": "rendered 11 Kubernetes objects cleanly"
@@ -44,13 +49,6 @@
           "resource": "Deployment/stageproof-check/stageproof-rel-yourls",
           "rule_id": "impact.restart",
           "severity": "info"
-        },
-        {
-          "detail": "helm template 8.6.2 failed: exit status 1\nError: execution error at (yourls/charts/mariadb/templates/secrets.yaml:8:21): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'auth.rootPassword' must not be empty, please add '--set auth.rootPassword=$MARIADB_ROOT_PASSWORD' to the command. To get the current value:\n\n        export MARIADB_ROOT_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-mariadb -o jsonpath=\"{.data.mariadb-root-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
-          "file": "8.6.2",
-          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
-          "rule_id": "helm.template.upgrade_fallback",
-          "severity": "warning"
         }
       ],
       "head_ref": "8.6.2",
@@ -63,6 +61,6 @@
   "reproduce_command": "stageproof check --repo https://charts.yourls.org/ --chart yourls --from 8.6.1 --to 8.6.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "3a01f00645cbc90fdff51bac68cba67dce86ed23c3222ccb77f94f4538cfe031"
 }

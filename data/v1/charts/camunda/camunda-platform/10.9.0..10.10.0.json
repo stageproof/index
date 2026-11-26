@@ -7,6 +7,11 @@
       "checked": "files, API server 1.35.0",
       "checks": [
         {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 8 these values is set: global.postgresql.auth.password, identityKeycloak.auth.adminPassword, global.identity.auth.zeebe.existingSecret, global.identity.auth.tasklist.existingSecret, global.identity.auth.optimize.existingSecret, global.identity.auth.operate.existingSecret, global.identity.auth.console.existingSecret, global.identity.auth.connectors.existingSecret"
+        },
+        {
           "name": "helm template",
           "status": "pass",
           "summary": "rendered 54 Kubernetes objects cleanly"
@@ -181,7 +186,7 @@
           "severity": "info"
         },
         {
-          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-keycloak changed at spec.template.metadata.annotations.checksum/secrets. The pods will restart. A restart is normal for an upgrade.",
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-keycloak changed at spec.template.spec.containers[name=keycloak].image. The pods will restart. A restart is normal for an upgrade.",
           "resource": "StatefulSet/stageproof-check/stageproof-rel-keycloak",
           "rule_id": "impact.restart",
           "severity": "info"
@@ -191,13 +196,6 @@
           "resource": "StatefulSet/stageproof-check/stageproof-rel-postgresql",
           "rule_id": "impact.restart",
           "severity": "info"
-        },
-        {
-          "detail": "helm template 10.10.0 failed: exit status 1\nError: execution error at (camunda-platform/charts/identityKeycloak/charts/postgresql/templates/secrets.yaml:23:16): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.postgresql.auth.password' must not be empty, please add '--set global.postgresql.auth.password=$PASSWORD' to the command. To get the current value:\n\n        export PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-postgresql -o jsonpath=\"{.data.password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
-          "file": "10.10.0",
-          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
-          "rule_id": "helm.template.upgrade_fallback",
-          "severity": "warning"
         },
         {
           "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
@@ -244,6 +242,6 @@
   "reproduce_command": "stageproof check --repo https://helm.camunda.io --chart camunda-platform --from 10.9.0 --to 10.10.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "7b1c0b20221410bb534c891fc781f3135ebcf22c2a8936f27747fb47e6381630"
 }

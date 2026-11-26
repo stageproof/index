@@ -69,6 +69,13 @@
           "message": "1 container image changed. StatefulSet/default/stageproof-rel-zeebe.template.spec.containers[0] orchestration container moves from camunda/camunda:8.8.1 to camunda/camunda:8.8.2.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `camunda/camunda:8.8.2` could not be checked. The registry did not answer.",
+          "resource": "camunda/camunda:8.8.2",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
         }
       ],
       "head_ref": "13.1.1",
@@ -81,6 +88,6 @@
   "reproduce_command": "stageproof check --repo https://helm.camunda.io --chart camunda-platform --from 13.1.0 --to 13.1.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "68d170f4a19eb114dc9d64676d34952b08da7314ae08dba51b7ee250bc61a0d3"
 }

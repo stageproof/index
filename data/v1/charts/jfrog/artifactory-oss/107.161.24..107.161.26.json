@@ -9,12 +9,12 @@
         {
           "name": "chart defaults",
           "status": "warn",
-          "summary": "the chart does not render unless 11 these values is set: global.masterKeySecretName, global.joinKeySecretName, global.masterKey, global.joinKey, keysPassedViaSystemyaml, nginx.tlsSecretName, nginx.generateSelfSignedCert, nginx.https.enabled, global.postgresql.auth.password, artifactory.keysPassedViaSystemyaml, artifactory.nginx.generateSelfSignedCert"
+          "summary": "the chart does not render unless 9 these values is set: global.masterKeySecretName, global.joinKeySecretName, global.masterKey, global.joinKey, artifactory.keysPassedViaSystemyaml, artifactory.nginx.tlsSecretName, artifactory.nginx.generateSelfSignedCert, artifactory.nginx.https.enabled, global.postgresql.auth.password"
         },
         {
           "name": "helm template",
           "status": "pass",
-          "summary": "rendered 22 Kubernetes objects cleanly"
+          "summary": "rendered 21 Kubernetes objects cleanly"
         },
         {
           "name": "values.yaml AST",
@@ -96,6 +96,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jfrog.io --chart artifactory-oss --from 107.161.24 --to 107.161.26 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.5.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "10bdb1e472eafa19b7303105e9bb349199116333d013f4fcff1b769d304a08f0"
 }

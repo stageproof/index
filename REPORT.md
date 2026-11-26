@@ -10,14 +10,14 @@ Newest adjacent upgrade: 10 charts blocked, 4 not checked, 280 passed, 0 with no
 
 Catalog charts with no stored pair:
 
-- `bitnami-labs/sealed-secrets`: https://bitnami-labs.github.io/sealed-secrets/index.yaml: 404 Not Found
-- `k8s-dashboard/kubernetes-dashboard`: https://kubernetes.github.io/dashboard/index.yaml: 404 Not Found
-- `minio/minio`: chart minio is not in https://helm.min.io/
+- `bitnami-labs/sealed-secrets`
+- `k8s-dashboard/kubernetes-dashboard`
+- `minio/minio`
 - `mysql-operator/mysql-operator`
-- `twuni/docker-registry`: Get "https://helm.twun.io/index.yaml": EOF
+- `twuni/docker-registry`
 - `wso2/mysql`
 
-Upgrade pairs: 21490. Blocked: 1850. Not checked: 812. Passed: 18828.
+Upgrade pairs: 21490. Blocked: 1810. Not checked: 812. Passed: 18868.
 
 A pair is blocked when any Kubernetes minor in the file is BLOCKED. Otherwise a pair with any NOT CHECKED minor is not checked. The rest are passed.
 
@@ -35,14 +35,15 @@ A chart-defaults render problem is `helm.template.render_failed`, `helm.values.n
 | Cause | Pairs |
 |---|---:|
 | only a removed API | 647 |
-| only a chart-defaults render problem | 196 |
-| an upgrade hazard | 899 |
+| only a chart-defaults render problem | 166 |
+| an upgrade hazard | 889 |
 | more than one of those | 108 |
 
 ## Stageproof version
 
-- `v0.4.0`: 20992
-- `v0.5.0`: 498
+- `v0.4.0`: 19366
+- `v0.5.1`: 1674
+- `v0.5.0`: 450
 
 ## Blocker rules
 
@@ -53,9 +54,9 @@ Pairs is the number of upgrade files that contain the rule. Findings counts each
 | `k8s.api.removed` | 688 | 3284 |
 | `k8s.apply.immutable_field` | 336 | 419 |
 | `crd.not_upgraded_by_helm` | 333 | 1101 |
-| `supply.image.not_found` | 268 | 410 |
-| `helm.template.render_failed` | 137 | 137 |
+| `supply.image.not_found` | 258 | 400 |
 | `k8s.upgrade.immutable_selector_changed` | 114 | 170 |
+| `helm.template.render_failed` | 107 | 107 |
 | `k8s.apply.invalid` | 93 | 396 |
 | `impact.delete.crd` | 61 | 351 |
 | `helm.values.new_required_unset` | 34 | 42 |
@@ -80,7 +81,7 @@ stageproof check --repo https://charts.releases.teleport.dev --chart teleport-cl
 
 ### `k8s.apply.immutable_field`
 
-`jfrog/artifactory` 107.104.17 to 107.111.4, report `v0.4.0`.
+`jfrog/artifactory` 107.104.17 to 107.111.4, report `v0.5.1`.
 
 Kubernetes rejected the update. `spec` is immutable.
 
@@ -108,6 +109,16 @@ Image `docker.io/bitnami/postgresql:11.14.0-debian-10-r22` was not found.
 stageproof check --repo https://SonarSource.github.io/helm-chart-sonarqube --chart sonarqube --from 2025.1.8 --to 2025.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json
 ```
 
+### `k8s.upgrade.immutable_selector_changed`
+
+`jfrog/artifactory` 107.104.17 to 107.111.4, report `v0.5.1`.
+
+Immutable `spec.selector.matchLabels` changed from map[app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:postgresql role:primary] to map[app.kubernetes.io/component:primary app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:postgresql]. An in-place `helm upgrade` will fail.
+
+```
+stageproof check --repo https://charts.jfrog.io --chart artifactory --from 107.104.17 --to 107.111.4 --values-proof full --current-k8s 1.35 --api-server auto --format json
+```
+
 ### `helm.template.render_failed`
 
 `sonarqube/sonarqube` 10.8.1 to 2025.1.0, report `v0.4.0`.
@@ -116,16 +127,6 @@ Candidate chart (`--to`) failed `helm template` rendering.
 
 ```
 stageproof check --repo https://SonarSource.github.io/helm-chart-sonarqube --chart sonarqube --from 10.8.1 --to 2025.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json
-```
-
-### `k8s.upgrade.immutable_selector_changed`
-
-`jfrog/artifactory` 107.104.17 to 107.111.4, report `v0.4.0`.
-
-Immutable `spec.selector.matchLabels` changed from map[app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:postgresql role:primary] to map[app.kubernetes.io/component:primary app.kubernetes.io/instance:stageproof-rel app.kubernetes.io/name:postgresql]. An in-place `helm upgrade` will fail.
-
-```
-stageproof check --repo https://charts.jfrog.io --chart artifactory --from 107.104.17 --to 107.111.4 --values-proof full --current-k8s 1.35 --api-server auto --format json
 ```
 
 ### `k8s.apply.invalid`

@@ -7,6 +7,11 @@
       "checked": "files, API server 1.35.0",
       "checks": [
         {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 3 these values is set: global.valkey.password, global.postgresql.auth.password, superuser.password"
+        },
+        {
           "name": "helm template",
           "status": "pass",
           "summary": "rendered 33 Kubernetes objects cleanly"
@@ -63,13 +68,6 @@
           "severity": "info"
         },
         {
-          "detail": "helm template 8.2.6 failed: exit status 1\nError: execution error at (netbox/charts/valkey/templates/secret.yaml:25:22): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.valkey.password' must not be empty, please add '--set global.valkey.password=$VALKEY_PASSWORD' to the command. To get the current value:\n\n        export VALKEY_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-valkey -o jsonpath=\"{.data.valkey-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
-          "file": "8.2.6",
-          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
-          "rule_id": "helm.template.upgrade_fallback",
-          "severity": "warning"
-        },
-        {
           "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
           "message": "appVersion moves from v4.5.10 to v4.6.0. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
@@ -92,6 +90,6 @@
   "reproduce_command": "stageproof check --repo https://charts.netbox.oss.netboxlabs.com/ --chart netbox --from 8.2.5 --to 8.2.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "a42f071b52e460fe0d5f56143f20ef489db1e92ff5eb3303b5ae635a75ff19b0"
 }

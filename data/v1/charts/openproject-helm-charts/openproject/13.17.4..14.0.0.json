@@ -133,6 +133,20 @@
           "severity": "warning"
         },
         {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/memcached:1.6.45-alpine` could not be checked. The registry did not answer.",
+          "resource": "docker.io/memcached:1.6.45-alpine",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/openproject/openproject:17.9.8-slim` could not be checked. The registry did not answer.",
+          "resource": "docker.io/openproject/openproject:17.9.8-slim",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
           "detail": "The template uses .Release.Revision in a dynamic object name. `helm template` renders revision 1 for both charts, so a real upgrade creates a new object name instead of updating in place.",
           "message": "Kubernetes rejected the update. `spec.template` is immutable.",
           "resource": "Job/stageproof-check/stageproof-rel-openproject-seeder-1",
@@ -157,6 +171,6 @@
   "reproduce_command": "stageproof check --repo https://charts.openproject.org --chart openproject --from 13.17.4 --to 14.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.5.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "2ba6bbe998913e71072b5c2c69da0082c48bc1863db88bd1165fb31aaa383935"
 }

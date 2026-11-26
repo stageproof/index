@@ -23,6 +23,6 @@
   "reproduce_command": "stageproof check --repo https://rocketchat.github.io/helm-charts --chart rocketchat --from 4.5.2 --to 4.5.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "05334ab2dd5fd94de449ccc7468aa248bdc68fdec5b2f6edfb674d5dd7c0f463"
 }

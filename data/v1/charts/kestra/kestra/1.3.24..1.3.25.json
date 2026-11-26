@@ -78,6 +78,6 @@
   "reproduce_command": "stageproof check --repo https://helm.kestra.io/ --chart kestra --from 1.3.24 --to 1.3.25 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "f7e74d31ac804906578f70df7ff70a0f1c57aab9dd3846f0477d4e2debf6b6da"
 }

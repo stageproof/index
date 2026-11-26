@@ -7,6 +7,11 @@
       "checked": "files, API server 1.35.0",
       "checks": [
         {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: global.postgresql.auth.password"
+        },
+        {
           "name": "helm template",
           "status": "pass",
           "summary": "rendered 20 Kubernetes objects cleanly"
@@ -57,13 +62,6 @@
           "severity": "info"
         },
         {
-          "detail": "helm template 107.117.27 failed: exit status 1\nError: execution error at (artifactory-oss/charts/artifactory/charts/postgresql/templates/secrets.yaml:23:16): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.postgresql.auth.password' must not be empty, please add '--set global.postgresql.auth.password=$PASSWORD' to the command. To get the current value:\n\n        export PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-postgresql -o jsonpath=\"{.data.password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
-          "file": "107.117.27",
-          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
-          "rule_id": "helm.template.upgrade_fallback",
-          "severity": "warning"
-        },
-        {
           "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
           "message": "appVersion moves from 7.117.25 to 7.117.27. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
@@ -86,6 +84,6 @@
   "reproduce_command": "stageproof check --repo https://charts.jfrog.io --chart artifactory-oss --from 107.117.25 --to 107.117.27 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "b3f378ee2d86ae38d46ece4df2d3487b5d95f2d92fac3628dbab04d32e2b660c"
 }

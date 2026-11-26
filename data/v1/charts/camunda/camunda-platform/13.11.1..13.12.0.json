@@ -77,6 +77,20 @@
           "message": "2 container images changed. Deployment/default/stageproof-rel-connectors.template.spec.containers[0] connectors container moves from camunda/connectors-bundle:8.8.14 to camunda/connectors-bundle:8.8.15. StatefulSet/default/stageproof-rel-zeebe.template.spec.containers[0] orchestration container moves from camunda/camunda:8.8.28 to camunda/camunda:8.8.29.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `camunda/camunda:8.8.29` could not be checked. The registry did not answer.",
+          "resource": "camunda/camunda:8.8.29",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `camunda/connectors-bundle:8.8.15` could not be checked. The registry did not answer.",
+          "resource": "camunda/connectors-bundle:8.8.15",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
         }
       ],
       "head_ref": "13.12.0",
@@ -89,6 +103,6 @@
   "reproduce_command": "stageproof check --repo https://helm.camunda.io --chart camunda-platform --from 13.11.1 --to 13.12.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "c560feb1bb6ff63db519cbc441eac24805c004fdf07fc06182e33cdb85c8d81b"
 }

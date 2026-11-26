@@ -7,6 +7,11 @@
       "checked": "files, API server 1.35.0",
       "checks": [
         {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 3 these values is set: global.valkey.password, global.postgresql.auth.password, superuser.password"
+        },
+        {
           "name": "helm template",
           "status": "pass",
           "summary": "rendered 33 Kubernetes objects cleanly"
@@ -63,13 +68,6 @@
           "severity": "info"
         },
         {
-          "detail": "helm template 8.3.61 failed: exit status 1\nError: execution error at (netbox/charts/valkey/templates/secret.yaml:25:22): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.valkey.password' must not be empty, please add '--set global.valkey.password=$VALKEY_PASSWORD' to the command. To get the current value:\n\n        export VALKEY_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-valkey -o jsonpath=\"{.data.valkey-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
-          "file": "8.3.61",
-          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
-          "rule_id": "helm.template.upgrade_fallback",
-          "severity": "warning"
-        },
-        {
           "detail": "helm template renders the chart that is already on disk. Run helm dependency update if the new constraint should be what this check renders.",
           "message": "A Chart.yaml dependency constraint changed, and the packaged chart under charts/ did not: valkey ^6.2.9 to ^6.2.12.",
           "rule_id": "helm.dependency.not_updated",
@@ -86,6 +84,6 @@
   "reproduce_command": "stageproof check --repo https://charts.netbox.oss.netboxlabs.com/ --chart netbox --from 8.3.60 --to 8.3.61 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "737026e54e8814d6e31445d3213b046f4d1a9126b68fc8e06af254d68c199957"
 }

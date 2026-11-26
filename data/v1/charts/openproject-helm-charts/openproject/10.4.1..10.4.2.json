@@ -7,6 +7,11 @@
       "checked": "files, API server 1.35.0",
       "checks": [
         {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 1 this value is set: global.postgresql.auth.password"
+        },
+        {
           "name": "helm template",
           "status": "pass",
           "summary": "rendered 20 Kubernetes objects cleanly"
@@ -39,7 +44,7 @@
         {
           "name": "k8s 1.35 compatibility",
           "status": "pass",
-          "summary": "current Kubernetes was checked by API server 1.35.0"
+          "summary": "0 blockers (1 deprecation, EOL, or CRD warning)"
         }
       ],
       "exit_code": 0,
@@ -77,13 +82,6 @@
           "severity": "info"
         },
         {
-          "detail": "helm template 10.4.2 failed: exit status 1\ncoalesce.go:319: warning: destination for memcached.service.sessionAffinity is a table. Ignoring non-table value ()\nError: execution error at (openproject/charts/postgresql/templates/secrets.yaml:23:16): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.postgresql.auth.password' must not be empty, please add '--set global.postgresql.auth.password=$PASSWORD' to the command. To get the current value:\n\n        export PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-postgresql -o jsonpath=\"{.data.password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
-          "file": "10.4.2",
-          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
-          "rule_id": "helm.template.upgrade_fallback",
-          "severity": "warning"
-        },
-        {
           "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
           "message": "appVersion moves from 16.3.1 to 16.3.2. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
@@ -96,8 +94,22 @@
           "severity": "warning"
         },
         {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/openproject/openproject:16.3.2-slim` could not be checked. The registry did not answer.",
+          "resource": "docker.io/openproject/openproject:16.3.2-slim",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
           "detail": "The template uses .Release.Revision in a dynamic object name. `helm template` renders revision 1 for both charts, so a real upgrade creates a new object name instead of updating in place.",
           "message": "Kubernetes rejected the update. `spec.template` is immutable.",
+          "resource": "Job/default/stageproof-rel-openproject-seeder-1",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "warning"
+        },
+        {
+          "detail": "The template uses .Release.Revision in a dynamic object name. `helm template` renders revision 1 for both charts, so a real upgrade creates a new object name instead of updating in place.",
+          "message": "Kubernetes rejects an update of Job/default/stageproof-rel-openproject-seeder-1 because `spec.template` changed. A Job pod template is immutable.",
           "resource": "Job/default/stageproof-rel-openproject-seeder-1",
           "rule_id": "k8s.apply.immutable_field",
           "severity": "warning"
@@ -113,6 +125,6 @@
   "reproduce_command": "stageproof check --repo https://charts.openproject.org --chart openproject --from 10.4.1 --to 10.4.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "5e141361ac05430f221feb76f6e8c82ee05e06d40757e039ecfd5c50469102b7"
 }
