@@ -964,6 +964,34 @@
           "message": "2 container images changed. Deployment/default/stageproof-rel-connectors.template.spec.containers[0] connectors container moves from camunda/connectors-bundle:8.7.34 to camunda/connectors-bundle:8.8.0. StatefulSet/stageproof-check/stageproof-rel-elasticsearch-master.template.spec.containers[0] elasticsearch container moves from docker.io/bitnamilegacy/elasticsearch:8.17.4 to docker.io/bitnamilegacy/elasticsearch:8.18.0.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnamilegacy/os-shell:12-debian-12-r43` could not be checked. The registry did not answer.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-elasticsearch-master.template.spec.initContainers[0] sysctl",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `camunda/camunda:8.8.0` could not be checked. The registry did not answer.",
+          "resource": "camunda/camunda:8.8.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `camunda/connectors-bundle:8.8.0` could not be checked. The registry did not answer.",
+          "resource": "camunda/connectors-bundle:8.8.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `docker.io/bitnamilegacy/elasticsearch:8.18.0` could not be checked. The registry did not answer.",
+          "resource": "docker.io/bitnamilegacy/elasticsearch:8.18.0",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
         }
       ],
       "head_ref": "13.0.0",
@@ -976,6 +1004,6 @@
   "reproduce_command": "stageproof check --repo https://helm.camunda.io --chart camunda-platform --from 12.14.5 --to 13.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "ca336d5d56bb23c9ca276e40aa536b844b4c89251b55fa769344107a101bbe3a"
 }

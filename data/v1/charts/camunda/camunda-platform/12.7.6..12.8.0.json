@@ -7,6 +7,11 @@
       "checked": "files, API server 1.35.0",
       "checks": [
         {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 7 these values is set: global.postgresql.auth.password, identityKeycloak.auth.adminPassword, global.identity.auth.zeebe.existingSecret, global.identity.auth.tasklist.existingSecret, global.identity.auth.optimize.existingSecret, global.identity.auth.operate.existingSecret, global.identity.auth.connectors.existingSecret"
+        },
+        {
           "name": "helm template",
           "status": "pass",
           "summary": "rendered 60 Kubernetes objects cleanly"
@@ -95,23 +100,17 @@
           "severity": "info"
         },
         {
-          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-keycloak changed at spec.template.metadata.annotations.checksum/secrets. The pods will restart. A restart is normal for an upgrade.",
-          "resource": "StatefulSet/stageproof-check/stageproof-rel-keycloak",
-          "rule_id": "impact.restart",
-          "severity": "info"
-        },
-        {
-          "detail": "helm template 12.8.0 failed: exit status 1\nError: execution error at (camunda-platform/charts/identityKeycloak/charts/postgresql/templates/secrets.yaml:26:16): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.postgresql.auth.password' must not be empty, please add '--set global.postgresql.auth.password=$PASSWORD' to the command. To get the current value:\n\n        export PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-postgresql -o jsonpath=\"{.data.password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
-          "file": "12.8.0",
-          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
-          "rule_id": "helm.template.upgrade_fallback",
-          "severity": "warning"
-        },
-        {
           "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
           "message": "1 container image changed. Deployment/default/stageproof-rel-identity.template.spec.containers[0] camunda-platform container moves from camunda/identity:8.7.14 to camunda/identity:8.7.15.",
           "rule_id": "helm.image.changed",
           "severity": "warning"
+        },
+        {
+          "detail": "The request timed out, or the registry returned a rate limit or a server error. This is not proof that the tag is missing.",
+          "message": "Image `camunda/identity:8.7.15` could not be checked. The registry did not answer.",
+          "resource": "camunda/identity:8.7.15",
+          "rule_id": "supply.registry_unreachable",
+          "severity": "info"
         }
       ],
       "head_ref": "12.8.0",
@@ -124,6 +123,6 @@
   "reproduce_command": "stageproof check --repo https://helm.camunda.io --chart camunda-platform --from 12.7.6 --to 12.8.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "06d91820ba389035ec4a01eaf42f04ae07cdf03afd1164c1033f15d097cca52c"
 }

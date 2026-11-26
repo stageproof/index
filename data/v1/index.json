@@ -370,9 +370,7 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0,
-      "failed": 1,
-      "error": "https://bitnami-labs.github.io/sealed-secrets/index.yaml: 404 Not Found"
+      "blocked": 0
     },
     {
       "id": "bootc/netbox",
@@ -396,7 +394,7 @@
       "release_notes_url": "",
       "latest": "15.4.5",
       "pairs": 222,
-      "blocked": 6
+      "blocked": 5
     },
     {
       "id": "ceph-csi/ceph-csi-cephfs",
@@ -1896,7 +1894,7 @@
       "release_notes_url": "",
       "latest": "107.161.26",
       "pairs": 139,
-      "blocked": 16
+      "blocked": 1
     },
     {
       "id": "jfrog/artifactory-oss",
@@ -1908,7 +1906,7 @@
       "release_notes_url": "",
       "latest": "107.161.26",
       "pairs": 139,
-      "blocked": 16
+      "blocked": 1
     },
     {
       "id": "jitsi-meet/jitsi-meet",
@@ -1956,9 +1954,7 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0,
-      "failed": 1,
-      "error": "https://kubernetes.github.io/dashboard/index.yaml: 404 Not Found"
+      "blocked": 0
     },
     {
       "id": "kafka-ui/kafka-ui",
@@ -2354,9 +2350,7 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0,
-      "failed": 1,
-      "error": "chart minio is not in https://helm.min.io/"
+      "blocked": 0
     },
     {
       "id": "mojo2600/pihole",
@@ -2692,9 +2686,7 @@
       "release_notes_url": "",
       "latest": "3.10.0",
       "pairs": 41,
-      "blocked": 1,
-      "failed": 1,
-      "error": "digest mismatch for opensearch-dashboards@3.9.0"
+      "blocked": 1
     },
     {
       "id": "opentelemetry-helm/opentelemetry-collector",
@@ -3366,9 +3358,7 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0,
-      "failed": 1,
-      "error": "Get \"https://helm.twun.io/index.yaml\": EOF"
+      "blocked": 0
     },
     {
       "id": "unleash/unleash",
@@ -3572,7 +3562,7 @@
       "release_notes_url": "",
       "latest": "8.10.13",
       "pairs": 208,
-      "blocked": 17
+      "blocked": 8
     },
     {
       "id": "zabbix-community/zabbix",
@@ -3613,5 +3603,5 @@
   ],
   "notice": "chart defaults only; run with your values files",
   "schema_version": 1,
-  "stageproof_version": "v0.5.0"
+  "stageproof_version": "v0.5.1"
 }

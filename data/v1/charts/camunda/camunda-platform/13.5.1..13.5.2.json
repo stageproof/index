@@ -62,6 +62,6 @@
   "reproduce_command": "stageproof check --repo https://helm.camunda.io --chart camunda-platform --from 13.5.1 --to 13.5.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "c1ef7167b0616ebba9dd453411c9b50e4dacf08a3e3e19d9f058670ce3ed5a2f"
 }

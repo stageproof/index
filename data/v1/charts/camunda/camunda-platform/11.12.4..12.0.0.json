@@ -7,6 +7,11 @@
       "checked": "files, API server 1.35.0",
       "checks": [
         {
+          "name": "chart defaults",
+          "status": "warn",
+          "summary": "the chart does not render unless 8 these values is set: global.postgresql.auth.password, identityKeycloak.auth.adminPassword, global.identity.auth.zeebe.existingSecret, global.identity.auth.tasklist.existingSecret, global.identity.auth.optimize.existingSecret, global.identity.auth.operate.existingSecret, global.identity.auth.console.existingSecret, global.identity.auth.connectors.existingSecret"
+        },
+        {
           "name": "helm template",
           "status": "pass",
           "summary": "rendered 61 Kubernetes objects cleanly"
@@ -205,13 +210,6 @@
           "severity": "info"
         },
         {
-          "detail": "helm template 12.0.0 failed: exit status 1\nError: execution error at (camunda-platform/charts/identityKeycloak/charts/postgresql/templates/secrets.yaml:26:16): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.postgresql.auth.password' must not be empty, please add '--set global.postgresql.auth.password=$PASSWORD' to the command. To get the current value:\n\n        export PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" stageproof-rel-postgresql -o jsonpath=\"{.data.password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
-          "file": "12.0.0",
-          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
-          "rule_id": "helm.template.upgrade_fallback",
-          "severity": "warning"
-        },
-        {
           "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
           "message": "Chart version moves from 11.12.4 to 12.0.0, a new major version.",
           "rule_id": "helm.release.version_span",
@@ -282,6 +280,6 @@
   "reproduce_command": "stageproof check --repo https://helm.camunda.io --chart camunda-platform --from 11.12.4 --to 12.0.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.1",
   "to_sha256": "4001f372325555d08743ddca6261874bf488782baead0cb3c721b20ef5d493e4"
 }
