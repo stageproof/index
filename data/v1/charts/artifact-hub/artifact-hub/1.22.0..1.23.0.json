@@ -104,6 +104,6 @@
   "reproduce_command": "stageproof check --repo https://artifacthub.github.io/helm-charts/ --chart artifact-hub --from 1.22.0 --to 1.23.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.0",
   "to_sha256": "a4c824ad73c364e5973ca564e3c22f7e1c63ce3e069329e18a9726bafb05755e"
 }

@@ -9,7 +9,7 @@
         {
           "name": "chart defaults",
           "status": "warn",
-          "summary": "the chart does not render unless 1 this value is set: domain"
+          "summary": "the chart does not render unless 4 these values is set: domain, global.database.roundcube.password, secretKey, initialAccount.password"
         },
         {
           "name": "helm template",
@@ -104,13 +104,6 @@
           "severity": "info"
         },
         {
-          "detail": "helm template 2.6.3 failed: exit status 1\nError: execution error at (mailu/templates/webmail/secret.yaml:18:61): \nPASSWORDS ERROR: You must provide your current passwords when upgrading the release.\n                 Note that even after reinstallation, old credentials may be needed as they may be kept in persistent volume claims.\n                 Further information can be obtained at https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues/#credential-errors-while-upgrading-chart-releases\n\n    'global.database.roundcube.password' must not be empty, please add '--set global.database.roundcube.password=$ROUNDCUBE_DB_PASSWORD' to the command. To get the current value:\n\n        export ROUNDCUBE_DB_PASSWORD=$(kubectl get secret --namespace \"stageproof-check\" mailu-roundcube -o jsonpath=\"{.data.roundcube-db-password}\" | base64 -d)\n\n\nUse --debug flag to render out invalid YAML",
-          "file": "2.6.3",
-          "message": "The new chart did not render with `--is-upgrade`; Stageproof fell back to install-mode rendering.",
-          "rule_id": "helm.template.upgrade_fallback",
-          "severity": "warning"
-        },
-        {
           "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
           "message": "appVersion moves from 2024.06.45 to 2024.06.46. The image that the chart runs may change with it.",
           "rule_id": "helm.release.app_version_changed",
@@ -140,6 +133,6 @@
   "reproduce_command": "stageproof check --repo https://mailu.github.io/helm-charts/ --chart mailu --from 2.6.2 --to 2.6.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.0",
   "to_sha256": "af8b36a0a816404bbc0f3d0d196c333c505fe1311580747f702ac661685f8948"
 }

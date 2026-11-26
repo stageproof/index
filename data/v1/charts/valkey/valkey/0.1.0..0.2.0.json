@@ -23,6 +23,6 @@
   "reproduce_command": "stageproof check --repo https://valkey.io/valkey-helm/ --chart valkey --from 0.1.0 --to 0.2.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.0",
   "to_sha256": "d369468b1516cd46531cac522ddb752e9a96f2cabcc80805692e0e6a5d1d75be"
 }

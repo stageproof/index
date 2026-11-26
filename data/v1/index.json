@@ -286,9 +286,7 @@
       "release_notes_url": "",
       "latest": "1.15.3",
       "pairs": 37,
-      "blocked": 19,
-      "failed": 1,
-      "error": "https://public.ecr.aws/v2/karpenter/karpenter/manifests/1.14.3: 429 Too Many Requests"
+      "blocked": 19
     },
     {
       "id": "aws/aws-for-fluent-bit",
@@ -372,9 +370,7 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0,
-      "failed": 1,
-      "error": "https://bitnami-labs.github.io/sealed-secrets/index.yaml: 404 Not Found"
+      "blocked": 0
     },
     {
       "id": "bootc/netbox",
@@ -1958,9 +1954,7 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0,
-      "failed": 1,
-      "error": "https://kubernetes.github.io/dashboard/index.yaml: 404 Not Found"
+      "blocked": 0
     },
     {
       "id": "kafka-ui/kafka-ui",
@@ -2356,9 +2350,7 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0,
-      "failed": 1,
-      "error": "chart minio is not in https://helm.min.io/"
+      "blocked": 0
     },
     {
       "id": "mojo2600/pihole",
@@ -2416,8 +2408,8 @@
       "stars": 26,
       "homepage": "https://netbox.dev/",
       "release_notes_url": "",
-      "latest": "8.3.115",
-      "pairs": 469,
+      "latest": "8.3.116",
+      "pairs": 470,
       "blocked": 67
     },
     {
@@ -2694,9 +2686,7 @@
       "release_notes_url": "",
       "latest": "3.10.0",
       "pairs": 41,
-      "blocked": 1,
-      "failed": 1,
-      "error": "digest mismatch for opensearch-dashboards@3.9.0"
+      "blocked": 1
     },
     {
       "id": "opentelemetry-helm/opentelemetry-collector",
@@ -3368,9 +3358,7 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0,
-      "failed": 1,
-      "error": "Get \"https://helm.twun.io/index.yaml\": EOF"
+      "blocked": 0
     },
     {
       "id": "unleash/unleash",
@@ -3615,5 +3603,5 @@
   ],
   "notice": "chart defaults only; run with your values files",
   "schema_version": 1,
-  "stageproof_version": "v0.4.0"
+  "stageproof_version": "v0.5.0"
 }

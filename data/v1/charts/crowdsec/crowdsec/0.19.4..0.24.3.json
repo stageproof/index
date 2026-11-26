@@ -23,6 +23,6 @@
   "reproduce_command": "stageproof check --repo https://crowdsecurity.github.io/helm-charts --chart crowdsec --from 0.19.4 --to 0.24.3 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.0",
   "to_sha256": "b13d31d00ffd430e546d768c0fab2a4967d85a9199ceb90efa9f40e026cbac04"
 }
