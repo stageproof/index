@@ -10,14 +10,14 @@ Newest adjacent upgrade: 10 charts blocked, 4 not checked, 280 passed, 0 with no
 
 Catalog charts with no stored pair:
 
-- `bitnami-labs/sealed-secrets`
-- `k8s-dashboard/kubernetes-dashboard`
-- `minio/minio`
+- `bitnami-labs/sealed-secrets`: https://bitnami-labs.github.io/sealed-secrets/index.yaml: 404 Not Found
+- `k8s-dashboard/kubernetes-dashboard`: https://kubernetes.github.io/dashboard/index.yaml: 404 Not Found
+- `minio/minio`: chart minio is not in https://helm.min.io/
 - `mysql-operator/mysql-operator`
-- `twuni/docker-registry`
+- `twuni/docker-registry`: Get "https://helm.twun.io/index.yaml": EOF
 - `wso2/mysql`
 
-Upgrade pairs: 21490. Blocked: 1810. Not checked: 812. Passed: 18868.
+Upgrade pairs: 21494. Blocked: 1810. Not checked: 812. Passed: 18872.
 
 A pair is blocked when any Kubernetes minor in the file is BLOCKED. Otherwise a pair with any NOT CHECKED minor is not checked. The rest are passed.
 
@@ -42,9 +42,9 @@ A chart-defaults render problem is `helm.template.render_failed`, `helm.values.n
 ## Stageproof version
 
 - `v0.4.0`: 19366
-- `v0.5.1`: 1665
-- `v0.5.0`: 450
-- `v0.5.2`: 9
+- `v0.5.1`: 1656
+- `v0.5.2`: 301
+- `v0.5.0`: 171
 
 ## Blocker rules
 

@@ -93,7 +93,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-cqlei-test, Pod/default/stageproof-rel-nieck-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-hvnpr-test, Pod/default/stageproof-rel-tcqua-test",
           "message": "Chart default `externalServices.redisHost` changed from `redis_hostname` to `dragonfly_hostname` and the rendered objects differ.",
           "proof": "render",
           "resource": "externalServices.redisHost",
@@ -101,7 +101,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-kihkm-test, Pod/default/stageproof-rel-nieck-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-dicfg-test, Pod/default/stageproof-rel-hvnpr-test",
           "message": "Chart default `redis.architecture` changed from `standalone` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.architecture",
@@ -109,7 +109,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-mkuvh-test, Pod/default/stageproof-rel-nieck-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-ezica-test, Pod/default/stageproof-rel-hvnpr-test",
           "message": "Chart default `redis.auth.enabled` changed from `false` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.auth.enabled",
@@ -117,7 +117,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-ftnbl-test, Pod/default/stageproof-rel-nieck-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-hvnpr-test, Pod/default/stageproof-rel-nnavv-test",
           "message": "Chart default `redis.databaseNumber` changed from `0` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.databaseNumber",
@@ -125,7 +125,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-nieck-test, Pod/default/stageproof-rel-podyk-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-hikdb-test, Pod/default/stageproof-rel-hvnpr-test",
           "message": "Chart default `redis.enabled` changed from `true` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.enabled",
@@ -133,7 +133,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-lhldc-test, Pod/default/stageproof-rel-nieck-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-hvnpr-test, Pod/default/stageproof-rel-xhkym-test",
           "message": "Chart default `redis.image.repository` changed from `bitnamilegacy/redis` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.image.repository",
@@ -141,7 +141,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-cjono-test, Pod/default/stageproof-rel-nieck-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-hvnpr-test, Pod/default/stageproof-rel-nndpy-test",
           "message": "Chart default `redis.master.name` changed from `{{ .Release.Name }}-redis-master` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.master.name",
@@ -149,7 +149,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-nieck-test, Pod/default/stageproof-rel-qcddg-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-hvnpr-test, Pod/default/stageproof-rel-xovyp-test",
           "message": "Chart default `redis.master.persistence.accessModes` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.master.persistence.accessModes",
@@ -157,7 +157,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-nieck-test, Pod/default/stageproof-rel-zpqal-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-dmvkm-test, Pod/default/stageproof-rel-hvnpr-test",
           "message": "Chart default `redis.master.persistence.enabled` changed from `true` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.master.persistence.enabled",
@@ -165,7 +165,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-dfang-test, Pod/default/stageproof-rel-nieck-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-hvnpr-test, Pod/default/stageproof-rel-rgvoa-test",
           "message": "Chart default `redis.master.persistence.size` changed from `5Gi` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.master.persistence.size",
@@ -173,7 +173,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-nieck-test, Pod/default/stageproof-rel-ofxdz-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-hvnpr-test, Pod/default/stageproof-rel-rhxmq-test",
           "message": "Chart default `redis.master.persistence.storageClass` changed from `null` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.master.persistence.storageClass",
@@ -181,7 +181,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Pod/default/stageproof-rel-itury-test, Pod/default/stageproof-rel-nieck-test",
+          "detail": "Affected objects: Pod/default/stageproof-rel-hvnpr-test, Pod/default/stageproof-rel-wucks-test",
           "message": "Chart default `redis.master.port` changed from `6379` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "redis.master.port",
@@ -217,6 +217,6 @@
   "reproduce_command": "stageproof check --repo https://clearml.github.io/clearml-helm-charts --chart clearml --from 7.14.7 --to 7.15.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.5.0",
+  "stageproof_version": "v0.5.2",
   "to_sha256": "5781f05a6f98c465d282cd2494658ff9894e965d655cdbe800849387d512f893"
 }

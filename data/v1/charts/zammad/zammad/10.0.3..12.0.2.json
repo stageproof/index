@@ -80,13 +80,13 @@
           "severity": "warning"
         },
         {
-          "message": "Job/default/stageproof-rel-zammad-init-02bfad60-40b9-4673-b24f-9efe2fb40ce8 container zammad-volume-permissions securityContext is weaker at privileged, runAsUser.",
-          "resource": "Job/default/stageproof-rel-zammad-init-02bfad60-40b9-4673-b24f-9efe2fb40ce8",
+          "message": "Job/default/stageproof-rel-zammad-init-6c6e1f57-eee9-4519-a35f-4d3d5ce09b3f container zammad-volume-permissions securityContext is weaker at privileged, runAsUser.",
+          "resource": "Job/default/stageproof-rel-zammad-init-6c6e1f57-eee9-4519-a35f-4d3d5ce09b3f",
           "rule_id": "impact.privilege.securitycontext",
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-58b36d4a-31dd-460e-959a-1f2e8030f687, Job/default/stageproof-rel-zammad-init-83d092fb-e46e-4ca5-9feb-f31d6e149b39",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-405ad943-b853-427d-9278-9c812159961c, Job/default/stageproof-rel-zammad-init-8cecbb5a-2ffe-4f3b-b32f-3d27bbdcb95e",
           "message": "Chart default `persistence.accessModes` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "persistence.accessModes",
@@ -94,7 +94,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-7ad98ab1-233f-4be8-8825-479ce1d051d9, Job/default/stageproof-rel-zammad-init-83d092fb-e46e-4ca5-9feb-f31d6e149b39",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-2bfedbb0-53f7-4052-82d4-8d92087009a2, Job/default/stageproof-rel-zammad-init-8cecbb5a-2ffe-4f3b-b32f-3d27bbdcb95e",
           "message": "Chart default `persistence.annotations` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "persistence.annotations",
@@ -102,7 +102,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-83d092fb-e46e-4ca5-9feb-f31d6e149b39, Job/default/stageproof-rel-zammad-init-b4b3fbf8-e45b-44a4-85a6-ca43d737e909",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-8cecbb5a-2ffe-4f3b-b32f-3d27bbdcb95e, Job/default/stageproof-rel-zammad-init-efa50c4e-1060-48ae-b81c-0c84c07df1a0",
           "message": "Chart default `persistence.enabled` changed from `true` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "persistence.enabled",
@@ -110,7 +110,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-698f8618-ecab-4918-b70e-f464ee9d64d1, Job/default/stageproof-rel-zammad-init-83d092fb-e46e-4ca5-9feb-f31d6e149b39",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-31d9c255-2915-40e3-87e2-2bbd8406d549, Job/default/stageproof-rel-zammad-init-8cecbb5a-2ffe-4f3b-b32f-3d27bbdcb95e",
           "message": "Chart default `persistence.size` changed from `5Gi` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "persistence.size",
@@ -118,7 +118,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-83d092fb-e46e-4ca5-9feb-f31d6e149b39, Job/default/stageproof-rel-zammad-init-edfa1c42-ade4-494e-bf53-be29b4a2ed93",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-27aab7f5-4617-4825-85df-9e1637e0e0e0, Job/default/stageproof-rel-zammad-init-8cecbb5a-2ffe-4f3b-b32f-3d27bbdcb95e",
           "message": "Chart default `persistence.storageClass` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "persistence.storageClass",
@@ -126,7 +126,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-40ed78ca-6d40-4622-996d-a6ee620f3c26, Job/default/stageproof-rel-zammad-init-83d092fb-e46e-4ca5-9feb-f31d6e149b39",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-2d1f6f8f-1d24-4942-8aeb-9f1326661685, Job/default/stageproof-rel-zammad-init-8cecbb5a-2ffe-4f3b-b32f-3d27bbdcb95e",
           "message": "Chart default `replicas` changed from `1` to `unset` and the rendered objects differ.",
           "proof": "render",
           "resource": "replicas",
@@ -134,7 +134,7 @@
           "severity": "warning"
         },
         {
-          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-83d092fb-e46e-4ca5-9feb-f31d6e149b39, Job/default/stageproof-rel-zammad-init-aa0c9017-fbed-46b5-a2d6-3482740ad159",
+          "detail": "Affected objects: Job/default/stageproof-rel-zammad-init-547151f0-d23f-49eb-92eb-5d4bd0d0dcd8, Job/default/stageproof-rel-zammad-init-8cecbb5a-2ffe-4f3b-b32f-3d27bbdcb95e",
           "message": "Chart default `sidecars` changed and the rendered objects differ.",
           "proof": "render",
           "resource": "sidecars",
@@ -236,6 +236,6 @@
   "reproduce_command": "stageproof check --repo oci://ghcr.io/zammad/charts --chart zammad --from 10.0.3 --to 12.0.2 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.5.0",
+  "stageproof_version": "v0.5.2",
   "to_sha256": "a6124f612022916ef6a6ce0d4384ba5e10ae9e792fb89da6337c7bf81c4d0bd8"
 }

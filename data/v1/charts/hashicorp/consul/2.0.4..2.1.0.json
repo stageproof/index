@@ -168,6 +168,6 @@
   "reproduce_command": "stageproof check --repo https://helm.releases.hashicorp.com --chart consul --from 2.0.4 --to 2.1.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.5.0",
+  "stageproof_version": "v0.5.2",
   "to_sha256": "e75ec2ab6580c0960173530d8aab8e4af7773fc48af565eb132b48ec70534a80"
 }

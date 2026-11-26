@@ -56,6 +56,6 @@
   "reproduce_command": "stageproof check --repo oci://registry-1.docker.io/cloudpirates --chart keycloak --from 0.22.3 --to 0.22.4 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.5.0",
+  "stageproof_version": "v0.5.2",
   "to_sha256": "a125e558d2e777a70a0a7f0ac830d5b8dd33b0c70df3e882e896b5822ecade48"
 }
