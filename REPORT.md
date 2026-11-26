@@ -21,6 +21,13 @@ Upgrade pairs: 21485. Blocked: 1850. Not checked: 812. Passed: 18823.
 
 A pair is blocked when any Kubernetes minor in the file is BLOCKED. Otherwise a pair with any NOT CHECKED minor is not checked. The rest are passed.
 
+## Chart versions absent from the upstream index
+
+A stored pair names a version that is not in that chart's `meta.json` versions list. The upstream index dropped or renamed that version string. The file is kept.
+
+- `rook/rook-ceph` version `v1.21.2` is named by 1 stored pair
+- `rook/rook-ceph-cluster` version `v1.21.2` is named by 1 stored pair
+
 ## Why blocked pairs are blocked
 
 A chart-defaults render problem is `helm.template.render_failed`, `helm.values.new_required_unset`, or `k8s.apply.invalid`. An upgrade hazard is any other blocker, including a delete, an immutable field, a CRD change, or a missing image. Mixed means the file has blockers from more than one of those groups.
