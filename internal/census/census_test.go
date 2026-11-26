@@ -86,6 +86,48 @@ func TestReadCountsPairsAndIgnoresAFinding(t *testing.T) {
 	}
 }
 
+func TestAbsentUpstreamVersionIsFlaggedAndKept(t *testing.T) {
+	dir := t.TempDir()
+	root := filepath.Join(dir, "v1", "charts", "fixtures", "web")
+	if err := os.MkdirAll(root, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	write := func(name, body string) {
+		t.Helper()
+		if err := os.WriteFile(filepath.Join(root, name), []byte(body), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	write("meta.json", `{"versions":["1.0.0","1.0.1"]}`)
+	write("1.0.0..v1.0.1.json", `{
+	  "stageproof_version": "v0.4.0",
+	  "reproduce_command": "stageproof check --chart web --from 1.0.0 --to v1.0.1",
+	  "k8s_results": {"1.35": {"verdict": "PASSED", "findings": []}}
+	}`)
+	write("1.0.0..1.0.1.json", `{
+	  "stageproof_version": "v0.4.0",
+	  "reproduce_command": "stageproof check --chart web --from 1.0.0 --to 1.0.1",
+	  "k8s_results": {"1.35": {"verdict": "PASSED", "findings": []}}
+	}`)
+	sum, err := Read(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(sum.Orphans) != 1 || sum.Orphans[0].ID != "fixtures/web" || sum.Orphans[0].Version != "v1.0.1" || sum.Orphans[0].Pairs != 1 {
+		t.Fatalf("orphans %+v", sum.Orphans)
+	}
+	if sum.Pairs != 2 {
+		t.Fatalf("pairs = %d, both files should stay", sum.Pairs)
+	}
+	text := Markdown(sum)
+	if !strings.Contains(text, "Chart versions absent from the upstream index") || !strings.Contains(text, "`v1.0.1`") {
+		t.Fatalf("markdown\n%s", text)
+	}
+	if strings.Contains(text, "safe") || strings.Contains(text, "\u2014") {
+		t.Fatalf("markdown wording\n%s", text)
+	}
+}
+
 func TestBlockedMinorWinsOverNotChecked(t *testing.T) {
 	dir := t.TempDir()
 	root := filepath.Join(dir, "v1", "charts", "fixtures", "web")
