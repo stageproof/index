@@ -48,6 +48,6 @@
   "reproduce_command": "stageproof check --repo oci://registry-1.docker.io/cloudpirates --chart redis --from 0.41.0 --to 0.42.0 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.0",
   "to_sha256": "bc7bce166b216d0cc146159105af3ce9379393c6e8ee6d3e3873a4c127b53ccd"
 }

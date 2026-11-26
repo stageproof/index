@@ -38,8 +38,8 @@
         },
         {
           "name": "k8s 1.35 compatibility",
-          "status": "pass",
-          "summary": "current Kubernetes was checked by API server 1.35.0"
+          "status": "fail",
+          "summary": "1 removed API or immutable upgrade blocker"
         }
       ],
       "exit_code": 1,
@@ -89,6 +89,12 @@
           "resource": "Job/default/stageproof-rel-nacos-init-db",
           "rule_id": "k8s.apply.immutable_field",
           "severity": "blocker"
+        },
+        {
+          "message": "Kubernetes rejects an update of Job/default/stageproof-rel-nacos-init-db because `spec.template` changed. A Job pod template is immutable.",
+          "resource": "Job/default/stageproof-rel-nacos-init-db",
+          "rule_id": "k8s.apply.immutable_field",
+          "severity": "blocker"
         }
       ],
       "head_ref": "2.1.10",
@@ -101,6 +107,6 @@
   "reproduce_command": "stageproof check --repo https://ygqygq2.github.io/charts/ --chart nacos --from 2.1.9 --to 2.1.10 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.0",
   "to_sha256": "9d694ea2b8c91fad7456035bb40a2930fc3bdbf012afc326fef64ba1971a20cf"
 }

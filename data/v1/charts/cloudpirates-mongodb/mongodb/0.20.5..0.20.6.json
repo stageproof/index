@@ -48,6 +48,6 @@
   "reproduce_command": "stageproof check --repo oci://registry-1.docker.io/cloudpirates --chart mongodb --from 0.20.5 --to 0.20.6 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.0",
   "to_sha256": "5273144a399d1f15558402cdfa4c0d0698eeb1fd42383f1f04d70e0a8227d248"
 }

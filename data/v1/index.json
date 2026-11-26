@@ -370,7 +370,9 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0
+      "blocked": 0,
+      "failed": 1,
+      "error": "https://bitnami-labs.github.io/sealed-secrets/index.yaml: 404 Not Found"
     },
     {
       "id": "bootc/netbox",
@@ -1880,8 +1882,8 @@
       "stars": 255,
       "homepage": "https://www.jenkins.io/",
       "release_notes_url": "",
-      "latest": "5.13.3",
-      "pairs": 263,
+      "latest": "5.13.4",
+      "pairs": 264,
       "blocked": 0
     },
     {
@@ -1954,7 +1956,9 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0
+      "blocked": 0,
+      "failed": 1,
+      "error": "https://kubernetes.github.io/dashboard/index.yaml: 404 Not Found"
     },
     {
       "id": "kafka-ui/kafka-ui",
@@ -2350,7 +2354,9 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0
+      "blocked": 0,
+      "failed": 1,
+      "error": "chart minio is not in https://helm.min.io/"
     },
     {
       "id": "mojo2600/pihole",
@@ -2432,8 +2438,8 @@
       "stars": 189,
       "homepage": "https://nextcloud.com/",
       "release_notes_url": "",
-      "latest": "9.4.5",
-      "pairs": 94,
+      "latest": "9.4.6",
+      "pairs": 95,
       "blocked": 0
     },
     {
@@ -2672,8 +2678,8 @@
       "stars": 45,
       "homepage": "https://opensearch.org",
       "release_notes_url": "",
-      "latest": "3.10.0",
-      "pairs": 52,
+      "latest": "3.11.0",
+      "pairs": 53,
       "blocked": 0
     },
     {
@@ -2686,7 +2692,9 @@
       "release_notes_url": "",
       "latest": "3.10.0",
       "pairs": 41,
-      "blocked": 1
+      "blocked": 1,
+      "failed": 1,
+      "error": "digest mismatch for opensearch-dashboards@3.9.0"
     },
     {
       "id": "opentelemetry-helm/opentelemetry-collector",
@@ -2900,8 +2908,8 @@
       "stars": 28,
       "homepage": "https://github.com/prometheus-community/elasticsearch_exporter",
       "release_notes_url": "",
-      "latest": "7.5.0",
-      "pairs": 33,
+      "latest": "8.2.0",
+      "pairs": 34,
       "blocked": 0
     },
     {
@@ -3358,7 +3366,9 @@
       "release_notes_url": "",
       "latest": "",
       "pairs": 0,
-      "blocked": 0
+      "blocked": 0,
+      "failed": 1,
+      "error": "Get \"https://helm.twun.io/index.yaml\": EOF"
     },
     {
       "id": "unleash/unleash",

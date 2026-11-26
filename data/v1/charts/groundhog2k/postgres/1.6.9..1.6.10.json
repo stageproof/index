@@ -73,6 +73,6 @@
   "reproduce_command": "stageproof check --repo https://groundhog2k.github.io/helm-charts/ --chart postgres --from 1.6.9 --to 1.6.10 --values-proof full --current-k8s 1.35 --api-server auto --format json",
   "schema_version": 1,
   "scope": "chart-defaults-only",
-  "stageproof_version": "v0.4.0",
+  "stageproof_version": "v0.5.0",
   "to_sha256": "19691fe9b112ed2b7d037b71b76332ab91ef18fde8a676603d8757de8dbcaaeb"
 }
