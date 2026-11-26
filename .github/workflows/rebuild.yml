@@ -129,7 +129,7 @@ jobs:
             printf '%s\n' "$other"
             exit 1
           fi
-          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m "Recheck stored chart upgrade reports with Stageproof v0.5.0."
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m "Recheck stored chart upgrade reports with Stageproof v0.5.1."
           git push origin HEAD:refs/heads/main || {
             git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' pull --rebase origin main
             git push origin HEAD:refs/heads/main
