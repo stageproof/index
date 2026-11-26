@@ -120,6 +120,17 @@ func TestGenerateLinksVersionsAndSitemap(t *testing.T) {
 	}
 }
 
+func TestChartFailureReasonSkipsHelmNoise(t *testing.T) {
+	summary := "helm template 10.6.1 failed: exit status 1\nError: execution error at (gitlab/templates/NOTES.txt:248:3):\nCONFIGURATION CHECKS:\n\nThe chart no longer provides a bundled object storage solution."
+	got := chartFailureReason(summary)
+	if !strings.Contains(got, "CONFIGURATION CHECKS") || !strings.Contains(got, "bundled object storage") {
+		t.Fatal(got)
+	}
+	if strings.Contains(got, "exit status") || strings.Contains(got, "execution error") {
+		t.Fatal(got)
+	}
+}
+
 func TestNotCheckedPairIsNotDescribedAsClean(t *testing.T) {
 	data := t.TempDir()
 	writeFile(t, filepath.Join(data, "v1", "index.json"), `{
@@ -147,6 +158,9 @@ func TestNotCheckedPairIsNotDescribedAsClean(t *testing.T) {
 	chart := readPage(t, out, "chart/fixtures/held/index.html")
 	if !strings.Contains(chart, `class="unchecked">not checked`) || strings.Contains(chart, "no blocking finding") || strings.Contains(chart, `class="ok"`) {
 		t.Fatalf("chart page treated an unchecked pair as a pass\n%s", chart)
+	}
+	if !strings.Contains(chart, "chart requires kubeVersion &gt;= 1.21.0-0 &lt; 1.31.0-0") {
+		t.Fatalf("chart page should quote the required-values failure\n%s", chart)
 	}
 	upgrade := readPage(t, out, "upgrade/fixtures/held/1.0.0/1.0.1/index.html")
 	for _, want := range []string{

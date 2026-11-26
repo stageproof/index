@@ -144,6 +144,7 @@ type upgradeLink struct {
 	Status   string
 	Class    string
 	Adjacent bool
+	Reason   string
 }
 
 type notableView struct {
@@ -217,9 +218,13 @@ func collect(root string, cat catalog) (built, error) {
 				return built{}, err
 			}
 			status, class := linkStatus(one.Blocked, one.NotChecked)
+			reason := ""
+			if one.NotChecked {
+				reason = notCheckedReason(one.Doc)
+			}
 			links = append(links, upgradeLink{
 				From: one.From, To: one.To, Href: Href(up),
-				Status: status, Class: class, Adjacent: one.Adjacent,
+				Status: status, Class: class, Adjacent: one.Adjacent, Reason: reason,
 			})
 			page := upgradeView(nav, item, one, up, api)
 			pages.html = append(pages.html, page)
@@ -339,6 +344,51 @@ func splitUpgrades(links []upgradeLink) (upgradeLink, []upgradeLink, []upgradeLi
 		return upgradeLink{}, steps, jumps, false
 	}
 	return steps[0], steps, jumps, true
+}
+
+func notCheckedReason(doc envelope) string {
+	for _, minor := range minorKeys(doc.Results) {
+		for _, check := range doc.Results[minor].Checks {
+			if check.Status != "fail" {
+				continue
+			}
+			if text := chartFailureReason(check.Summary); text != "" {
+				return text
+			}
+		}
+	}
+	return ""
+}
+
+func chartFailureReason(summary string) string {
+	var kept []string
+	for _, line := range strings.Split(summary, "\n") {
+		line = strings.TrimSpace(line)
+		if line == "" || skipFailureLine(line) {
+			continue
+		}
+		kept = append(kept, line)
+		if len(kept) == 3 {
+			break
+		}
+	}
+	text := strings.Join(kept, " ")
+	if len(text) > 280 {
+		text = text[:277] + "..."
+	}
+	return text
+}
+
+func skipFailureLine(line string) bool {
+	switch {
+	case strings.HasPrefix(line, "helm template "),
+		strings.HasPrefix(line, "Error: execution error at"),
+		strings.HasPrefix(line, "Use --debug"),
+		strings.HasPrefix(line, "coalesce.go:"):
+		return true
+	default:
+		return false
+	}
 }
 
 func linkStatus(blocked, notChecked bool) (string, string) {

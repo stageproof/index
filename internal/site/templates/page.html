@@ -101,6 +101,7 @@ q.addEventListener('input', function () {
 <h2>Latest upgrade</h2>
 {{if .HasLatest}}
 <div class="latest"><a href="{{.LatestUpgrade.Href}}">{{.LatestUpgrade.From}} to {{.LatestUpgrade.To}}</a> <span class="{{.LatestUpgrade.Class}}">{{.LatestUpgrade.Status}}</span></div>
+{{if .LatestUpgrade.Reason}}<p class="notice">{{.LatestUpgrade.Reason}}</p>{{end}}
 {{else}}
 <p class="muted">No adjacent upgrade in this catalog.</p>
 {{end}}

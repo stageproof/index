@@ -35,6 +35,16 @@ type Summary struct {
 	Versions     []Count
 	Rules        []Rule
 	Accuracy     Accuracy
+	Orphans      []OrphanVersion
+}
+
+// OrphanVersion is a chart version named by stored pairs and absent from
+// that chart's meta.json versions list. The upstream index dropped or
+// renamed the string. The files are kept.
+type OrphanVersion struct {
+	ID      string
+	Version string
+	Pairs   int
 }
 
 // StepCounts is the newest adjacent upgrade of each chart that has a stored pair.
@@ -183,6 +193,9 @@ func Read(dataDir string) (Summary, error) {
 		if err != nil {
 			return err
 		}
+		for _, missing := range absentVersions(vers, from, to) {
+			sum.noteOrphan(repo+"/"+chart, missing)
+		}
 		if adjacent(vers, from, to) {
 			id := repo + "/" + chart
 			cand := &adjacentPair{From: from, To: to, Blocked: blocked, NotChecked: notChecked}
@@ -233,6 +246,12 @@ func Read(dataDir string) (Summary, error) {
 	if err != nil {
 		return Summary{}, err
 	}
+	sort.Slice(sum.Orphans, func(i, j int) bool {
+		if sum.Orphans[i].ID != sum.Orphans[j].ID {
+			return sum.Orphans[i].ID < sum.Orphans[j].ID
+		}
+		return sum.Orphans[i].Version < sum.Orphans[j].Version
+	})
 	sum.Charts = len(charts)
 	for id := range charts {
 		step := newest[id]
@@ -338,6 +357,35 @@ func pairVerdict(doc envelope) (blocked, notChecked bool) {
 		}
 	}
 	return false, sawNotChecked
+}
+
+func (sum *Summary) noteOrphan(id, version string) {
+	for i := range sum.Orphans {
+		if sum.Orphans[i].ID == id && sum.Orphans[i].Version == version {
+			sum.Orphans[i].Pairs++
+			return
+		}
+	}
+	sum.Orphans = append(sum.Orphans, OrphanVersion{ID: id, Version: version, Pairs: 1})
+}
+
+func absentVersions(versions []string, from, to string) []string {
+	if len(versions) == 0 {
+		return nil
+	}
+	have := map[string]bool{}
+	for _, version := range versions {
+		have[version] = true
+	}
+	var missing []string
+	if from != "" && !have[from] {
+		missing = append(missing, from)
+	}
+	if to != "" && to != from && !have[to] {
+		missing = append(missing, to)
+	}
+	sort.Strings(missing)
+	return missing
 }
 
 func minorKeys(results map[string]k8sReport) []string {
@@ -505,6 +553,18 @@ func Markdown(sum Summary) string {
 		fmt.Fprintf(&buf, "\n")
 	}
 	fmt.Fprintf(&buf, "Upgrade pairs: %d. Blocked: %d. Not checked: %d. Passed: %d.\n\n", sum.Pairs, sum.Blocked, sum.NotChecked, sum.Passed)
+	if len(sum.Orphans) > 0 {
+		fmt.Fprintf(&buf, "## Chart versions absent from the upstream index\n\n")
+		fmt.Fprintf(&buf, "A stored pair names a version that is not in that chart's `meta.json` versions list. The upstream index dropped or renamed that version string. The file is kept.\n\n")
+		for _, item := range sum.Orphans {
+			noun := "stored pairs"
+			if item.Pairs == 1 {
+				noun = "stored pair"
+			}
+			fmt.Fprintf(&buf, "- `%s` version `%s` is named by %d %s\n", item.ID, item.Version, item.Pairs, noun)
+		}
+		fmt.Fprintf(&buf, "\n")
+	}
 	fmt.Fprintf(&buf, "A pair is blocked when any Kubernetes minor in the file is BLOCKED. Otherwise a pair with any NOT CHECKED minor is not checked. The rest are passed.\n\n")
 	fmt.Fprintf(&buf, "## Why blocked pairs are blocked\n\n")
 	fmt.Fprintf(&buf, "A chart-defaults render problem is `helm.template.render_failed`, `helm.values.new_required_unset`, or `k8s.apply.invalid`. An upgrade hazard is any other blocker, including a delete, an immutable field, a CRD change, or a missing image. Mixed means the file has blockers from more than one of those groups.\n\n")
