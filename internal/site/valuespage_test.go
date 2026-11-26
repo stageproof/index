@@ -43,8 +43,14 @@ func TestValuesPageIsLocalAndHashed(t *testing.T) {
 	if !strings.Contains(page, `>Check</button>`) {
 		t.Fatal("primary button should be labeled Check")
 	}
-	if !strings.Contains(page, "From version") || !strings.Contains(page, "To version") {
+	if !strings.Contains(page, "Version you run now") || !strings.Contains(page, "Version you upgrade to") {
 		t.Fatal("version labels missing")
+	}
+	if strings.Count(page, `id="chart"`) != 1 || !strings.Contains(page, `role="combobox"`) || strings.Contains(page, "chart-search") {
+		t.Fatal("the chart should be one search field")
+	}
+	if strings.Contains(js, "next release") {
+		t.Fatal("version labels should say newest, not next release")
 	}
 	sum := sha512.Sum384([]byte(js))
 	sri := "sha384-" + base64.StdEncoding.EncodeToString(sum[:])

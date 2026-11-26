@@ -139,3 +139,11 @@ test("cliWithValues appends -f values.yaml once", function () {
     "stageproof check --chart web -f custom.yaml"
   );
 });
+
+test("shellLines puts each flag on its own line", function () {
+  assert.strictEqual(
+    values.shellLines("stageproof check --chart web -f values.yaml"),
+    "stageproof check \\\n  --chart web \\\n  -f values.yaml"
+  );
+  assert.strictEqual(values.shellLines("stageproof check --set 'a= --b'"), "stageproof check --set 'a= --b'");
+});

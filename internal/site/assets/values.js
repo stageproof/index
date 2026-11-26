@@ -587,6 +587,20 @@
     return reproduceCommand + " -f values.yaml";
   }
 
+  // shellLines puts each flag on its own line, as the upgrade pages do. A
+  // command with quotes is left alone.
+  function shellLines(cmd) {
+    if (!cmd || /['"\\]/.test(cmd)) {
+      return cmd || "";
+    }
+    var fields = cmd.split(/\s+/).filter(Boolean);
+    var out = fields[0] || "";
+    for (var i = 1; i < fields.length; i++) {
+      out += (fields[i].charAt(0) === "-" ? " \\\n  " : " ") + fields[i];
+    }
+    return out;
+  }
+
   function formatMinors(minors) {
     if (!minors || !minors.length) {
       return "";
@@ -604,6 +618,24 @@
     }
     if (cls) {
       node.className = cls;
+    }
+    return node;
+  }
+
+  // richText shows `code` spans in a finding message as code.
+  function richText(doc, tag, text, cls) {
+    var node = el(doc, tag, null, cls);
+    var parts = String(text).split("`");
+    if (parts.length % 2 === 0) {
+      node.textContent = text;
+      return node;
+    }
+    for (var i = 0; i < parts.length; i++) {
+      if (i % 2 === 1) {
+        node.appendChild(el(doc, "code", parts[i]));
+      } else if (parts[i]) {
+        node.appendChild(doc.createTextNode(parts[i]));
+      }
     }
     return node;
   }
@@ -702,7 +734,7 @@
         head.appendChild(el(doc, "span", formatMinors(row.minors), "muted"));
         li.appendChild(head);
         if (row.message) {
-          li.appendChild(el(doc, "p", row.message, "finding-msg"));
+          li.appendChild(richText(doc, "p", row.message, "finding-msg"));
         }
         if (row.detail) {
           li.appendChild(el(doc, "p", row.detail, "finding-detail"));
@@ -784,14 +816,14 @@
           bli.appendChild(el(doc, "p", br.resource, "finding-detail"));
         }
         if (br.message) {
-          bli.appendChild(el(doc, "p", br.message, "finding-msg"));
+          bli.appendChild(richText(doc, "p", br.message, "finding-msg"));
         }
         blist.appendChild(bli);
       }
       host.appendChild(blist);
     }
 
-    var cmd = cliWithValues(ctx.report && ctx.report.reproduce_command);
+    var cmd = shellLines(cliWithValues(ctx.report && ctx.report.reproduce_command));
     if (cmd) {
       var box = el(doc, "div", null, "cli-box");
       var chead = el(doc, "div", null, "cli-head");
@@ -821,8 +853,8 @@
     var rootPath = doc.body.getAttribute("data-root") || "";
     var status = doc.getElementById("status");
     var out = doc.getElementById("out");
-    var select = doc.getElementById("chart");
-    var search = doc.getElementById("chart-search");
+    var chartInput = doc.getElementById("chart");
+    var chartList = doc.getElementById("chart-list");
     var chartCount = doc.getElementById("chart-count");
     var fromSel = doc.getElementById("from");
     var toSel = doc.getElementById("to");
@@ -834,6 +866,9 @@
     var clearBtn = doc.getElementById("clear-yaml");
 
     var charts = [];
+    var selected = null;
+    var shown = [];
+    var activeIdx = -1;
     var chartCache = {};
     var reportCache = {};
     var currentChartDoc = null;
@@ -859,15 +894,10 @@
     }
 
     function selectedChartParts() {
-      var val = select.value || "";
-      if (!val) {
+      if (!selected || !selected.repo_name || !selected.chart) {
         return null;
       }
-      var parts = val.split("\n");
-      if (!parts[0] || !parts[1]) {
-        return null;
-      }
-      return { repo: parts[0], chart: parts[1] };
+      return { repo: selected.repo_name, chart: selected.chart };
     }
 
     function updatePairMeta() {
@@ -915,8 +945,15 @@
       for (var i = 0; i < targets.length; i++) {
         var t = targets[i];
         var label = t.to;
-        if (t.adjacent) {
-          label += " (next release)";
+        var tags = [];
+        if (selected && t.to === selected.latest) {
+          tags.push("newest");
+        }
+        if (!t.adjacent) {
+          tags.push("skips versions");
+        }
+        if (tags.length) {
+          label += " (" + tags.join(", ") + ")";
         }
         var opt = el(doc, "option", label);
         opt.value = t.to;
@@ -960,6 +997,8 @@
         currentChartDoc = null;
         fromSel.textContent = "";
         toSel.textContent = "";
+        fromSel.appendChild(el(doc, "option", "Pick a chart first"));
+        toSel.appendChild(el(doc, "option", "Pick a chart first"));
         fromSel.disabled = true;
         toSel.disabled = true;
         pairMeta.hidden = true;
@@ -1007,11 +1046,9 @@
         });
     }
 
-    function fillCharts(skipLoad) {
-      var prevValue = select.value;
-      var tokens = (search.value || "").toLowerCase().trim().split(/\s+/).filter(Boolean);
-      select.textContent = "";
-      var matched = 0;
+    function matchCharts(query) {
+      var tokens = (query || "").toLowerCase().trim().split(/\s+/).filter(Boolean);
+      var out = [];
       for (var i = 0; i < charts.length; i++) {
         var c = charts[i];
         var hay = ((c.id || "") + " " + (c.repo_name || "") + " " + (c.chart || "") + " " + (c.repo || "")).toLowerCase();
@@ -1022,51 +1059,91 @@
             break;
           }
         }
-        if (!ok) {
-          continue;
+        if (ok) {
+          out.push(c);
         }
-        var label = c.id + (c.latest ? " (latest " + c.latest + ")" : "");
-        var opt = el(doc, "option", label);
-        opt.value = (c.repo_name || "") + "\n" + (c.chart || "");
-        select.appendChild(opt);
-        matched++;
       }
-      if (!tokens.length) {
-        chartCount.textContent = charts.length + " indexed charts";
-      } else if (matched === 0) {
-        chartCount.textContent = "No charts match";
-        var none = el(doc, "option", "No matching charts");
-        none.value = "";
-        select.appendChild(none);
+      return { tokens: tokens.length, charts: out };
+    }
+
+    function setActive(i) {
+      var items = chartList.children;
+      for (var j = 0; j < items.length; j++) {
+        items[j].setAttribute("aria-selected", j === i ? "true" : "false");
+      }
+      activeIdx = i;
+      if (i >= 0 && items[i]) {
+        chartInput.setAttribute("aria-activedescendant", items[i].id);
+        items[i].scrollIntoView({ block: "nearest" });
       } else {
-        chartCount.textContent = matched + " of " + charts.length + " matching";
+        chartInput.removeAttribute("aria-activedescendant");
       }
-      var kept = false;
-      if (prevValue) {
-        for (var j = 0; j < select.options.length; j++) {
-          if (select.options[j].value === prevValue) {
-            select.selectedIndex = j;
-            kept = true;
-            break;
-          }
+    }
+
+    function closeList() {
+      chartList.hidden = true;
+      chartInput.setAttribute("aria-expanded", "false");
+      setActive(-1);
+    }
+
+    function openList() {
+      var query = chartInput.value;
+      if (selected && query === selected.id) {
+        query = "";
+      }
+      var found = matchCharts(query);
+      shown = found.charts.slice(0, 60);
+      chartList.textContent = "";
+      for (var i = 0; i < shown.length; i++) {
+        var c = shown[i];
+        var li = el(doc, "li", null, "combo-item");
+        li.id = "chart-opt-" + i;
+        li.setAttribute("role", "option");
+        li.appendChild(el(doc, "span", c.id, "combo-name"));
+        if (c.latest) {
+          li.appendChild(el(doc, "span", "newest " + c.latest, "combo-meta"));
         }
+        li.setAttribute("data-i", String(i));
+        chartList.appendChild(li);
       }
-      if (!kept && !skipLoad) {
-        loadSelectedChart("", "");
+      if (!shown.length) {
+        var none = el(doc, "li", "No chart matches. Try the repository name.", "combo-empty");
+        none.setAttribute("role", "presentation");
+        chartList.appendChild(none);
       }
+      if (!found.tokens) {
+        chartCount.textContent = charts.length + " charts";
+      } else if (!found.charts.length) {
+        chartCount.textContent = "No chart matches";
+      } else {
+        chartCount.textContent = found.charts.length + " of " + charts.length + " charts match";
+      }
+      chartList.hidden = false;
+      chartInput.setAttribute("aria-expanded", "true");
+      setActive(found.tokens && shown.length ? 0 : -1);
+    }
+
+    function chooseChart(c, wantFrom, wantTo) {
+      selected = c;
+      chartInput.value = c.id;
+      chartCount.textContent = charts.length + " charts";
+      closeList();
+      out.textContent = "";
+      say("", false);
+      loadSelectedChart(wantFrom || "", wantTo || "");
     }
 
     function runCheck() {
       out.textContent = "";
       var parts = selectedChartParts();
       if (!parts) {
-        say("Choose a chart first.", true);
+        say("Type a chart name and pick it from the list first.", true);
         return;
       }
       var from = fromSel.value;
       var to = toSel.value;
       if (!from || !to) {
-        say("Choose both a From version and a To version.", true);
+        say("Choose the version you run now and the version you upgrade to.", true);
         return;
       }
       var url;
@@ -1080,7 +1157,7 @@
       var paths = keyPaths(yaml);
 
       function show(report) {
-        say("Checked " + paths.length + " YAML keys locally against " + parts.repo + "/" + parts.chart + " " + from + " -> " + to + ". Nothing was uploaded.", false);
+        say("Checked " + paths.length + " YAML keys locally against " + parts.repo + "/" + parts.chart + " " + from + " to " + to + ". Nothing was uploaded.", false);
         renderResults(doc, out, {
           rootPath: rootPath,
           repo: parts.repo,
@@ -1134,19 +1211,15 @@
           }
           return (a.id || "").localeCompare(b.id || "");
         });
-        fillCharts(true);
+        chartCount.textContent = charts.length + " charts";
         if (preset.repo && preset.chart && !preset.applied) {
           preset.applied = true;
-          var wantVal = preset.repo + "\n" + preset.chart;
-          for (var i = 0; i < select.options.length; i++) {
-            if (select.options[i].value === wantVal) {
-              select.selectedIndex = i;
+          for (var i = 0; i < charts.length; i++) {
+            if (charts[i].repo_name === preset.repo && charts[i].chart === preset.chart) {
+              chooseChart(charts[i], preset.from, preset.to);
               break;
             }
           }
-          loadSelectedChart(preset.from, preset.to);
-        } else {
-          loadSelectedChart("", "");
         }
       })
       .catch(function () {
@@ -1154,13 +1227,49 @@
         say("Could not load the chart list from this site.", true);
       });
 
-    search.addEventListener("input", function () {
-      fillCharts(false);
+    chartInput.addEventListener("input", openList);
+    chartInput.addEventListener("focus", function () {
+      if (charts.length) {
+        chartInput.select();
+        openList();
+      }
     });
-    select.addEventListener("change", function () {
-      out.textContent = "";
-      say("", false);
-      loadSelectedChart("", "");
+    chartInput.addEventListener("keydown", function (ev) {
+      var open = !chartList.hidden;
+      if (ev.key === "ArrowDown") {
+        ev.preventDefault();
+        if (!open) {
+          openList();
+        }
+        setActive(Math.min(activeIdx + 1, shown.length - 1));
+      } else if (ev.key === "ArrowUp") {
+        ev.preventDefault();
+        setActive(Math.max(activeIdx - 1, 0));
+      } else if (ev.key === "Enter") {
+        if (open && shown.length) {
+          ev.preventDefault();
+          chooseChart(shown[activeIdx >= 0 ? activeIdx : 0]);
+        }
+      } else if (ev.key === "Escape") {
+        closeList();
+        chartInput.value = selected ? selected.id : "";
+      }
+    });
+    chartInput.addEventListener("blur", function () {
+      setTimeout(function () {
+        closeList();
+        if (chartInput.value !== (selected ? selected.id : "")) {
+          chartInput.value = selected ? selected.id : "";
+        }
+        chartCount.textContent = charts.length + " charts";
+      }, 150);
+    });
+    chartList.addEventListener("mousedown", function (ev) {
+      ev.preventDefault();
+      var li = ev.target.closest ? ev.target.closest("[data-i]") : null;
+      if (li) {
+        chooseChart(shown[Number(li.getAttribute("data-i"))]);
+      }
     });
     fromSel.addEventListener("change", function () {
       out.textContent = "";
@@ -1243,6 +1352,7 @@
     targetsForFrom: targetsForFrom,
     pickDefaultPair: pickDefaultPair,
     cliWithValues: cliWithValues,
+    shellLines: shellLines,
     boot: boot
   };
 });

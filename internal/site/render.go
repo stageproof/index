@@ -19,7 +19,7 @@ import (
 var templateFS embed.FS
 
 // Disclaimer is the sentence on every upgrade page.
-const Disclaimer = "Checked with chart defaults only. Run the command below with your -f values.yaml to check your cluster."
+const Disclaimer = "Checked with chart defaults only. Your own values can change the result."
 
 // Generate reads dataDir/v1 and replaces outDir with the static site.
 func Generate(dataDir, outDir string) error {
@@ -68,9 +68,11 @@ func pageTemplate() (*template.Template, error) {
 		return nil, err
 	}
 	return template.New("page.html").Funcs(template.FuncMap{
-		"href":   Href,
-		"header": headerHTML,
-		"head":   func() template.HTML { return headHTML(siteJS) },
+		"href":       Href,
+		"header":     headerHTML,
+		"footer":     footerHTML,
+		"disclaimer": func() string { return Disclaimer },
+		"head":       func() template.HTML { return headHTML(siteJS) },
 	}).ParseFS(templateFS, "templates/page.html")
 }
 
@@ -110,13 +112,14 @@ type view struct {
 	Blockers       []line
 	Warnings       []line
 	Info           []line
-	Defaults       []line
-	CRDs           []line
-	Images         []line
+	Verdict        string
+	VerdictClass   string
+	MinorText      string
 	Command        string
 	Bug            string
 	APIHref        string
 	ValuesHref     string
+	ChartHref      string
 	IndexPath      string
 	UpgradePattern string
 	BadgeURL       string
@@ -133,6 +136,10 @@ type view struct {
 	ShowStepFilter bool
 	NotChecked     bool
 	Checks         []checkView
+	Versions       []string
+	Pairs          int
+	Blocked        int
+	Description    string
 	route          string
 }
 
@@ -169,25 +176,26 @@ type checkView struct {
 	Minor   string
 	Name    string
 	Status  string
+	Class   string
 	Summary string
 }
 
 type minorView struct {
 	Minor   string
 	Verdict string
+	Class   string
 	Exit    int
 }
 
 type line struct {
 	Severity string
 	RuleID   string
-	Category string
-	Message  string
+	Message  template.HTML
 }
 
 func collect(root string, cat catalog) (built, error) {
 	var pages built
-	nav := view{Root: Root, ChartsPath: Charts, APIPath: API}
+	nav := view{Root: Root, ChartsPath: Charts, APIPath: API, Version: cat.StageproofVersion}
 	chartRows := make([]chartRow, 0, len(cat.Charts))
 	var notable []notableView
 	var pairTotal, blockedTotal, reported int
@@ -290,19 +298,22 @@ func collect(root string, cat catalog) (built, error) {
 		notable = notable[:5]
 	}
 	pages.html = append(pages.html, view{
-		Kind: "home", Title: "Stageproof index", route: Root,
-		Root: Root, ChartsPath: Charts, APIPath: API,
+		Kind: "home", Title: "Chart index - Stageproof", route: Root,
+		Description: "Upgrade reports for popular public Helm charts. See which version jumps Stageproof blocks, then check your own values.yaml in your browser.",
+		Root:        Root, ChartsPath: Charts, APIPath: API,
 		ChartCount: len(cat.Charts), ReportedCount: reported, PairCount: pairTotal, BlockedCount: blockedTotal,
 		Version: cat.StageproofVersion, Notable: notable,
 	})
 	pages.html = append(pages.html, view{
-		Kind: "charts", Title: "Charts", Notice: cat.Notice, Rows: chartRows, route: Charts,
-		Root: Root, ChartsPath: Charts, APIPath: API,
+		Kind: "charts", Title: "All charts - Stageproof", Notice: cat.Notice, Rows: chartRows, route: Charts,
+		Root: Root, ChartsPath: Charts, APIPath: API, Version: cat.StageproofVersion, ChartCount: len(cat.Charts),
+		Description: "Every Helm chart in the Stageproof chart index, with its newest version and the result of its newest upgrade.",
 	})
 	pages.html = append(pages.html, view{
-		Kind: "api", Title: "JSON API", route: API,
-		Root: Root, ChartsPath: Charts, APIPath: API,
-		IndexPath: Href(APIIndex), UpgradePattern: Href("/api/v1/upgrade/<repo>/<chart>/<from>/<to>.json"),
+		Kind: "api", Title: "JSON API - Stageproof", route: API,
+		Root: Root, ChartsPath: Charts, APIPath: API, Version: cat.StageproofVersion,
+		Description: "Every Stageproof chart index report as a static JSON file, plus the badge files Renovate pull requests show.",
+		IndexPath:   Href(APIIndex), UpgradePattern: Href("/api/v1/upgrade/<repo>/<chart>/<from>/<to>.json"),
 		BadgeURL: BadgeWorkerURL,
 	})
 	indexPath := filepath.Join(root, "index.json")
@@ -317,7 +328,7 @@ func collect(root string, cat catalog) (built, error) {
 	}
 	pages.raw = append(pages.raw, rawFile{route: BadgeRegistry, body: registry})
 	pages.raw = append(pages.raw, rawFile{route: BadgeUnknown, body: UnknownSVG()})
-	if err := addValuesPage(&pages); err != nil {
+	if err := addValuesPage(&pages, cat.StageproofVersion); err != nil {
 		return built{}, err
 	}
 	locs = append(locs, Values)
@@ -331,8 +342,10 @@ func collect(root string, cat catalog) (built, error) {
 func chartView(nav view, item chart, route string, versions []string, links []upgradeLink) view {
 	latest, steps, jumps, ok := splitUpgrades(links)
 	return view{
-		Kind: "chart", Title: item.ID, route: route, NoIndex: len(links) == 0,
-		Root: nav.Root, ChartsPath: nav.ChartsPath, APIPath: nav.APIPath,
+		Kind: "chart", Title: item.ID + " upgrades - Stageproof", route: route, NoIndex: len(links) == 0,
+		Root: nav.Root, ChartsPath: nav.ChartsPath, APIPath: nav.APIPath, Version: nav.Version,
+		Description: "Stageproof upgrade reports for the " + item.ID + " Helm chart: each version jump, whether it is blocked, and why.",
+		Versions:    versions, Pairs: item.Pairs, Blocked: item.Blocked,
 		ID: item.ID, Latest: item.Latest, RepoText: item.Repo, RepoURL: httpLink(item.Repo),
 		Homepage: httpLink(item.Homepage), ReleaseNotes: httpLink(item.ReleaseNotesURL),
 		Error: item.Error, VersionLine: strings.Join(versions, ", "),
@@ -413,11 +426,11 @@ func linkStatus(blocked, notChecked bool) (string, string) {
 }
 
 func upgradeView(nav view, item chart, one pairFile, route, api string) view {
-	var blockers, warnings, info, defaults, crds, images []line
+	var blockers, warnings, info []line
 	var minors []minorView
 	for _, minor := range minorKeys(one.Doc.Results) {
 		rep := one.Doc.Results[minor]
-		minors = append(minors, minorView{Minor: minor, Verdict: rep.Verdict, Exit: rep.ExitCode})
+		minors = append(minors, minorView{Minor: minor, Verdict: rep.Verdict, Class: verdictClass(rep.Verdict), Exit: rep.ExitCode})
 		findings := append([]finding(nil), rep.Findings...)
 		sort.SliceStable(findings, func(i, j int) bool {
 			return rank(findings[i].Severity) < rank(findings[j].Severity)
@@ -426,7 +439,7 @@ func upgradeView(nav view, item chart, one pairFile, route, api string) view {
 			if f.Ignored || f.RuleID == "" {
 				continue
 			}
-			row := line{Severity: f.Severity, RuleID: f.RuleID, Category: category(f.RuleID), Message: f.Message}
+			row := line{Severity: f.Severity, RuleID: f.RuleID, Message: ticks(f.Message)}
 			switch f.Severity {
 			case "blocker":
 				blockers = append(blockers, row)
@@ -435,27 +448,88 @@ func upgradeView(nav view, item chart, one pairFile, route, api string) view {
 			case "info":
 				info = append(info, row)
 			}
-			switch row.Category {
-			case "defaults":
-				defaults = append(defaults, row)
-			case "CRD":
-				crds = append(crds, row)
-			case "image":
-				images = append(images, row)
-			}
 		}
 	}
+	names := make([]string, 0, len(minors))
+	for _, m := range minors {
+		names = append(names, m.Minor)
+	}
+	verdict, class := "No blocking finding", "ok"
+	switch {
+	case one.Blocked:
+		verdict, class = "Blocked", "blocked"
+	case one.NotChecked:
+		verdict, class = "Not checked", "unchecked"
+	}
 	return view{
-		Kind: "upgrade", Title: item.Chart + " " + one.From + " to " + one.To,
-		route: route, NoIndex: !one.Adjacent,
-		Root: nav.Root, ChartsPath: nav.ChartsPath, APIPath: nav.APIPath,
-		ChartName: item.Chart, From: one.From, To: one.To, Minors: minors,
-		Blockers: blockers, Warnings: warnings, Info: info, Defaults: defaults, CRDs: crds, Images: images,
-		Command: one.Doc.ReproduceCommand, ReleaseNotes: httpLink(item.ReleaseNotesURL),
+		Kind: "upgrade", Title: item.Chart + " " + one.From + " to " + one.To + " - Stageproof",
+		Description: "Stageproof report for upgrading the " + item.ID + " Helm chart from " + one.From + " to " + one.To + ": " + strings.ToLower(verdict) + " with chart defaults.",
+		route:       route, NoIndex: !one.Adjacent,
+		Root: nav.Root, ChartsPath: nav.ChartsPath, APIPath: nav.APIPath, Version: nav.Version,
+		ID: item.ID, ChartHref: Href(mustChart(item)), ChartName: item.Chart, From: one.From, To: one.To, Minors: minors,
+		Blockers: blockers, Warnings: warnings, Info: info, Verdict: verdict, VerdictClass: class, MinorText: strings.Join(names, ", "),
+		Command: shellLines(one.Doc.ReproduceCommand), ReleaseNotes: httpLink(item.ReleaseNotesURL),
 		Bug:     BugURL(item.Repo, item.Chart, one.From, one.To, one.Doc.StageproofVersion),
 		APIHref: Href(api), ValuesHref: valuesLink(item.RepoName, item.Chart, one.From, one.To),
 		NotChecked: one.NotChecked, Checks: checksToShow(one.Doc, one.NotChecked),
 	}
+}
+
+func mustChart(item chart) string {
+	route, err := Chart(item.RepoName, item.Chart)
+	if err != nil {
+		return Root
+	}
+	return route
+}
+
+func verdictClass(verdict string) string {
+	switch verdict {
+	case "BLOCKED":
+		return "blocked"
+	case "PASSED", "PROVEN":
+		return "ok"
+	default:
+		return "unchecked"
+	}
+}
+
+// ticks shows `code` spans in a finding message as code.
+func ticks(msg string) template.HTML {
+	parts := strings.Split(msg, "`")
+	if len(parts)%2 == 0 {
+		return template.HTML(template.HTMLEscapeString(msg))
+	}
+	var b strings.Builder
+	for i, part := range parts {
+		if i%2 == 1 {
+			b.WriteString("<code>" + template.HTMLEscapeString(part) + "</code>")
+		} else {
+			b.WriteString(template.HTMLEscapeString(part))
+		}
+	}
+	return template.HTML(b.String())
+}
+
+// shellLines puts each flag of a one-line command on its own line. A command
+// with quotes is left alone, because a flag could sit inside a quoted value.
+func shellLines(cmd string) string {
+	if strings.ContainsAny(cmd, `'"\`) {
+		return cmd
+	}
+	fields := strings.Fields(cmd)
+	var b strings.Builder
+	for i, f := range fields {
+		switch {
+		case i == 0:
+			b.WriteString(f)
+		case strings.HasPrefix(f, "-"):
+			b.WriteString(" \\\n  " + f)
+		default:
+			b.WriteString(" " + f)
+		}
+	}
+	return b.String()
 }
 
 func checksToShow(doc envelope, notChecked bool) []checkView {
@@ -463,7 +537,7 @@ func checksToShow(doc envelope, notChecked bool) []checkView {
 	for _, minor := range minorKeys(doc.Results) {
 		for _, item := range doc.Results[minor].Checks {
 			row := checkView{
-				Minor: minor, Name: item.Name, Status: item.Status,
+				Minor: minor, Name: item.Name, Status: item.Status, Class: checkClass(item.Status),
 				Summary: oneLine(item.Summary),
 			}
 			all = append(all, row)
@@ -479,6 +553,17 @@ func checksToShow(doc envelope, notChecked bool) []checkView {
 		return all
 	}
 	return nil
+}
+
+func checkClass(status string) string {
+	switch strings.ToLower(strings.TrimSpace(status)) {
+	case "fail", "error":
+		return "blocked"
+	case "pass", "ok":
+		return "ok"
+	default:
+		return "unchecked"
+	}
 }
 
 func checkFailed(status string) bool {
@@ -502,19 +587,6 @@ func rank(severity string) int {
 		return 1
 	default:
 		return 2
-	}
-}
-
-func category(rule string) string {
-	switch {
-	case strings.Contains(rule, "values"):
-		return "defaults"
-	case strings.HasPrefix(rule, "crd."):
-		return "CRD"
-	case strings.Contains(rule, "image"):
-		return "image"
-	default:
-		return ""
 	}
 }
 

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#06080D">
 <title>{{.Title}}</title>
+{{if .Description}}<meta name="description" content="{{.Description}}">{{end}}
 {{if .NoIndex}}<meta name="robots" content="noindex">{{end}}
 {{head}}
 </head>
@@ -12,44 +13,63 @@
 {{header .Kind}}
 <main id="main">
 {{if eq .Kind "home"}}
-<div class="hero">
-<h1>Helm upgrade index</h1>
-<p class="lede">{{.ChartCount}} listed, {{.ReportedCount}} with a report. {{.PairCount}} upgrade pairs. {{.BlockedCount}} blocked.{{if .Version}} Stageproof {{.Version}}.{{end}}</p>
+<section class="sub-hero">
+<div class="wrap">
+<p class="kicker"><span class="kicker-num">INDEX</span> Chart index</p>
+<h1>Upgrade reports for {{.ChartCount}} Helm charts</h1>
+<p class="sec-lede">Every night Stageproof checks each new version of popular public Helm charts against the version before it. Open a chart to see whether an upgrade is blocked and why, then check your own <code>values.yaml</code> before you upgrade.</p>
+<div class="stat-row">
+<span><strong>{{.ChartCount}}</strong> listed, {{.ReportedCount}} with a report.</span>
+<span><strong>{{.PairCount}}</strong> upgrade pairs.</span>
+<span><strong>{{.BlockedCount}}</strong> blocked.</span>
+{{if .Version}}<span>Stageproof {{.Version}}.</span>{{end}}
 </div>
-<p class="notice">These reports use each chart's default values. They are not a verdict on a cluster this index has not seen.</p>
 <div class="cta-row">
-<a class="btn btn-primary" href="{{href "/values/"}}">Check your values.yaml</a>
-<a class="btn btn-secondary" href="{{href .ChartsPath}}">Browse charts</a>
-<a class="btn btn-secondary" href="{{href .APIPath}}">JSON API</a>
+<a class="btn btn-primary" href="{{href .ChartsPath}}">Find a chart</a>
+<a class="btn btn-secondary" href="{{href "/values/"}}">Check your values.yaml</a>
 </div>
+</div>
+</section>
+<div class="wrap page">
 {{if .Notable}}
-<h2>Notable blocked upgrades</h2>
-<p class="muted">The newest step for these charts is blocked.</p>
+<h2>Blocked right now</h2>
+<p class="muted">The newest upgrade of these charts is blocked with chart defaults.</p>
 <ul class="clean-list">
 {{range .Notable}}
 <li><a href="{{.Href}}">{{.ID}} {{.From}} to {{.To}}</a> <span class="blocked">blocked</span></li>
 {{end}}
 </ul>
 {{end}}
-<p class="muted"><a href="{{href .ChartsPath}}">Browse charts</a>, read the <a href="{{href .APIPath}}">JSON API</a>, or <a href="{{href "/values/"}}">check a values file in your browser</a>. The paste stays on your machine.</p>
-{{else if eq .Kind "charts"}}
-<div class="hero">
-<h1>Charts</h1>
+<h2>How to use the index</h2>
+<div class="steps">
+<div class="step"><span class="step-n">1</span><div><h3>Find your chart</h3><p>Search <a href="{{href .ChartsPath}}">all charts</a> by name or repository.</p></div></div>
+<div class="step"><span class="step-n">2</span><div><h3>Open your upgrade</h3><p>Each version jump shows what Kubernetes rejected, which defaults changed, and the command to run it yourself.</p></div></div>
+<div class="step"><span class="step-n">3</span><div><h3>Check your values</h3><p>These reports use each chart's default values. <a href="{{href "/values/"}}">Paste your values.yaml</a> to see which of your settings the upgrade affects.</p></div></div>
 </div>
-<p class="notice">{{.Notice}}</p>
-<div class="panel">
+</div>
+{{else if eq .Kind "charts"}}
+<section class="sub-hero">
+<div class="wrap">
+<p class="kicker"><span class="kicker-num">INDEX</span> Chart index</p>
+<h1>All charts</h1>
+<p class="sec-lede">{{.ChartCount}} public Helm charts. Open one to see each upgrade Stageproof checked. Reports use each chart's default values, so check your own values before you upgrade.</p>
+</div>
+</section>
+<div class="wrap page">
+<div class="search-row">
 <label for="q">Search charts</label>
-<input id="q" type="search" placeholder="Filter by chart or repo name..." autocomplete="off">
+<input id="q" type="search" placeholder="Chart or repository name, for example traefik or cert-manager" autocomplete="off">
+<span id="q-count" class="muted" aria-live="polite"></span>
 </div>
 <div class="table-wrap">
 <table>
-<thead><tr><th>Chart</th><th>Latest</th><th>Latest upgrade</th><th>Pairs</th><th>Blocked pairs</th></tr></thead>
+<thead><tr><th>Chart</th><th>Newest version</th><th>Latest upgrade</th><th>Upgrades checked</th><th>Blocked</th></tr></thead>
 <tbody>
 {{range .Rows}}
 <tr data-chart="{{.Search}}">
 <td><a href="{{.Href}}">{{.ID}}</a></td>
-<td><code>{{.Latest}}</code></td>
-<td>{{if .LatestClass}}<span class="{{.LatestClass}}">{{.LatestStatus}}</span>{{else}}{{.LatestStatus}}{{end}}</td>
+<td>{{if .Latest}}<code>{{.Latest}}</code>{{else}}<span class="muted">unknown</span>{{end}}</td>
+<td>{{if .LatestClass}}<span class="{{.LatestClass}}">{{.LatestStatus}}</span>{{else}}<span class="muted">{{.LatestStatus}}</span>{{end}}</td>
 <td>{{.Pairs}}</td>
 <td>{{if gt .Blocked 0}}<span class="blocked">{{.Blocked}}</span>{{else}}0{{end}}</td>
 </tr>
@@ -57,26 +77,21 @@
 </tbody>
 </table>
 </div>
-<script>
-const q = document.querySelector('#q');
-const rows = document.querySelectorAll('[data-chart]');
-q.addEventListener('input', function () {
-  const s = q.value.toLowerCase();
-  rows.forEach(function (row) {
-    row.hidden = s !== '' && row.dataset.chart.indexOf(s) === -1;
-  });
-});
-</script>
-{{else if eq .Kind "chart"}}
-<div class="hero">
-<h1>{{.ID}}</h1>
-<p class="lede">Latest <code>{{.Latest}}</code>.</p>
 </div>
+{{else if eq .Kind "chart"}}
+<section class="sub-hero">
+<div class="wrap">
+<p class="kicker"><span class="kicker-num">CHART</span> <a href="{{href .ChartsPath}}">All charts</a></p>
+<h1>{{.ID}}</h1>
+<p class="sec-lede">{{if .Latest}}Newest version <code>{{.Latest}}</code>. {{end}}{{.Pairs}} upgrades checked, {{.Blocked}} blocked. Reports use the chart's default values.</p>
 <div class="meta-links">
 {{if .RepoURL}}<a href="{{.RepoURL}}">Upstream repository</a>{{else if .RepoText}}<span class="muted">{{.RepoText}}</span>{{end}}
 {{if .Homepage}}<a href="{{.Homepage}}">Chart homepage</a>{{end}}
 {{if .ReleaseNotes}}<a href="{{.ReleaseNotes}}">Release notes</a>{{end}}
 </div>
+</div>
+</section>
+<div class="wrap page">
 {{if .Error}}<p class="notice">{{.Error}}</p>{{end}}
 {{if or .HasLatest .Steps .Jumps}}
 <h2>Latest upgrade</h2>
@@ -87,8 +102,9 @@ q.addEventListener('input', function () {
 <p class="muted">No adjacent upgrade in this catalog.</p>
 {{end}}
 <h2>Step-by-step upgrades</h2>
+<p class="muted">Each version against the one before it, newest first.</p>
 {{if .ShowStepFilter}}
-<div class="field"><label for="steps">Filter versions</label><input id="steps" type="search" placeholder="Filter by version..." autocomplete="off"></div>
+<div class="search-row"><label for="steps">Find a version</label><input id="steps" type="search" placeholder="For example 1.2" autocomplete="off"></div>
 {{end}}
 {{if .Steps}}
 <ul class="clean-list">
@@ -99,24 +115,13 @@ q.addEventListener('input', function () {
 {{else}}
 <p class="muted">No step-by-step upgrade in this catalog.</p>
 {{end}}
-{{if .ShowStepFilter}}
-<script>
-const steps = document.querySelector('#steps');
-const stepRows = document.querySelectorAll('[data-step]');
-steps.addEventListener('input', function () {
-  const s = steps.value.toLowerCase();
-  stepRows.forEach(function (row) {
-    row.hidden = s !== '' && row.dataset.step.indexOf(s) === -1;
-  });
-});
-</script>
-{{end}}
 {{if .Jumps}}
 <details>
 <summary>Jumps to latest</summary>
+<p class="muted">Older versions straight to the newest one, skipping the versions in between.</p>
 <ul class="clean-list">
 {{range .Jumps}}
-<li><a href="{{.Href}}">{{.From}} to {{.To}}</a> <span class="{{.Class}}">{{.Status}}</span> <span class="muted">(not an adjacent pair)</span></li>
+<li><a href="{{.Href}}">{{.From}} to {{.To}}</a> <span class="{{.Class}}">{{.Status}}</span></li>
 {{end}}
 </ul>
 </details>
@@ -124,19 +129,27 @@ steps.addEventListener('input', function () {
 {{else}}
 <p class="muted">This chart has no upgrade report.</p>
 {{end}}
-<h2>Versions</h2>
-<p class="muted">{{.VersionLine}}</p>
-{{else if eq .Kind "upgrade"}}
-<div class="hero">
-<h1>{{.ChartName}} {{.From}} to {{.To}}</h1>
+<details>
+<summary>All {{len .Versions}} versions</summary>
+<p class="version-chips">{{range .Versions}}<code>{{.}}</code> {{end}}</p>
+</details>
 </div>
+{{else if eq .Kind "upgrade"}}
+<section class="sub-hero">
+<div class="wrap">
+<p class="kicker"><span class="kicker-num">UPGRADE</span> <a href="{{.ChartHref}}">{{.ID}}</a></p>
+<h1>{{.ChartName}} {{.From}} to {{.To}}</h1>
+<p class="verdict-line"><span class="verdict {{.VerdictClass}}">{{.Verdict}}</span> <span class="muted">with the chart's default values on Kubernetes {{.MinorText}}</span></p>
+</div>
+</section>
+<div class="wrap page">
 <h2>Results</h2>
 <div class="table-wrap">
 <table>
-<thead><tr><th>Kubernetes</th><th>Result</th><th>Exit</th></tr></thead>
+<thead><tr><th>Kubernetes</th><th>Result</th><th>Exit code</th></tr></thead>
 <tbody>
 {{range .Minors}}
-<tr><td><code>{{.Minor}}</code></td><td>{{.Verdict}}</td><td><code>{{.Exit}}</code></td></tr>
+<tr><td><code>{{.Minor}}</code></td><td><span class="{{.Class}}">{{.Verdict}}</span></td><td><code>{{.Exit}}</code></td></tr>
 {{end}}
 </tbody>
 </table>
@@ -148,7 +161,7 @@ steps.addEventListener('input', function () {
 <thead><tr><th>Kubernetes</th><th>Check</th><th>Status</th><th>Summary</th></tr></thead>
 <tbody>
 {{range .Checks}}
-<tr><td><code>{{.Minor}}</code></td><td>{{.Name}}</td><td>{{.Status}}</td><td>{{.Summary}}</td></tr>
+<tr><td><code>{{.Minor}}</code></td><td>{{.Name}}</td><td><span class="{{.Class}}">{{.Status}}</span></td><td>{{.Summary}}</td></tr>
 {{end}}
 </tbody>
 </table>
@@ -158,33 +171,40 @@ steps.addEventListener('input', function () {
 {{if .NotChecked}}
 <p class="notice">This pair could not be checked with chart defaults.</p>
 {{else if .Blockers}}
-<ul class="finding-bullets">{{range .Blockers}}<li><span class="blocked">{{.Severity}}</span> <code>{{.RuleID}}</code> {{.Category}} {{.Message}}</li>{{end}}</ul>
+<ul class="finding-bullets">{{range .Blockers}}<li class="sev-bad"><p>{{.Message}}</p><span class="rule"><span class="blocked">blocker</span> <code>{{.RuleID}}</code></span></li>{{end}}</ul>
 {{else}}<p class="muted">No blocking finding in these chart defaults.</p>{{end}}
 <h2>Warnings</h2>
 {{if .Warnings}}
-<ul class="finding-bullets">{{range .Warnings}}<li><span class="badge badge-warn">{{.Severity}}</span> <code>{{.RuleID}}</code> {{.Category}} {{.Message}}</li>{{end}}</ul>
+<ul class="finding-bullets">{{range .Warnings}}<li class="sev-warn"><p>{{.Message}}</p><span class="rule"><span class="badge badge-warn">warning</span> <code>{{.RuleID}}</code></span></li>{{end}}</ul>
 {{else}}<p class="muted">No warning in these chart defaults.</p>{{end}}
-{{if .Info}}<h2>Info</h2><ul class="finding-bullets">{{range .Info}}<li><span class="badge badge-neutral">{{.Severity}}</span> <code>{{.RuleID}}</code> {{.Category}} {{.Message}}</li>{{end}}</ul>{{end}}
-{{if .Defaults}}<h2>Defaults</h2><ul class="finding-bullets">{{range .Defaults}}<li><code>{{.RuleID}}</code> {{.Message}}</li>{{end}}</ul>{{end}}
-{{if .CRDs}}<h2>CRDs</h2><ul class="finding-bullets">{{range .CRDs}}<li><code>{{.RuleID}}</code> {{.Message}}</li>{{end}}</ul>{{end}}
-{{if .Images}}<h2>Images</h2><ul class="finding-bullets">{{range .Images}}<li><code>{{.RuleID}}</code> {{.Message}}</li>{{end}}</ul>{{end}}
-<p class="banner">Checked with chart defaults only. Run the command below with your -f values.yaml to check your cluster. Or <a href="{{.ValuesHref}}">compare a values file in your browser</a>. The paste stays on your machine.</p>
-<h2>Command</h2>
-<pre>{{.Command}}</pre>
+{{if .Info}}<h2>Good to know</h2><ul class="finding-bullets">{{range .Info}}<li><p>{{.Message}}</p><span class="rule"><span class="badge badge-neutral">info</span> <code>{{.RuleID}}</code></span></li>{{end}}</ul>{{end}}
+<section class="next-box">
+<h2>Check it with your values</h2>
+<p class="banner">{{disclaimer}}</p>
+<p>Paste your <code>values.yaml</code> to see which of your settings this upgrade changes. It runs in your browser and nothing is uploaded.</p>
+<div class="cta-row"><a class="btn btn-primary" href="{{.ValuesHref}}">Check your values.yaml</a></div>
+<div class="code-head"><h3>Run it yourself</h3><button type="button" class="btn btn-secondary btn-sm" data-copy-target="#cmd">Copy</button></div>
+<pre id="cmd">{{.Command}}</pre>
+<p class="muted">Add <code>-f values.yaml</code>, with the values file you deploy, to run the full check on your machine.</p>
+</section>
 <div class="meta-links">
 {{if .ReleaseNotes}}<a href="{{.ReleaseNotes}}">Release notes</a>{{end}}
 <a href="{{.Bug}}">Report a wrong result</a>
-<a href="{{.APIHref}}">JSON</a>
+<a href="{{.APIHref}}">This report as JSON</a>
+</div>
 </div>
 {{else if eq .Kind "api"}}
-<div class="hero">
+<section class="sub-hero">
+<div class="wrap">
+<p class="kicker"><span class="kicker-num">API</span> Chart index</p>
 <h1>JSON API</h1>
+<p class="sec-lede">Every report on this site is also a static JSON file. No key and no account. Every document uses chart defaults only, so a result here is not a verdict on your cluster.</p>
 </div>
-<p class="notice">Every document is chart defaults only. A result here is not a verdict on your cluster.</p>
+</section>
+<div class="wrap page">
 <div class="panel">
 <h2><code>GET {{.IndexPath}}</code></h2>
-<p><a href="{{.IndexPath}}">Catalog JSON</a></p>
-<p>The catalog: <code>schema_version</code>, <code>stageproof_version</code>, <code>notice</code>, and <code>charts</code>. Each chart has <code>id</code>, <code>repo</code>, <code>repo_name</code>, <code>chart</code>, <code>latest</code>, <code>pairs</code>, and <code>blocked</code>.</p>
+<p>The catalog: <code>schema_version</code>, <code>stageproof_version</code>, <code>notice</code>, and <code>charts</code>. Each chart has <code>id</code>, <code>repo</code>, <code>repo_name</code>, <code>chart</code>, <code>latest</code>, <code>pairs</code>, and <code>blocked</code>. <a href="{{.IndexPath}}">Open the catalog</a>.</p>
 </div>
 <div class="panel">
 <h2><code>GET {{.UpgradePattern}}</code></h2>
@@ -195,11 +215,10 @@ steps.addEventListener('input', function () {
 <p>Each indexed upgrade has an SVG at <code>/badge/&lt;repo&gt;/&lt;chart&gt;/&lt;from&gt;/&lt;to&gt;.svg</code>. The image states <code>no blocking finding (defaults)</code>, <code>not checked</code>, or the blocking finding. The report is chart defaults only.</p>
 <p><code>/badge/registries.json</code> maps a Helm repository URL and chart name to <code>repo</code>. A pull request requests <code>{{.BadgeURL}}?chart=&amp;from=&amp;registry=&amp;to=</code>. A chart this catalog does not have is HTTP 200 and says <code>not indexed</code>. A chart it has, without that exact pair, says <code>pair not indexed</code>.</p>
 </div>
+</div>
 {{end}}
 </main>
-<footer>
-<p>Chart defaults only. Run Stageproof with your values files before you treat a result as a check of your cluster.</p>
-</footer>
+{{footer .Version}}
 </body>
 </html>
 {{end}}

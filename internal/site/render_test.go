@@ -37,7 +37,7 @@ func TestGenerateLinksVersionsAndSitemap(t *testing.T) {
 	if !strings.Contains(broken, Disclaimer) {
 		t.Fatal("disclaimer missing")
 	}
-	if !strings.Contains(broken, "stageproof check --repo https://charts.example/fixtures --chart web --from 0.2.0 --to 0.3.0") {
+	if !strings.Contains(broken, "stageproof check \\\n  --repo https://charts.example/fixtures \\\n  --chart web \\\n  --from 0.2.0 \\\n  --to 0.3.0") {
 		t.Fatal("reproduce command missing")
 	}
 	if !strings.Contains(broken, "Report a wrong result") || !strings.Contains(broken, "template=bug.yml") || !strings.Contains(broken, "v0.3.0") {
@@ -92,7 +92,7 @@ func TestGenerateLinksVersionsAndSitemap(t *testing.T) {
 		t.Fatal("latest upgrade column missing")
 	}
 	home := readPage(t, out, "index.html")
-	for _, want := range []string{"2 listed, 1 with a report.", "3 upgrade pairs.", "1 blocked.", "Stageproof v0.3.0.", "fixtures/web 0.2.0 to 0.3.0"} {
+	for _, want := range []string{"<strong>2</strong> listed, 1 with a report.", "<strong>3</strong> upgrade pairs.", "<strong>1</strong> blocked.", "Stageproof v0.3.0.", "fixtures/web 0.2.0 to 0.3.0"} {
 		if !strings.Contains(home, want) {
 			t.Fatalf("home missing %s\n%s", want, home)
 		}
@@ -117,6 +117,22 @@ func TestGenerateLinksVersionsAndSitemap(t *testing.T) {
 	}
 	if strings.Contains(siteMap, "<loc>https://stageproof.github.io/index/</loc>") {
 		t.Fatal("sitemap includes the home page")
+	}
+}
+
+func TestFindingCodeAndCommandLines(t *testing.T) {
+	if got := string(ticks("`a<b` changed to `c`")); got != "<code>a&lt;b</code> changed to <code>c</code>" {
+		t.Fatal(got)
+	}
+	if got := string(ticks("one ` tick")); got != "one ` tick" {
+		t.Fatal(got)
+	}
+	if got := shellLines("stageproof check --repo https://x --chart web -f v.yaml"); got != "stageproof check \\\n  --repo https://x \\\n  --chart web \\\n  -f v.yaml" {
+		t.Fatal(got)
+	}
+	quoted := `stageproof check --set 'a= --b'`
+	if got := shellLines(quoted); got != quoted {
+		t.Fatal(got)
 	}
 }
 

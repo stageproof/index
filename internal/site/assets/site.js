@@ -44,6 +44,40 @@
         navToggle.setAttribute("aria-expanded", open ? "true" : "false");
       });
     }
+    filter("q", "data-chart", "q-count", "charts");
+    filter("steps", "data-step", null, "upgrades");
+    var copies = document.querySelectorAll("[data-copy-target]");
+    for (var i = 0; i < copies.length; i++) wireCopy(copies[i]);
+  }
+
+  // filter hides the rows whose attr does not contain every typed word.
+  function filter(inputId, attr, countId, noun) {
+    var input = document.getElementById(inputId);
+    if (!input) return;
+    var rows = document.querySelectorAll("[" + attr + "]");
+    var count = countId ? document.getElementById(countId) : null;
+    input.addEventListener("input", function () {
+      var words = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+      var shown = 0;
+      for (var i = 0; i < rows.length; i++) {
+        var hay = rows[i].getAttribute(attr).toLowerCase();
+        var hit = words.every(function (w) { return hay.indexOf(w) !== -1; });
+        rows[i].hidden = !hit;
+        if (hit) shown++;
+      }
+      if (count) count.textContent = words.length ? shown + " of " + rows.length + " " + noun : "";
+    });
+  }
+
+  function wireCopy(btn) {
+    var target = document.querySelector(btn.getAttribute("data-copy-target"));
+    if (!target || !navigator.clipboard) return;
+    btn.addEventListener("click", function () {
+      navigator.clipboard.writeText(target.textContent).then(function () {
+        btn.textContent = "Copied";
+        setTimeout(function () { btn.textContent = "Copy"; }, 1500);
+      }).catch(function () {});
+    });
   }
 
   window.addEventListener("storage", function (event) {
