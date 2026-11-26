@@ -553,6 +553,7 @@ func Markdown(sum Summary) string {
 		fmt.Fprintf(&buf, "\n")
 	}
 	fmt.Fprintf(&buf, "Upgrade pairs: %d. Blocked: %d. Not checked: %d. Passed: %d.\n\n", sum.Pairs, sum.Blocked, sum.NotChecked, sum.Passed)
+	fmt.Fprintf(&buf, "A pair is blocked when any Kubernetes minor in the file is BLOCKED. Otherwise a pair with any NOT CHECKED minor is not checked. The rest are passed.\n\n")
 	if len(sum.Orphans) > 0 {
 		fmt.Fprintf(&buf, "## Chart versions absent from the upstream index\n\n")
 		fmt.Fprintf(&buf, "A stored pair names a version that is not in that chart's `meta.json` versions list. The upstream index dropped or renamed that version string. The file is kept.\n\n")
@@ -565,7 +566,6 @@ func Markdown(sum Summary) string {
 		}
 		fmt.Fprintf(&buf, "\n")
 	}
-	fmt.Fprintf(&buf, "A pair is blocked when any Kubernetes minor in the file is BLOCKED. Otherwise a pair with any NOT CHECKED minor is not checked. The rest are passed.\n\n")
 	fmt.Fprintf(&buf, "## Why blocked pairs are blocked\n\n")
 	fmt.Fprintf(&buf, "A chart-defaults render problem is `helm.template.render_failed`, `helm.values.new_required_unset`, or `k8s.apply.invalid`. An upgrade hazard is any other blocker, including a delete, an immutable field, a CRD change, or a missing image. Mixed means the file has blockers from more than one of those groups.\n\n")
 	fmt.Fprintf(&buf, "| Cause | Pairs |\n|---|---:|\n")
