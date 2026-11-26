@@ -6,30 +6,11 @@
 <meta name="theme-color" content="#06080D">
 <title>{{.Title}}</title>
 {{if .NoIndex}}<meta name="robots" content="noindex">{{end}}
-<link rel="icon" href="{{href "/assets/favicon.svg"}}" type="image/svg+xml">
-<link rel="stylesheet" href="{{href "/assets/site.css"}}">
+{{head}}
 </head>
 <body>
-<header class="nav">
-<div class="nav-inner">
-<a class="brand" href="{{href .Root}}">
-<img class="brand-mark" src="{{href "/assets/favicon.svg"}}" alt="">
-<span>stageproof</span>
-<span class="brand-tag">index</span>
-</a>
-<nav class="nav-links" aria-label="Primary">
-<a href="{{href .Root}}"{{if eq .Kind "home"}} class="active"{{end}}>Overview</a>
-<a href="{{href .ChartsPath}}"{{if or (eq .Kind "charts") (eq .Kind "chart") (eq .Kind "upgrade")}} class="active"{{end}}>Charts</a>
-<a href="{{href "/values/"}}">Your values</a>
-<a href="{{href .APIPath}}"{{if eq .Kind "api"}} class="active"{{end}}>API</a>
-</nav>
-<div class="nav-ext">
-<a href="https://stageproof.github.io/stageproof/">Stageproof CLI</a>
-<a href="https://stageproof.github.io/stageproof/docs.html">Docs</a>
-</div>
-</div>
-</header>
-<main>
+{{header .Kind}}
+<main id="main">
 {{if eq .Kind "home"}}
 <div class="hero">
 <h1>Helm upgrade index</h1>

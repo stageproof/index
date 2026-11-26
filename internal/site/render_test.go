@@ -247,7 +247,10 @@ func banned(dir string) error {
 			return err
 		}
 		text := string(buf)
-		for _, word := range []string{"—", "stageproof.dev", "google-analytics", "plausible", "googletagmanager"} {
+		if strings.HasSuffix(path, ".woff2") {
+			return nil
+		}
+		for _, word := range []string{"—", "stageproof.dev", "google-analytics", "plausible", "googletagmanager", "fonts.googleapis.com", "fonts.gstatic.com"} {
 			if strings.Contains(text, word) {
 				return fmt.Errorf("%s contains %s", path, word)
 			}

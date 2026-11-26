@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-//go:embed assets/values.js assets/site.css assets/favicon.svg
+//go:embed assets/values.js assets/site.css assets/site.js assets/favicon.svg assets/fonts
 var valueAssets embed.FS
 
 type chartPairsDoc struct {
@@ -95,20 +95,33 @@ func addValuesPage(pages *built) error {
 	if err != nil {
 		return err
 	}
+	siteJS, err := valueAssets.ReadFile("assets/site.js")
+	if err != nil {
+		return err
+	}
+	fonts, err := valueAssets.ReadDir("assets/fonts")
+	if err != nil {
+		return err
+	}
+	for _, font := range fonts {
+		body, err := valueAssets.ReadFile("assets/fonts/" + font.Name())
+		if err != nil {
+			return err
+		}
+		pages.raw = append(pages.raw, rawFile{route: "/assets/fonts/" + font.Name(), body: body})
+	}
 	sum := sha512.Sum384(js)
 	sri := "sha384-" + base64.StdEncoding.EncodeToString(sum[:])
 	pages.raw = append(pages.raw,
 		rawFile{route: "/assets/site.css", body: css},
+		rawFile{route: "/assets/site.js", body: siteJS},
 		rawFile{route: "/assets/favicon.svg", body: icon},
 		rawFile{route: "/values/values.js", body: js},
-		rawFile{route: Values, body: []byte(valuesHTML(sri))},
+		rawFile{route: Values, body: []byte(valuesHTML(sri, siteJS))},
 	)
 	return nil
 }
-
-func valuesHTML(sri string) string {
-	css := Href("/assets/site.css")
-	icon := Href("/assets/favicon.svg")
+func valuesHTML(sri string, siteJS []byte) string {
 	js := Href("/values/values.js")
 	return fmt.Sprintf(`<!DOCTYPE html>
 <html lang="en">
@@ -118,30 +131,11 @@ func valuesHTML(sri string) string {
 <meta name="theme-color" content="#06080D">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'">
 <title>Your values - Stageproof index</title>
-<link rel="icon" href="%s" type="image/svg+xml">
-<link rel="stylesheet" href="%s">
+%s
 </head>
 <body data-root="%s">
-<header class="nav">
-<div class="nav-inner">
-<a class="brand" href="%s">
-<img class="brand-mark" src="%s" alt="">
-<span>stageproof</span>
-<span class="brand-tag">index</span>
-</a>
-<nav class="nav-links" aria-label="Primary">
-<a href="%s">Overview</a>
-<a href="%s">Charts</a>
-<a href="%s" class="active">Your values</a>
-<a href="%s">API</a>
-</nav>
-<div class="nav-ext">
-<a href="https://stageproof.github.io/stageproof/">Stageproof CLI</a>
-<a href="https://stageproof.github.io/stageproof/docs.html">Docs</a>
-</div>
-</div>
-</header>
-<main>
+%s
+<main id="main">
 <div class="hero">
 <h1>Check your values.yaml against an indexed upgrade</h1>
 <p class="privacy-pill">Runs 100%% in your browser. Zero uploads. No Helm executed.</p>
@@ -178,13 +172,13 @@ func valuesHTML(sri string) string {
 <label for="yaml">Your values.yaml</label>
 <div class="toolbar">
 <input id="yaml-file" type="file" accept=".yaml,.yml,text/yaml,text/plain" hidden>
-<button type="button" id="load-file" class="btn-secondary">Load .yaml file</button>
-<button type="button" id="clear-yaml" class="btn-secondary">Clear</button>
+<button type="button" id="load-file" class="btn btn-secondary btn-sm">Load .yaml file</button>
+<button type="button" id="clear-yaml" class="btn btn-secondary btn-sm">Clear</button>
 </div>
 </div>
 <textarea id="yaml" spellcheck="false" placeholder="# Paste your values.yaml here, or drop a .yaml file&#10;# Only key paths are read in this browser. Nothing is uploaded.&#10;replicaCount: 3"></textarea>
 <div class="action-row">
-<button type="button" id="run" class="btn-primary">Check</button>
+<button type="button" id="run" class="btn btn-primary">Check</button>
 <span id="key-count" class="muted">0 keys in paste</span>
 <span class="hint muted">Ctrl+Enter to check</span>
 </div>
@@ -199,5 +193,5 @@ func valuesHTML(sri string) string {
 <script src="%s" integrity="%s" defer></script>
 </body>
 </html>
-`, icon, css, BasePath(), Href(Root), icon, Href(Root), Href(Charts), Href(Values), Href(API), js, sri)
+`, headHTML(siteJS), BasePath(), headerHTML("values"), js, sri)
 }

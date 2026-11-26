@@ -2,7 +2,6 @@ package site
 
 import (
 	"bytes"
-	"html/template"
 	"os"
 	"path/filepath"
 	"strings"
@@ -192,7 +191,7 @@ func TestBadgeWorkerURL(t *testing.T) {
 	if BadgeWorkerURL != want {
 		t.Fatal(BadgeWorkerURL)
 	}
-	tpl, err := template.New("page.html").Funcs(template.FuncMap{"href": Href}).ParseFS(templateFS, "templates/page.html")
+	tpl, err := pageTemplate()
 	if err != nil {
 		t.Fatal(err)
 	}

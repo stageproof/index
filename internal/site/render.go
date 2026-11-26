@@ -45,9 +45,7 @@ func Generate(dataDir, outDir string) error {
 	if err := os.MkdirAll(abs, 0o755); err != nil {
 		return err
 	}
-	tpl, err := template.New("page.html").Funcs(template.FuncMap{
-		"href": Href,
-	}).ParseFS(templateFS, "templates/page.html")
+	tpl, err := pageTemplate()
 	if err != nil {
 		return err
 	}
@@ -62,6 +60,18 @@ func Generate(dataDir, outDir string) error {
 		}
 	}
 	return writeRaw(abs, Sitemap, pages.sitemap)
+}
+
+func pageTemplate() (*template.Template, error) {
+	siteJS, err := valueAssets.ReadFile("assets/site.js")
+	if err != nil {
+		return nil, err
+	}
+	return template.New("page.html").Funcs(template.FuncMap{
+		"href":   Href,
+		"header": headerHTML,
+		"head":   func() template.HTML { return headHTML(siteJS) },
+	}).ParseFS(templateFS, "templates/page.html")
 }
 
 type rawFile struct {
@@ -546,7 +556,7 @@ func writeRaw(root, route string, body []byte) error {
 	rel := strings.TrimPrefix(route, "/")
 	var path string
 	switch {
-	case strings.HasSuffix(route, ".json") || strings.HasSuffix(route, ".xml") || strings.HasSuffix(route, ".svg") || strings.HasSuffix(route, ".js") || strings.HasSuffix(route, ".css"):
+	case strings.HasSuffix(route, ".json") || strings.HasSuffix(route, ".xml") || strings.HasSuffix(route, ".svg") || strings.HasSuffix(route, ".js") || strings.HasSuffix(route, ".css") || strings.HasSuffix(route, ".woff2") || strings.HasSuffix(route, ".txt"):
 		path = filepath.Join(root, filepath.FromSlash(rel))
 	case route == "/":
 		path = filepath.Join(root, "index.html")

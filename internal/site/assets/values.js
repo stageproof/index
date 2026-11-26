@@ -796,7 +796,7 @@
       var box = el(doc, "div", null, "cli-box");
       var chead = el(doc, "div", null, "cli-head");
       chead.appendChild(el(doc, "strong", "Run the full check with your values.yaml"));
-      var copyBtn = el(doc, "button", "Copy command", "btn-secondary");
+      var copyBtn = el(doc, "button", "Copy command", "btn btn-secondary btn-sm");
       copyBtn.type = "button";
       copyBtn.addEventListener("click", function () {
         if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) {

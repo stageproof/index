@@ -41,6 +41,20 @@ jobs:
         with:
           version: v2.15.0
 
+  product-header:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: "1.27.4"
+
+      - name: Compare the header with the live product site
+        env:
+          STAGEPROOF_CHECK_PRODUCT_NAV: "1"
+        run: go test ./internal/site/ -count=1 -run TestHeaderMatchesTheLiveProductSite -v
+
   worker:
     runs-on: ubuntu-latest
     steps:
