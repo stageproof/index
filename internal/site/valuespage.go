@@ -82,7 +82,7 @@ func valuesLink(repo, chart, from, to string) string {
 	return Href(Values) + "?" + q.Encode()
 }
 
-func addValuesPage(pages *built) error {
+func addValuesPage(pages *built, version string) error {
 	js, err := valueAssets.ReadFile("assets/values.js")
 	if err != nil {
 		return err
@@ -117,11 +117,11 @@ func addValuesPage(pages *built) error {
 		rawFile{route: "/assets/site.js", body: siteJS},
 		rawFile{route: "/assets/favicon.svg", body: icon},
 		rawFile{route: "/values/values.js", body: js},
-		rawFile{route: Values, body: []byte(valuesHTML(sri, siteJS))},
+		rawFile{route: Values, body: []byte(valuesHTML(sri, siteJS, version))},
 	)
 	return nil
 }
-func valuesHTML(sri string, siteJS []byte) string {
+func valuesHTML(sri string, siteJS []byte, version string) string {
 	js := Href("/values/values.js")
 	return fmt.Sprintf(`<!DOCTYPE html>
 <html lang="en">
@@ -130,53 +130,59 @@ func valuesHTML(sri string, siteJS []byte) string {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#06080D">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'">
-<title>Your values - Stageproof index</title>
+<title>Check your values.yaml - Stageproof</title>
+<meta name="description" content="Paste your values.yaml and see which of your settings a Helm chart upgrade changes, removes, or now requires. Runs in your browser.">
 %s
 </head>
 <body data-root="%s">
 %s
 <main id="main">
-<div class="hero">
-<h1>Check your values.yaml against an indexed upgrade</h1>
-<p class="privacy-pill">Runs 100%% in your browser. Zero uploads. No Helm executed.</p>
-<p class="lede">Pick a chart and version jump from the index, then paste your <code>values.yaml</code> to see which changed defaults, required keys, or dropped keys affect your config.</p>
+<section class="sub-hero">
+<div class="wrap">
+<p class="kicker"><span class="kicker-num">VALUES</span> Chart index</p>
+<h1>Check your values.yaml</h1>
+<p class="sec-lede">Pick a chart and the upgrade you plan, then paste your <code>values.yaml</code>. You see which of your settings the upgrade changes, removes, or now requires.</p>
+<p class="privacy-pill">Runs in your browser. Nothing is uploaded, and Helm does not run.</p>
 </div>
-
-<section class="panel" aria-label="Select upgrade">
+</section>
+<div class="wrap page">
+<section class="panel" aria-labelledby="step-upgrade">
+<h2 class="step-title" id="step-upgrade"><span class="step-n">1</span> Choose the upgrade</h2>
 <div class="field">
 <div class="label-row">
-<label for="chart-search">Chart</label>
-<span id="chart-count" class="muted">Loading charts...</span>
+<label for="chart">Chart</label>
+<span id="chart-count" class="muted" aria-live="polite">Loading charts...</span>
 </div>
-<input id="chart-search" type="search" placeholder="Filter by chart or repo name, e.g. traefik, cert-manager, argo-cd" autocomplete="off">
-<select id="chart" aria-label="Chart"></select>
+<div class="combo">
+<input id="chart" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="chart-list" placeholder="Type a chart name, for example traefik or cert-manager" autocomplete="off" spellcheck="false">
+<ul id="chart-list" class="combo-list" role="listbox" aria-label="Charts" hidden></ul>
 </div>
-
+</div>
 <div class="version-grid">
 <div class="field">
-<label for="from">From version</label>
-<select id="from" disabled></select>
+<label for="from">Version you run now</label>
+<select id="from" disabled><option>Pick a chart first</option></select>
 </div>
-<div class="arrow" aria-hidden="true">-&gt;</div>
+<div class="arrow" aria-hidden="true">&rarr;</div>
 <div class="field">
-<label for="to">To version</label>
-<select id="to" disabled></select>
+<label for="to">Version you upgrade to</label>
+<select id="to" disabled><option>Pick a chart first</option></select>
 </div>
 </div>
-
+<p class="muted field-help">Only upgrades this index has checked are listed. <strong>newest</strong> marks the chart's newest version, and <strong>skips versions</strong> marks a jump over the versions in between.</p>
 <div id="pair-meta" class="pair-meta" hidden></div>
 </section>
 
-<section class="panel" aria-label="Values YAML">
+<section class="panel" aria-labelledby="step-values">
 <div class="label-row">
-<label for="yaml">Your values.yaml</label>
+<h2 class="step-title" id="step-values"><span class="step-n">2</span> <label for="yaml">Paste your values.yaml</label></h2>
 <div class="toolbar">
 <input id="yaml-file" type="file" accept=".yaml,.yml,text/yaml,text/plain" hidden>
-<button type="button" id="load-file" class="btn btn-secondary btn-sm">Load .yaml file</button>
+<button type="button" id="load-file" class="btn btn-secondary btn-sm">Open a file</button>
 <button type="button" id="clear-yaml" class="btn btn-secondary btn-sm">Clear</button>
 </div>
 </div>
-<textarea id="yaml" spellcheck="false" placeholder="# Paste your values.yaml here, or drop a .yaml file&#10;# Only key paths are read in this browser. Nothing is uploaded.&#10;replicaCount: 3"></textarea>
+<textarea id="yaml" spellcheck="false" placeholder="# Paste your values.yaml here, or drop a .yaml file on this box.&#10;replicaCount: 3"></textarea>
 <div class="action-row">
 <button type="button" id="run" class="btn btn-primary">Check</button>
 <span id="key-count" class="muted">0 keys in paste</span>
@@ -186,12 +192,11 @@ func valuesHTML(sri string, siteJS []byte) string {
 </section>
 
 <div id="out" class="results"></div>
+</div>
 </main>
-<footer>
-<p>Stored reports are generated with chart defaults only. Keys that only appear in your custom values file require running the Stageproof CLI locally with <code>-f values.yaml</code>.</p>
-</footer>
+%s
 <script src="%s" integrity="%s" defer></script>
 </body>
 </html>
-`, headHTML(siteJS), BasePath(), headerHTML("values"), js, sri)
+`, headHTML(siteJS), BasePath(), headerHTML("values"), footerHTML(version), js, sri)
 }

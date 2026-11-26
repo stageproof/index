@@ -7,52 +7,71 @@ import (
 	"strings"
 )
 
-// ProductURL is the Stageproof product site. The index header is its header.
+// ProductURL is the Stageproof product site. Every index page uses its
+// header and footer, so the two read as one site.
 const ProductURL = "https://stageproof.github.io/stageproof/"
 
-// NavLink is one link in a header row.
+// NavLink is one link in the header or the footer.
 type NavLink struct {
 	Label string
 	Href  string
 }
 
-// ChartIndexLabel is the product header entry that points at this index.
-const ChartIndexLabel = "Chart Index"
+// FooterGroup is one footer column.
+type FooterGroup struct {
+	Title string
+	Links []NavLink
+}
 
-// ProductNav is the primary header of the product site, in its order.
+const (
+	chartsLabel = "Charts"
+	valuesLabel = "Check values"
+)
+
+// ProductNav is the header of the product site, in its order.
 // web/*.html in stageproof/stageproof pins the same labels and pages.
 func ProductNav() []NavLink {
 	return []NavLink{
 		{Label: "Overview", Href: ProductURL},
-		{Label: ChartIndexLabel, Href: Href(Root)},
 		{Label: "Docs", Href: ProductURL + "docs.html"},
-		{Label: "Architecture", Href: ProductURL + "architecture.html"},
+		{Label: chartsLabel, Href: Href(Root)},
+		{Label: valuesLabel, Href: Href(Values)},
 		{Label: "Security", Href: ProductURL + "security.html"},
 		{Label: "Roadmap", Href: ProductURL + "roadmap.html"},
 	}
 }
 
-// IndexNav is the second header row on index pages.
-func IndexNav() []NavLink {
-	return []NavLink{
-		{Label: "Home", Href: Href(Root)},
-		{Label: "Charts", Href: Href(Charts)},
-		{Label: "Your values", Href: Href(Values)},
-		{Label: "API", Href: Href(API)},
+// FooterNav is the footer of the product site, in its order.
+func FooterNav() []FooterGroup {
+	return []FooterGroup{
+		{Title: "Product", Links: []NavLink{
+			{Label: "Quickstart", Href: ProductURL + "docs.html#first-check"},
+			{Label: "Chart index", Href: Href(Root)},
+			{Label: "Check your values", Href: Href(Values)},
+			{Label: "Roadmap", Href: ProductURL + "roadmap.html"},
+		}},
+		{Title: "Docs", Links: []NavLink{
+			{Label: "Documentation", Href: ProductURL + "docs.html"},
+			{Label: "Architecture", Href: ProductURL + "architecture.html"},
+			{Label: "Security", Href: ProductURL + "security.html"},
+			{Label: "JSON API", Href: Href(API)},
+		}},
+		{Title: "Code", Links: []NavLink{
+			{Label: "GitHub", Href: "https://github.com/stageproof/stageproof"},
+			{Label: "GitHub Action", Href: "https://github.com/stageproof/action"},
+			{Label: "GitLab component", Href: "https://gitlab.com/zarovvvv/stageproof"},
+			{Label: "Renovate preset", Href: "https://github.com/stageproof/renovate-presets"},
+		}},
 	}
 }
 
-// indexSection names the IndexNav entry for a page kind.
-func indexSection(kind string) string {
+// activeLabel names the header entry for a page kind.
+func activeLabel(kind string) string {
 	switch kind {
-	case "home":
-		return "Home"
-	case "charts", "chart", "upgrade":
-		return "Charts"
+	case "home", "charts", "chart", "upgrade":
+		return chartsLabel
 	case "values":
-		return "Your values"
-	case "api":
-		return "API"
+		return valuesLabel
 	}
 	return ""
 }
@@ -70,18 +89,23 @@ const themeToggle = `<button class="theme-toggle" id="theme-toggle" type="button
 </span>
 </button>`
 
+func brandLink() string {
+	return `<a class="brand" href="` + template.HTMLEscapeString(ProductURL) + `">` + "\n" + brandMark + "\n" +
+		`<span class="brand-word">stageproof</span>` + "\n</a>\n"
+}
+
 // headerHTML is the header every index page shows.
 func headerHTML(kind string) template.HTML {
 	esc := template.HTMLEscapeString
 	var b strings.Builder
 	b.WriteString(`<a class="skip" href="#main">Skip to content</a>` + "\n")
-	b.WriteString(`<header class="nav">` + "\n" + `<div class="nav-inner">` + "\n")
-	b.WriteString(`<a class="brand" href="` + esc(ProductURL) + `">` + "\n" + brandMark + "\n")
-	b.WriteString(`<span class="brand-word">stageproof</span>` + "\n</a>\n")
+	b.WriteString(`<header class="nav">` + "\n" + `<div class="wrap nav-inner">` + "\n")
+	b.WriteString(brandLink())
 	b.WriteString(`<nav class="nav-links" id="nav-links" aria-label="Primary">` + "\n")
+	active := activeLabel(kind)
 	for _, link := range ProductNav() {
 		b.WriteString(`<a href="` + esc(link.Href) + `"`)
-		if link.Label == ChartIndexLabel {
+		if link.Label == active {
 			b.WriteString(` class="active" aria-current="page"`)
 		}
 		b.WriteString(`>` + esc(link.Label) + "</a>\n")
@@ -89,17 +113,32 @@ func headerHTML(kind string) template.HTML {
 	b.WriteString("</nav>\n" + `<div class="nav-cta">` + "\n" + themeToggle + "\n")
 	b.WriteString(`<a class="btn btn-primary btn-sm" href="` + esc(ProductURL+"docs.html#first-check") + `">Quickstart</a>` + "\n</div>\n")
 	b.WriteString(`<button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle navigation">Menu</button>` + "\n")
-	b.WriteString("</div>\n" + `<nav class="subnav" aria-label="Chart Index">` + "\n" + `<div class="subnav-inner">` + "\n")
-	b.WriteString(`<span class="subnav-title">` + ChartIndexLabel + "</span>\n")
-	active := indexSection(kind)
-	for _, link := range IndexNav() {
-		b.WriteString(`<a href="` + esc(link.Href) + `"`)
-		if link.Label == active {
-			b.WriteString(` class="active" aria-current="page"`)
+	b.WriteString("</div>\n</header>")
+	return template.HTML(b.String())
+}
+
+// footerHTML is the product footer. version is the Stageproof release that
+// made the reports.
+func footerHTML(version string) template.HTML {
+	esc := template.HTMLEscapeString
+	var b strings.Builder
+	b.WriteString(`<footer class="footer">` + "\n" + `<div class="wrap">` + "\n" + `<div class="footer-top">` + "\n")
+	b.WriteString(`<div class="footer-brand">` + "\n" + brandLink())
+	b.WriteString("<p>Checks a Kubernetes upgrade before you merge it. Free and open source (Apache-2.0).</p>\n</div>\n")
+	b.WriteString(`<div class="footer-cols">` + "\n")
+	for _, group := range FooterNav() {
+		b.WriteString(`<div class="footer-col">` + "\n" + `<span class="footer-h">` + esc(group.Title) + "</span>\n")
+		for _, link := range group.Links {
+			b.WriteString(`<a href="` + esc(link.Href) + `">` + esc(link.Label) + "</a>\n")
 		}
-		b.WriteString(`>` + esc(link.Label) + "</a>\n")
+		b.WriteString("</div>\n")
 	}
-	b.WriteString("</div>\n</nav>\n</header>")
+	b.WriteString("</div>\n</div>\n" + `<div class="footer-bottom">` + "\n")
+	b.WriteString("<span>© 2026 Stageproof · Apache-2.0</span>\n")
+	if version != "" {
+		b.WriteString(`<span class="status-pill"><span class="dot-live"></span>Reports made with ` + esc(version) + "</span>\n")
+	}
+	b.WriteString("</div>\n</div>\n</footer>")
 	return template.HTML(b.String())
 }
 
