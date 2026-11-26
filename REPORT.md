@@ -17,7 +17,7 @@ Catalog charts with no stored pair:
 - `twuni/docker-registry`: Get "https://helm.twun.io/index.yaml": EOF
 - `wso2/mysql`
 
-Upgrade pairs: 21498. Blocked: 1810. Not checked: 813. Passed: 18875.
+Upgrade pairs: 21555. Blocked: 1820. Not checked: 818. Passed: 18917.
 
 A pair is blocked when any Kubernetes minor in the file is BLOCKED. Otherwise a pair with any NOT CHECKED minor is not checked. The rest are passed.
 
@@ -35,15 +35,15 @@ A chart-defaults render problem is `helm.template.render_failed`, `helm.values.n
 | Cause | Pairs |
 |---|---:|
 | only a removed API | 647 |
-| only a chart-defaults render problem | 166 |
-| an upgrade hazard | 889 |
+| only a chart-defaults render problem | 167 |
+| an upgrade hazard | 898 |
 | more than one of those | 108 |
 
 ## Stageproof version
 
 - `v0.4.0`: 19366
 - `v0.5.1`: 1656
-- `v0.5.2`: 305
+- `v0.5.2`: 362
 - `v0.5.0`: 171
 
 ## Blocker rules
@@ -53,11 +53,11 @@ Pairs is the number of upgrade files that contain the rule. Findings counts each
 | Rule | Pairs | Findings |
 |---|---:|---:|
 | `k8s.api.removed` | 688 | 3284 |
-| `k8s.apply.immutable_field` | 336 | 419 |
-| `crd.not_upgraded_by_helm` | 333 | 1101 |
+| `crd.not_upgraded_by_helm` | 341 | 1116 |
+| `k8s.apply.immutable_field` | 337 | 423 |
 | `supply.image.not_found` | 258 | 400 |
-| `k8s.upgrade.immutable_selector_changed` | 114 | 170 |
-| `helm.template.render_failed` | 107 | 107 |
+| `k8s.upgrade.immutable_selector_changed` | 115 | 174 |
+| `helm.template.render_failed` | 108 | 108 |
 | `k8s.apply.invalid` | 93 | 396 |
 | `impact.delete.crd` | 61 | 351 |
 | `helm.values.new_required_unset` | 34 | 42 |
@@ -80,16 +80,6 @@ API `policy/v1beta1` (PodSecurityPolicy) is not served by Kubernetes 1.35.0.
 stageproof check --repo https://charts.releases.teleport.dev --chart teleport-cluster --from 10.2.0 --to 10.2.1 --values-proof full --current-k8s 1.35 --api-server auto --format json
 ```
 
-### `k8s.apply.immutable_field`
-
-`jfrog/artifactory` 107.104.17 to 107.111.4, report `v0.5.1`.
-
-Kubernetes rejected the update. `spec` is immutable.
-
-```
-stageproof check --repo https://charts.jfrog.io --chart artifactory --from 107.104.17 --to 107.111.4 --values-proof full --current-k8s 1.35 --api-server auto --format json
-```
-
 ### `crd.not_upgraded_by_helm`
 
 `prometheus-community/kube-prometheus-stack` 92.22.0 to 93.9.0, report `v0.4.0`.
@@ -98,6 +88,16 @@ The CRD alertmanagers.monitoring.coreos.com under crds/ changed (spec.clusterTLS
 
 ```
 stageproof check --repo https://prometheus-community.github.io/helm-charts --chart kube-prometheus-stack --from 92.22.0 --to 93.9.0 --values-proof full --current-k8s 1.35 --api-server auto --format json
+```
+
+### `k8s.apply.immutable_field`
+
+`jfrog/artifactory` 107.104.17 to 107.111.4, report `v0.5.1`.
+
+Kubernetes rejected the update. `spec` is immutable.
+
+```
+stageproof check --repo https://charts.jfrog.io --chart artifactory --from 107.104.17 --to 107.111.4 --values-proof full --current-k8s 1.35 --api-server auto --format json
 ```
 
 ### `supply.image.not_found`
