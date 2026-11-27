@@ -248,8 +248,8 @@
       "stars": 20,
       "homepage": "https://www.runatlantis.io",
       "release_notes_url": "",
-      "latest": "7.6.0",
-      "pairs": 98,
+      "latest": "7.7.0",
+      "pairs": 117,
       "blocked": 0
     },
     {
@@ -286,7 +286,9 @@
       "release_notes_url": "",
       "latest": "1.15.3",
       "pairs": 37,
-      "blocked": 19
+      "blocked": 19,
+      "failed": 1,
+      "error": "https://public.ecr.aws/v2/karpenter/karpenter/manifests/1.14.3: 429 Too Many Requests"
     },
     {
       "id": "aws/aws-for-fluent-bit",
@@ -394,8 +396,8 @@
       "stars": 22,
       "homepage": "https://docs.camunda.io/docs/self-managed/about-self-managed/",
       "release_notes_url": "",
-      "latest": "15.4.5",
-      "pairs": 222,
+      "latest": "15.4.6",
+      "pairs": 241,
       "blocked": 5
     },
     {
@@ -1510,8 +1512,8 @@
       "stars": 57,
       "homepage": "https://grafana-community.github.io/helm-charts",
       "release_notes_url": "",
-      "latest": "21.6.0",
-      "pairs": 330,
+      "latest": "21.6.3",
+      "pairs": 349,
       "blocked": 2
     },
     {
@@ -1858,8 +1860,8 @@
       "stars": 81,
       "homepage": "https://jaegertracing.io",
       "release_notes_url": "",
-      "latest": "4.20.0",
-      "pairs": 66,
+      "latest": "4.20.1",
+      "pairs": 85,
       "blocked": 1
     },
     {
@@ -1882,8 +1884,8 @@
       "stars": 255,
       "homepage": "https://www.jenkins.io/",
       "release_notes_url": "",
-      "latest": "5.13.5",
-      "pairs": 265,
+      "latest": "5.13.10",
+      "pairs": 284,
       "blocked": 0
     },
     {
@@ -2414,8 +2416,8 @@
       "stars": 26,
       "homepage": "https://netbox.dev/",
       "release_notes_url": "",
-      "latest": "8.3.117",
-      "pairs": 471,
+      "latest": "8.4.0",
+      "pairs": 490,
       "blocked": 67
     },
     {
@@ -2848,8 +2850,8 @@
       "stars": 1237,
       "homepage": "https://github.com/prometheus-operator/kube-prometheus",
       "release_notes_url": "",
-      "latest": "93.11.1",
-      "pairs": 547,
+      "latest": "94.1.0",
+      "pairs": 566,
       "blocked": 11
     },
     {
@@ -2934,8 +2936,8 @@
       "stars": 17,
       "homepage": "https://github.com/percona/mongodb_exporter",
       "release_notes_url": "",
-      "latest": "3.23.2",
-      "pairs": 37,
+      "latest": "4.1.0",
+      "pairs": 56,
       "blocked": 0
     },
     {
@@ -3370,7 +3372,7 @@
       "pairs": 0,
       "blocked": 0,
       "failed": 1,
-      "error": "Get \"https://helm.twun.io/index.yaml\": EOF"
+      "error": "Get \"https://helm.twun.io/index.yaml\": dial tcp: lookup helm.twun.io on 127.0.0.100:53: no such host"
     },
     {
       "id": "unleash/unleash",
@@ -3452,8 +3454,8 @@
       "stars": 15,
       "homepage": "https://github.com/VictoriaMetrics/helm-charts",
       "release_notes_url": "",
-      "latest": "0.13.13",
-      "pairs": 94,
+      "latest": "0.13.14",
+      "pairs": 113,
       "blocked": 7
     },
     {
@@ -3476,8 +3478,8 @@
       "stars": 47,
       "homepage": "https://github.com/VictoriaMetrics/helm-charts",
       "release_notes_url": "",
-      "latest": "0.99.0",
-      "pairs": 188,
+      "latest": "0.99.1",
+      "pairs": 207,
       "blocked": 1
     },
     {
