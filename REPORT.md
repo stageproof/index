@@ -14,10 +14,10 @@ Catalog charts with no stored pair:
 - `k8s-dashboard/kubernetes-dashboard`: https://kubernetes.github.io/dashboard/index.yaml: 404 Not Found
 - `minio/minio`: chart minio is not in https://helm.min.io/
 - `mysql-operator/mysql-operator`
-- `twuni/docker-registry`: Get "https://helm.twun.io/index.yaml": dial tcp: lookup helm.twun.io on 127.0.0.100:53: no such host
+- `twuni/docker-registry`: Get "https://helm.twun.io/index.yaml": dial tcp: lookup helm.twun.io on 127.0.0.53:53: no such host
 - `wso2/mysql`
 
-Upgrade pairs: 21745. Blocked: 1820. Not checked: 818. Passed: 19107.
+Upgrade pairs: 21859. Blocked: 1857. Not checked: 818. Passed: 19184.
 
 A pair is blocked when any Kubernetes minor in the file is BLOCKED. Otherwise a pair with any NOT CHECKED minor is not checked. The rest are passed.
 
@@ -36,14 +36,14 @@ A chart-defaults render problem is `helm.template.render_failed`, `helm.values.n
 |---|---:|
 | only a removed API | 647 |
 | only a chart-defaults render problem | 167 |
-| an upgrade hazard | 898 |
+| an upgrade hazard | 935 |
 | more than one of those | 108 |
 
 ## Stageproof version
 
 - `v0.4.0`: 19366
 - `v0.5.1`: 1656
-- `v0.5.2`: 552
+- `v0.5.2`: 666
 - `v0.5.0`: 171
 
 ## Blocker rules
@@ -53,7 +53,7 @@ Pairs is the number of upgrade files that contain the rule. Findings counts each
 | Rule | Pairs | Findings |
 |---|---:|---:|
 | `k8s.api.removed` | 688 | 3284 |
-| `crd.not_upgraded_by_helm` | 341 | 1116 |
+| `crd.not_upgraded_by_helm` | 378 | 1406 |
 | `k8s.apply.immutable_field` | 337 | 423 |
 | `supply.image.not_found` | 258 | 400 |
 | `k8s.upgrade.immutable_selector_changed` | 115 | 174 |

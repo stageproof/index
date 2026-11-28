@@ -1,0 +1,323 @@
+{
+  "from_sha256": "4c82ad1eca41f35b5239dea00e05dc40d0f341a0836d3d0cc111a4ffd2d5b70a",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "2.6.6",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 59 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "4 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "fail",
+          "summary": "Compared stored objects for 31 of 36 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "0 blockers (3 deprecation, EOL, or CRD warnings)"
+        }
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "message": "The CRD awschaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/awschaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD azurechaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/azurechaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD blockchaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/blockchaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD dnschaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/dnschaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD gcpchaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/gcpchaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD httpchaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/httpchaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD iochaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/iochaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD jvmchaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/jvmchaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD kernelchaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/kernelchaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD networkchaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/networkchaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD physicalmachinechaos.chaos-mesh.org under crds/ changed (spec.redis-restart.redisPath type, spec.redis-stop.redisPath type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/physicalmachinechaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD physicalmachines.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/physicalmachines.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD podchaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/podchaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD podhttpchaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/podhttpchaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD podiochaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/podiochaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD podnetworkchaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/podnetworkchaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD remoteclusters.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/remoteclusters.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD schedules.chaos-mesh.org under crds/ changed (spec.physicalmachineChaos.redis-restart.redisPath type, spec.physicalmachineChaos.redis-stop.redisPath type, spec.workflow.templates.items.physicalmachineChaos.redis-restart.redisPath type, spec.workflow.templates.items.physicalmachineChaos.redis-stop.redisPath type, spec.workflow.templates.items.schedule.physicalmachineChaos.redis-restart.redisPath type, spec.workflow.templates.items.schedule.physicalmachineChaos.redis-stop.redisPath type, spec.workflow.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims removed, spec.workflow.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims type, spec.workflow.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items removed, spec.workflow.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items type, spec.workflow.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items.name removed, spec.workflow.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items.name type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/schedules.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD statuschecks.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/statuschecks.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD stresschaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/stresschaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD timechaos.chaos-mesh.org under crds/ changed (the file contents changed). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/timechaos.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "warning"
+        },
+        {
+          "message": "The CRD workflownodes.chaos-mesh.org under crds/ changed (spec.physicalmachineChaos.redis-restart.redisPath type, spec.physicalmachineChaos.redis-stop.redisPath type, spec.schedule.physicalmachineChaos.redis-restart.redisPath type, spec.schedule.physicalmachineChaos.redis-stop.redisPath type, spec.schedule.workflow.templates.items.physicalmachineChaos.redis-restart.redisPath type, spec.schedule.workflow.templates.items.physicalmachineChaos.redis-stop.redisPath type, spec.schedule.workflow.templates.items.schedule.physicalmachineChaos.redis-restart.redisPath type, spec.schedule.workflow.templates.items.schedule.physicalmachineChaos.redis-stop.redisPath type, spec.schedule.workflow.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims removed, spec.schedule.workflow.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims type, spec.schedule.workflow.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items removed, spec.schedule.workflow.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items type, spec.schedule.workflow.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items.name removed, spec.schedule.workflow.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items.name type, spec.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims removed, spec.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims type, spec.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items removed, spec.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items type, spec.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items.name removed, spec.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items.name type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/workflownodes.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "The CRD workflows.chaos-mesh.org under crds/ changed (spec.templates.items.physicalmachineChaos.redis-restart.redisPath type, spec.templates.items.physicalmachineChaos.redis-stop.redisPath type, spec.templates.items.schedule.physicalmachineChaos.redis-restart.redisPath type, spec.templates.items.schedule.physicalmachineChaos.redis-stop.redisPath type, spec.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims removed, spec.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims type, spec.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items removed, spec.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items type, spec.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items.name removed, spec.templates.items.task.volumes.items.ephemeral.volumeClaimTemplate.spec.resources.claims.items.name type). Plain Helm does not upgrade CRDs in that directory. helm upgrade leaves the CRD already in the cluster as it is, and CRDs are not installed on upgrade or rollback.",
+          "resource": "CustomResourceDefinition/default/workflows.chaos-mesh.org",
+          "rule_id": "crd.not_upgraded_by_helm",
+          "severity": "blocker"
+        },
+        {
+          "message": "Role/stageproof-check/stageproof-rel-chaos-controller-manager-control-plane adds rules that the current chart did not have.",
+          "resource": "Role/stageproof-check/stageproof-rel-chaos-controller-manager-control-plane",
+          "rule_id": "impact.privilege.rbac",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/chaos-daemon, Deployment/stageproof-check/chaos-controller-manager, Deployment/stageproof-check/chaos-dashboard, Deployment/stageproof-check/chaos-dns-server",
+          "message": "Chart default `images.registry` changed from `ghcr.io` to `cr.chaos-mesh.dev` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "images.registry",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: DaemonSet/stageproof-check/chaos-daemon, Deployment/stageproof-check/chaos-controller-manager, Deployment/stageproof-check/chaos-dashboard",
+          "message": "Chart default `images.tag` changed from `v2.6.6` to `v2.8.9` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "images.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of DaemonSet/stageproof-check/chaos-daemon changed at spec.template.metadata.annotations.rollme. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "DaemonSet/stageproof-check/chaos-daemon",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/chaos-controller-manager changed at spec.template.metadata.annotations.rollme. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/chaos-controller-manager",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/chaos-dashboard changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/chaos-dashboard",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "message": "The pod template of Deployment/stageproof-check/chaos-dns-server changed at spec.template.metadata.labels.app.kubernetes.io/version. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "Deployment/stageproof-check/chaos-dns-server",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "Stageproof does not read that project's upgrade notes. A skip of more than one minor version, or a new major version, is named here and does not block.",
+          "message": "Chart version moves from 2.6.6 to 2.8.9, skipping 1 minor version.",
+          "rule_id": "helm.release.version_span",
+          "severity": "warning"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.6.6 to 2.8.9. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "4 container images changed. DaemonSet/stageproof-check/chaos-daemon.template.spec.containers[0] chaos-daemon container moves from ghcr.io/chaos-mesh/chaos-daemon:v2.6.6 to cr.chaos-mesh.dev/chaos-mesh/chaos-daemon:v2.8.9. Deployment/stageproof-check/chaos-controller-manager.template.spec.containers[0] chaos-mesh container moves from ghcr.io/chaos-mesh/chaos-mesh:v2.6.6 to cr.chaos-mesh.dev/chaos-mesh/chaos-mesh:v2.8.9. Deployment/stageproof-check/chaos-dashboard.template.spec.containers[0] chaos-dashboard container moves from ghcr.io/chaos-mesh/chaos-dashboard:v2.6.6 to cr.chaos-mesh.dev/chaos-mesh/chaos-dashboard:v2.8.9. Deployment/stageproof-check/chaos-dns-server.template.spec.containers[0] chaos-dns-server container moves from ghcr.io/chaos-mesh/chaos-coredns:v0.2.6 to cr.chaos-mesh.dev/chaos-mesh/chaos-coredns:v0.2.8.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "A rehearsal installs the chart into an empty cluster. It does not upgrade data that is already there. An empty-cluster result of 0 restarts does not mean an existing workload stayed up.",
+          "message": "This chart ships custom resource definitions, and the application it runs is changing. Custom resources that already exist on a real cluster are not in this check.",
+          "rule_id": "helm.operator.existing_custom_resources",
+          "severity": "warning"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `ghcr.io/chaos-mesh/chaos-daemon` to `cr.chaos-mesh.dev/chaos-mesh/chaos-daemon`.",
+          "resource": "DaemonSet/stageproof-check/chaos-daemon.template.spec.containers[0] chaos-daemon",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `ghcr.io/chaos-mesh/chaos-mesh` to `cr.chaos-mesh.dev/chaos-mesh/chaos-mesh`.",
+          "resource": "Deployment/stageproof-check/chaos-controller-manager.template.spec.containers[0] chaos-mesh",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `ghcr.io/chaos-mesh/chaos-dashboard` to `cr.chaos-mesh.dev/chaos-mesh/chaos-dashboard`.",
+          "resource": "Deployment/stageproof-check/chaos-dashboard.template.spec.containers[0] chaos-dashboard",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "The registry or the repository is different. The tag check still asks the new repository.",
+          "message": "Image repository changed from `ghcr.io/chaos-mesh/chaos-coredns` to `cr.chaos-mesh.dev/chaos-mesh/chaos-coredns`.",
+          "resource": "Deployment/stageproof-check/chaos-dns-server.template.spec.containers[0] chaos-dns-server",
+          "rule_id": "supply.image.moved",
+          "severity": "info"
+        },
+        {
+          "detail": "Webhook configurations and API services would call an address that is not running. Objects without a name cannot be applied.",
+          "message": "Not sent to the API server: MutatingWebhookConfiguration/default/chaos-mesh-mutation, ValidatingWebhookConfiguration/default/chaos-mesh-validation, ValidatingWebhookConfiguration/default/chaos-mesh-validation-auth, MutatingWebhookConfiguration/default/chaos-mesh-mutation, ValidatingWebhookConfiguration/default/chaos-mesh-validation, ValidatingWebhookConfiguration/default/chaos-mesh-validation-auth.",
+          "rule_id": "k8s.apply.not_exercised",
+          "severity": "info"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 1254 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/schedules.chaos-mesh.org",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 1925 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/workflownodes.chaos-mesh.org",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        },
+        {
+          "detail": "1-line fixes -> Argo CD: `syncOptions: [ServerSideApply=true]` | Flux: `install/upgrade.crds: CreateReplace` | Helm v4: `helm upgrade --server-side` | kubectl: `kubectl apply --server-side -f crds/` (pass `--server-side-apply` if already enabled).",
+          "message": "CRD size is 943 KiB (>256 KiB client-side `last-applied-configuration` limit).",
+          "resource": "CustomResourceDefinition/default/workflows.chaos-mesh.org",
+          "rule_id": "k8s.crd.oversized_annotation_limit",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "2.8.9",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "BLOCKED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.chaos-mesh.org --chart chaos-mesh --from 2.6.6 --to 2.8.9 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.5.2",
+  "to_sha256": "b40bc7398bfdba48f7ba958c460aa3e82807abadf00b0c9f2fc38a0c82d64c0c"
+}

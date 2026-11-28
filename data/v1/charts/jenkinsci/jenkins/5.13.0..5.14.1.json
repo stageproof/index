@@ -1,0 +1,102 @@
+{
+  "from_sha256": "edc990f6252a237168e5fcf227b2734a9c02136ecd1b353332a6c4b84de5e85e",
+  "k8s_results": {
+    "1.35": {
+      "adapter": "helm",
+      "base_ref": "5.13.0",
+      "checked": "files, API server 1.35.0",
+      "checks": [
+        {
+          "name": "helm template",
+          "status": "pass",
+          "summary": "rendered 14 Kubernetes objects cleanly"
+        },
+        {
+          "name": "values.yaml AST",
+          "status": "pass",
+          "summary": "no custom -f overlay passed (default chart values verified)"
+        },
+        {
+          "name": "upgrade signals",
+          "status": "warn",
+          "summary": "2 named changes"
+        },
+        {
+          "name": "image tags",
+          "status": "pass",
+          "summary": "4 new or changed image tags checked"
+        },
+        {
+          "name": "API server 1.35.0",
+          "status": "pass",
+          "summary": "Kubernetes 1.35.0 accepted the upgrade"
+        },
+        {
+          "name": "impact",
+          "status": "pass",
+          "summary": "Compared stored objects for 12 of 13 objects, and rendered objects for the rest."
+        },
+        {
+          "name": "k8s 1.35 compatibility",
+          "status": "pass",
+          "summary": "current Kubernetes was checked by API server 1.35.0"
+        }
+      ],
+      "exit_code": 0,
+      "findings": [
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config, Pod/stageproof-check/stageproof-rel-ui-test-g3vlo, Pod/stageproof-check/stageproof-rel-ui-test-hfmls",
+          "message": "Chart default `agent.image.tag` changed from `3395.v6e5377b_0fb_3c-4-jdk25` to `3396.ve02b_5cde31b_2-5-jdk25` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "agent.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: ConfigMap/stageproof-check/stageproof-rel-jenkins, Pod/stageproof-check/stageproof-rel-ui-test-hfmls, Pod/stageproof-check/stageproof-rel-ui-test-zdcpd, StatefulSet/stageproof-check/stageproof-rel-jenkins",
+          "message": "Chart default `controller.installPlugins` changed and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.installPlugins",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "Affected objects: Pod/stageproof-check/stageproof-rel-ui-test-hfmls, Pod/stageproof-check/stageproof-rel-ui-test-xsfrj, StatefulSet/stageproof-check/stageproof-rel-jenkins",
+          "message": "Chart default `controller.sidecars.configAutoReload.image.tag` changed from `2.14.1` to `2.14.3` and the rendered objects differ.",
+          "proof": "render",
+          "resource": "controller.sidecars.configAutoReload.image.tag",
+          "rule_id": "helm.values.default_changed",
+          "severity": "warning"
+        },
+        {
+          "message": "The pod template of StatefulSet/stageproof-check/stageproof-rel-jenkins changed at spec.template.metadata.annotations.checksum/config. The pods will restart. A restart is normal for an upgrade.",
+          "resource": "StatefulSet/stageproof-check/stageproof-rel-jenkins",
+          "rule_id": "impact.restart",
+          "severity": "info"
+        },
+        {
+          "detail": "This is the chart's declared application version. It is not a test that the registry tag exists.",
+          "message": "appVersion moves from 2.580.2 to 2.580.3. The image that the chart runs may change with it.",
+          "rule_id": "helm.release.app_version_changed",
+          "severity": "warning"
+        },
+        {
+          "detail": "The render names a different image, including images on custom resources and images passed as container arguments. Whether that tag exists is a separate check.",
+          "message": "3 container images changed. ConfigMap/stageproof-check/stageproof-rel-jenkins-jenkins-jcasc-config jenkins/inbound-agent image moves from jenkins/inbound-agent:3395.v6e5377b_0fb_3c-4-jdk25 to jenkins/inbound-agent:3396.ve02b_5cde31b_2-5-jdk25. StatefulSet/stageproof-check/stageproof-rel-jenkins.template.spec.containers[0] jenkins container moves from docker.io/jenkins/jenkins:2.580.2-jdk25 to docker.io/jenkins/jenkins:2.580.3-jdk25. StatefulSet/stageproof-check/stageproof-rel-jenkins.template.spec.containers[1] config-reload container moves from docker.io/kiwigrid/k8s-sidecar:2.14.1 to docker.io/kiwigrid/k8s-sidecar:2.14.3.",
+          "rule_id": "helm.image.changed",
+          "severity": "warning"
+        }
+      ],
+      "head_ref": "5.14.1",
+      "schema_version": 1,
+      "target_k8s": "1.35",
+      "verdict": "PASSED"
+    }
+  },
+  "notice": "chart defaults only; run with your values files",
+  "reproduce_command": "stageproof check --repo https://charts.jenkins.io/ --chart jenkins --from 5.13.0 --to 5.14.1 --values-proof full --current-k8s 1.35 --api-server auto --format json",
+  "schema_version": 1,
+  "scope": "chart-defaults-only",
+  "stageproof_version": "v0.5.2",
+  "to_sha256": "8621ac2eeabec4905c79ba02de47f701aaf72e24249e2a77f8311dd986693fae"
+}
